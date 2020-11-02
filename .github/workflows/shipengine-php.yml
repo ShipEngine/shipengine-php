@@ -1,0 +1,27 @@
+name: shipengine-php
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    name: shipengine-php
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: phpcs, phpstan, phpunit
+    - uses: agilepathway/hoverfly-github-action@main
+      with:
+        runner_github_workspace_path: ${{ github.workspace }}
+    - run: composer install
+    - run: phpcs --standard=PSR2 src
+    - run: phpstan analyse src
+    - run: phpunit --bootstrap vendor/autoload.php tests
