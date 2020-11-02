@@ -1,0 +1,3 @@
+[submodule "simengine"]
+	path = simengine
+	url = git@github.com:ShipEngine/simengine.git
