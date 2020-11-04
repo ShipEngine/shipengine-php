@@ -1,4 +1,4 @@
-name: shipengine-php
+name: shipengine-php-test
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  shipengine-php:
+  shipengine-php-test:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
