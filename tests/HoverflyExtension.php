@@ -10,6 +10,7 @@ final class HoverflyExtension implements BeforeFirstTestHook, AfterLastTestHook
     public function executeBeforeFirstTest(): void
     {
         exec('hoverfly -webserver -response-body-files-path simengine > /dev/null &');
+        sleep(1);
     }
 
     public function executeAfterLastTest(): void
