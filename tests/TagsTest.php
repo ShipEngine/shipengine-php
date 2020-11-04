@@ -24,6 +24,6 @@ final class TagsTest extends TestCase
         $body = (string) $response->getBody();
         $obj = json_decode($body, true);
 
-        $this->assertEquals($obj['name'], $tag); 
+        $this->assertEquals($obj['name'], $tag);
     }
 }
