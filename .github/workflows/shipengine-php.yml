@@ -21,6 +21,7 @@ jobs:
     - uses: agilepathway/hoverfly-github-action@main
       with:
         runner_github_workspace_path: ${{ github.workspace }}
+    - run: hoverfly -webserver -response-body-files-path simengine > /dev/null &
     - run: composer install
     - run: phpcs --standard=PSR2 src
     - run: phpstan analyse src

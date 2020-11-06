@@ -1,6 +1,0 @@
-<phpunit>
-  <extensions>
-    <extension class="ShipEngine\Tests\HoverflyExtension" file="tests/HoverflyExtension.php">
-    </extension>
-  </extensions>
-</phpunit>
