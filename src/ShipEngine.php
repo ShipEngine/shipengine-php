@@ -11,6 +11,7 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 
 use ShipEngine\Service\ServiceFactory;
+use ShipEngine\ShipEngineClient;
 
 /**
  * ShipEngine client.
@@ -36,91 +37,132 @@ final class ShipEngine
 
     public function __construct(array $config = array(), HttpClient $client = null)
     {
-        if (!array_key_exists('api_key', $config)) {
-            throw new \InvalidArgumentException('An API Key is required.');
-        }
-        $this->validateApiKey($config['api_key']);
-        $api_key = $config['api_key'];
         
-        if (array_key_exists('base_uri', $config)) {
-            $this->validateBaseUri($config['base_uri']);
-            $base_uri = $config['base_uri'];
-        } else {
-            $base_uri = self::DEFAULT_BASE_URI;
+        if (!array_key_exists('base_uri', $config)) {
+            $config['base_uri'] = self::DEFAULT_BASE_URI;
         }
 
-        if (array_key_exists('page_size', $config)) {
-            $this->validatePageSize($config['page_size']);
-            $page_size = $config['page_size'];
-        } else {
-            $page_size = self::DEFAULT_PAGE_SIZE;
+        if (!array_key_exists('page_size', $config)) {
+            $config['page_size'] = self::DEFAULT_PAGE_SIZE;
         }
 
-        if (array_key_exists('retries', $config)) {
-            $this->validateRetries($config['retries']);
-            $retries = $config['retries'];
-        } else {
-            $retries = self::DEFAULT_RETRIES;
+        if (!array_key_exists('retries', $config)) {
+            $config['retries'] = self::DEFAULT_RETRIES;
         }
 
-        $client = $this->createClient($client, $api_key, $base_uri, $retries);
+        $this->validateConfig($config);
 
-        $this->service_factory = new ServiceFactory($client, $page_size);
+        $client = $this->initializeShipEngineClient($config, $client);
+        
+        $this->service_factory = new ServiceFactory($client);
     }
         
     public function __get($name)
     {
         return $this->serviceFactory->__get($name);
     }
-
+    
     /**
      * Valideate api_key.
      */
-    private function validateApiKey(string $api_key)
+    private function validateApiKey(string $api_key): string
     {
+        return '';
     }
     
     /**
      * Validate base_uri.
      */
-    private function validateBaseUri(string $base_uri)
+    private function validateBaseUri(string $base_uri): string
     {
         if (!filter_var($base_uri, FILTER_VALIDATE_URL)) {
-            throw new \InvalidArgumentException('The given URI is malformed.');
+            return 'The given base URI is malformed.';
         }
+
+        return '';
     }
 
     /**
      * Validate page_size.
      */
-    private function validatePageSize(int $page_size)
+    private function validatePageSize(int $page_size): string
     {
-        $exceptions = array();
+        $messages = array();
+
         if ($page_size < self::MINIMUM_PAGE_SIZE) {
-            $exceptions[] = 'Page size must be greater than ' . self::MINIMUM_PAGE_SIZE . '.';
+            $messages[] = 'Page size must be greater than ' . self::MINIMUM_PAGE_SIZE . '.';
         }
         if ($page_size > self::MAXIMUM_PAGE_SIZE) {
-            $exceptions[] = 'Page size must be less than ' . self::MAXIMUM_PAGE_SIZE . '.';
+            $messages[] = 'Page size must be less than ' . self::MAXIMUM_PAGE_SIZE . '.';
         }
-        if (count($exceptions) > 0) {
-            throw new \InvalidArgumentException(implode(' ', $exceptions));
+
+        if (count($messages) > 0) {
+            return implode(' ', $messages);
         }
+
+        return '';
     }
 
     /**
      * Validate retries.
      */
-    private function validateRetries(int $retries)
+    private function validateRetries(int $retries): string
     {
-        $exceptions = array();
+        $messages = array();
+
         if ($retries < self::MINIMUM_RETRIES) {
-            $exceptions[] = 'Retries must be greater than ' . self::MINIMUM_RETRIES . '.';
+            $messages[] = 'Retries must be greater than ' . self::MINIMUM_RETRIES . '.';
         }
         if ($retries > self::MAXIMUM_RETRIES) {
-            $exceptions[] = 'Retries must be less than ' . self::MAXIMUM_RETRIES . '.';
+            $messages[] = 'Retries must be less than ' . self::MAXIMUM_RETRIES . '.';
         }
-        if (count($exceptions) > 0) {
-            throw new \InvalidArgumentException(implode(' ', $exceptions));
+        
+        if (count($messages) > 0) {
+            return implode(' ', $messages);
+        }
+
+        return '';
+    }
+
+    /**
+     * Validate the entirety of the config object.
+     */
+    private function validateConfig(array $config)
+    {
+        $messages = array();
+        
+        if (!array_key_exists('api_key', $config)) {
+            $messages[] = 'An API Key is required.';
+        } else {
+            $api_key_messages = $this->validateApiKey($config['api_key']);
+            if ($api_key_messages !== '') {
+                $messages[] = $api_key_messages;
+            }
+        }
+        
+        if (array_key_exists('base_uri', $config)) {
+            $base_uri_messages = $this->validateBaseUri($config['base_uri']);
+            if ($base_uri_messages !== '') {
+                $messages[] = $base_uri_messages;
+            }
+        }
+
+        if (array_key_exists('page_size', $config)) {
+            $page_size_messages = $this->validatePageSize($config['page_size']);
+            if ($page_size_messages !== '') {
+                $messages[] = $page_size_messages;
+            }
+        }
+
+        if (array_key_exists('retries', $config)) {
+            $retries_messages = $this->validateRetries($config['retries']);
+            if ($retries_messages !== '') {
+                $messages[] = $retries_messages;
+            }
+        }
+        
+        if (count($messages) > 0) {
+            throw new \InvalidArgumentException(implode(' ', $messages));
         }
     }
 
@@ -140,27 +182,27 @@ final class ShipEngine
     }
     
     /**
-     * Create a HttpClient.
+     * Initialize a HttpClient.
      */
-    private function createClient(HttpClient $client = null, $api_key, $base_uri, $retries): HttpClient
+    private function initializeShipEngineClient(array $config, HttpClient $client = null): ShipEngineClient
     {
         if (!$client) {
             $client = HttpClientDiscovery::find();
         }
         
         $headers = array();
-        $headers['Api-Key'] = $api_key;
+        $headers['Api-Key'] = $config['api_key'];
         $headers['Content-Type'] = 'application/json';
         $headers['User-Agent'] = $this->deriveUserAgent();
 
         $uri_factory = UriFactoryDiscovery::find();
-        $base_uri = $uri_factory->createUri($base_uri);
+        $base_uri = $uri_factory->createUri($config['base_uri']);
         
         $plugins = array();
         $plugins[] = new HeaderDefaultsPlugin($headers);
         $plugins[] = new BaseUriPlugin($base_uri);
-        $plugins[] = new RetryPlugin(['retries' => $retries]);
+        $plugins[] = new RetryPlugin(['retries' => $config['retries']]);
 
-        return new PluginClient($client, $plugins);
+        return new ShipEngineClient($client, $plugins, $config);
     }
 }

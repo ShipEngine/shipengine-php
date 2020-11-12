@@ -65,8 +65,8 @@ final class ShipEngineTest extends TestCase
         $config['page_size'] = ShipEngine::DEFAULT_PAGE_SIZE;
         $config['retries'] = ShipEngine::DEFAULT_RETRIES;
 
-        $client = new ShipEngine($config);
+        $shipengine = new ShipEngine($config);
         
-        $this->assertInstanceOf(ShipEngine::class, $client);
+        $this->assertInstanceOf(ShipEngine::class, $shipengine);
     }
 }

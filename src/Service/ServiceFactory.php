@@ -2,12 +2,11 @@
 
 namespace ShipEngine\Service;
 
-use Http\Client\HttpClient;
+use ShipEngine\ShipEngineClient;
 
 class ServiceFactory
 {
-
-    public function __construct(HttpClient $client, int $page_size)
+    public function __construct(ShipEngineClient $client)
     {
     }
 }
