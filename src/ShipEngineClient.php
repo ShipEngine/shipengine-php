@@ -20,8 +20,8 @@ final class ShipEngineClient
         $this->config = $config;
     }
 
-    public function __get($name)
+    public function sendRequest($request)
     {
-        $this->client->__get($name);
+        return $this->client->sendRequest($request);
     }
 }

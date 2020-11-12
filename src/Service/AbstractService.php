@@ -2,13 +2,25 @@
 
 namespace ShipEngine\Service;
 
-use Http\Client\HttpClient;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Message\MessageFactory;
+
+use ShipEngine\ShipEngineClient;
 
 abstract class AbstractService
 {
-    protected HttpClient $client;
+    protected ShipEngineClient $client;
+    protected MessageFactory $message_factory;
 
-    public function __construct(HttpClient $client)
+    public function __construct(ShipEngineClient $client)
     {
+        $this->client = $client;
+        $this->message_factory = MessageFactoryDiscovery::find();
+    }
+
+    public function request(string $method, string $path)
+    {
+        $request = $this->message_factory->createRequest($method, $path);
+        return $this->client->sendRequest($request);
     }
 }

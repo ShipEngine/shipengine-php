@@ -11,7 +11,6 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 
 use ShipEngine\Service\ServiceFactory;
-use ShipEngine\ShipEngineClient;
 
 /**
  * ShipEngine client.
@@ -59,7 +58,7 @@ final class ShipEngine
         
     public function __get($name)
     {
-        return $this->serviceFactory->__get($name);
+        return $this->service_factory->__get($name);
     }
     
     /**
