@@ -11,6 +11,7 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 
 use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\TagsTrait;
 
 /**
  * ShipEngine client.
@@ -34,6 +35,8 @@ final class ShipEngine
      */
     private ServiceFactory $service_factory;
 
+    use TagsTrait;
+    
     public function __construct(array $config = array(), HttpClient $client = null)
     {
         
