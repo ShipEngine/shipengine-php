@@ -11,7 +11,10 @@ trait AddressesTrait
     private function queryAddressQuery()
     {
     }
-    
+
+    /**
+     *
+     */
     public function queryAddress()
     {
         if (func_num_args() > 1) {
@@ -26,7 +29,10 @@ trait AddressesTrait
     private function validateAddressAddress()
     {
     }
-    
+
+    /**
+     *
+     */
     public function validateAddress()
     {
         if (func_num_args() > 1) {
@@ -41,13 +47,14 @@ trait AddressesTrait
     private function normalizeAddressQuery()
     {
     }
-    
+
+    /**
+     *
+     */
     public function normalizeAddress()
     {
         if (func_num_args() > 1) {
-            
         } else {
-            
         }
     }
 }

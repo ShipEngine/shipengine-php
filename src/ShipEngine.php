@@ -11,6 +11,7 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 
 use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\AddressesTrait;
 use ShipEngine\Service\TagsTrait;
 
 /**
@@ -18,6 +19,10 @@ use ShipEngine\Service\TagsTrait;
  */
 final class ShipEngine
 {
+    // Traits w/ convenience methods.
+    use AddressesTrait;
+    use TagsTrait;
+
     const VERSION = '0.0.1';
 
     const DEFAULT_BASE_URI = 'https://api.shipengine.com/v1/';
@@ -34,8 +39,6 @@ final class ShipEngine
      * Factory providing services.
      */
     private ServiceFactory $service_factory;
-
-    use TagsTrait;
     
     public function __construct(array $config = array(), HttpClient $client = null)
     {
@@ -58,7 +61,7 @@ final class ShipEngine
         
         $this->service_factory = new ServiceFactory($client);
     }
-        
+    
     public function __get($name)
     {
         return $this->service_factory->__get($name);
