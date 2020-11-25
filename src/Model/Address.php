@@ -22,7 +22,7 @@ final class Address
         string $state_province,
         string $postal_code,
         string $country,
-        bool $residential = null
+        ?bool $residential = null
     ) {
         $this->street = $street;
         $this->city_locality = $city_locality;
@@ -38,9 +38,5 @@ final class Address
             return $this->residential;
         }
         return false;
-    }
-
-    public function __toString(): string
-    {
     }
 }

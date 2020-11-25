@@ -17,35 +17,25 @@ final class AddressQueryResult
     private ?Address $normalized;
     private array $exceptions;
 
-    public function __construct(AddressQuery $original, Address $normalized = null, array $exceptions = array())
+    public function __construct(AddressQuery $original, ?Address $normalized = null, array $exceptions = array())
     {
         $this->original = $original;
         $this->normalized = $normalized;
         $this->exceptions = $exceptions;
     }
     
-    public function isValid(): bool
-    {
-        if (isset($this->exceptions)) {
-            return count($this->exceptions) > 0;
-        }
-
-        return true;
-    }
-
     public function info(): array
     {
+        return array();
     }
 
     public function warnings(): array
     {
+        return array();
     }
 
     public function errors(): array
     {
-    }
-
-    public function __toString(): string
-    {
+        return array();
     }
 }

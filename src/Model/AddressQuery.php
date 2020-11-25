@@ -7,7 +7,7 @@ use ShipEngine\Model\Model;
 /**
  *
  */
-final class AddressQuery
+final class AddressQuery implements \JsonSerializable
 {
     use Model;
     
@@ -31,6 +31,17 @@ final class AddressQuery
         $this->country = $country;
     }
 
+    public function jsonSerialize()
+    {
+        return [
+            'street' => implode(' ', $this->street),
+            'city_locality' => $this->city_locality,
+            'state_province' => $this->state_province,
+            'postal_code' => $this->postal_code,
+            'country' => $this->country
+        ];
+    }
+    
     public function __toString(): string
     {
         $street = implode(' ', $this->street);

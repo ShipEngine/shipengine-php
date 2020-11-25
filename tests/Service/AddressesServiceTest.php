@@ -5,7 +5,8 @@ namespace ShipEngine\Service\Test;
 use PHPUnit\Framework\TestCase;
 
 use ShipEngine\ShipEngine;
-use ShipEngine\Models\AddressQuery;
+use ShipEngine\Exception\ErrorException;
+use ShipEngine\Model\AddressQuery;
 
 final class AddressesServiceTest extends TestCase
 {
@@ -28,22 +29,34 @@ final class AddressesServiceTest extends TestCase
 
     public function testAddressQuery(): void
     {
-        // AddressQuery
+        $yankee_stadium = new AddressQuery(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+        $result = $this->shipengine->addresses->query($yankee_stadium);
+        $this->assertEmpty($result->exceptions);
 
-        // Arguments
+        $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
+        $result = $this->shipengine->addresses->query($dodger_stadium);
+        $this->assertNull($result->normalized);
     }
     
     public function testAddressValidate(): void
     {
-        // AddressQuery
-
-        // Arguments
+        $yankee_stadium = new AddressQuery(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+        $valid = $this->shipengine->addresses->validate($yankee_stadium);
+        $this->assertTrue($valid);
+        
+        $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
+        $valid = $this->shipengine->addresses->validate($dodger_stadium);
+        $this->assertFalse($valid);
     }
 
     public function testAddressNormalize(): void
     {
-        // AddressQuery
+        $yankee_stadium = new AddressQuery(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+        $normalized = $this->shipengine->addresses->normalize($yankee_stadium);
+        $this->assertEquals($yankee_stadium->state_province, $normalized->state_province);
 
-        // Arguments
+        $this->expectException(ErrorException::class);
+        $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
+        $normalized = $this->shipengine->addresses->normalize($dodger_stadium);
     }
 }
