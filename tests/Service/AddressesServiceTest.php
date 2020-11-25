@@ -36,6 +36,7 @@ final class AddressesServiceTest extends TestCase
         $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
         $result = $this->shipengine->addresses->query($dodger_stadium);
         $this->assertNull($result->normalized);
+        $this->assertNotEmpty($result->errors());
     }
     
     public function testAddressValidate(): void

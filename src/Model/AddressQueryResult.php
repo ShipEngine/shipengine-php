@@ -2,6 +2,10 @@
 
 namespace ShipEngine\Model;
 
+use ShipEngine\Exception\ErrorException;
+use ShipEngine\Exception\InfoException;
+use ShipEngine\Exception\WarningException;
+
 use ShipEngine\Model\Address;
 use ShipEngine\Model\AddressQuery;
 use ShipEngine\Model\Model;
@@ -23,19 +27,30 @@ final class AddressQueryResult
         $this->normalized = $normalized;
         $this->exceptions = $exceptions;
     }
+
+    private function exceptionsByType(string $class)
+    {
+        $exceptions = array();
+        foreach ($this->exceptions as $exception) {
+            if (get_class($exception) === $class) {
+                $exceptions[] = $exception;
+            }
+        }
+        return $exceptions;
+    }
     
     public function info(): array
     {
-        return array();
+        return $this->exceptionsByType(InfoException::class);
     }
 
     public function warnings(): array
     {
-        return array();
+        return $this->exceptionsByType(WarningException::class);
     }
 
     public function errors(): array
     {
-        return array();
+        return $this->exceptionsByType(ErrorException::class);
     }
 }

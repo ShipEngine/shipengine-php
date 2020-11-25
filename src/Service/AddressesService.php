@@ -110,7 +110,6 @@ final class AddressesService extends AbstractService
     public function normalize(AddressQuery $address_query): ?Address
     {
         $result = $this->query($address_query);
-
         if (!is_null($result->normalized) && empty($result->errors())) {
             return $result->normalized;
         }
