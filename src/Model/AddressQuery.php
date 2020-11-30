@@ -41,13 +41,4 @@ final class AddressQuery implements \JsonSerializable
             'country' => $this->country
         ];
     }
-    
-    public function __toString(): string
-    {
-        $street = implode(' ', $this->street);
-        return <<<EOT
-$street
-$city_locality, $state_province, $postal_code, $country
-EOT;
-    }
 }

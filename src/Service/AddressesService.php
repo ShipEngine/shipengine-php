@@ -3,6 +3,9 @@
 namespace ShipEngine\Service;
 
 use ShipEngine\Exception\ErrorException;
+use ShipEngine\Exception\InfoException;
+use ShipEngine\Exception\ShipEngineException;
+use ShipEngine\Exception\WarningException;
 
 use ShipEngine\Model\Address;
 use ShipEngine\Model\AddressQuery;
@@ -23,11 +26,29 @@ final class AddressesService extends AbstractService
         
         $lines = array($matched['address_line1'], $matched['address_line2'], $matched['address_line3']);
         $street = array_filter($lines);
+        if (empty($street)) {
+            $street = array('');
+        }
         
         $city_locality = $matched['city_locality'];
+        if (is_null($city_locality)) {
+            $city_locality = '';
+        }
+        
         $state_province = $matched['state_province'];
+        if (is_null($state_province)) {
+            $state_province = '';
+        }
+        
         $postal_code = $matched['postal_code'];
+        if (is_null($postal_code)) {
+            $postal_code = '';
+        }
+        
         $country = $matched['country_code'];
+        if (is_null($country)) {
+            $country = '';
+        }
 
         switch ($matched['address_residential_indicator']) {
             case 'yes':
@@ -69,6 +90,8 @@ final class AddressesService extends AbstractService
                 case 'error':
                     $errors[] = new ErrorException($details);
                     break;
+                default:
+                    $errors[] = new ShipEngineException($details);
             }
         }
 
@@ -82,7 +105,7 @@ final class AddressesService extends AbstractService
     {
         $json = $this->jsonize($address_query, ['street', 'address_line1'], ['country', 'country_code']);
         $response = $this->request('POST', '/addresses/validate', $json);
-
+        
         $body = json_decode((string) $response->getBody(), true);
 
         $normalized = $this->parseNormalized($body);
@@ -103,7 +126,7 @@ final class AddressesService extends AbstractService
 
         return false;
     }
-
+    
     /**
      *
      */

@@ -5,6 +5,6 @@ namespace ShipEngine\Exception;
 /**
  *
  */
-class InfoException extends ShipEngine\Exception
+class InfoException extends \Exception
 {
 }

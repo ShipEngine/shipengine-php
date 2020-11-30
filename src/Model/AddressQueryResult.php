@@ -28,6 +28,9 @@ final class AddressQueryResult
         $this->exceptions = $exceptions;
     }
 
+    /**
+     *
+     */
     private function exceptionsByType(string $class)
     {
         $exceptions = array();
@@ -38,17 +41,26 @@ final class AddressQueryResult
         }
         return $exceptions;
     }
-    
+
+    /**
+     *
+     */
     public function info(): array
     {
         return $this->exceptionsByType(InfoException::class);
     }
 
+    /**
+     *
+     */
     public function warnings(): array
     {
         return $this->exceptionsByType(WarningException::class);
     }
 
+    /**
+     *
+     */
     public function errors(): array
     {
         return $this->exceptionsByType(ErrorException::class);
