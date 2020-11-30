@@ -7,7 +7,7 @@ namespace ShipEngine\Model;
  */
 final class Address
 {
-    use Model;
+    use Getters;
     
     private array $street;
     private string $city_locality;

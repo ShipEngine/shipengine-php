@@ -11,7 +11,7 @@ use ShipEngine\Exception\WarningException;
  */
 final class AddressQueryResult
 {
-    use Model;
+    use Getters;
     
     private AddressQuery $original;
     private ?Address $normalized;

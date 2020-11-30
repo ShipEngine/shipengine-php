@@ -2,14 +2,12 @@
 
 namespace ShipEngine\Model;
 
-use ShipEngine\Model\Model;
-
 /**
  *
  */
 final class AddressQuery implements \JsonSerializable
 {
-    use Model;
+    use Getters;
     
     private array $street;
     private ?string $city_locality;

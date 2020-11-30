@@ -5,7 +5,7 @@ namespace ShipEngine\Model;
 /**
  *
  */
-trait Model
+trait Getters
 {
     public function __get($property)
     {

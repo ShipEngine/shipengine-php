@@ -9,8 +9,7 @@ class ServiceFactory
     private ShipEngineClient $client;
     
     private $classes = [
-        'addresses' => AddressesService::class,
-        'tags' => TagsService::class
+        'addresses' => AddressesService::class
     ];
     
     private $services = array();

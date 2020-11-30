@@ -16,12 +16,12 @@ use ShipEngine\Service\TagsTrait;
 
 /**
  * ShipEngine client.
+ *
+ * @property \ShipEngine\Service\AddressesService $addresses
  */
 final class ShipEngine
 {
-    // Traits w/ convenience methods.
     use AddressesTrait;
-    use TagsTrait;
 
     const VERSION = '0.0.1';
 
@@ -42,7 +42,6 @@ final class ShipEngine
     
     public function __construct(array $config = array(), HttpClient $client = null)
     {
-        
         if (!array_key_exists('base_uri', $config)) {
             $config['base_uri'] = self::DEFAULT_BASE_URI;
         }
