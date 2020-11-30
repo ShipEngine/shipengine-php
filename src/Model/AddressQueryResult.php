@@ -6,10 +6,6 @@ use ShipEngine\Exception\ErrorException;
 use ShipEngine\Exception\InfoException;
 use ShipEngine\Exception\WarningException;
 
-use ShipEngine\Model\Address;
-use ShipEngine\Model\AddressQuery;
-use ShipEngine\Model\Model;
-
 /**
  *
  */
