@@ -7,7 +7,10 @@ use ShipEngine\Exception\InfoException;
 use ShipEngine\Exception\WarningException;
 
 /**
+ * The result of an \ShipEngine\Service\AddressesService::query() on a \ShipEngine\Model\AddressQuery.
  *
+ * @property \ShipEngine\Model\AddressQuery $original
+ * @property ?\ShipEngine\Model\Address $normalized
  */
 final class AddressQueryResult
 {
@@ -25,7 +28,7 @@ final class AddressQueryResult
     }
 
     /**
-     *
+     * Get all \ShipEngine\Exception\ShipEngineException exceptions by type.
      */
     private function exceptionsByType(string $class)
     {
@@ -39,7 +42,7 @@ final class AddressQueryResult
     }
 
     /**
-     *
+     * Get all \ShipEngine\Exception\InfoException exceptions.
      */
     public function info(): array
     {
@@ -47,7 +50,7 @@ final class AddressQueryResult
     }
 
     /**
-     *
+     * Get all \ShipEngine\Exception\WarningException exceptions.
      */
     public function warnings(): array
     {
@@ -55,7 +58,7 @@ final class AddressQueryResult
     }
 
     /**
-     *
+     * Get all \ShipEngine\Exception\ErrorException exceptions.
      */
     public function errors(): array
     {

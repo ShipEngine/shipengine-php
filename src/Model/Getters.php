@@ -3,7 +3,7 @@
 namespace ShipEngine\Model;
 
 /**
- *
+ * Expose getters for private properties.
  */
 trait Getters
 {
@@ -12,5 +12,7 @@ trait Getters
         if (property_exists($this, $property)) {
             return $this->$property;
         }
+
+        throw new \RuntimeException($property . ' does not exist.');
     }
 }

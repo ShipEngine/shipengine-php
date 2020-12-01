@@ -11,11 +11,14 @@ use ShipEngine\Model\Address;
 use ShipEngine\Model\AddressQuery;
 use ShipEngine\Model\AddressQueryResult;
 
+/**
+ * Service to query, normalize, and validate addresses.
+ */
 final class AddressesService extends AbstractService
 {
 
     /**
-     *
+     * Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address.
      */
     private function parseNormalized($obj): ?Address
     {
@@ -65,7 +68,7 @@ final class AddressesService extends AbstractService
     }
 
     /**
-     *
+     * Parse the `messages` of the address query result into \ShipEngine\Exception\ShipEngineException types.
      */
     private function parseExceptions($obj): array
     {
@@ -99,7 +102,7 @@ final class AddressesService extends AbstractService
     }
 
     /**
-     *
+     * Query an \ShipEngine\Model\AddressQuery to receive the full \ShipEngine\Model\AddressQueryResult.
      */
     public function query(AddressQuery $address_query): AddressQueryResult
     {
@@ -115,7 +118,7 @@ final class AddressesService extends AbstractService
     }
 
     /**
-     *
+     * Validate that an \ShipEngine\Model\AddressQuery matches a known \ShipEngine\Model\Address.
      */
     public function validate(AddressQuery $address_query): bool
     {
@@ -128,7 +131,9 @@ final class AddressesService extends AbstractService
     }
     
     /**
+     * Normalize an \ShipEngine\Model\AddressQuery into a known \ShipEngine\Model\Address.
      *
+     * @throws \ShipEngine\Exception\ErrorException if the AddressQuery cannot be normalized.
      */
     public function normalize(AddressQuery $address_query): ?Address
     {

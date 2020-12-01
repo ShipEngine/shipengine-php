@@ -2,9 +2,11 @@
 
 namespace ShipEngine\Exception;
 
+use ShipEngine\Exception\ShipEngineException;
+
 /**
- *
+ * An information Exception.
  */
-class InfoException extends \Exception
+class InfoException extends ShipEngineException
 {
 }

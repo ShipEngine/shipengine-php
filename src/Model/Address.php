@@ -3,7 +3,13 @@
 namespace ShipEngine\Model;
 
 /**
+ * A mailing address.
  *
+ * @property array $street
+ * @property string $city_locality
+ * @property string $state_province
+ * @property string $postal_code
+ * @property string $country
  */
 final class Address
 {
@@ -31,7 +37,10 @@ final class Address
         $this->country = $country;
         $this->residential = $residential;
     }
-    
+
+    /**
+     * Is the address residential?
+     */
     public function isResidential(): bool
     {
         if (isset($this->residential)) {

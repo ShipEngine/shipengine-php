@@ -21,7 +21,11 @@ use ShipEngine\Service\TagsTrait;
  */
 final class ShipEngine
 {
+    // Convenience method Traits.
     use AddressesTrait;
+
+    // Factory providing services.
+    private ServiceFactory $service_factory;
 
     const VERSION = '0.0.1';
 
@@ -34,11 +38,6 @@ final class ShipEngine
     const DEFAULT_RETRIES = 0;
     const MAXIMUM_RETRIES = 3;
     const MINIMUM_RETRIES = 0;
-
-    /**
-     * Factory providing services.
-     */
-    private ServiceFactory $service_factory;
     
     public function __construct(array $config = array(), HttpClient $client = null)
     {
@@ -67,7 +66,7 @@ final class ShipEngine
     }
     
     /**
-     * Valideate api_key.
+     * Validate api_key.
      */
     private function validateApiKey(string $api_key): string
     {

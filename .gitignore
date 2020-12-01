@@ -5,3 +5,4 @@ composer.lock
 .phpunit.*
 config.yaml
 .php_cs.cache
+.phpdoc

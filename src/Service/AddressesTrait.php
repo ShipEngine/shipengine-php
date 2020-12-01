@@ -6,11 +6,14 @@ use ShipEngine\Model\Address;
 use ShipEngine\Model\AddressQuery;
 use ShipEngine\Model\AddressQueryResult;
 
+/**
+ * Provides convenience methods onto \ShipEngine\Service\AddressesService.
+ */
 trait AddressesTrait
 {
 
     /**
-     *
+     * @see \ShipEngine\Service\AddressesService::query().
      */
     public function queryAddress(): AddressQueryResult
     {
@@ -23,7 +26,7 @@ trait AddressesTrait
     }
 
     /**
-     *
+     * @see \ShipEngine\Service\AddressesService::validate().
      */
     public function validateAddress(): Bool
     {
@@ -36,7 +39,7 @@ trait AddressesTrait
     }
 
     /**
-     *
+     * @see \ShipEngine\Service\AddressesService::normalize().
      */
     public function normalizeAddress(): Address
     {

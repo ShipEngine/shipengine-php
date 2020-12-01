@@ -3,7 +3,13 @@
 namespace ShipEngine\Model;
 
 /**
+ * A query representing a possible \ShipEngine\Model\Address.
  *
+ * @property array $city_locality
+ * @property ?string $city_locality
+ * @property ?string $state_province
+ * @property ?string $postal_code
+ * @property ?string $country
  */
 final class AddressQuery implements \JsonSerializable
 {
@@ -29,6 +35,9 @@ final class AddressQuery implements \JsonSerializable
         $this->country = $country;
     }
 
+    /**
+     * Serialize into JSON.
+     */
     public function jsonSerialize()
     {
         return [
