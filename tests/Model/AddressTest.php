@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 
 use ShipEngine\Model\Address;
 
+/**
+ * @covers \ShipEngine\Model\Address
+ */
 final class AddressTest extends TestCase
 {
     public function testIsResidential(): void

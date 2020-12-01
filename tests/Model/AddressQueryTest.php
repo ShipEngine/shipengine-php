@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 
 use ShipEngine\Model\AddressQuery;
 
+/**
+ * @covers \ShipEngine\Model\AddressQuery
+ */
 final class AddressQueryTest extends TestCase
 {
     public function testNullProperties(): void

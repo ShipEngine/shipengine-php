@@ -11,6 +11,11 @@ use ShipEngine\Model\Address;
 use ShipEngine\Model\AddressQuery;
 use ShipEngine\Model\AddressQueryResult;
 
+/**
+ * @covers \ShipEngine\Model\Address
+ * @covers \ShipEngine\Model\AddressQuery
+ * @covers \ShipEngine\Model\AddressQueryResult
+ */
 final class AddressQueryResultTest extends TestCase
 {
     public function testExceptionsAreEmpty(): void
