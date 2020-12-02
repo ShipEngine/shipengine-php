@@ -99,7 +99,8 @@ final class AddressesServiceTest extends TestCase
             'city_locality' => null,
             'state_province' => null,
             'postal_code' => null,
-            'country_code' => null
+            'country_code' => null,
+            'address_residential_indicator' => null
         ]]];
         
         $address = $method->invokeArgs($this->shipengine->addresses, array($json));
