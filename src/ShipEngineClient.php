@@ -5,8 +5,11 @@ namespace ShipEngine;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
 /**
- *
+ * A wrapped HTTP client.
  */
 final class ShipEngineClient
 {
@@ -20,7 +23,10 @@ final class ShipEngineClient
         $this->config = $config;
     }
 
-    public function sendRequest($request)
+    /**
+     * Send an HTTP request.
+     */
+    public function sendRequest(RequestInterface $request): ResponseInterface
     {
         return $this->client->sendRequest($request);
     }

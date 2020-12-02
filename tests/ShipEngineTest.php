@@ -6,6 +6,11 @@ use PHPUnit\Framework\TestCase;
 
 use ShipEngine\ShipEngine;
 
+/**
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\Service\ServiceFactory
+ */
 final class ShipEngineTest extends TestCase
 {
 

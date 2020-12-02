@@ -5,7 +5,7 @@
 
 <hr />
 
-## Testing
+## Test
 
 You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
 ```
@@ -20,4 +20,12 @@ You can now run all tests using [PHPUnit](https://phpunit.de/):
 To stop hoverfly (after you are done testing):
 ```
 %> hoverctl stop
+```
+## Lint
+```
+%> ./vendor/bin/phpstan analyse src --level 5
+```
+## Generate Documentation
+```
+%> ./vendor/bin/phpdoc -d src -t doc
 ```

@@ -4,12 +4,15 @@ namespace ShipEngine\Service;
 
 use ShipEngine\ShipEngineClient;
 
+/**
+ * Instantiate and attach services to the \ShipEngine\ShipEngine client.
+ */
 class ServiceFactory
 {
     private ShipEngineClient $client;
     
     private $classes = [
-        'tags' => TagsService::class
+        'addresses' => AddressesService::class
     ];
     
     private $services = array();

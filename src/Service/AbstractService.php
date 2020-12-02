@@ -5,8 +5,13 @@ namespace ShipEngine\Service;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
 
+use Psr\Http\Message\ResponseInterface;
+
 use ShipEngine\ShipEngineClient;
 
+/**
+ * Serialize and send HTTP requests.
+ */
 abstract class AbstractService
 {
     protected ShipEngineClient $client;
@@ -18,9 +23,27 @@ abstract class AbstractService
         $this->message_factory = MessageFactoryDiscovery::find();
     }
 
-    public function request(string $method, string $path)
+    /**
+     * Turn any \JsonSerializable object into a JSON string...swapping the names of $keys.
+     */
+    protected function jsonize(\JsonSerializable $obj, array ...$keys): string
     {
-        $request = $this->message_factory->createRequest($method, $path);
+        $json = $obj->jsonSerialize();
+        foreach ($keys as $key) {
+            $old = $key[0];
+            $new = $key[1];
+            $json[$new] = $json[$old];
+            unset($json[$old]);
+        }
+        return json_encode($json);
+    }
+
+    /**
+     * Create and send an HTTP request.
+     */
+    protected function request(string $method, string $path, string $body = null): ResponseInterface
+    {
+        $request = $this->message_factory->createRequest($method, $path, array(), $body);
         return $this->client->sendRequest($request);
     }
 }
