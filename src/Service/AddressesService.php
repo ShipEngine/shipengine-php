@@ -52,7 +52,8 @@ final class AddressesService extends AbstractService
             $country = '';
         }
 
-        switch ($matched['address_residential_indicator']) {
+        $residential = $matched['address_residential_indicator'];
+        switch ($residential) {
             case 'yes':
                 $residential = true;
                 break;
