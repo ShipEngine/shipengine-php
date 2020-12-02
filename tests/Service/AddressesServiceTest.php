@@ -85,4 +85,36 @@ final class AddressesServiceTest extends TestCase
         $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
         $normalized = $this->shipengine->addresses->normalize($dodger_stadium);
     }
+
+    public function testParseNormalizedJson(): void
+    {
+        $reflection = new \ReflectionClass(get_class($this->shipengine->addresses));
+        $method = $reflection->getMethod('parseNormalized');
+        $method->setAccessible(true);
+
+        $json = [['matched_address' => [
+            'address_line1' => null,
+            'address_line2' => null,
+            'address_line3' => null,
+            'city_locality' => null,
+            'state_province' => null,
+            'postal_code' => null,
+            'country_code' => null
+        ]]];
+        
+        $address = $method->invokeArgs($this->shipengine->addresses, array($json));
+
+        $this->assertEmpty($address->street[0]);
+        $this->assertEmpty($address->city_locality);
+        $this->assertEmpty($address->state_province);
+        $this->assertEmpty($address->postal_code);
+        $this->assertEmpty($address->country);
+        $this->assertFalse($address->isResidential());
+
+        $json[0]['matched_address']['address_residential_indicator'] = 'yes';
+
+        $address = $method->invokeArgs($this->shipengine->addresses, array($json));
+
+        $this->assertTrue($address->isResidential());
+    }
 }

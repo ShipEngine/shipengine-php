@@ -92,8 +92,6 @@ final class AddressesService extends AbstractService
                 case 'error':
                     $errors[] = new ErrorException($details);
                     break;
-                default:
-                    $errors[] = new ShipEngineException($details);
             }
         }
 

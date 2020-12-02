@@ -56,6 +56,7 @@
                                             <li><a href="namespaces/shipengine-exception.html"><abbr title="\ShipEngine\Exception">Exception</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                     </ul>
                         </section>
 
@@ -90,7 +91,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 </aside>
 
             <p class="phpdocumentor-summary">A wrapped HTTP client.</p>
@@ -120,7 +121,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/ShipEngine-ShipEngineClient.html#property_config">$config</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                &nbsp;: <a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>            </span>
 </dt>
 <dd></dd>
 
@@ -166,7 +167,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 </aside>
 
     
@@ -196,13 +197,13 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">22</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
     <span class="phpdocumentor-signature__name">$config</span>
     </code>
 
@@ -230,35 +231,28 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Http\Client\HttpClient">HttpClient</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$client</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$plugins</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Http\Client\HttpClient">HttpClient</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$client</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$config</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$client</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Http\Client\HttpClient">HttpClient</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$plugins</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$config</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
@@ -286,7 +280,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 </aside>
 
         <p class="phpdocumentor-summary">Send an HTTP request.</p>
