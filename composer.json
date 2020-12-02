@@ -1,12 +1,12 @@
 {
-  "name": "shipengine/shipengine-php",
+  "name": "shipengine/shipengine",
   "type": "library",
   "description": "PHP library for the ShipEngine API.",
   "keywords": ["shipengine", "api", "shipping"],
   "homepage": "https://github.com/ShipEngine/shipengine-php",
   "license": "Apache 2.0",
   "authors": [{
-    "name": "shipengine/shipengine-php contributors",
+    "name": "shipengine/shipengine contributors",
     "homepage": "https://github.com/ShipEngine/shipengine-php/contributors"
   }],
   "require": {
@@ -25,8 +25,8 @@
     "php-http/guzzle7-adapter": "^0.1.1",
     "phpdocumentor/phpdocumentor": "^3.0.0",
     "phpstan/phpstan": "^0.12.53",
-    "phpunit/phpunit": "^9",
     "phpunit/php-code-coverage": "^9.2",
+    "phpunit/phpunit": "^9",
     "squizlabs/php_codesniffer": "3.*"
   },
   "autoload": {
