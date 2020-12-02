@@ -151,16 +151,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Model-AddressQueryResult.html#property_exceptions"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Getters",
-            "name": "Getters",
-            "summary": "Expose\u0020getters\u0020for\u0020private\u0020properties.",
-            "url": "classes/ShipEngine-Model-Getters.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Getters\u003A\u003A__get\u0028\u0029",
-            "name": "__get",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Getters.html#method___get"
-        },                {
             "fqsen": "\\ShipEngine\\Service\\AbstractService",
             "name": "AbstractService",
             "summary": "Serialize\u0020and\u0020send\u0020HTTP\u0020requests.",
@@ -286,80 +276,15 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-ShipEngine.html#method___get"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateApiKey\u0028\u0029",
-            "name": "validateApiKey",
-            "summary": "Validate\u0020api_key.",
-            "url": "classes/ShipEngine-ShipEngine.html#method_validateApiKey"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateBaseUri\u0028\u0029",
-            "name": "validateBaseUri",
-            "summary": "Validate\u0020base_uri.",
-            "url": "classes/ShipEngine-ShipEngine.html#method_validateBaseUri"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidatePageSize\u0028\u0029",
-            "name": "validatePageSize",
-            "summary": "Validate\u0020page_size.",
-            "url": "classes/ShipEngine-ShipEngine.html#method_validatePageSize"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateRetries\u0028\u0029",
-            "name": "validateRetries",
-            "summary": "Validate\u0020retries.",
-            "url": "classes/ShipEngine-ShipEngine.html#method_validateRetries"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateConfig\u0028\u0029",
-            "name": "validateConfig",
-            "summary": "Validate\u0020the\u0020entirety\u0020of\u0020the\u0020config\u0020object.",
-            "url": "classes/ShipEngine-ShipEngine.html#method_validateConfig"
-        },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AderiveUserAgent\u0028\u0029",
             "name": "deriveUserAgent",
             "summary": "Derive\u0020a\u0020User\u002DAgent\u0020header\u0020from\u0020the\u0020environment.",
             "url": "classes/ShipEngine-ShipEngine.html#method_deriveUserAgent"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AinitializeShipEngineClient\u0028\u0029",
-            "name": "initializeShipEngineClient",
-            "summary": "Initialize\u0020a\u0020HttpClient.",
-            "url": "classes/ShipEngine-ShipEngine.html#method_initializeShipEngineClient"
-        },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AVERSION",
             "name": "VERSION",
             "summary": "",
             "url": "classes/ShipEngine-ShipEngine.html#constant_VERSION"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003ADEFAULT_BASE_URI",
-            "name": "DEFAULT_BASE_URI",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_DEFAULT_BASE_URI"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003ADEFAULT_PAGE_SIZE",
-            "name": "DEFAULT_PAGE_SIZE",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_DEFAULT_PAGE_SIZE"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AMAXIMUM_PAGE_SIZE",
-            "name": "MAXIMUM_PAGE_SIZE",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_MAXIMUM_PAGE_SIZE"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AMINIMUM_PAGE_SIZE",
-            "name": "MINIMUM_PAGE_SIZE",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_MINIMUM_PAGE_SIZE"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003ADEFAULT_RETRIES",
-            "name": "DEFAULT_RETRIES",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_DEFAULT_RETRIES"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AMAXIMUM_RETRIES",
-            "name": "MAXIMUM_RETRIES",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_MAXIMUM_RETRIES"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AMINIMUM_RETRIES",
-            "name": "MINIMUM_RETRIES",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#constant_MINIMUM_RETRIES"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024service_factory",
             "name": "service_factory",
@@ -391,6 +316,101 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-ShipEngineClient.html#property_client"
         },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig",
+            "name": "ShipEngineConfig",
+            "summary": "Configuration.",
+            "url": "classes/ShipEngine-ShipEngineConfig.html"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AvalidateBaseUri\u0028\u0029",
+            "name": "validateBaseUri",
+            "summary": "Validate\u0020base_uri.",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method_validateBaseUri"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AvalidatePageSize\u0028\u0029",
+            "name": "validatePageSize",
+            "summary": "Validate\u0020page_size.",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method_validatePageSize"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AvalidateRetries\u0028\u0029",
+            "name": "validateRetries",
+            "summary": "Validate\u0020retries.",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method_validateRetries"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_BASE_URI",
+            "name": "DEFAULT_BASE_URI",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_BASE_URI"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_PAGE_SIZE",
+            "name": "DEFAULT_PAGE_SIZE",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_PAGE_SIZE"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AMAXIMUM_PAGE_SIZE",
+            "name": "MAXIMUM_PAGE_SIZE",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_MAXIMUM_PAGE_SIZE"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AMINIMUM_PAGE_SIZE",
+            "name": "MINIMUM_PAGE_SIZE",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_MINIMUM_PAGE_SIZE"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_RETRIES",
+            "name": "DEFAULT_RETRIES",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_RETRIES"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AMAXIMUM_RETRIES",
+            "name": "MAXIMUM_RETRIES",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_MAXIMUM_RETRIES"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AMINIMUM_RETRIES",
+            "name": "MINIMUM_RETRIES",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_MINIMUM_RETRIES"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024api_key",
+            "name": "api_key",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_api_key"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024base_uri",
+            "name": "base_uri",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_base_uri"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024page_size",
+            "name": "page_size",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_page_size"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024retries",
+            "name": "retries",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_retries"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024user_agent",
+            "name": "user_agent",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_user_agent"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Getters",
+            "name": "Getters",
+            "summary": "Expose\u0020getters\u0020for\u0020private\u0020properties.",
+            "url": "classes/ShipEngine-Util-Getters.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Getters\u003A\u003A__get\u0028\u0029",
+            "name": "__get",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Getters.html#method___get"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -415,5 +435,10 @@ Search.appendIndex(
             "name": "ShipEngine",
             "summary": "",
             "url": "namespaces/shipengine.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util",
+            "name": "Util",
+            "summary": "",
+            "url": "namespaces/shipengine-util.html"
         }            ]
 );

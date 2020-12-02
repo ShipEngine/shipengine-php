@@ -13,6 +13,7 @@ use ShipEngine\ShipEngine;
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Model\Address
  * @covers \ShipEngine\Model\AddressQuery
  * @covers \ShipEngine\Model\AddressQueryResult

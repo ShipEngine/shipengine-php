@@ -5,6 +5,7 @@ namespace ShipEngine\Model;
 use ShipEngine\Exception\ErrorException;
 use ShipEngine\Exception\InfoException;
 use ShipEngine\Exception\WarningException;
+use ShipEngine\Util;
 
 /**
  * The result of an \ShipEngine\Service\AddressesService::query() on a \ShipEngine\Model\AddressQuery.
@@ -14,7 +15,7 @@ use ShipEngine\Exception\WarningException;
  */
 final class AddressQueryResult
 {
-    use Getters;
+    use Util\Getters;
     
     private AddressQuery $original;
     private ?Address $normalized;

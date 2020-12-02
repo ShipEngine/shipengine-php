@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Model;
 
+use ShipEngine\Util;
+
 /**
  * A mailing address.
  *
@@ -13,7 +15,7 @@ namespace ShipEngine\Model;
  */
 final class Address
 {
-    use Getters;
+    use Util\Getters;
     
     private array $street;
     private string $city_locality;
