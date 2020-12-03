@@ -1,7 +1,7 @@
 # ShipEngine PHP
 
 [![Build Status](https://github.com/ShipEngine/shipengine-php/workflows/shipengine-php/badge.svg)](https://github.com/ShipEngine/shipengine-php/actions)
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-php/badge.svg?t=SkXqIE)](https://coveralls.io/github/ShipEngine/shipengine-php)
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-php/badge.svg?branch=main&t=SkXqIE)](https://coveralls.io/github/ShipEngine/shipengine-php?branch=main)
 
 <hr />
 
