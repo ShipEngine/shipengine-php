@@ -2,6 +2,8 @@
 
 namespace ShipEngine;
 
+use Rakit\Validation\Validator;
+
 use ShipEngine\Util;
 
 /**
@@ -35,109 +37,34 @@ final class ShipEngineConfig
     
     public function __construct(array $config = array())
     {
-        $messages = array();
+        $validator = new Validator();
 
-        if (!array_key_exists('api_key', $config)) {
-            $messages[] = 'An API Key is required.';
-        } else {
-            $this->api_key = $config['api_key'];
-        }
+        $base_uri_guard = sprintf('default:%s|url:http,https', self::DEFAULT_BASE_URI);
 
-        if (array_key_exists('base_uri', $config)) {
-            $base_uri_messages = $this->validateBaseUri($config['base_uri']);
-            if (!is_null($base_uri_messages)) {
-                $messages[] = $base_uri_messages;
-            } else {
-                $this->base_uri = $config['base_uri'];
-            }
-        } else {
-            $this->base_uri = self::DEFAULT_BASE_URI;
-        }
+        $range = 'default:%s|between:%s,%s';
+        $page_size_guard = sprintf($range, self::DEFAULT_PAGE_SIZE, self::MINIMUM_PAGE_SIZE, self::MAXIMUM_PAGE_SIZE);
+        $retries_guard = sprintf($range, self::DEFAULT_RETRIES, self::MINIMUM_RETRIES, self::MAXIMUM_RETRIES);
 
-        if (array_key_exists('page_size', $config)) {
-            $page_size_messages = $this->validatePageSize($config['page_size']);
-            if (!is_null($page_size_messages)) {
-                $messages[] = $page_size_messages;
-            } else {
-                $this->page_size = $config['page_size'];
-            }
-        } else {
-            $this->page_size = self::DEFAULT_PAGE_SIZE;
-        }
+        $guard = array(
+            'api_key' => 'required',
+            'base_uri' => $base_uri_guard,
+            'page_size' => $page_size_guard,
+            'retries' => $retries_guard,
+            'user_agent' => 'required'
+        );
 
-        if (array_key_exists('retries', $config)) {
-            $retries_messages = $this->validateRetries($config['retries']);
-            if (!is_null($retries_messages)) {
-                $messages[] = $retries_messages;
-            } else {
-                $this->retries = $config['retries'];
-            }
-        } else {
-            $this->retries = self::DEFAULT_RETRIES;
-        }
-
-        if (!array_key_exists('user_agent', $config)) {
-            $messages[] = 'A user agent is required.';
-        } else {
-            $this->user_agent = $config['user_agent'];
-        }
+        $validation = $validator->validate($config, $guard);
         
-        if (!empty($messages)) {
-            throw new \InvalidArgumentException(implode(' ', $messages));
-        }
-    }
-        
-    /**
-     * Validate base_uri.
-     */
-    private function validateBaseUri(string $base_uri): ?string
-    {
-        if (!filter_var($base_uri, FILTER_VALIDATE_URL)) {
-            return 'The given base URI is malformed.';
+        if ($validation->fails()) {
+            throw new \InvalidArgumentException(implode(' ', $validation->errors()->all()));
         }
 
-        return null;
-    }
+        $validated = $validation->getValidData();
 
-    /**
-     * Validate page_size.
-     */
-    private function validatePageSize(int $page_size): ?string
-    {
-        $messages = array();
-
-        if ($page_size < self::MINIMUM_PAGE_SIZE) {
-            $messages[] = 'Page size must be greater than ' . self::MINIMUM_PAGE_SIZE . '.';
-        }
-        if ($page_size > self::MAXIMUM_PAGE_SIZE) {
-            $messages[] = 'Page size must be less than ' . self::MAXIMUM_PAGE_SIZE . '.';
-        }
-
-        if (count($messages) > 0) {
-            return implode(' ', $messages);
-        }
-
-        return null;
-    }
-
-    /**
-     * Validate retries.
-     */
-    private function validateRetries(int $retries): ?string
-    {
-        $messages = array();
-
-        if ($retries < self::MINIMUM_RETRIES) {
-            $messages[] = 'Retries must be greater than ' . self::MINIMUM_RETRIES . '.';
-        }
-        if ($retries > self::MAXIMUM_RETRIES) {
-            $messages[] = 'Retries must be less than ' . self::MAXIMUM_RETRIES . '.';
-        }
-        
-        if (count($messages) > 0) {
-            return implode(' ', $messages);
-        }
-
-        return null;
+        $this->api_key = $validated['api_key'];
+        $this->base_uri = $validated['base_uri'];
+        $this->page_size = (int) $validated['page_size'];
+        $this->retries = (int) $validated['retries'];
+        $this->user_agent = $validated['user_agent'];
     }
 }
