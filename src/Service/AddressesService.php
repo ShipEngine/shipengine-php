@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Service;
 
+use Rakit\Validation\Validator;
+
 use ShipEngine\Exception\ErrorException;
 use ShipEngine\Exception\InfoException;
 use ShipEngine\Exception\ShipEngineException;
@@ -21,50 +23,63 @@ final class AddressesService extends AbstractService
      */
     private function parseNormalized($obj): ?Address
     {
+        // Check that we get a matched address before trying to validate it.
+        if (empty($obj)) {
+            return null;
+        }
+        if (!array_key_exists('matched_address', $obj[0])) {
+            return null;
+        }
         $matched = $obj[0]['matched_address'];
         if (is_null($matched)) {
             return null;
         }
         
-        $lines = array($matched['address_line1'], $matched['address_line2'], $matched['address_line3']);
+        $validator = new Validator();
+        
+        $guard = array(
+            'address_line1' => 'default:|present',
+            'address_line2' => 'default:|present',
+            'address_line3' => 'default:|present',
+            'city_locality' => 'default:|present',
+            'state_province' => 'default:|present',
+            'postal_code' => 'default:|present',
+            'country_code' => 'default:|present',
+            'address_residential_indicator' => 'present'
+        );
+        
+        $validation = $validator->validate($matched, $guard);
+
+        if ($validation->fails()) {
+            return null;
+        }
+        
+        $validated = $validation->getValidData();
+        
+        $lines = array($validated['address_line1'], $validated['address_line2'], $validated['address_line3']);
         $street = array_filter($lines);
         if (empty($street)) {
             $street = array('');
         }
-        
-        $city_locality = $matched['city_locality'];
-        if (is_null($city_locality)) {
-            $city_locality = '';
-        }
-        
-        $state_province = $matched['state_province'];
-        if (is_null($state_province)) {
-            $state_province = '';
-        }
-        
-        $postal_code = $matched['postal_code'];
-        if (is_null($postal_code)) {
-            $postal_code = '';
-        }
-        
-        $country = $matched['country_code'];
-        if (is_null($country)) {
-            $country = '';
-        }
 
-        $residential = $matched['address_residential_indicator'];
-        switch ($residential) {
+        $residential = null;
+        switch ($validated['address_residential_indicator']) {
             case 'yes':
                 $residential = true;
                 break;
             case 'no':
                 $residential = false;
                 break;
-            default:
-                $residential = null;
         }
         
-        return new Address($street, $city_locality, $state_province, $postal_code, $country, $residential);
+        return new Address(
+            $street,
+            $validated['city_locality'],
+            $validated['state_province'],
+            $validated['postal_code'],
+            $validated['country_code'],
+            $residential
+        );
     }
 
     /**
@@ -72,6 +87,13 @@ final class AddressesService extends AbstractService
      */
     private function parseExceptions($obj): array
     {
+        // Check that we have messages before validating and casting them.
+        if (empty($obj)) {
+            return array();
+        }
+        if (!array_key_exists('messages', $obj[0])) {
+            return array();
+        }
         $messages = $obj[0]['messages'];
         if (count($messages) === 0) {
             return array();
@@ -80,9 +102,22 @@ final class AddressesService extends AbstractService
         $info = array();
         $warnings = array();
         $errors = array();
-        
+
+        $validator = new Validator();
+
+        $guard = array(
+            'type' => 'required|alpha',
+            'message' => 'required'
+        );
+
         foreach ($messages as $message) {
+            $validation = $validator->validate($message, $guard);
+            if ($validation->fails()) {
+                continue;
+            }
+
             $details = $message['message'];
+
             switch ($message['type']) {
                 case 'info':
                     $info[] = new InfoException($details);
