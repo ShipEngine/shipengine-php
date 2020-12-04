@@ -7,7 +7,7 @@
 
 > ⚠ **WARNING**: This is alpha software under active development. `Caveat emptor` until a 0.1.0 release is ready.
 
-A PHP client built on the [ShipEngine API](https://shipengine.com) offering low-level access as well as convenience methods.
+A PHP library built on the [ShipEngine API](https://shipengine.com) offering low-level access as well as convenience methods.
 
 </hr>
 
@@ -31,6 +31,20 @@ $valid = $shipengine->validateAddress(['1 E 161 St'], 'The Bronx', 'NY', '10451'
 assert($valid);
 ```
 
+To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
+If you don't already have a [php-http](http://docs.php-http.org/en/latest/) compliant HTTP Client in your project, you'll need to [install one](http://docs.php-http.org/en/latest/httplug/users.html).
+ShipEngine will automatically discover it.
+But, you can also pass in a configured client manually.
+
+```php
+use ShipEngine\ShipEngine;
+use Symfony\Component\HttpClient\HttplugClient;
+
+$api_key = getenv('SHIPENGINE_API_KEY');
+$http = new HttplugClient();
+
+$shipengine = new ShipEngine(['api_key' => $api_key], $http);
+```
 ## Test
 
 You must have [hoverfly](https://hoverfly.io/) running in order to run tests:

@@ -4,7 +4,7 @@
   "description": "PHP library for the ShipEngine API.",
   "keywords": ["shipengine", "api", "shipping"],
   "homepage": "https://github.com/ShipEngine/shipengine-php",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "authors": [{
     "name": "shipengine/shipengine contributors",
     "homepage": "https://github.com/ShipEngine/shipengine-php/contributors"
