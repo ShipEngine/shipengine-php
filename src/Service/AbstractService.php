@@ -35,7 +35,8 @@ abstract class AbstractService
             $json[$new] = $json[$old];
             unset($json[$old]);
         }
-        return json_encode($json);
+        $arr = array($json);
+        return json_encode($arr);
     }
 
     /**
