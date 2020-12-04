@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Service;
 
+use Http\Client\Exception\HttpException;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
 
@@ -42,9 +43,17 @@ abstract class AbstractService
     /**
      * Create and send an HTTP request.
      */
-    protected function request(string $method, string $path, string $body = null): ResponseInterface
+    protected function request(string $method, string $path, string $body = null): array
     {
         $request = $this->message_factory->createRequest($method, $path, array(), $body);
-        return $this->client->sendRequest($request);
+
+        $response = $this->client->sendRequest($request);
+
+        $code = $response->getStatusCode();
+        if ($code != 200) {
+            throw new HttpException('ShipEngine API Exception', $request, $response);
+        }
+
+        return json_decode((string) $response->getBody(), true);
     }
 }

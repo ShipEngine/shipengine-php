@@ -140,9 +140,7 @@ final class AddressesService extends AbstractService
     public function query(AddressQuery $address_query): AddressQueryResult
     {
         $json = $this->jsonize($address_query, ['street', 'address_line1'], ['country', 'country_code']);
-        $response = $this->request('POST', '/addresses/validate', $json);
-        
-        $body = json_decode((string) $response->getBody(), true);
+        $body = $this->request('POST', '/addresses/validate', $json);
 
         $normalized = $this->parseNormalized($body);
         $exceptions = $this->parseExceptions($body);
