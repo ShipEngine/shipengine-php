@@ -1,4 +1,4 @@
-[![ShipEngine](https://github.com/ShipEngine/shipengine.github.io/raw/master/img/shipengine-logo-wide.png)](https://shipengine.com)
+[![ShipEngine](https://shipengine.github.io/img/shipengine-logo-wide.png)](https://shipengine.com)
 
 # ShipEngine PHP
 
