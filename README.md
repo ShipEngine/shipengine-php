@@ -7,7 +7,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/shipengine/shipengine/v/unstable)](//packagist.org/packages/shipengine/shipengine)
 [![License](https://poser.pugx.org/shipengine/shipengine/license)](//packagist.org/packages/shipengine/shipengine)
 
-> ⚠ **WARNING**: This is alpha software under active development. `Caveat emptor` until a 0.1.0 release is ready.
+> :warning: **WARNING**: This is alpha software under active development. `Caveat emptor` until a 0.1.0 release is ready.
 
 A PHP library built on the [ShipEngine API](https://shipengine.com) offering low-level access as well as convenience methods.
 
@@ -47,6 +47,9 @@ $http = new HttplugClient();
 
 $shipengine = new ShipEngine(['api_key' => $api_key], $http);
 ```
+
+> :neckbeard: You can find a more in-depth tutorial of the Addresses Service in our [docs](https://shipengine.github.io/shipengine-php/tutorials/addresses.html).
+
 ## Test
 
 You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
