@@ -1,0 +1,18 @@
+pre {
+    margin-bottom: 1em;
+}
+a {
+    color: #9b4dca !important;
+}
+p {
+    text-indent: 0 !important;
+}
+span.codeblock_name {
+    display: none;
+}
+p.seealso {
+    display: none;
+}
+div.section:last-of-type {
+    display: none;
+}

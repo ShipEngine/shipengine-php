@@ -326,21 +326,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-ShipEngineConfig.html#method___construct"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AvalidateBaseUri\u0028\u0029",
-            "name": "validateBaseUri",
-            "summary": "Validate\u0020base_uri.",
-            "url": "classes/ShipEngine-ShipEngineConfig.html#method_validateBaseUri"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AvalidatePageSize\u0028\u0029",
-            "name": "validatePageSize",
-            "summary": "Validate\u0020page_size.",
-            "url": "classes/ShipEngine-ShipEngineConfig.html#method_validatePageSize"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AvalidateRetries\u0028\u0029",
-            "name": "validateRetries",
-            "summary": "Validate\u0020retries.",
-            "url": "classes/ShipEngine-ShipEngineConfig.html#method_validateRetries"
-        },                {
             "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_BASE_URI",
             "name": "DEFAULT_BASE_URI",
             "summary": "",

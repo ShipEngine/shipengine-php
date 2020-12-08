@@ -1,0 +1,160 @@
+@code_type php .php
+@comment_type // @s
+@add_css css/normalize.css
+@add_css css/fonts.css
+@add_css css/milligram.css
+@add_css css/main.css
+
+@title Validate and Normalize Addresses
+
+In this tutorial we will learn how to validate and normalize addreses with the [ShipEngine](https://www.shipengine.com/) library.
+
+@s Require the ShipEngine library
+
+--- require
+%> composer require shipengine/shipengine
+---
+
+@s Initialize the ShipEngine library
+
+[ShipEngine](../api/classes/ShipEngine-ShipEngine.html) takes a configuration object; the only required key is your [api_key](https://www.shipengine.com/docs/auth/#api-keys).
+
+--- initialize
+<?php
+
+use ShipEngine\Model\AddressQuery;
+use ShipEngine\Model\AddressQueryResult;
+
+use ShipEngine\ShipEngine;
+
+$shipengine = new ShipEngine(['api_key' => 'MYAPIKEY']);
+---
+
+@s Validate an Address
+
+You might want to validate that an address is correct.
+The simplest way to accomplish this is by calling [validateAddress](../api/classes/ShipEngine-Model-AddressQuery.html) with the necessary information to build an [Address](../api/classes/ShipEngine-Model-Address.html).
+Note that Address.street is an array of strings.
+Street is the only required field, all others are optional.
+
+--- validate address args
+$valid = $shipengine->validateAddress(
+  ['1 E 161 St'],
+  'The Bronx',
+  'NY',
+  '10451',
+  'US'
+);
+---
+
+You can also call [validateAddress](../api/classes/ShipEngine-Service-AddressesTrait.html#method_validateAddress) with an instance of an [AddressQuery](../api/classes/ShipEngine-Model-AddressQuery.html).
+The main difference between an [AddressQuery](../api/classes/ShipEngine-Model-AddressQuery.html) and an [Address](../api/classes/ShipEngine-Model-Address.html) is that all fields on an Address are guaranteed to be present.
+
+Here, we leave off the `postal_code`, but the address is still validated.
+
+--- validate address instance
+$query = new AddressQuery(
+  ['1000 Elysion Park Ave'],
+  'Los Angeles',
+  'CA',
+  'US'
+);
+
+$valid = $shipengine->validateAddress($query);
+---
+
+Lastly, you can use the lower-level [Addresses](../api/classes/ShipEngine-Service-AddressesService.html) service.
+Lower-level services *only* take an [AddressQuery](../api/classes/ShipEngine-Model-AddressQuery.html) instance.
+
+--- validate address service
+$valid = $shipengine->addresses->validate($query);
+---
+
+@s Normalize an Address
+
+When you normalize an address, you are given an altered address.
+
+--- normalize address args
+$normalized = $shipengine->normalizeAddress(
+  ['1060 W Addison St'],
+  'Chicago',
+  'IL',
+  '60613',
+  'US'
+);
+
+echo $normalized->postal_code; // outputs: "60613-4566"
+---
+Note how the `$normalized->postal_code` is more granular than the one passed into service.
+
+Just like with validating an address, you can pass [normalizeAddress](../api/classes/ShipEngine-Service-AddressesTrait.html#method_normalizeAddress) an instance of [AddressQuery](../api/classes/ShipEngine-Model-AddressQuery.html).
+
+Normalizing an address_query will throw an exception if the address cannot be normalized.
+
+In fact, all shipengine methods throw exceptions.
+This is because the underlying HTTP requests may themselves cause exceptions.
+To be safe, you should wrap them so that exceptions can be caught.
+
+--- exception handling
+try {
+  $normalized = $shipengine->normalizeAddress(['501 Crawford St'], 'Houston', 'TX');
+} catch (Exception $e) {
+  echo get_class($e); // outputs: "ShipEngine\Exception\ErrorException"
+}
+---
+
+Finally, you can use the lower-level [Addresses](../api/classes/ShipEngine-Service-AddressesService.html) service for normalization.
+
+--- normalize address service
+$query = AddressQuery(
+  ['401 E Jefferson St'],
+  'Phoenix',
+  'AZ',
+  '85004',
+  'US'
+);
+
+$normalized = $shipengine->addresses->normalize($query);
+
+var_dump($normalized);
+---
+
+@s Query an Address
+
+Validating and normalizing an AddressQuery uses adddress querying under-the-hood.
+If you want full control over what you consider a valid address you can use the [AddressQueryResult](../api/classes/ShipEngine-Model-AddressQueryResult.html).
+
+--- query address
+$result = $shipengine->addresses->query($query);
+
+echo count($result->errors()); // outputs: 0
+var_dump($result->normalized);
+---
+
+@s Programs
+
+--- validate.php
+@{initialize}
+
+@{validate address args}
+
+@{validate address instance}
+
+@{validate address service}
+---
+
+--- normalize.php
+@{initialize}
+
+@{normalize address args}
+
+@{exception handling}
+
+@{normalize address service}
+---
+
+--- query.php
+@{initialize}
+
+@{query address}
+---
