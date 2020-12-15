@@ -13,25 +13,41 @@ env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   
 jobs:
-  run-tests:
+  test:
     runs-on: ubuntu-latest
     name: shipengine-php
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: true
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
-        tools: phpcs, phpstan, phpunit
-        extensions: xdebug
-    - uses: agilepathway/hoverfly-github-action@main
-      with:
-        runner_github_workspace_path: ${{ github.workspace }}
-    - run: hoverfly -webserver -response-body-files-path simengine > /dev/null &
-    - run: composer install
-    - run: phpcs --standard=PSR2 src
-    - run: phpstan analyse src --level 5
-    - run: phpunit --bootstrap vendor/autoload.php tests
-    - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: phpcs, phpstan, phpunit
+          extensions: xdebug
+      - uses: agilepathway/hoverfly-github-action@main
+        with:
+          runner_github_workspace_path: ${{ github.workspace }}
+      - run: hoverfly -webserver -response-body-files-path simengine > /dev/null &
+      - run: composer install
+      - run: phpcs --standard=PSR2 src
+      - run: phpstan analyse src --level 5
+      - run: phpunit --bootstrap vendor/autoload.php tests
+      - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      - run: composer install
+      - run: ./vendor/bin/phpdoc -d src/ -t docs/api
+      - uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs
