@@ -5,16 +5,16 @@ namespace ShipEngine\Service\Test;
 use PHPUnit\Framework\TestCase;
 
 use ShipEngine\Exception\ErrorException;
-use ShipEngine\Model\AddressQuery;
+use ShipEngine\Model\Address\Query;
 use ShipEngine\ShipEngine;
 
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
- * @covers \ShipEngine\Model\Address
- * @covers \ShipEngine\Model\AddressQuery
- * @covers \ShipEngine\Model\AddressQueryResult
+ * @covers \ShipEngine\Model\Address\Address
+ * @covers \ShipEngine\Model\Address\Query
+ * @covers \ShipEngine\Model\Address\QueryResult
  * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\Service\AddressesService
  * @covers \ShipEngine\Service\ServiceFactory
@@ -40,7 +40,7 @@ final class AddressesServiceTest extends TestCase
 
     public function testAddressQuery(): void
     {
-        $yankee_stadium = new AddressQuery(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+        $yankee_stadium = new Query(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
         $result = $this->shipengine->addresses->query($yankee_stadium);
         
         $this->assertEmpty($result->exceptions);
@@ -48,7 +48,7 @@ final class AddressesServiceTest extends TestCase
 
     public function testAddressQueryError(): void
     {
-        $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
+        $dodger_stadium = new Query(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
         $result = $this->shipengine->addresses->query($dodger_stadium);
         
         $this->assertNull($result->normalized);
@@ -57,7 +57,7 @@ final class AddressesServiceTest extends TestCase
     
     public function testAddressValidateValid(): void
     {
-        $yankee_stadium = new AddressQuery(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+        $yankee_stadium = new Query(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
         $valid = $this->shipengine->addresses->validate($yankee_stadium);
         
         $this->assertTrue($valid);
@@ -65,7 +65,7 @@ final class AddressesServiceTest extends TestCase
 
     public function testAddressValidateInvalid(): void
     {
-        $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
+        $dodger_stadium = new Query(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
         $valid = $this->shipengine->addresses->validate($dodger_stadium);
 
         $this->assertFalse($valid);
@@ -73,7 +73,7 @@ final class AddressesServiceTest extends TestCase
 
     public function testAddressNormalizeNormal(): void
     {
-        $yankee_stadium = new AddressQuery(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+        $yankee_stadium = new Query(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
         $normalized = $this->shipengine->addresses->normalize($yankee_stadium);
 
         $this->assertEquals($yankee_stadium->state_province, $normalized->state_province);
@@ -82,7 +82,7 @@ final class AddressesServiceTest extends TestCase
     public function testAddressNormalizeAbnormal(): void
     {
         $this->expectException(ErrorException::class);
-        $dodger_stadium = new AddressQuery(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
+        $dodger_stadium = new Query(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
         $normalized = $this->shipengine->addresses->normalize($dodger_stadium);
     }
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Model;
+namespace ShipEngine\Model\Address;
 
 use ShipEngine\Exception\ErrorException;
 use ShipEngine\Exception\InfoException;
@@ -8,22 +8,22 @@ use ShipEngine\Exception\WarningException;
 use ShipEngine\Util;
 
 /**
- * The result of an \ShipEngine\Service\AddressesService::query() on a \ShipEngine\Model\AddressQuery.
+ * The result of an \ShipEngine\Services\AddressesService::query() on a \ShipEngine\Model\Address\Query.
  *
- * @property \ShipEngine\Model\AddressQuery $original
- * @property ?\ShipEngine\Model\Address $normalized
+ * @property \ShipEngine\Model\Address\Query $query
+ * @property ?\ShipEngine\Model\Address\Address $normalized
  */
-final class AddressQueryResult
+final class QueryResult
 {
     use Util\Getters;
     
-    private AddressQuery $original;
+    private Query $query;
     private ?Address $normalized;
     private array $exceptions;
 
-    public function __construct(AddressQuery $original, ?Address $normalized = null, array $exceptions = array())
+    public function __construct(Query $query, ?Address $normalized = null, array $exceptions = array())
     {
-        $this->original = $original;
+        $this->query = $query;
         $this->normalized = $normalized;
         $this->exceptions = $exceptions;
     }
