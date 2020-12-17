@@ -4,12 +4,12 @@ namespace ShipEngine\Service\Test;
 
 use PHPUnit\Framework\TestCase;
 
-use ShipEngine\Exception\ErrorException;
+use ShipEngine\Message\Error;
 use ShipEngine\Model\Address\Query;
 use ShipEngine\ShipEngine;
 
 /**
- * @covers \ShipEngine\Exception\Wrapper
+ * @covers \ShipEngine\Message\Wrapper
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\Query
  * @covers \ShipEngine\Model\Address\QueryResult
@@ -82,7 +82,7 @@ final class AddressesServiceTest extends TestCase
 
     public function testAddressNormalizeAbnormal(): void
     {
-        $this->expectException(ErrorException::class);
+        $this->expectException(Error::class);
         $dodger_stadium = new Query(['1000 Elysion Ave'], 'Los Angeles', 'CA', '90012', 'US');
         $normalized = $this->shipengine->addresses->normalize($dodger_stadium);
     }

@@ -27,24 +27,21 @@ final class InformationTest extends TestCase
             Status::DELIVERED,
             "foo",
             "foo",
-            "foo",
-            []
+            "foo"
         );
         $events[] = new Event(
             new ISOString("2020-01-01T05:00:00Z"),
             Status::IN_TRANSIT,
             "foo",
             "foo",
-            "foo",
-            []
+            "foo"
         );
         $events[] = new Event(
             new ISOString("2020-01-01T00:00+05:00"),
             Status::ACCEPTED,
             "foo",
             "foo",
-            "foo",
-            []
+            "foo"
         );
 
         $this->information = new Information("abc", "123", new ISOString("2020-01-01T00:00:00Z"), $events);

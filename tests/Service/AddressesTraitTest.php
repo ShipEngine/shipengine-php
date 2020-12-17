@@ -4,14 +4,15 @@ namespace ShipEngine\Service\Test;
 
 use PHPUnit\Framework\TestCase;
 
-use ShipEngine\Exception\ErrorException;
+use ShipEngine\Message\Error;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\Query;
 use ShipEngine\Model\Address\QueryResult;
 use ShipEngine\ShipEngine;
 
 /**
- * @covers \ShipEngine\Exception\Wrapper
+ * @covers \ShipEngine\Message\Message
+ * @covers \ShipEngine\Message\Wrapper
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\Query
  * @covers \ShipEngine\Model\Address\QueryResult
@@ -86,7 +87,7 @@ final class AddressesTraitTest extends TestCase
         
         $this->assertEquals($yankee_stadium->state_province, $normalized->state_province);
         
-        $this->expectException(ErrorException::class);
+        $this->expectException(Error::class);
         
         $wrigley_field = new Query(['1060 W Addison St'], 'Chicago', 'IL', '60613');
         $normalized = $this->shipengine->normalizeAddress($wrigley_field);

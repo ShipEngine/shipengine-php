@@ -2,21 +2,21 @@
 
 namespace ShipEngine\Model\Tracking;
 
-use ShipEngine\Exception;
-use ShipEngine\Util;
-
-final class QueryResult extends Exception\Wrapper
+/**
+ *
+ */
+final class QueryResult
 {
-    use Util\Getters;
+    use \ShipEngine\Message\Wrapper;
+    use \ShipEngine\Util\Getters;
 
     private object $query;
     private Information $information;
 
-    public function __construct(object $query, Information $information, array $exceptions = array())
+    public function __construct(object $query, Information $information, array $messages = array())
     {
         $this->query = $query;
         $this->information = $information;
-
-        parent::_construct($exceptions);
+        $this->messages = $messages;
     }
 }
