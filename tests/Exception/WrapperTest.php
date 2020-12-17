@@ -12,11 +12,12 @@ use ShipEngine\Model\Address\Query;
 use ShipEngine\Model\Address\QueryResult;
 
 /**
+ * @covers \ShipEngine\Exception\Wrapper
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\Query
  * @covers \ShipEngine\Model\Address\QueryResult
  */
-final class QueryResultTest extends TestCase
+final class WrapperTest extends TestCase
 {
     public function testExceptionsAreEmpty(): void
     {
@@ -25,7 +26,9 @@ final class QueryResultTest extends TestCase
 
         $result = new QueryResult($yankee_stadium, $dodger_stadium);
 
-        $this->assertEmpty($result->exceptions);
+        $this->assertEmpty($result->errors());
+        $this->assertEmpty($result->info());
+        $this->assertEmpty($result->warnings());
     }
 
     public function testGetInfo(): void

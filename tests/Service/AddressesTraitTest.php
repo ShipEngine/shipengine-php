@@ -11,9 +11,7 @@ use ShipEngine\Model\Address\QueryResult;
 use ShipEngine\ShipEngine;
 
 /**
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\ShipEngineConfig
+ * @covers \ShipEngine\Exception\Wrapper
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\Query
  * @covers \ShipEngine\Model\Address\QueryResult
@@ -21,6 +19,9 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\Service\AddressesService
  * @covers \ShipEngine\Service\AddressesTrait
  * @covers \ShipEngine\Service\ServiceFactory
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\ShipEngineConfig
  */
 final class AddressesTraitTest extends TestCase
 {
@@ -45,7 +46,7 @@ final class AddressesTraitTest extends TestCase
     {
         $result = $this->shipengine->queryAddress(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
 
-        $this->assertEmpty($result->exceptions);
+        $this->assertEmpty($result->errors());
     }
     
     public function testQueryAddressQuery(): void
@@ -53,7 +54,7 @@ final class AddressesTraitTest extends TestCase
         $yankee_stadium = new Query(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
         $result = $this->shipengine->queryAddress($yankee_stadium);
 
-        $this->assertEmpty($result->exceptions);
+        $this->assertEmpty($result->errors());
     }
 
     public function testValidateAddressArgs(): void

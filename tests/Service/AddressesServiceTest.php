@@ -9,15 +9,16 @@ use ShipEngine\Model\Address\Query;
 use ShipEngine\ShipEngine;
 
 /**
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\ShipEngineConfig
+ * @covers \ShipEngine\Exception\Wrapper
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\Query
  * @covers \ShipEngine\Model\Address\QueryResult
  * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\Service\AddressesService
  * @covers \ShipEngine\Service\ServiceFactory
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\ShipEngineConfig
  */
 final class AddressesServiceTest extends TestCase
 {
@@ -43,7 +44,7 @@ final class AddressesServiceTest extends TestCase
         $yankee_stadium = new Query(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
         $result = $this->shipengine->addresses->query($yankee_stadium);
         
-        $this->assertEmpty($result->exceptions);
+        $this->assertEmpty($result->errors());
     }
 
     public function testAddressQueryError(): void
