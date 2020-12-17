@@ -45,7 +45,7 @@ final class ShipEngineClient
             'retries' => $config->retries,
             'error_response_decider' => function (RequestInterface $request, ResponseInterface $response): bool {
                 $status = $response->getStatusCode();
-                return $status === 429 || $status >= 500;
+                return $status === 429;
             }
         ]);
 
