@@ -4,34 +4,191 @@ namespace ShipEngine\Service;
 
 use Rakit\Validation\Validator;
 
+use ShipEngine\Message\Error;
+use ShipEngine\Message\Info;
+use ShipEngine\Model\Tracking\Event;
+use ShipEngine\Model\Tracking\Information;
+use ShipEngine\Model\Tracking\Location;
 use ShipEngine\Model\Tracking\Query;
 use ShipEngine\Model\Tracking\QueryResult;
+
+use function ShipEngine\Util\Arr\sub_array;
 
 /**
  *
  */
 final class TrackingService extends AbstractService
 {
-
-    private function parseResponse($obj): QueryResult
+    /**
+     *
+     */
+    private function parseLocation($event): ?Location
     {
+        $location = sub_array($event, 'city_locality', 'state_province', 'postal_code', 'country_code');
+        $values = array_values($location);
+        
+        if (empty(array_filter($values))) {
+            return null;
+        }
+
+        return new Location(...$values);
     }
     
+    /**
+     *
+     */
+    private function parseEvent(array $event): ?Event
+    {
+        $validator = new Validator();
+        
+        $guard = array(
+            'occurred_at' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+            'carrier_status_code' => 'required',
+            'carrier_detail_code' => 'required',
+            // MESSAGES
+            'carrier_status_description' => 'default:|present',
+            'exception_description' => 'default:|present',
+            // LOCATION
+            'city_locality' => 'default:|present',
+            'state_province' => 'default:|present',
+            'postal_code' => 'default:|present',
+            'country_code' => 'default:|present',
+            //
+            'signer' => 'present'
+        );
+
+        $validation = $validator->validate($event, $guard);
+
+        if ($validation->fails()) {
+            return null;
+        }
+
+        $validated = $validation->getValidData();
+
+        $messages = array();
+        if ($validated['carrier_status_description'] != '') {
+            $messages[] = new Info($validated['carrier_status_description']);
+        }
+        if ($validated['exception_description'] != '') {
+            $messages[] = new Exception($validated['exception_description']);
+        }
+
+        $location = $this->parseLocation($validated);
+
+        return new Event(
+            $validated['occurred_at'],
+            $validated['status'],
+            $validated['description'],
+            $validated['carrier_status_code'],
+            $validated['carrier_detail_code'],
+            $messages,
+            $location,
+            $validated['signer']
+        );
+    }
+
+    /**
+     *
+     */
+    private function parseInformation(array $body): ?Information
+    {
+        $validator = new Validator();
+
+        $guard = array(
+            'tracking_number' => 'required',
+            'estimated_delivery_date' => 'required',
+            'events' => 'required|array'
+        );
+
+        $validation = $validator->validate($body, $guard);
+
+        if ($validation->fails()) {
+            return null;
+        }
+
+        $validated = $validation->getValidData();
+
+        $events = array_map(function ($event) {
+            return $this->parseEvent($event);
+        }, $validated['events']);
+        
+        return new Information(
+            $validated['tracking_number'],
+            $validated['estimated_delivery_date'],
+            array_filter($events)
+        );
+    }
+
+    /**
+     *
+     */
+    private function extractMessages(array $events): array
+    {
+        return array();
+    }
+
+    /**
+     *
+     */
     private function queryLabel(string $label_id): QueryResult
     {
         $body = $this->request('GET', '/labels' . $label_id . '/track');
 
-        return $this->parseResponse($body);
+        $code = $response->getStatusCode();
+        if ($code != 200 && $code != 404) {
+            throw new HttpException('HTTP EXCEPTION', $request, $response);
+        }
+        
+        $messages = array();
+        if ($code == 404) {
+            $messages[] = new Error('Label ' . $label_id . ' not found.');
+            return new QueryResult($label_id, null, $messages);
+        }
+        
+        $body = json_decode((string) $response->getBody(), true);
+        
+        $information = $this->parseInformation($body);
+        if (is_null($information)) {
+            $messages[] = new Error('Could not parse tracking information.');
+            return new QueryResult($label_id, null, $messages);
+        }
+        
+        $messages = array_merge($messages, $this->extractMessages($information->events));
+
+        return new QueryResult($label_id, $information, $messages);
     }
 
+    /**
+     *
+     */
     private function queryTrackingQuery(Query $query): QueryResult
     {
         $url = '/tracking?carrier_code=' . $query->carrier_code . '&tracking_number=' . $query->tracking_number;
-        $body = $this->request('GET', $url);
+        $response = $this->request('GET', $url);
 
-        return $this->parseResponse($body);
+        $code = $response->getStatusCode();
+        if ($code != 200) {
+            throw new HttpException('HTTP EXCEPTION', $request, $response);
+        }
+
+        $body = json_decode((string) $response->getBody(), true);
+
+        $information = $this->parseInformation($body);
+        if (is_null($information)) {
+            $messages[] = new Error('Could not parse tracking information.');
+            return new QueryResult($query, null, $messages);
+        }
+        
+        $messages = array_merge($messages, $this->extractMessages($information->events));
+
+        return new QueryResult($query, $information, $messages);
     }
-    
+
+    /**
+     *
+     */
     public function query(object $query): QueryResult
     {
         if (is_string($query)) {

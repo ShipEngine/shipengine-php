@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Model\Tracking\Query;
+namespace ShipEngine\Model\Tracking;
 
 use ShipEngine\Util;
 

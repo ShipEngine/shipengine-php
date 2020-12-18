@@ -9,11 +9,6 @@ trait Wrapper
 {
     private array $messages;
 
-    public function __construct(array $messages)
-    {
-        $this->messages = $messages;
-    }
-    
     /**
      * Get all \ShipEngine\Message\Message | \ShipEngine\Message\Error by type.
      */

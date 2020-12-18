@@ -16,18 +16,15 @@ final class Information
 {
     use Util\Getters;
     
-    private string $carrier_code;
     private string $tracking_number;
     private Util\ISOString $estimated_delivery;
     private array $events;
 
     public function __construct(
-        string $carrier_code,
         string $tracking_number,
         Util\ISOString $estimated_delivery,
         array $events
     ) {
-        $this->carrier_code = $carrier_code;
         $this->tracking_number = $tracking_number;
         $this->estimated_delivery = $estimated_delivery;
         usort($events, function (Event $a, Event $b) {

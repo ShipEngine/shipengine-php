@@ -12,7 +12,8 @@ class ServiceFactory
     private ShipEngineClient $client;
     
     private $classes = [
-        'addresses' => AddressesService::class
+        'addresses' => AddressesService::class,
+        'tracking' => TrackingService::class
     ];
     
     private $services = array();
