@@ -1,7 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util\Arr {
-    function sub_array(array $old, ...$keys): array
+namespace ShipEngine\Util;
+
+/**
+ * Collects helper functions for Array presenting them as static methods.
+ */
+class Arr
+{
+    /**
+     * Create a new associate array that only includes the given $keys.
+     */
+    public static function subArray(array $old, ...$keys): array
     {
         $new = array();
         foreach ($keys as $key) {

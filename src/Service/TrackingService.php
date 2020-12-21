@@ -11,8 +11,8 @@ use ShipEngine\Model\Tracking\Information;
 use ShipEngine\Model\Tracking\Location;
 use ShipEngine\Model\Tracking\Query;
 use ShipEngine\Model\Tracking\QueryResult;
-
-use function ShipEngine\Util\Arr\sub_array;
+use ShipEngine\Util\ISOString;
+use ShipEngine\Util\Arr;
 
 /**
  *
@@ -24,7 +24,7 @@ final class TrackingService extends AbstractService
      */
     private function parseLocation($event): ?Location
     {
-        $location = sub_array($event, 'city_locality', 'state_province', 'postal_code', 'country_code');
+        $location = Arr::subArray($event, 'city_locality', 'state_province', 'postal_code', 'country_code');
         $values = array_values($location);
         
         if (empty(array_filter($values))) {
@@ -43,8 +43,8 @@ final class TrackingService extends AbstractService
         
         $guard = array(
             'occurred_at' => 'required',
-            'status' => 'required',
-            'description' => 'required',
+            'status_code' => 'required',
+            'status_description' => 'required',
             'carrier_status_code' => 'required',
             'carrier_detail_code' => 'required',
             // MESSAGES
@@ -78,9 +78,9 @@ final class TrackingService extends AbstractService
         $location = $this->parseLocation($validated);
 
         return new Event(
-            $validated['occurred_at'],
-            $validated['status'],
-            $validated['description'],
+            new ISOString($validated['occurred_at']),
+            $validated['status_code'],
+            $validated['status_description'],
             $validated['carrier_status_code'],
             $validated['carrier_detail_code'],
             $messages,
@@ -109,14 +109,14 @@ final class TrackingService extends AbstractService
         }
 
         $validated = $validation->getValidData();
-
+        
         $events = array_map(function ($event) {
             return $this->parseEvent($event);
         }, $validated['events']);
-        
+
         return new Information(
             $validated['tracking_number'],
-            $validated['estimated_delivery_date'],
+            new ISOString($validated['estimated_delivery_date']),
             array_filter($events)
         );
     }
@@ -175,6 +175,8 @@ final class TrackingService extends AbstractService
 
         $body = json_decode((string) $response->getBody(), true);
 
+        $messages = array();
+        
         $information = $this->parseInformation($body);
         if (is_null($information)) {
             $messages[] = new Error('Could not parse tracking information.');

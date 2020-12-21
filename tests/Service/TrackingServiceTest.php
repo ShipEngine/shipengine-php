@@ -8,6 +8,24 @@ use ShipEngine\Model\Tracking\Query;
 use ShipEngine\Model\Tracking\QueryResult;
 use ShipEngine\ShipEngine;
 
+/**
+ * @covers \ShipEngine\Message\Message
+ * @covers \ShipEngine\Message\Wrapper
+ * @covers \ShipEngine\Model\Tracking\Event
+ * @covers \ShipEngine\Model\Tracking\Information
+ * @covers \ShipEngine\Model\Tracking\Location
+ * @covers \ShipEngine\Model\Tracking\Query
+ * @covers \ShipEngine\Model\Tracking\QueryResult
+ * @covers \ShipEngine\Service\AbstractService
+ * @covers \ShipEngine\Service\ServiceFactory
+ * @covers \ShipEngine\Service\TrackingService
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\ShipEngineConfig
+ * @covers \ShipEngine\Util\Getters
+ * @covers \ShipEngine\Util\Arr::subArray
+ * @covers \ShipEngine\Util\ISOString
+ */
 final class TrackingServiceTest extends TestCase
 {
     private ShipEngine $shipengine;
@@ -29,11 +47,9 @@ final class TrackingServiceTest extends TestCase
 
     public function testTrackingQuery(): void
     {
-        $query = new Query('usps', 'foobar');
+        $query = new Query('fedex', 'foobar');
         $result = $this->shipengine->tracking->query($query);
 
-        var_dump($result->errors());
-        
         $this->assertEmpty($result->errors());
     }
 }
