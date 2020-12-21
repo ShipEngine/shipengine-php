@@ -47,9 +47,29 @@ final class TrackingServiceTest extends TestCase
 
     public function testTrackingQuery(): void
     {
-        $query = new Query('fedex', 'foobar');
+        // v1/tracking?carrier_code=query&tracking_number=foobar
+        $query = new Query('query', 'foobar');
         $result = $this->shipengine->tracking->query($query);
 
         $this->assertEmpty($result->errors());
+        $this->assertCount(3, $result->information->events);
+    }
+    
+    public function testLabel(): void
+    {
+        // v1/labels/label/track
+        $result = $this->shipengine->tracking->query("label");
+
+        $this->assertEmpty($result->errors());
+        $this->assertNotEmpty($result->information);
+    }
+    
+    public function testLabelError(): void
+    {
+        // v1/labels/error/track
+        $result = $this->shipengine->tracking->query("error");
+
+        $this->assertNotEmpty($result->errors());
+        $this->assertEquals('HTTP ERROR: 404', $result->errors()[0]->getMessage());
     }
 }

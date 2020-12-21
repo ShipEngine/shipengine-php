@@ -20,8 +20,9 @@ final class ArrTest extends TestCase
         );
 
         $new = Arr::subArray($old, 'one', 'two');
+        
         $this->assertArrayHasKey('one', $new);
         $this->assertArrayHasKey('two', $new);
-        $this->assertNull($new['three']);
+        $this->assertArrayNotHasKey('three', $new);
     }
 }

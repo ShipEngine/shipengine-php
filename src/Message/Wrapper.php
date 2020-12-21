@@ -17,7 +17,7 @@ trait Wrapper
         $messages = array();
         foreach ($this->messages as $message) {
             if (get_class($message) === $class) {
-                $messages[] = $messages;
+                $messages[] = $message;
             }
         }
         return $messages;

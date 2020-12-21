@@ -10,10 +10,10 @@ final class QueryResult
     use \ShipEngine\Message\Wrapper;
     use \ShipEngine\Util\Getters;
 
-    private object $query;
+    private $query;
     private ?Information $information;
 
-    public function __construct(object $query, ?Information $information, array $messages = array())
+    public function __construct($query, ?Information $information, array $messages = array())
     {
         $this->query = $query;
         $this->information = $information;

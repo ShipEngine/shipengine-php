@@ -20,4 +20,26 @@ class Arr
         }
         return $new;
     }
+
+    /**
+     * Flatten a multi-dimensional array into a single dimension.
+     */
+    public static function flatten($arry = null): array
+    {
+        $result = array();
+
+        if (!is_array($array)) {
+            $array = func_get_args();
+        }
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result = array_merge($result, array_flatten($value));
+            } else {
+                $result = array_merge($result, array($key => $value));
+            }
+        }
+
+        return $result;
+    }
 }

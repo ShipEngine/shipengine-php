@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Service;
 
+use Psr\Http\Message\ResponseInterface;
 use Rakit\Validation\Validator;
 
 use ShipEngine\Message\Error;
@@ -126,79 +127,50 @@ final class TrackingService extends AbstractService
      */
     private function extractMessages(array $events): array
     {
-        return array();
-    }
-
-    /**
-     *
-     */
-    private function queryLabel(string $label_id): QueryResult
-    {
-        $body = $this->request('GET', '/labels' . $label_id . '/track');
-
-        $code = $response->getStatusCode();
-        if ($code != 200 && $code != 404) {
-            throw new HttpException('HTTP EXCEPTION', $request, $response);
-        }
-        
         $messages = array();
-        if ($code == 404) {
-            $messages[] = new Error('Label ' . $label_id . ' not found.');
-            return new QueryResult($label_id, null, $messages);
+        
+        foreach ($events as $event) {
+            array_merge($messages, $event->messages);
         }
-        
-        $body = json_decode((string) $response->getBody(), true);
-        
-        $information = $this->parseInformation($body);
-        if (is_null($information)) {
-            $messages[] = new Error('Could not parse tracking information.');
-            return new QueryResult($label_id, null, $messages);
-        }
-        
-        $messages = array_merge($messages, $this->extractMessages($information->events));
 
-        return new QueryResult($label_id, $information, $messages);
+        return $messages;
     }
 
     /**
      *
      */
-    private function queryTrackingQuery(Query $query): QueryResult
+    public function query($query): QueryResult
     {
-        $url = '/tracking?carrier_code=' . $query->carrier_code . '&tracking_number=' . $query->tracking_number;
-        $response = $this->request('GET', $url);
+        if (is_string($query)) {
+            $response = $this->request('GET', '/labels/' . $query . '/track');
+        } elseif (get_class($query) == Query::class) {
+            $url = '/tracking?carrier_code=' . $query->carrier_code . '&tracking_number=' . $query->tracking_number;
+            $response = $this->request('GET', $url);
+        } else {
+            throw new InvalidArgumentException('Query must be a `Query` or string representing a `shipment_id`.');
+        }
 
+        $messages = array();
+        
         $code = $response->getStatusCode();
         if ($code != 200) {
-            throw new HttpException('HTTP EXCEPTION', $request, $response);
+            $messages[] = new Error('HTTP ERROR: ' . $code);
         }
 
         $body = json_decode((string) $response->getBody(), true);
 
-        $messages = array();
+        if (!$body) {
+            return new QueryResult($query, null, $messages);
+        }
         
         $information = $this->parseInformation($body);
         if (is_null($information)) {
             $messages[] = new Error('Could not parse tracking information.');
             return new QueryResult($query, null, $messages);
         }
-        
+
         $messages = array_merge($messages, $this->extractMessages($information->events));
 
         return new QueryResult($query, $information, $messages);
-    }
-
-    /**
-     *
-     */
-    public function query(object $query): QueryResult
-    {
-        if (is_string($query)) {
-            return $this->queryLabel($query);
-        } elseif (get_class($query) == Query::class) {
-            return $this->queryTrackingQuery($query);
-        }
-
-        throw new InvalidArgumentException('query must be a Tracking\Query or string representing a label_id');
     }
 }
