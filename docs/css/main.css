@@ -6,6 +6,7 @@ a {
 }
 p {
     text-indent: 0 !important;
+    margin-bottom: 1rem !important;
 }
 span.codeblock_name {
     display: none;

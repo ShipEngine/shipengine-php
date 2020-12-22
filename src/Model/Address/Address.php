@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Model;
+namespace ShipEngine\Model\Address;
 
 use ShipEngine\Util;
 

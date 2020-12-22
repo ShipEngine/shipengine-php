@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Model\Test;
+namespace ShipEngine\Model\Address\Test;
 
 use PHPUnit\Framework\TestCase;
 
-use ShipEngine\Model\Address;
+use ShipEngine\Model\Address\Address;
 
 /**
- * @covers \ShipEngine\Model\Address
+ * @covers \ShipEngine\Model\Address\Address
  */
 final class AddressTest extends TestCase
 {

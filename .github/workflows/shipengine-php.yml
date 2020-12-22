@@ -33,7 +33,7 @@ jobs:
       - run: composer install
       - run: phpcs --standard=PSR2 src
       - run: phpstan analyse src --level 5
-      - run: phpunit --bootstrap vendor/autoload.php tests
+      - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
   deploy:
     runs-on: ubuntu-latest

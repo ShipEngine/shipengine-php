@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Model;
+namespace ShipEngine\Model\Address;
 
 use ShipEngine\Util;
 
 /**
- * A query representing a possible \ShipEngine\Model\Address.
+ * A query representing a possible \ShipEngine\Model\Address\Address.
  *
  * @property array $city_locality
  * @property ?string $city_locality
@@ -13,7 +13,7 @@ use ShipEngine\Util;
  * @property ?string $postal_code
  * @property ?string $country
  */
-final class AddressQuery implements \JsonSerializable
+final class Query implements \JsonSerializable
 {
     use Util\Getters;
     

@@ -4,13 +4,13 @@ namespace ShipEngine\Service;
 
 use Rakit\Validation\Validator;
 
-use ShipEngine\Exception\ErrorException;
-use ShipEngine\Exception\InfoException;
-use ShipEngine\Exception\ShipEngineException;
-use ShipEngine\Exception\WarningException;
-use ShipEngine\Model\Address;
-use ShipEngine\Model\AddressQuery;
-use ShipEngine\Model\AddressQueryResult;
+use ShipEngine\Message\Error;
+use ShipEngine\Message\Info;
+use ShipEngine\Message\Warning;
+use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\Query;
+use ShipEngine\Model\Address\QueryResult;
+use ShipEngine\Util\Json;
 
 /**
  * Service to query, normalize, and validate addresses.
@@ -19,12 +19,12 @@ final class AddressesService extends AbstractService
 {
 
     /**
-     * Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address.
+     * Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address\Address.
      */
     private function parseNormalized($obj): ?Address
     {
         // Check that we get a matched address before trying to validate it.
-        if (empty($obj)) {
+        if (empty($obj) || is_null($obj[0])) {
             return null;
         }
         if (!array_key_exists('matched_address', $obj[0])) {
@@ -83,9 +83,9 @@ final class AddressesService extends AbstractService
     }
 
     /**
-     * Parse the `messages` of the address query result into \ShipEngine\Exception\ShipEngineException types.
+     * Parse the `messages` of the address query result into \ShipEngine\Message\Message types.
      */
-    private function parseExceptions($obj): array
+    private function parseMessages($obj): array
     {
         // Check that we have messages before validating and casting them.
         if (empty($obj)) {
@@ -120,13 +120,13 @@ final class AddressesService extends AbstractService
 
             switch ($message['type']) {
                 case 'info':
-                    $info[] = new InfoException($details);
+                    $info[] = new Info($details);
                     break;
                 case 'warning':
-                    $warnings[] = new WarningException($details);
+                    $warnings[] = new Warning($details);
                     break;
                 case 'error':
-                    $errors[] = new ErrorException($details);
+                    $errors[] = new Error($details);
                     break;
             }
         }
@@ -135,25 +135,34 @@ final class AddressesService extends AbstractService
     }
 
     /**
-     * Query an \ShipEngine\Model\AddressQuery to receive the full \ShipEngine\Model\AddressQueryResult.
+     * Query an \ShipEngine\Model\Address\Query to receive the full \ShipEngine\Model\Address\QueryResult.
      */
-    public function query(AddressQuery $address_query): AddressQueryResult
+    public function query(Query $query): QueryResult
     {
-        $json = $this->jsonize($address_query, ['street', 'address_line1'], ['country', 'country_code']);
-        $body = $this->request('POST', '/addresses/validate', $json);
+        $json = Json::encodeArray(array($query), ['street', 'address_line1'], ['country', 'country_code']);
+        $response = $this->request('POST', '/addresses/validate', $json);
+
+        $messages = array();
+        
+        $code = $response->getStatusCode();
+        if ($code != 200) {
+            $messages[] = new Error('HTTP ERROR: ', $code);
+        }
+
+        $body = json_decode((string) $response->getBody(), true);
 
         $normalized = $this->parseNormalized($body);
-        $exceptions = $this->parseExceptions($body);
+        $messages = array_merge($messages, $this->parseMessages($body));
 
-        return new AddressQueryResult($address_query, $normalized, $exceptions);
+        return new QueryResult($query, $normalized, $messages);
     }
 
     /**
-     * Validate that an \ShipEngine\Model\AddressQuery matches a known \ShipEngine\Model\Address.
+     * Validate that an \ShipEngine\Model\Address\Query matches a known \ShipEngine\Model\Address\Address.
      */
-    public function validate(AddressQuery $address_query): bool
+    public function validate(Query $query): bool
     {
-        $result = $this->query($address_query);
+        $result = $this->query($query);
         if (!is_null($result->normalized) && empty($result->errors())) {
             return true;
         }
@@ -162,17 +171,17 @@ final class AddressesService extends AbstractService
     }
     
     /**
-     * Normalize an \ShipEngine\Model\AddressQuery into a known \ShipEngine\Model\Address.
+     * Normalize an \ShipEngine\Model\Address\Query into a known \ShipEngine\Model\Address\Address.
      *
-     * @throws \ShipEngine\Exception\ErrorException if the AddressQuery cannot be normalized.
+     * @throws \ShipEngine\Message\Error if the Query cannot be normalized.
      */
-    public function normalize(AddressQuery $address_query): ?Address
+    public function normalize(Query $query): ?Address
     {
-        $result = $this->query($address_query);
+        $result = $this->query($query);
         if (!is_null($result->normalized) && empty($result->errors())) {
             return $result->normalized;
         }
 
-        throw new ErrorException("no matching address found for address query");
+        throw new Error("no matching address found for address query");
     }
 }

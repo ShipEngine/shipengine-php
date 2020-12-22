@@ -53,7 +53,7 @@
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/shipengine-exception.html"><abbr title="\ShipEngine\Exception">Exception</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
                                             <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
@@ -88,13 +88,13 @@
     
             <span class="phpdocumentor-element__extends">
             Uses
-                            <a href="classes/ShipEngine-Service-AddressesTrait.html"><abbr title="\ShipEngine\Service\AddressesTrait">AddressesTrait</abbr></a>                    </span>
+                            <a href="classes/ShipEngine-Service-AddressesTrait.html"><abbr title="\ShipEngine\Service\AddressesTrait">AddressesTrait</abbr></a>,                             <a href="classes/ShipEngine-Service-TrackingTrait.html"><abbr title="\ShipEngine\Service\TrackingTrait">TrackingTrait</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 </aside>
 
             <p class="phpdocumentor-summary">ShipEngine client.</p>
@@ -128,6 +128,13 @@
 </dt>
 <dd></dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-ShipEngine.html#property_tracking">$tracking</a>
+    <span>
+                &nbsp;: <a href="classes/ShipEngine-Service-TrackingService.html"><abbr title="\ShipEngine\Service\TrackingService">TrackingService</abbr></a>            </span>
+</dt>
+<dd></dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/ShipEngine-ShipEngine.html#property_service_factory">$service_factory</a>
     <span>
@@ -152,14 +159,21 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Service-AddressesTrait.html#method_normalizeAddress">normalizeAddress()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>    </span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Service-AddressesTrait.html#method_queryAddress">queryAddress()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a>    </span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a>    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/ShipEngine-Service-TrackingTrait.html#method_trackShipment">trackShipment()</a>
+    <span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Tracking-Information.html"><abbr title="\ShipEngine\Model\Tracking\Information">Information</abbr></a>    </span>
 </dt>
 <dd></dd>
 
@@ -196,7 +210,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 </aside>
 
     
@@ -255,6 +269,37 @@
         class="
             phpdocumentor-element
             -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_tracking">
+        $tracking
+        <a href="classes/ShipEngine-ShipEngine.html#property_tracking" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Service-TrackingService.html"><abbr title="\ShipEngine\Service\TrackingService">TrackingService</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$tracking</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
             -private
                                                         "
 >
@@ -267,7 +312,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 </aside>
 
     
@@ -301,7 +346,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 </aside>
 
     
@@ -350,7 +395,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 </aside>
 
     
@@ -392,13 +437,13 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AddressesTrait.php"><a href="files/src-service-addressestrait.html"><abbr title="src/Service/AddressesTrait.php">AddressesTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">normalizeAddress</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">normalizeAddress</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -421,7 +466,7 @@
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -440,13 +485,13 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AddressesTrait.php"><a href="files/src-service-addressestrait.html"><abbr title="src/Service/AddressesTrait.php">AddressesTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">queryAddress</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">queryAddress</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -469,7 +514,55 @@
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_trackShipment">
+        trackShipment()
+        <a href="classes/ShipEngine-Service-TrackingTrait.html#method_trackShipment" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/TrackingTrait.php"><a href="files/src-service-trackingtrait.html"><abbr title="src/Service/TrackingTrait.php">TrackingTrait.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+</aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">trackShipment</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Tracking-Information.html"><abbr title="\ShipEngine\Model\Tracking\Information">Information</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">see</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><p>\ShipEngine\Service\TrackingService::track().</p>
+</section>
+
+                                    </dd>
+                        </dl>
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Tracking-Information.html"><abbr title="\ShipEngine\Model\Tracking\Information">Information</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -488,7 +581,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AddressesTrait.php"><a href="files/src-service-addressestrait.html"><abbr title="src/Service/AddressesTrait.php">AddressesTrait.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 </aside>
 
     
@@ -536,7 +629,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 </aside>
 
         <p class="phpdocumentor-summary">Derive a User-Agent header from the environment.</p>

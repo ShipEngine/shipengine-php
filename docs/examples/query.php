@@ -2,8 +2,7 @@
 // @s
 <?php
 
-use ShipEngine\Model\AddressQuery;
-use ShipEngine\Model\AddressQueryResult;
+use ShipEngine\Model\Address;
 
 use ShipEngine\ShipEngine;
 
