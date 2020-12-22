@@ -2,8 +2,8 @@
 // @s
 <?php
 
-use ShipEngine\Model\AddressQuery;
-use ShipEngine\Model\AddressQueryResult;
+use ShipEngine\Model\Address\Query;
+use ShipEngine\Model\Address\QueryResult;
 
 use ShipEngine\ShipEngine;
 
@@ -19,7 +19,7 @@ $normalized = $shipengine->normalizeAddress(
   'US'
 );
 
-echo $normalized.postal_code // outputs: "60613-4566"
+echo $normalized->postal_code; // outputs: "60613-4566"
 
 
 // @s

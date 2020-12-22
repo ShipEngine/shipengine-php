@@ -1053,6 +1053,7 @@ a {
 }
 p {
     text-indent: 0 !important;
+    margin-bottom: 1rem !important;
 }
 span.codeblock_name {
     display: none;
@@ -1068,10 +1069,18 @@ div.section:last-of-type {
 <body onload="prettyPrint()">
 <section>
 <h1>Validate and Normalize Addresses</h1>
-<a name="1:1"><div class="section"><h4>1. Require the ShipEngine library</h4></a>
+<a name="1:1"><div class="section"><h4>1. Introduction</h4></a>
+<p><a href="https://www.shipengine.com">ShipEngine</a> allows you to validate an address before using it to create a shipment to ensure accurate delivery of your packages.
+</p>
+<p>Address validation ensures accurate addresses and can lead to reduced shipping costs by preventing address correction surcharges.
+ShipEngine cross references multiple databases to validate addresses and identify potential deliverability issues.
+</p>
+
+</div>
+<a name="1:2"><div class="section"><h4>2. Require the ShipEngine library</h4></a>
 
 <div class="codeblock">
-<span class="codeblock_name">{require <a href="addresses.html#1:1">1</a>}</span>
+<span class="codeblock_name">{require <a href="addresses.html#1:2">2</a>}</span>
 <pre class="prettyprint lang-php">
 %&gt; composer require shipengine/shipengine
 </pre>
@@ -1080,17 +1089,17 @@ div.section:last-of-type {
 
 </div>
 </div>
-<a name="1:2"><div class="section"><h4>2. Initialize the ShipEngine library</h4></a>
+<a name="1:3"><div class="section"><h4>3. Initialize the ShipEngine library</h4></a>
 <p><a href="../api/classes/ShipEngine-ShipEngine.html">ShipEngine</a> takes a configuration object; the only required key is your <a href="https://www.shipengine.com/docs/auth/#api-keys">api_key</a>.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{initialize <a href="addresses.html#1:2">2</a>}</span>
+<span class="codeblock_name">{initialize <a href="addresses.html#1:3">3</a>}</span>
 <pre class="prettyprint lang-php">
 &lt;?php
 
-use ShipEngine\Model\AddressQuery;
-use ShipEngine\Model\AddressQueryResult;
+use ShipEngine\Model\Address\Query;
+use ShipEngine\Model\Address\QueryResult;
 
 use ShipEngine\ShipEngine;
 
@@ -1098,18 +1107,17 @@ $shipengine = new ShipEngine(['api_key' =&gt; 'MYAPIKEY']);
 </pre>
 
 
-<p class="seealso">Used in sections <a href="addresses.html#1:6">6</a>, <a href="addresses.html#1:6">6</a> and <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in sections <a href="addresses.html#1:7">7</a>, <a href="addresses.html#1:7">7</a> and <a href="addresses.html#1:7">7</a></p>
 </div>
 </div>
-<a name="1:3"><div class="section"><h4>3. Validate an Address</h4></a>
+<a name="1:4"><div class="section"><h4>4. Validate an Address</h4></a>
 <p>You might want to validate that an address is correct.
-The simplest way to accomplish this is by calling <a href="../api/classes/ShipEngine-Model-AddressQuery.html">validateAddress</a> with the necessary information to build an <a href="../api/classes/ShipEngine-Model-Address.html">Address</a>.
-Note that Address.street is an array of strings.
-Street is the only required field, all others are optional.
+The simplest way to accomplish this is by calling <a href="../api/classes/ShipEngine-Service-AddressesTrait.html#method_validateAddress">validateAddress</a> with the necessary information to build an <a href="../api/classes/ShipEngine-Model-Address-Address.html">Address</a>.
+Note that <a href="../api/classes/ShipEngine-Model-Address-Address.html#property_street">street</a> is an array of strings; it is the only required field, all others are optional.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{validate address args <a href="addresses.html#1:3">3</a>}</span>
+<span class="codeblock_name">{validate address args <a href="addresses.html#1:4">4</a>}</span>
 <pre class="prettyprint lang-php">
 $valid = $shipengine-&gt;validateAddress(
   ['1 E 161 St'],
@@ -1121,16 +1129,16 @@ $valid = $shipengine-&gt;validateAddress(
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
-<p>You can also call <a href="../api/classes/ShipEngine-Service-AddressesTrait.html#method_validateAddress">validateAddress</a> with an instance of an <a href="../api/classes/ShipEngine-Model-AddressQuery.html">AddressQuery</a>.
-The main difference between an <a href="../api/classes/ShipEngine-Model-AddressQuery.html">AddressQuery</a> and an <a href="../api/classes/ShipEngine-Model-Address.html">Address</a> is that all fields on an Address are guaranteed to be present.
+<p>You can also call <a href="../api/classes/ShipEngine-Service-AddressesTrait.html#method_validateAddress">validateAddress</a> with an instance of an <a href="../api/classes/ShipEngine-Model-Address-Query.html">Query</a>.
+The main difference between a <a href="../api/classes/ShipEngine-Model-Address-Query.html">Query</a> and an <a href="../api/classes/ShipEngine-Model-Address-Address.html">Address</a> is that all fields on an Address are guaranteed to be present.
 </p>
 <p>Here, we leave off the <code>postal_code</code>, but the address is still validated.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{validate address instance <a href="addresses.html#1:3">3</a>}</span>
+<span class="codeblock_name">{validate address instance <a href="addresses.html#1:4">4</a>}</span>
 <pre class="prettyprint lang-php">
 $query = new AddressQuery(
   ['1000 Elysion Park Ave'],
@@ -1143,28 +1151,32 @@ $valid = $shipengine-&gt;validateAddress($query);
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
 <p>Lastly, you can use the lower-level <a href="../api/classes/ShipEngine-Service-AddressesService.html">Addresses</a> service.
-Lower-level services <em>only</em> take an <a href="../api/classes/ShipEngine-Model-AddressQuery.html">AddressQuery</a> instance.
+Lower-level services <em>only</em> take an <a href="../api/classes/ShipEngine-Model-Address-Query.html">Query</a> instance.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{validate address service <a href="addresses.html#1:3">3</a>}</span>
+<span class="codeblock_name">{validate address service <a href="addresses.html#1:4">4</a>}</span>
 <pre class="prettyprint lang-php">
 $valid = $shipengine-&gt;addresses-&gt;validate($query);
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
 </div>
-<a name="1:4"><div class="section"><h4>4. Normalize an Address</h4></a>
-<p>When you normalize an address, you are given an altered address.
+<a name="1:5"><div class="section"><h4>5. Normalize an Address</h4></a>
+<p>When you normalize an address, ShipEngine validates the address and returns a modified address that is formatted to fit the USPS conventions since this convention is preferred by most carriers.
+</p>
+<p>For example, when you normalize an address that spells out Street or Boulevard, ShipEngine will return an address with the abbreviation St or Blvd.
+With normalization, you may be able to get the full valid address even if you are missing certain pieces of information.
+If the address cannot be found with the information provided, an <a href="../api/classes/ShipEngine-Message-Error.html">Error</a> will be thrown. Otherwise, this method will return the corrected address.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{normalize address args <a href="addresses.html#1:4">4</a>}</span>
+<span class="codeblock_name">{normalize address args <a href="addresses.html#1:5">5</a>}</span>
 <pre class="prettyprint lang-php">
 $normalized = $shipengine-&gt;normalizeAddress(
   ['1060 W Addison St'],
@@ -1178,11 +1190,11 @@ echo $normalized-&gt;postal_code; // outputs: "60613-4566"
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
-<p>Note how the <code>$normalized-&gt;postal_code</code> is more granular than the one passed into service.
+<p>Note how the <code>$normalized-&gt;postal_code</code> is more granular than the one passed into the service.
 </p>
-<p>Just like with validating an address, you can pass <a href="../api/classes/ShipEngine-Service-AddressesTrait.html#method_normalizeAddress">normalizeAddress</a> an instance of <a href="../api/classes/ShipEngine-Model-AddressQuery.html">AddressQuery</a>.
+<p>Just like with validating an address, you can pass <a href="../api/classes/ShipEngine-Service-AddressesTrait.html#method_normalizeAddress">normalizeAddress</a> an instance of <a href="../api/classes/ShipEngine-Model-Address-Query.html">Query</a>.
 </p>
 <p>Normalizing an address_query will throw an exception if the address cannot be normalized.
 </p>
@@ -1192,23 +1204,23 @@ To be safe, you should wrap them so that exceptions can be caught.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{exception handling <a href="addresses.html#1:4">4</a>}</span>
+<span class="codeblock_name">{exception handling <a href="addresses.html#1:5">5</a>}</span>
 <pre class="prettyprint lang-php">
 try {
   $normalized = $shipengine-&gt;normalizeAddress(['501 Crawford St'], 'Houston', 'TX');
 } catch (Exception $e) {
-  echo get_class($e); // outputs: "ShipEngine\Exception\ErrorException"
+  echo get_class($e); // outputs: "ShipEngine\Message\Error"
 }
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
 <p>Finally, you can use the lower-level <a href="../api/classes/ShipEngine-Service-AddressesService.html">Addresses</a> service for normalization.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{normalize address service <a href="addresses.html#1:4">4</a>}</span>
+<span class="codeblock_name">{normalize address service <a href="addresses.html#1:5">5</a>}</span>
 <pre class="prettyprint lang-php">
 $query = AddressQuery(
   ['401 E Jefferson St'],
@@ -1224,16 +1236,16 @@ var_dump($normalized);
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
 </div>
-<a name="1:5"><div class="section"><h4>5. Query an Address</h4></a>
+<a name="1:6"><div class="section"><h4>6. Query an Address</h4></a>
 <p>Validating and normalizing an AddressQuery uses adddress querying under-the-hood.
-If you want full control over what you consider a valid address you can use the <a href="../api/classes/ShipEngine-Model-AddressQueryResult.html">AddressQueryResult</a>.
+If you want full control over what you consider a valid address you can use the <a href="../api/classes/ShipEngine-Model-Address-QueryResult.html">QueryResult</a>.
 </p>
 
 <div class="codeblock">
-<span class="codeblock_name">{query address <a href="addresses.html#1:5">5</a>}</span>
+<span class="codeblock_name">{query address <a href="addresses.html#1:6">6</a>}</span>
 <pre class="prettyprint lang-php">
 $result = $shipengine-&gt;addresses-&gt;query($query);
 
@@ -1242,21 +1254,21 @@ var_dump($result-&gt;normalized);
 </pre>
 
 
-<p class="seealso">Used in section <a href="addresses.html#1:6">6</a></p>
+<p class="seealso">Used in section <a href="addresses.html#1:7">7</a></p>
 </div>
 </div>
-<a name="1:6"><div class="section"><h4>6. Programs</h4></a>
+<a name="1:7"><div class="section"><h4>7. Programs</h4></a>
 
 <div class="codeblock">
-<span class="codeblock_name">{<strong>validate.php</strong> <a href="addresses.html#1:6">6</a>}</span>
+<span class="codeblock_name">{<strong>validate.php</strong> <a href="addresses.html#1:7">7</a>}</span>
 <pre class="prettyprint lang-php">
-<span class="nocode pln">{initialize, <a href="addresses.html#1:2">2</a>}</span>
+<span class="nocode pln">{initialize, <a href="addresses.html#1:3">3</a>}</span>
 
-<span class="nocode pln">{validate address args, <a href="addresses.html#1:3">3</a>}</span>
+<span class="nocode pln">{validate address args, <a href="addresses.html#1:4">4</a>}</span>
 
-<span class="nocode pln">{validate address instance, <a href="addresses.html#1:3">3</a>}</span>
+<span class="nocode pln">{validate address instance, <a href="addresses.html#1:4">4</a>}</span>
 
-<span class="nocode pln">{validate address service, <a href="addresses.html#1:3">3</a>}</span>
+<span class="nocode pln">{validate address service, <a href="addresses.html#1:4">4</a>}</span>
 </pre>
 
 
@@ -1264,15 +1276,15 @@ var_dump($result-&gt;normalized);
 </div>
 
 <div class="codeblock">
-<span class="codeblock_name">{<strong>normalize.php</strong> <a href="addresses.html#1:6">6</a>}</span>
+<span class="codeblock_name">{<strong>normalize.php</strong> <a href="addresses.html#1:7">7</a>}</span>
 <pre class="prettyprint lang-php">
-<span class="nocode pln">{initialize, <a href="addresses.html#1:2">2</a>}</span>
+<span class="nocode pln">{initialize, <a href="addresses.html#1:3">3</a>}</span>
 
-<span class="nocode pln">{normalize address args, <a href="addresses.html#1:4">4</a>}</span>
+<span class="nocode pln">{normalize address args, <a href="addresses.html#1:5">5</a>}</span>
 
-<span class="nocode pln">{exception handling, <a href="addresses.html#1:4">4</a>}</span>
+<span class="nocode pln">{exception handling, <a href="addresses.html#1:5">5</a>}</span>
 
-<span class="nocode pln">{normalize address service, <a href="addresses.html#1:4">4</a>}</span>
+<span class="nocode pln">{normalize address service, <a href="addresses.html#1:5">5</a>}</span>
 </pre>
 
 
@@ -1280,11 +1292,11 @@ var_dump($result-&gt;normalized);
 </div>
 
 <div class="codeblock">
-<span class="codeblock_name">{<strong>query.php</strong> <a href="addresses.html#1:6">6</a>}</span>
+<span class="codeblock_name">{<strong>query.php</strong> <a href="addresses.html#1:7">7</a>}</span>
 <pre class="prettyprint lang-php">
-<span class="nocode pln">{initialize, <a href="addresses.html#1:2">2</a>}</span>
+<span class="nocode pln">{initialize, <a href="addresses.html#1:3">3</a>}</span>
 
-<span class="nocode pln">{query address, <a href="addresses.html#1:5">5</a>}</span>
+<span class="nocode pln">{query address, <a href="addresses.html#1:6">6</a>}</span>
 </pre>
 
 

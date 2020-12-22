@@ -1,0 +1,99 @@
+@code_type php .php
+@comment_type // @s
+@add_css css/normalize.css
+@add_css css/fonts.css
+@add_css css/milligram.css
+@add_css css/main.css
+
+@title Track a Shipment
+
+In this tutorial we will learn multiple ways to track a shipment using the [ShipEngine](https://www.shipengine.com/) library.
+
+NOTE: You will need shipment information to track.
+
+@s Require the ShipEngine library
+
+--- require
+%> composer require shipengine/shipengine
+---
+
+@s Initialize the ShipEngine library
+
+[ShipEngine](../api/classes/ShipEngine-ShipEngine.html) takes a configuration object; the only required key is your [api_key](https://www.shipengine.com/docs/auth/#api-keys).
+
+--- initialize
+<?php
+
+use ShipEngine\Model\Tracking\Query;
+
+use ShipEngine\ShipEngine;
+
+$shipengine = new ShipEngine(['api_key' => 'MYAPIKEY']);
+---
+
+@s Track a shipment
+
+There are three ways to track a shipment.
+The simplest method is to provide a [carrier_code](../api/classes/ShipEngine-Model-Tracking-Query.html#property_carrier_code) and [tracking_number](../api/classes/ShipEngine-Model-Tracking-Query.html#property_tracking_number).
+
+--- one
+$information = $shipengine->trackShipment("usps", "ABC123");
+
+echo $information->estimated_delivery;
+---
+
+You can also construct a [Query](../api/classes/ShipEngine-Model-Tracking-Query.html).
+
+--- two
+$query = new Query("usps", "ABC123");
+
+$information = $shipengine->trackShipment($query);
+
+echo $information->estimated_delivery;
+---
+
+If you have a label, you can also track a shipment by `package_id`.
+
+--- three
+$information = $shipengine->trackShipment("se-ABC123");
+
+echo $information->estimated_delivery;
+---
+
+NOTE: All ShipEngine convenience methods throw exceptions; wrap them in a try/catch.
+
+--- try/catch
+try {
+  $information = $shipengine->trackShipment("se-IDONTEXIST");
+} catch (Exception $e) {
+  echo get_class($e); // outputs: "ShipEngine\Message\Error"
+}
+---
+
+As always, you have access to the lower-level [Tracking](../api/classes/ShipEngine-Service-TrackingService.html) service.
+The lower-level methods allow you to review exceptions in case you have more elaborate handling rules.
+
+--- four
+$result = $shipengine->tracking->query("se-ABC123");
+
+echo $result->information->estimated_delivery;
+foreach ($result->errors() as $error) {
+  echo $error->getMessage();
+}
+---
+
+@s Programs
+
+--- trackShipment.php
+@{initialize}
+
+@{one}
+
+@{two}
+
+@{three}
+
+@{try/catch}
+
+@{four}
+---

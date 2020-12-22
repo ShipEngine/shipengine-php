@@ -53,7 +53,7 @@
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/shipengine-exception.html"><abbr title="\ShipEngine\Exception">Exception</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
                                             <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
@@ -139,51 +139,44 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Service-AddressesService.html#method_normalize">normalize()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>|null    </span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null    </span>
 </dt>
-<dd>Normalize an \ShipEngine\Model\AddressQuery into a known \ShipEngine\Model\Address.</dd>
+<dd>Normalize an \ShipEngine\Model\Address\Query into a known \ShipEngine\Model\Address\Address.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Service-AddressesService.html#method_query">query()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a>    </span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a>    </span>
 </dt>
-<dd>Query an \ShipEngine\Model\AddressQuery to receive the full \ShipEngine\Model\AddressQueryResult.</dd>
+<dd>Query an \ShipEngine\Model\Address\Query to receive the full \ShipEngine\Model\Address\QueryResult.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Service-AddressesService.html#method_validate">validate()</a>
     <span>
                         &nbsp;: bool    </span>
 </dt>
-<dd>Validate that an \ShipEngine\Model\AddressQuery matches a known \ShipEngine\Model\Address.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/ShipEngine-Service-AbstractService.html#method_jsonize">jsonize()</a>
-    <span>
-                        &nbsp;: string    </span>
-</dt>
-<dd>Turn any \JsonSerializable object into a JSON string...swapping the names of $keys.</dd>
+<dd>Validate that an \ShipEngine\Model\Address\Query matches a known \ShipEngine\Model\Address\Address.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/ShipEngine-Service-AbstractService.html#method_request">request()</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                        &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
 <dd>Create and send an HTTP request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/ShipEngine-Service-AddressesService.html#method_parseExceptions">parseExceptions()</a>
+    <a href="classes/ShipEngine-Service-AddressesService.html#method_parseMessages">parseMessages()</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Parse the `messages` of the address query result into \ShipEngine\Exception\ShipEngineException types.</dd>
+<dd>Parse the `messages` of the address query result into \ShipEngine\Message\Message types.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/ShipEngine-Service-AddressesService.html#method_parseNormalized">parseNormalized()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>|null    </span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null    </span>
 </dt>
-<dd>Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address.</dd>
+<dd>Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address\Address.</dd>
 
         </dl>
 
@@ -319,22 +312,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AddressesService.php"><a href="files/src-service-addressesservice.html"><abbr title="src/Service/AddressesService.php">AddressesService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">169</span>
+    <span class="phpdocumentor-element-found-in__line">178</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Normalize an \ShipEngine\Model\AddressQuery into a known \ShipEngine\Model\Address.</p>
+        <p class="phpdocumentor-summary">Normalize an \ShipEngine\Model\Address\Query into a known \ShipEngine\Model\Address\Address.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">normalize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$address_query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>|null</span></code>
+                <span class="phpdocumentor-signature__name">normalize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$address_query</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$query</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -351,16 +344,16 @@
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/ShipEngine-Exception-ErrorException.html"><abbr title="\ShipEngine\Exception\ErrorException">ErrorException</abbr></a></span>
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/ShipEngine-Message-Error.html"><abbr title="\ShipEngine\Message\Error">Error</abbr></a></span>
                                                             
-                                                 <section class="phpdocumentor-description"><p>if the AddressQuery cannot be normalized.</p>
+                                                 <section class="phpdocumentor-description"><p>if the Query cannot be normalized.</p>
 </section>
 
                                     </dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -382,19 +375,19 @@
     <span class="phpdocumentor-element-found-in__line">140</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Query an \ShipEngine\Model\AddressQuery to receive the full \ShipEngine\Model\AddressQueryResult.</p>
+        <p class="phpdocumentor-summary">Query an \ShipEngine\Model\Address\Query to receive the full \ShipEngine\Model\Address\QueryResult.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">query</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$address_query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">query</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$address_query</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$query</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -404,7 +397,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -423,22 +416,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AddressesService.php"><a href="files/src-service-addressesservice.html"><abbr title="src/Service/AddressesService.php">AddressesService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">154</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Validate that an \ShipEngine\Model\AddressQuery matches a known \ShipEngine\Model\Address.</p>
+        <p class="phpdocumentor-summary">Validate that an \ShipEngine\Model\Address\Query matches a known \ShipEngine\Model\Address\Address.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">validate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$address_query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                <span class="phpdocumentor-signature__name">validate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$address_query</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$query</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -460,57 +453,6 @@
             -protected
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_jsonize">
-        jsonize()
-        <a href="classes/ShipEngine-Service-AbstractService.html#method_jsonize" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">30</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Turn any \JsonSerializable object into a JSON string...swapping the names of $keys.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__name">jsonize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\JsonSerializable">JsonSerializable</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$obj</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__variadic-operator">...</span><span class="phpdocumentor-signature__argument__name">$keys</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$obj</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\JsonSerializable">JsonSerializable</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$keys</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -protected
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_request">
         request()
         <a href="classes/ShipEngine-Service-AbstractService.html#method_request" class="headerlink"><i class="fas fa-link"></i></a>
@@ -518,14 +460,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create and send an HTTP request.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__name">request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$body</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                <span class="phpdocumentor-signature__name">request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$body</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -557,7 +499,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -569,9 +511,9 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_parseExceptions">
-        parseExceptions()
-        <a href="classes/ShipEngine-Service-AddressesService.html#method_parseExceptions" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_parseMessages">
+        parseMessages()
+        <a href="classes/ShipEngine-Service-AddressesService.html#method_parseMessages" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AddressesService.php"><a href="files/src-service-addressesservice.html"><abbr title="src/Service/AddressesService.php">AddressesService.php</abbr></a></abbr>
@@ -579,11 +521,11 @@
     <span class="phpdocumentor-element-found-in__line">88</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Parse the `messages` of the address query result into \ShipEngine\Exception\ShipEngineException types.</p>
+        <p class="phpdocumentor-summary">Parse the `messages` of the address query result into \ShipEngine\Message\Message types.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">parseExceptions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$obj</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                <span class="phpdocumentor-signature__name">parseMessages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$obj</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -623,11 +565,11 @@
     <span class="phpdocumentor-element-found-in__line">24</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address.</p>
+        <p class="phpdocumentor-summary">Parse the `matched_address` of the address query result into a normalized \ShipEngine\Model\Address\Address.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">parseNormalized</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$obj</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>|null</span></code>
+                <span class="phpdocumentor-signature__name">parseNormalized</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$obj</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -645,7 +587,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

@@ -16,12 +16,12 @@ use ShipEngine\Util\ISOString;
 use ShipEngine\Util\Arr;
 
 /**
- *
+ * Tracking service.
  */
 final class TrackingService extends AbstractService
 {
     /**
-     *
+     * Parse JSON into an \ShipEngine\Model\Tracking\Location.
      */
     private function parseLocation($event): ?Location
     {
@@ -36,7 +36,7 @@ final class TrackingService extends AbstractService
     }
     
     /**
-     *
+     * Parse JSON into an \ShipEngine\Model\Tracking\Event.
      */
     private function parseEvent(array $event): ?Event
     {
@@ -91,7 +91,7 @@ final class TrackingService extends AbstractService
     }
 
     /**
-     *
+     * Parse JSON into \ShipEngine\Model\Tracking\Information.
      */
     private function parseInformation(array $body): ?Information
     {
@@ -123,7 +123,7 @@ final class TrackingService extends AbstractService
     }
 
     /**
-     *
+     * Extract messages from underlying \ShipEngine\Model\Tracking\Event.
      */
     private function extractMessages(array $events): array
     {
@@ -137,7 +137,7 @@ final class TrackingService extends AbstractService
     }
 
     /**
-     *
+     * Query an \ShipEngine\Model\Tracking\Query to receive the full \ShipEngine\Model\Tracking\QueryResult.
      */
     public function query($query): QueryResult
     {

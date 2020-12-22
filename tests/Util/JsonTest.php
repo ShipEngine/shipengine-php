@@ -12,7 +12,7 @@ use ShipEngine\Util\Tests\Foo;
  * @covers \ShipEngine\Util\JSON::encodeArray
  * @covers \ShipEngine\Util\JSON::jsonize
  */
-final class JSONTest extends TestCase
+final class JsonTest extends TestCase
 {
     public function testEncode(): void
     {

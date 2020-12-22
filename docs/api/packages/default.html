@@ -53,7 +53,7 @@
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
-                                            <li><a href="namespaces/shipengine-exception.html"><abbr title="\ShipEngine\Exception">Exception</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
                                             <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
@@ -90,20 +90,6 @@
 
 <dl class="phpdocumentor-table-of-contents">
     
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Exception-ErrorException.html"><abbr title="\ShipEngine\Exception\ErrorException">ErrorException</abbr></a></dt>
-        <dd>An error Exception.</dd>
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Exception-InfoException.html"><abbr title="\ShipEngine\Exception\InfoException">InfoException</abbr></a></dt>
-        <dd>An information Exception.</dd>
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Exception-ShipEngineException.html"><abbr title="\ShipEngine\Exception\ShipEngineException">ShipEngineException</abbr></a></dt>
-        <dd>An Exception originating from the \ShipEngine namespace.</dd>
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Exception-WarningException.html"><abbr title="\ShipEngine\Exception\WarningException">WarningException</abbr></a></dt>
-        <dd>A warning Exception.</dd>
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Address.html"><abbr title="\ShipEngine\Model\Address">Address</abbr></a></dt>
-        <dd>A mailing address.</dd>
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-AddressQuery.html"><abbr title="\ShipEngine\Model\AddressQuery">AddressQuery</abbr></a></dt>
-        <dd>A query representing a possible \ShipEngine\Model\Address.</dd>
-            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-AddressQueryResult.html"><abbr title="\ShipEngine\Model\AddressQueryResult">AddressQueryResult</abbr></a></dt>
-        <dd>The result of an \ShipEngine\Service\AddressesService::query() on a \ShipEngine\Model\AddressQuery.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Service-AbstractService.html"><abbr title="\ShipEngine\Service\AbstractService">AbstractService</abbr></a></dt>
         <dd>Serialize and send HTTP requests.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Service-AddressesService.html"><abbr title="\ShipEngine\Service\AddressesService">AddressesService</abbr></a></dt>
@@ -116,11 +102,49 @@
         <dd>A wrapped HTTP client.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></dt>
         <dd>Configuration.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Message-Error.html"><abbr title="\ShipEngine\Message\Error">Error</abbr></a></dt>
+        <dd>Error-level message.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Message-Info.html"><abbr title="\ShipEngine\Message\Info">Info</abbr></a></dt>
+        <dd>Info-level message.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Message-Message.html"><abbr title="\ShipEngine\Message\Message">Message</abbr></a></dt>
+        <dd>Generic message.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Message-Warning.html"><abbr title="\ShipEngine\Message\Warning">Warning</abbr></a></dt>
+        <dd>Warning-level message.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a></dt>
+        <dd>A mailing address.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Address-Query.html"><abbr title="\ShipEngine\Model\Address\Query">Query</abbr></a></dt>
+        <dd>A query representing a possible \ShipEngine\Model\Address\Address.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Address-QueryResult.html"><abbr title="\ShipEngine\Model\Address\QueryResult">QueryResult</abbr></a></dt>
+        <dd>The result of an \ShipEngine\Service\AddressesService::query() on a \ShipEngine\Model\Address\Query.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Tracking-Event.html"><abbr title="\ShipEngine\Model\Tracking\Event">Event</abbr></a></dt>
+        <dd>An event or status change that occurred while processing a `Shipment`.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Tracking-Information.html"><abbr title="\ShipEngine\Model\Tracking\Information">Information</abbr></a></dt>
+        <dd>Tracking information about a `Shipment`.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Tracking-Location.html"><abbr title="\ShipEngine\Model\Tracking\Location">Location</abbr></a></dt>
+        <dd>A location.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Tracking-Query.html"><abbr title="\ShipEngine\Model\Tracking\Query">Query</abbr></a></dt>
+        <dd>A query to track a `Shipment`.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Tracking-QueryResult.html"><abbr title="\ShipEngine\Model\Tracking\QueryResult">QueryResult</abbr></a></dt>
+        <dd>The result of a \ShipEngine\Service\TrackingService::query() on a \ShipEngine\Model\Tracking\Query.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Model-Tracking-Status.html"><abbr title="\ShipEngine\Model\Tracking\Status">Status</abbr></a></dt>
+        <dd>Shipment status.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Service-TrackingService.html"><abbr title="\ShipEngine\Service\TrackingService">TrackingService</abbr></a></dt>
+        <dd>Tracking service.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Util-Arr.html"><abbr title="\ShipEngine\Util\Arr">Arr</abbr></a></dt>
+        <dd>Collects helper functions for Array presenting them as static methods.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Util-ISOString.html"><abbr title="\ShipEngine\Util\ISOString">ISOString</abbr></a></dt>
+        <dd></dd>
+            <dt class="phpdocumentor-table-of-contents__entry -class"><a href="classes/ShipEngine-Util-Json.html"><abbr title="\ShipEngine\Util\Json">Json</abbr></a></dt>
+        <dd></dd>
     
             <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/ShipEngine-Service-AddressesTrait.html"><abbr title="\ShipEngine\Service\AddressesTrait">AddressesTrait</abbr></a></dt>
         <dd>Provides convenience methods onto \ShipEngine\Service\AddressesService.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/ShipEngine-Util-Getters.html"><abbr title="\ShipEngine\Util\Getters">Getters</abbr></a></dt>
         <dd>Expose getters for private properties.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/ShipEngine-Message-Wrapper.html"><abbr title="\ShipEngine\Message\Wrapper">Wrapper</abbr></a></dt>
+        <dd>Wraps any class that wants to track an array of \ShipEngine\Message\Message or \ShipEngine\Message\Error.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -trait"><a href="classes/ShipEngine-Service-TrackingTrait.html"><abbr title="\ShipEngine\Service\TrackingTrait">TrackingTrait</abbr></a></dt>
+        <dd>Provides convenience methods onto \ShipEngine\Service\TrackingService.</dd>
     </dl>
 
 
