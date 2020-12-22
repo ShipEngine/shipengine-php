@@ -11,7 +11,6 @@ use ShipEngine\Model\Address\QueryResult;
  */
 trait AddressesTrait
 {
-
     /**
      * @see \ShipEngine\Service\AddressesService::query().
      */

@@ -55,6 +55,15 @@ final class TrackingServiceTest extends TestCase
         $this->assertEmpty($result->errors());
         $this->assertCount(3, $result->information->events);
     }
+
+    public function testTrackingQueryError(): void
+    {
+        $query = new Query('foobar', 'foobar');
+        $result = $this->shipengine->tracking->query($query);
+
+        $this->assertNull($result->information);
+        $this->assertNotEmpty($result->errors());
+    }
     
     public function testLabel(): void
     {

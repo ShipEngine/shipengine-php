@@ -23,6 +23,8 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
+ * @covers \ShipEngine\Util\JSON::encodeArray
+ * @covers \ShipEngine\Util\JSON::jsonize
  */
 final class AddressesTraitTest extends TestCase
 {

@@ -66,4 +66,14 @@ final class InformationTest extends TestCase
     {
         $this->assertEquals("2020-01-02T00:00:00Z", (string) $this->information->deliveredAt());
     }
+
+    public function testNullValues(): void
+    {
+        $events = array();
+        $information = new Information("123", new ISOString("2020-01-01T00:00:00Z"), $events);
+
+        $this->assertNull($information->latestEvent());
+        $this->assertNull($information->shippedAt());
+        $this->assertNull($information->deliveredAt());
+    }
 }

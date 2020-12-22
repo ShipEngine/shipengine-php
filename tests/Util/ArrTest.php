@@ -7,10 +7,25 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\Util\Arr;
 
 /**
+ * @covers \ShipEngine\Util\Arr::flatten
  * @covers \ShipEngine\Util\Arr::subArray
  */
 final class ArrTest extends TestCase
 {
+    public function testFlatten(): void
+    {
+        $old = array(
+            array(1),
+            array(2),
+            array(3)
+        );
+
+        $new = Arr::flatten($old);
+
+        $this->assertCount(3, $new);
+        $this->assertContainsOnly('int', $new);
+    }
+    
     public function testSubArray(): void
     {
         $old = array(

@@ -173,4 +173,23 @@ final class TrackingService extends AbstractService
 
         return new QueryResult($query, $information, $messages);
     }
+
+    /**
+     * Get \ShipEngine\Model\Tracking\Information.
+     *
+     * @throws \ShipEngine\Message\Error if no tracking information can be found.
+     */
+    public function track($query): Information
+    {
+        $result = $this->query($query);
+        if (empty($result->errors())) {
+            return $result->information;
+        }
+
+        $errors = array();
+        foreach ($result->errors() as $error) {
+            $errors[] = $error->getMessage();
+        }
+        throw new Error(implode(' ', $errors));
+    }
 }

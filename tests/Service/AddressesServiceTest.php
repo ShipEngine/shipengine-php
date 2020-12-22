@@ -19,6 +19,8 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
+ * @covers \ShipEngine\Util\Json::encodeArray
+ * @covers \ShipEngine\Util\Json::jsonize
  */
 final class AddressesServiceTest extends TestCase
 {

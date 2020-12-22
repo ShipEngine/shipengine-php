@@ -4,14 +4,7 @@ namespace ShipEngine\Util\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use ShipEngine\Util\Getters;
-
-final class Foo
-{
-    use Getters;
-
-    private string $bar = 'baz';
-}
+use ShipEngine\Util\Tests\Foo;
 
 /**
  * @covers \ShipEngine\Util\Getters

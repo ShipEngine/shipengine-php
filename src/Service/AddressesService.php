@@ -10,6 +10,7 @@ use ShipEngine\Message\Warning;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\Query;
 use ShipEngine\Model\Address\QueryResult;
+use ShipEngine\Util\Json;
 
 /**
  * Service to query, normalize, and validate addresses.
@@ -138,7 +139,7 @@ final class AddressesService extends AbstractService
      */
     public function query(Query $query): QueryResult
     {
-        $json = $this->encodeArray(array($query), ['street', 'address_line1'], ['country', 'country_code']);
+        $json = Json::encodeArray(array($query), ['street', 'address_line1'], ['country', 'country_code']);
         $response = $this->request('POST', '/addresses/validate', $json);
 
         $messages = array();

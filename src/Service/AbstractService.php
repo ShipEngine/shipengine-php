@@ -23,42 +23,6 @@ abstract class AbstractService
         $this->client = $client;
         $this->message_factory = MessageFactoryDiscovery::find();
     }
-
-    /**
-     *
-     */
-    private function jsonize(\JsonSerializable $obj, array $keys)
-    {
-        $json = $obj->jsonSerialize();
-        foreach ($keys as $key) {
-            $old = $key[0];
-            $new = $key[1];
-            $json[$new] = $json[$old];
-            unset($json[$old]);
-        }
-        return $json;
-    }
-    
-    /**
-     *
-     */
-    protected function encode(\JsonSerializable $obj, array ...$keys): string
-    {
-        $json = $this->jsonize($obj, $keys);
-        return json_encode($json);
-    }
-
-    /**
-     *
-     */
-    protected function encodeArray(array $objs, array ...$keys): string
-    {
-        $new = array();
-        foreach ($objs as $obj) {
-            $new[] = $this->jsonize($obj, $keys);
-        }
-        return json_encode($new);
-    }
     
     /**
      * Create and send an HTTP request.

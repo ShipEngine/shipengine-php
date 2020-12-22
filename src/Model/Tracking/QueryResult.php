@@ -3,7 +3,10 @@
 namespace ShipEngine\Model\Tracking;
 
 /**
+ * The result of a \ShipEngine\Service\TrackingService::query() on a \ShipEngine\Model\Tracking\Query.
  *
+ * @property mixed $query
+ * @property \ShipEngine\Model\Tracking\Information $information
  */
 final class QueryResult
 {
