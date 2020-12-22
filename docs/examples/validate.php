@@ -2,8 +2,7 @@
 // @s
 <?php
 
-use ShipEngine\Model\Address\Query;
-use ShipEngine\Model\Address\QueryResult;
+use ShipEngine\Model\Address;
 
 use ShipEngine\ShipEngine;
 
@@ -21,7 +20,7 @@ $valid = $shipengine->validateAddress(
 
 
 // @s
-$query = new AddressQuery(
+$query = new Address\Query(
   ['1000 Elysion Park Ave'],
   'Los Angeles',
   'CA',

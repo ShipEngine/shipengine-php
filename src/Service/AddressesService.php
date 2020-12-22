@@ -24,7 +24,7 @@ final class AddressesService extends AbstractService
     private function parseNormalized($obj): ?Address
     {
         // Check that we get a matched address before trying to validate it.
-        if (empty($obj)) {
+        if (empty($obj) || is_null($obj[0])) {
             return null;
         }
         if (!array_key_exists('matched_address', $obj[0])) {

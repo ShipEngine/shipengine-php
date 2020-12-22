@@ -26,8 +26,7 @@ ShipEngine cross references multiple databases to validate addresses and identif
 --- initialize
 <?php
 
-use ShipEngine\Model\Address\Query;
-use ShipEngine\Model\Address\QueryResult;
+use ShipEngine\Model\Address;
 
 use ShipEngine\ShipEngine;
 
@@ -56,7 +55,7 @@ The main difference between a [Query](../api/classes/ShipEngine-Model-Address-Qu
 Here, we leave off the `postal_code`, but the address is still validated.
 
 --- validate address instance
-$query = new AddressQuery(
+$query = new Address\Query(
   ['1000 Elysion Park Ave'],
   'Los Angeles',
   'CA',
@@ -113,7 +112,7 @@ try {
 Finally, you can use the lower-level [Addresses](../api/classes/ShipEngine-Service-AddressesService.html) service for normalization.
 
 --- normalize address service
-$query = AddressQuery(
+$query = Address\Query(
   ['401 E Jefferson St'],
   'Phoenix',
   'AZ',

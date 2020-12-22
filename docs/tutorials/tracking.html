@@ -1090,7 +1090,7 @@ div.section:last-of-type {
 <pre class="prettyprint lang-php">
 &lt;?php
 
-use ShipEngine\Model\Tracking\Query;
+use ShipEngine\Model\Tracking;
 
 use ShipEngine\ShipEngine;
 
@@ -1123,7 +1123,7 @@ echo $information-&gt;estimated_delivery;
 <div class="codeblock">
 <span class="codeblock_name">{two <a href="tracking.html#1:3">3</a>}</span>
 <pre class="prettyprint lang-php">
-$query = new Query("usps", "ABC123");
+$query = new Tracking\Query("usps", "ABC123");
 
 $information = $shipengine-&gt;trackShipment($query);
 

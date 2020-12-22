@@ -1098,8 +1098,7 @@ ShipEngine cross references multiple databases to validate addresses and identif
 <pre class="prettyprint lang-php">
 &lt;?php
 
-use ShipEngine\Model\Address\Query;
-use ShipEngine\Model\Address\QueryResult;
+use ShipEngine\Model\Address;
 
 use ShipEngine\ShipEngine;
 
@@ -1140,7 +1139,7 @@ The main difference between a <a href="../api/classes/ShipEngine-Model-Address-Q
 <div class="codeblock">
 <span class="codeblock_name">{validate address instance <a href="addresses.html#1:4">4</a>}</span>
 <pre class="prettyprint lang-php">
-$query = new AddressQuery(
+$query = new Address\Query(
   ['1000 Elysion Park Ave'],
   'Los Angeles',
   'CA',
@@ -1222,7 +1221,7 @@ try {
 <div class="codeblock">
 <span class="codeblock_name">{normalize address service <a href="addresses.html#1:5">5</a>}</span>
 <pre class="prettyprint lang-php">
-$query = AddressQuery(
+$query = Address\Query(
   ['401 E Jefferson St'],
   'Phoenix',
   'AZ',

@@ -24,7 +24,7 @@ NOTE: You will need shipment information to track.
 --- initialize
 <?php
 
-use ShipEngine\Model\Tracking\Query;
+use ShipEngine\Model\Tracking;
 
 use ShipEngine\ShipEngine;
 
@@ -45,7 +45,7 @@ echo $information->estimated_delivery;
 You can also construct a [Query](../api/classes/ShipEngine-Model-Tracking-Query.html).
 
 --- two
-$query = new Query("usps", "ABC123");
+$query = new Tracking\Query("usps", "ABC123");
 
 $information = $shipengine->trackShipment($query);
 

@@ -2,8 +2,7 @@
 // @s
 <?php
 
-use ShipEngine\Model\Address\Query;
-use ShipEngine\Model\Address\QueryResult;
+use ShipEngine\Model\Address;
 
 use ShipEngine\ShipEngine;
 
@@ -26,12 +25,12 @@ echo $normalized->postal_code; // outputs: "60613-4566"
 try {
   $normalized = $shipengine->normalizeAddress(['501 Crawford St'], 'Houston', 'TX');
 } catch (Exception $e) {
-  echo get_class($e); // outputs: "ShipEngine\Exception\ErrorException"
+  echo get_class($e); // outputs: "ShipEngine\Message\Error"
 }
 
 
 // @s
-$query = AddressQuery(
+$query = Address\Query(
   ['401 E Jefferson St'],
   'Phoenix',
   'AZ',
