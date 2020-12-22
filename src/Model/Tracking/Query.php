@@ -6,6 +6,9 @@ use ShipEngine\Util;
 
 /**
  * A query to track a `Shipment`.
+ *
+ * @property string $carrier_code
+ * @property string $tracking_number
  */
 final class Query
 {

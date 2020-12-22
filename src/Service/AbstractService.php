@@ -53,10 +53,11 @@ abstract class AbstractService
      */
     protected function encodeArray(array $objs, array ...$keys): string
     {
+        $new = array();
         foreach ($objs as $obj) {
-            $obj = $this->jsonize($obj, $keys);
+            $new[] = $this->jsonize($obj, $keys);
         }
-        return json_encode($objs);
+        return json_encode($new);
     }
     
     /**

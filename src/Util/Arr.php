@@ -24,17 +24,17 @@ class Arr
     /**
      * Flatten a multi-dimensional array into a single dimension.
      */
-    public static function flatten($arry = null): array
+    public static function flatten($arr = null): array
     {
         $result = array();
 
-        if (!is_array($array)) {
-            $array = func_get_args();
+        if (!is_array($arr)) {
+            $arr = func_get_args();
         }
 
-        foreach ($array as $key => $value) {
+        foreach ($arr as $key => $value) {
             if (is_array($value)) {
-                $result = array_merge($result, array_flatten($value));
+                $result = array_merge($result, self::flatten($value));
             } else {
                 $result = array_merge($result, array($key => $value));
             }

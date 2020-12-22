@@ -36,7 +36,7 @@ final class Location
         $this->city_locality = $city_locality;
         $this->state_province = $state_province;
         $this->postal_code = $postal_code;
-        $this->country = $country_code;
+        $this->country = $country;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
     }

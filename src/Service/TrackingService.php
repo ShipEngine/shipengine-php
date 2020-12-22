@@ -73,7 +73,7 @@ final class TrackingService extends AbstractService
             $messages[] = new Info($validated['carrier_status_description']);
         }
         if ($validated['exception_description'] != '') {
-            $messages[] = new Exception($validated['exception_description']);
+            $messages[] = new Error($validated['exception_description']);
         }
 
         $location = $this->parseLocation($validated);
@@ -130,10 +130,10 @@ final class TrackingService extends AbstractService
         $messages = array();
         
         foreach ($events as $event) {
-            array_merge($messages, $event->messages);
+            $messages[] = $event->messages;
         }
 
-        return $messages;
+        return Arr::flatten($messages);
     }
 
     /**
@@ -147,7 +147,7 @@ final class TrackingService extends AbstractService
             $url = '/tracking?carrier_code=' . $query->carrier_code . '&tracking_number=' . $query->tracking_number;
             $response = $this->request('GET', $url);
         } else {
-            throw new InvalidArgumentException('Query must be a `Query` or string representing a `shipment_id`.');
+            throw new \InvalidArgumentException('Query must be a `Query` or string representing a `shipment_id`.');
         }
 
         $messages = array();

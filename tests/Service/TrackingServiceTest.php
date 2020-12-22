@@ -23,6 +23,7 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Util\Getters
+ * @covers \ShipEngine\Util\Arr::flatten
  * @covers \ShipEngine\Util\Arr::subArray
  * @covers \ShipEngine\Util\ISOString
  */

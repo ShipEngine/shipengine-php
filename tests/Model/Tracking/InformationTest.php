@@ -44,7 +44,7 @@ final class InformationTest extends TestCase
             "foo"
         );
 
-        $this->information = new Information("abc", "123", new ISOString("2020-01-01T00:00:00Z"), $events);
+        $this->information = new Information("123", new ISOString("2020-01-01T00:00:00Z"), $events);
     }
     
     public function testEventsAreSorted(): void
