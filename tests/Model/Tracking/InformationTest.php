@@ -4,14 +4,14 @@ namespace ShipEngine\Model\Tracking\Test;
 
 use PHPUnit\Framework\TestCase;
 
-use ShipEngine\Util\ISOString;
+use ShipEngine\Util\IsoString;
 
 use ShipEngine\Model\Tracking\Event;
 use ShipEngine\Model\Tracking\Information;
 use ShipEngine\Model\Tracking\Status;
 
 /**
- * @covers ShipEngine\Util\ISOString
+ * @covers ShipEngine\Util\IsoString
  * @covers ShipEngine\Model\Tracking\Event
  * @covers ShipEngine\Model\Tracking\Information
  * @covers ShipEngine\Model\Tracking\Status
@@ -23,28 +23,28 @@ final class InformationTest extends TestCase
     protected function setUp(): void
     {
         $events[] = new Event(
-            new ISOString("2020-01-02T00:00:00Z"),
+            new IsoString("2020-01-02T00:00:00Z"),
             Status::DELIVERED,
             "foo",
             "foo",
             "foo"
         );
         $events[] = new Event(
-            new ISOString("2020-01-01T05:00:00Z"),
+            new IsoString("2020-01-01T05:00:00Z"),
             Status::IN_TRANSIT,
             "foo",
             "foo",
             "foo"
         );
         $events[] = new Event(
-            new ISOString("2020-01-01T00:00+05:00"),
+            new IsoString("2020-01-01T00:00+05:00"),
             Status::ACCEPTED,
             "foo",
             "foo",
             "foo"
         );
 
-        $this->information = new Information("123", new ISOString("2020-01-01T00:00:00Z"), $events);
+        $this->information = new Information("123", new IsoString("2020-01-01T00:00:00Z"), $events);
     }
     
     public function testEventsAreSorted(): void
@@ -70,7 +70,7 @@ final class InformationTest extends TestCase
     public function testNullValues(): void
     {
         $events = array();
-        $information = new Information("123", new ISOString("2020-01-01T00:00:00Z"), $events);
+        $information = new Information("123", new IsoString("2020-01-01T00:00:00Z"), $events);
 
         $this->assertNull($information->latestEvent());
         $this->assertNull($information->shippedAt());

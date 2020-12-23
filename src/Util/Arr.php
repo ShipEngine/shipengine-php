@@ -8,7 +8,7 @@ namespace ShipEngine\Util;
 final class Arr
 {
     /**
-     * Create a new associate array that only includes the given $keys.
+     * Create a new associative array that only includes the given $keys.
      */
     public static function subArray(array $old, ...$keys): array
     {

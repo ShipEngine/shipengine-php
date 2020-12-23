@@ -25,7 +25,7 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\Util\Getters
  * @covers \ShipEngine\Util\Arr::flatten
  * @covers \ShipEngine\Util\Arr::subArray
- * @covers \ShipEngine\Util\ISOString
+ * @covers \ShipEngine\Util\IsoString
  */
 final class TrackingServiceTest extends TestCase
 {

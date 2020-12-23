@@ -2,10 +2,13 @@
 
 namespace ShipEngine\Util;
 
+/**
+ * Helper functions for JSON processing.
+ */
 final class Json
 {
     /**
-     *
+     * Take any JsonSerializable object and an array of $keys to swap out.
      */
     private static function jsonize(\JsonSerializable $obj, array $keys)
     {
@@ -22,7 +25,7 @@ final class Json
     }
     
     /**
-     *
+     * Encode a JsonSerializable object, swapping out the $keys in process.
      */
     public static function encode(\JsonSerializable $obj, array ...$keys): string
     {
@@ -31,7 +34,7 @@ final class Json
     }
 
     /**
-     *
+     * Encode an array of JsonSerializable objects, swapping out the $keys in the process.
      */
     public static function encodeArray(array $objs, array ...$keys): string
     {

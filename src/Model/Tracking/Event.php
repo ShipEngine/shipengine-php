@@ -5,7 +5,7 @@ namespace ShipEngine\Model\Tracking;
 /**
  * An event or status change that occurred while processing a `Shipment`.
  *
- * @property \ShipEngine\Util\ISOString $date_time
+ * @property \ShipEngine\Util\IsoString $date_time
  * @property string $status
  * @property string $description
  * @property string $carrier_status_code
@@ -18,7 +18,7 @@ final class Event
     use \ShipEngine\Message\Wrapper;
     use \ShipEngine\Util\Getters;
     
-    private \ShipEngine\Util\ISOString $date_time;
+    private \ShipEngine\Util\IsoString $date_time;
     private string $status;
     private string $description;
     private string $carrier_status_code;
@@ -28,7 +28,7 @@ final class Event
     private ?string $signer;
 
     public function __construct(
-        \ShipEngine\Util\ISOString $date_time,
+        \ShipEngine\Util\IsoString $date_time,
         string $status,
         string $description,
         string $carrier_status_code,

@@ -668,7 +668,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\Util\\Arr\u003A\u003AsubArray\u0028\u0029",
             "name": "subArray",
-            "summary": "Create\u0020a\u0020new\u0020associate\u0020array\u0020that\u0020only\u0020includes\u0020the\u0020given\u0020\u0024keys.",
+            "summary": "Create\u0020a\u0020new\u0020associative\u0020array\u0020that\u0020only\u0020includes\u0020the\u0020given\u0020\u0024keys.",
             "url": "classes/ShipEngine-Util-Arr.html#method_subArray"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Arr\u003A\u003Aflatten\u0028\u0029",
@@ -676,55 +676,55 @@ Search.appendIndex(
             "summary": "Flatten\u0020a\u0020multi\u002Ddimensional\u0020array\u0020into\u0020a\u0020single\u0020dimension.",
             "url": "classes/ShipEngine-Util-Arr.html#method_flatten"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\ISOString",
-            "name": "ISOString",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-ISOString.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Util\\ISOString\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-ISOString.html#method___construct"
-        },                {
-            "fqsen": "\\ShipEngine\\Util\\ISOString\u003A\u003A__toString\u0028\u0029",
-            "name": "__toString",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-ISOString.html#method___toString"
-        },                {
-            "fqsen": "\\ShipEngine\\Util\\ISOString\u003A\u003AhasTime\u0028\u0029",
-            "name": "hasTime",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-ISOString.html#method_hasTime"
-        },                {
-            "fqsen": "\\ShipEngine\\Util\\ISOString\u003A\u003AhasTimezone\u0028\u0029",
-            "name": "hasTimezone",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-ISOString.html#method_hasTimezone"
-        },                {
-            "fqsen": "\\ShipEngine\\Util\\ISOString\u003A\u003A\u0024value",
-            "name": "value",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-ISOString.html#property_value"
-        },                {
             "fqsen": "\\ShipEngine\\Util\\Json",
             "name": "Json",
-            "summary": "",
+            "summary": "Helper\u0020functions\u0020for\u0020JSON\u0020processing.",
             "url": "classes/ShipEngine-Util-Json.html"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Json\u003A\u003Ajsonize\u0028\u0029",
             "name": "jsonize",
-            "summary": "",
+            "summary": "Take\u0020any\u0020JsonSerializable\u0020object\u0020and\u0020an\u0020array\u0020of\u0020\u0024keys\u0020to\u0020swap\u0020out.",
             "url": "classes/ShipEngine-Util-Json.html#method_jsonize"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Json\u003A\u003Aencode\u0028\u0029",
             "name": "encode",
-            "summary": "",
+            "summary": "Encode\u0020a\u0020JsonSerializable\u0020object,\u0020swapping\u0020out\u0020the\u0020\u0024keys\u0020in\u0020process.",
             "url": "classes/ShipEngine-Util-Json.html#method_encode"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Json\u003A\u003AencodeArray\u0028\u0029",
             "name": "encodeArray",
-            "summary": "",
+            "summary": "Encode\u0020an\u0020array\u0020of\u0020JsonSerializable\u0020objects,\u0020swapping\u0020out\u0020the\u0020\u0024keys\u0020in\u0020the\u0020process.",
             "url": "classes/ShipEngine-Util-Json.html#method_encodeArray"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\IsoString",
+            "name": "IsoString",
+            "summary": "A\u0020string\u0020representing\u0020a\u0020Date,\u0020DateTime,\u0020or\u0020DateTime\u0020with\u0020Timezone.",
+            "url": "classes/ShipEngine-Util-IsoString.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\IsoString\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-IsoString.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\IsoString\u003A\u003A__toString\u0028\u0029",
+            "name": "__toString",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-IsoString.html#method___toString"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\IsoString\u003A\u003AhasTime\u0028\u0029",
+            "name": "hasTime",
+            "summary": "Returns\u0020whether\u0020or\u0020not\u0020the\u0020\u0060IsoString\u0060\u0020includes\u0020a\u0020time\u0020element.",
+            "url": "classes/ShipEngine-Util-IsoString.html#method_hasTime"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\IsoString\u003A\u003AhasTimezone\u0028\u0029",
+            "name": "hasTimezone",
+            "summary": "Returns\u0020whether\u0020or\u0020not\u0020the\u0020\u0060IsoString\u0060\u0020includes\u0020a\u0020timezone\u0020element.",
+            "url": "classes/ShipEngine-Util-IsoString.html#method_hasTimezone"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\IsoString\u003A\u003A\u0024value",
+            "name": "value",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-IsoString.html#property_value"
         },                {
             "fqsen": "\\",
             "name": "\\",

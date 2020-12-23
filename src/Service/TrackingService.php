@@ -12,7 +12,7 @@ use ShipEngine\Model\Tracking\Information;
 use ShipEngine\Model\Tracking\Location;
 use ShipEngine\Model\Tracking\Query;
 use ShipEngine\Model\Tracking\QueryResult;
-use ShipEngine\Util\ISOString;
+use ShipEngine\Util\IsoString;
 use ShipEngine\Util\Arr;
 
 /**
@@ -79,7 +79,7 @@ final class TrackingService extends AbstractService
         $location = $this->parseLocation($validated);
 
         return new Event(
-            new ISOString($validated['occurred_at']),
+            new IsoString($validated['occurred_at']),
             $validated['status_code'],
             $validated['status_description'],
             $validated['carrier_status_code'],
@@ -117,7 +117,7 @@ final class TrackingService extends AbstractService
 
         return new Information(
             $validated['tracking_number'],
-            new ISOString($validated['estimated_delivery_date']),
+            new IsoString($validated['estimated_delivery_date']),
             array_filter($events)
         );
     }

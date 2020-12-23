@@ -3,9 +3,9 @@
 namespace ShipEngine\Util;
 
 /**
- *
+ * A string representing a Date, DateTime, or DateTime with Timezone.
  */
-final class ISOString
+final class IsoString
 {
     private string $value;
 
@@ -20,7 +20,7 @@ final class ISOString
     }
 
     /**
-     *
+     * Returns whether or not the `IsoString` includes a time element.
      */
     public function hasTime(): bool
     {
@@ -28,7 +28,7 @@ final class ISOString
     }
 
     /**
-     *
+     * Returns whether or not the `IsoString` includes a timezone element.
      */
     public function hasTimezone(): bool
     {

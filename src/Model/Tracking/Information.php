@@ -9,7 +9,7 @@ use ShipEngine\Util;
  *
  * @property string $carrier_code
  * @property string $tracking_number
- * @property \ShipEngine\Util\ISOString $estimated_delivery
+ * @property \ShipEngine\Util\IsoString $estimated_delivery
  * @property array $events
  */
 final class Information
@@ -17,12 +17,12 @@ final class Information
     use Util\Getters;
     
     private string $tracking_number;
-    private Util\ISOString $estimated_delivery;
+    private Util\IsoString $estimated_delivery;
     private array $events;
 
     public function __construct(
         string $tracking_number,
-        Util\ISOString $estimated_delivery,
+        Util\IsoString $estimated_delivery,
         array $events
     ) {
         $this->tracking_number = $tracking_number;
@@ -48,7 +48,7 @@ final class Information
     /**
      * Returns the $event->date_time of the first `Status::ACCEPTED` event.
      */
-    public function shippedAt(): ?Util\ISOString
+    public function shippedAt(): ?Util\IsoString
     {
         foreach ($this->events as $event) {
             if ($event->status == Status::ACCEPTED) {
@@ -62,7 +62,7 @@ final class Information
     /**
      * Returns the $event->date_time of the last `Status::DELIVERED` event.
      */
-    public function deliveredAt(): ?Util\ISOString
+    public function deliveredAt(): ?Util\IsoString
     {
         $reversed = array_reverse($this->events);
         foreach ($this->events as $event) {

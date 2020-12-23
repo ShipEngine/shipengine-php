@@ -25,7 +25,7 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Util\Arr
- * @covers \Shipengine\Util\ISOString
+ * @covers \Shipengine\Util\IsoString
  */
 final class TrackingTraitTest extends TestCase
 {
