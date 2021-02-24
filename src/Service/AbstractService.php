@@ -15,22 +15,73 @@ use ShipEngine\ShipEngineClient;
  */
 abstract class AbstractService
 {
+    /**
+     * @var ShipEngineClient
+     */
     protected ShipEngineClient $client;
+
+    /**
+     * @var MessageFactory
+     */
     protected MessageFactory $message_factory;
 
+    /**
+     * @var string
+     */
+    private const JSON_RPC_SPEC = '2.0';
+
+    /**
+     * @var string
+     */
+    private const RPC_PATH = '/';
+
+    /**
+     * AbstractService constructor.
+     * @param ShipEngineClient $client
+     */
     public function __construct(ShipEngineClient $client)
     {
         $this->client = $client;
         $this->message_factory = MessageFactoryDiscovery::find();
     }
-    
+
     /**
-     * Create and send an HTTP request.
+     * Create and send an RPC request.
+     *
+     * @param string $method name of an RPC method
+     * @param array $params data that a remote procedure will make use of
+     * @return ResponseInterface
      */
-    protected function request(string $method, string $path, string $body = null): ResponseInterface
+    protected function request(string $method, array $params): ResponseInterface
     {
-        $request = $this->message_factory->createRequest($method, $path, array(), $body);
+        $HTTP_METHOD = 'POST';
+
+        $jsonData = json_encode(array_filter([
+            'id' => $this->generateId(),
+            'jsonrpc' => self::JSON_RPC_SPEC,
+            'method' => $method,
+            'params' => $params
+        ]));
+
+        $request = $this->message_factory->createRequest($HTTP_METHOD, self::RPC_PATH, array(), $jsonData);
 
         return $this->client->sendRequest($request);
+    }
+
+    //Using a variant of the third proposed solution for a cryptographically secure ID generator - https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
+    //Using openssl_random_pseudo_bytes instead of random_bytes(16) for more collision resistance on our generated ID's
+    /**
+     * Generate a cryptographically secure ID.
+     *
+     * @return string
+     */
+    private function generateId(): string
+    {
+        $data ??= openssl_random_pseudo_bytes(16);
+
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 }
