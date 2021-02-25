@@ -27,21 +27,21 @@ final class TrackingService extends AbstractService
     {
         $location = Arr::subArray($event, 'city_locality', 'state_province', 'postal_code', 'country_code');
         $values = array_values($location);
-        
+
         if (empty(array_filter($values))) {
             return null;
         }
 
         return new Location(...$values);
     }
-    
+
     /**
      * Parse JSON into an \ShipEngine\Model\Tracking\Event.
      */
     private function parseEvent(array $event): ?Event
     {
         $validator = new Validator();
-        
+
         $guard = array(
             'occurred_at' => 'required',
             'status_code' => 'required',
@@ -110,7 +110,7 @@ final class TrackingService extends AbstractService
         }
 
         $validated = $validation->getValidData();
-        
+
         $events = array_map(function ($event) {
             return $this->parseEvent($event);
         }, $validated['events']);
@@ -128,7 +128,7 @@ final class TrackingService extends AbstractService
     private function extractMessages(array $events): array
     {
         $messages = array();
-        
+
         foreach ($events as $event) {
             $messages[] = $event->messages;
         }
@@ -151,18 +151,18 @@ final class TrackingService extends AbstractService
         }
 
         $messages = array();
-        
+
         $code = $response->getStatusCode();
         if ($code != 200) {
             $messages[] = new Error('HTTP ERROR: ' . $code);
         }
 
-        $body = json_decode((string) $response->getBody(), true);
+        $body = json_decode((string)$response->getBody(), true);
 
         if (!$body) {
             return new QueryResult($query, null, $messages);
         }
-        
+
         $information = $this->parseInformation($body);
         if (is_null($information)) {
             $messages[] = new Error('Could not parse tracking information.');

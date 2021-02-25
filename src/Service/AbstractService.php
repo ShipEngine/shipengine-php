@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use ShipEngine\ShipEngineClient;
 
 /**
- * Serialize and send HTTP requests.
+ * Serialize and send RPC requests over HTTP messages.
  */
 abstract class AbstractService
 {
@@ -46,7 +46,7 @@ abstract class AbstractService
     }
 
     /**
-     * Create and send an RPC request.
+     * Create and send an RPC request over HTTP messages..
      *
      * @param string $method name of an RPC method
      * @param array $params data that a remote procedure will make use of

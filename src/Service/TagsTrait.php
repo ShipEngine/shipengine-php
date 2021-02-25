@@ -8,8 +8,16 @@ use Psr\Http\Message\ResponseInterface;
 
 trait TagsTrait
 {
-    public function createTag(string $method, array $params): ResponseInterface
+    /**
+     * Make a `create_tag` RPC request.
+     *
+     * @param string $tag
+     * @return ResponseInterface
+     * @see \ShipEngine\Service\TagsService::create()
+     */
+    public function createTag(string $tag): ResponseInterface
     {
-        return $this->tag->createTagRequest($method, $params);
+        $parameters = array($tag);
+        return $this->tags->create($parameters);
     }
 }

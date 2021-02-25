@@ -14,7 +14,7 @@ use ShipEngine\Service\TrackingTrait;
  *
  * @property \ShipEngine\Service\AddressesService $addresses
  * @property \ShipEngine\Service\TrackingService $tracking
- * @property \ShipEngine\Service\TagsService $tag
+ * @property \ShipEngine\Service\TagsService $tags
  */
 final class ShipEngine
 {

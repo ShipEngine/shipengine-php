@@ -10,7 +10,7 @@ use ShipEngine\ShipEngine;
 
 /**
  * Tests the methods provided in the `TagsService`.
- * 
+ *
  * @covers \ShipEngine\Service\TagService
  * @covers \ShipEngine\Service\TagTrait
  * @covers \ShipEngine\Service\ServiceFactory
@@ -56,16 +56,16 @@ class TagsServiceTest extends TestCase
     }
 
     /**
-     * Test the `creatTag()` method on the *TagsService* successfully creates a new tag using
+     * Test the `creatTagRequest()` and `createTag` convenience method on the *TagsService* successfully creates a new tag using
      * the `create_tag` remote procedure.
      *
      * @return void
      */
-    public function testCreateTag(): void
+    public function testCreateTagRequest(): void
     {
         $test_value = 'calque_rpc';
-        $new_tag = $this->shipengine->createTag('create_tag', array('name' => $test_value));
-        $parsed_response = json_decode($new_tag->getBody());
+        $new_tag = $this->shipengine->tags->create(array('name' => $test_value));
+        $parsed_response = json_decode((string)$new_tag->getBody());
 
         $this->assertEquals($parsed_response->name, $test_value);
     }
