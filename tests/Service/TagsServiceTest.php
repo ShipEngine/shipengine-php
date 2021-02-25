@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\ShipEngine;
 
 /**
- * Tests the methods provided in the *TagsService*.
+ * Tests the methods provided in the `TagsService`.
  * 
  * @covers \ShipEngine\Service\TagService
  * @covers \ShipEngine\Service\TagTrait
