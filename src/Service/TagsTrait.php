@@ -4,10 +4,12 @@
 namespace ShipEngine\Service;
 
 
+use Psr\Http\Message\ResponseInterface;
+
 trait TagsTrait
 {
-    public function createTag(string $method, array $params)
+    public function createTag(string $method, array $params): ResponseInterface
     {
-        $this->tag->createTagRequest($method, $params);
+        return $this->tag->createTagRequest($method, $params);
     }
 }
