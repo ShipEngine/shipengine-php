@@ -56,7 +56,7 @@ class TagsTraitTest extends TestCase
     }
 
     /**
-     * Test the `creatTag()` convenience method on the *TagsService* successfully creates a new tag using
+     * Test the `creatTag()` convenience method on the *TagsTrait* successfully creates a new tag using
      * the `create_tag` remote procedure.
      *
      * @return void
