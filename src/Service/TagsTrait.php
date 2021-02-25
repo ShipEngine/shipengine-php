@@ -17,7 +17,7 @@ trait TagsTrait
      */
     public function createTag(string $tag): ResponseInterface
     {
-        $parameters = array($tag);
+        $parameters = array('name' => $tag);
         return $this->tags->create($parameters);
     }
 }

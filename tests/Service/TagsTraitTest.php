@@ -64,7 +64,7 @@ class TagsTraitTest extends TestCase
     public function testCreateTag(): void
     {
         $test_value = 'calque_rpc';
-        $new_tag = $this->shipengine->createTag('create_tag', array('name' => $test_value));
+        $new_tag = $this->shipengine->createTag($test_value);
         $parsed_response = json_decode($new_tag->getBody());
 
         $this->assertEquals($parsed_response->name, $test_value);
