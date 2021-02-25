@@ -5,6 +5,7 @@ namespace ShipEngine\Service;
 
 
 use Psr\Http\Message\ResponseInterface;
+use ShipEngine\ShipEngineError;
 
 trait TagsTrait
 {
@@ -12,12 +13,17 @@ trait TagsTrait
      * Make a `create_tag` RPC request.
      *
      * @param string $tag
-     * @return ResponseInterface
+     * @return string
      * @see \ShipEngine\Service\TagsService::create()
      */
-    public function createTag(string $tag): ResponseInterface
+    public function createTag(string $tag): string
     {
-        $parameters = array('name' => $tag);
-        return $this->tags->create($parameters);
+        try {
+            $parameters = array('name' => $tag);
+            return $this->tags->create($parameters)->name;
+        } catch (ShipEngineError $e) {
+            echo $e->getMessage();
+        }
+
     }
 }

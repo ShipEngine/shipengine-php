@@ -7,6 +7,7 @@ namespace Service;
 use PHPUnit\Framework\TestCase;
 
 use ShipEngine\ShipEngine;
+use ShipEngine\ShipEngineError;
 
 /**
  * Tests the methods provided in the `TagsTrait`.
@@ -56,19 +57,16 @@ class TagsTraitTest extends TestCase
     }
 
     /**
-     * Test the `creatTag()` convenience method on the *TagsTrait* successfully creates a new tag using
+     * Test the `createTag()` convenience method on the *TagsTrait* successfully creates a new tag using
      * the `create_tag` remote procedure.
      *
      * @return void
      */
-    public function testCreateTag(): void
+    public function testCreateValidTag(): void
     {
-        $test_value = 'calque_rpc';
-        $new_tag = $this->shipengine->createTag($test_value);
-        $parsed_response = json_decode($new_tag->getBody());
+        $good_test_value = 'calque_rpc';
+        $new_tag = $this->shipengine->createTag($good_test_value);
 
-        $this->assertEquals($parsed_response->name, $test_value);
+        $this->assertEquals($new_tag, $good_test_value);
     }
-
-
 }

@@ -56,7 +56,7 @@ class TagsServiceTest extends TestCase
     }
 
     /**
-     * Test the `creatTagRequest()` and `createTag` convenience method on the *TagsService* successfully creates a new tag using
+     * Test the `create()` convenience method on the *TagsService* successfully creates a new tag using
      * the `create_tag` remote procedure.
      *
      * @return void
@@ -65,8 +65,7 @@ class TagsServiceTest extends TestCase
     {
         $test_value = 'calque_rpc';
         $new_tag = $this->shipengine->tags->create(array('name' => $test_value));
-        $parsed_response = json_decode((string)$new_tag->getBody());
 
-        $this->assertEquals($parsed_response->name, $test_value);
+        $this->assertEquals($new_tag->name, $test_value);
     }
 }
