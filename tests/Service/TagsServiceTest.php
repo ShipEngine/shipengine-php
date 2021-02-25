@@ -20,6 +20,9 @@ use ShipEngine\ShipEngine;
  **/
 class TagsServiceTest extends TestCase
 {
+    /**
+     * @var ShipEngine
+     */
     private ShipEngine $shipengine;
 
     /**
