@@ -12,6 +12,7 @@ class ServiceFactory
     private ShipEngineClient $client;
     
     private $classes = [
+        'tag' => TagsService::class,
         'addresses' => AddressesService::class,
         'tracking' => TrackingService::class
     ];
