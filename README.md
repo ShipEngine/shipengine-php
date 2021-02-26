@@ -28,9 +28,9 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 
 $shipengine = new ShipEngine(['api_key' => $api_key]);
 
-$valid = $shipengine->validateAddress(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
+$new_tag = $shipengine->createTag('shipengine_tag');
 
-assert($valid);
+echo $new_tag;
 ```
 
 To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
