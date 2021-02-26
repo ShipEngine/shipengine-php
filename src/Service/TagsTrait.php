@@ -22,6 +22,5 @@ trait TagsTrait
         } catch (ShipEngineError $e) {
             echo $e->getMessage();
         }
-
     }
 }
