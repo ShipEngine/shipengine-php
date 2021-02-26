@@ -11,7 +11,6 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the methods provided in the `TagsTrait`.
  *
- * @covers \ShipEngine\Service\TagService
  * @covers \ShipEngine\Service\TagTrait
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine

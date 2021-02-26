@@ -9,7 +9,7 @@ use ShipEngine\Model\Tags\Tag;
 /**
  * Test the Tag type
  *
- * @covers ShipEngine\Model\Tags\Tag;
+ * @covers \ShipEngine\Model\Tags\Tag;
  */
 class TagTest extends TestCase
 {
