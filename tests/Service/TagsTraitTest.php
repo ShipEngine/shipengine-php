@@ -9,7 +9,10 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the methods provided in the `TagsTrait`.
  *
+ * @covers \ShipEngine\Model\Tags\Tag
  * @covers \ShipEngine\Service\TagsTrait
+ * @covers \ShipEngine\Service\TagsService
+ * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
