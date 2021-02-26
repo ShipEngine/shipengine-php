@@ -3,7 +3,6 @@
 
 namespace ShipEngine\Service;
 
-
 use Psr\Http\Message\ResponseInterface;
 
 trait TagsTrait
