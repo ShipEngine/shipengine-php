@@ -7,7 +7,6 @@ namespace Service;
 use PHPUnit\Framework\TestCase;
 
 use ShipEngine\ShipEngine;
-use ShipEngine\ShipEngineError;
 
 /**
  * Tests the methods provided in the `TagsTrait`.
@@ -51,7 +50,7 @@ class TagsTraitTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->shipengine = new ShipEngine(['api_key' => 'baz', 'base_uri' => 'http://localhost:8500']);
     }

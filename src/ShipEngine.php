@@ -12,15 +12,11 @@ use ShipEngine\Service\TrackingTrait;
 /**
  * ShipEngine client.
  *
- * @property \ShipEngine\Service\AddressesService $addresses
- * @property \ShipEngine\Service\TrackingService $tracking
  * @property \ShipEngine\Service\TagsService $tags
  */
 final class ShipEngine
 {
     // Convenience method Traits.
-    use AddressesTrait;
-    use TrackingTrait;
     use TagsTrait;
     
     // Factory providing services.
