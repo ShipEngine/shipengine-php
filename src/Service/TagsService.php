@@ -3,14 +3,13 @@
 
 namespace ShipEngine\Service;
 
-use Psr\Http\Message\ResponseInterface;
-
 use ShipEngine\Model\Tags\Tag;
 use ShipEngine\ShipEngineError;
 
 /*
  * Service to create tags
  */
+
 final class TagsService extends AbstractService
 {
     private const CREATE = 'create_tag';

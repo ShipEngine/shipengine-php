@@ -68,7 +68,8 @@ abstract class AbstractService
         return $this->client->sendRequest($request);
     }
 
-    //Using a variant of the third proposed solution for a cryptographically secure ID generator - https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
+    //Using a variant of the third proposed solution for a cryptographically secure ID generator
+    // - https://stackoverflow.com/questions/2040240/php-function-to-generate-v4-uuid
     //Using openssl_random_pseudo_bytes instead of random_bytes(16) for more collision resistance on our generated ID's
     /**
      * Generate a cryptographically secure ID.

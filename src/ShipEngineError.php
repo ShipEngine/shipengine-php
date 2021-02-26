@@ -3,7 +3,6 @@
 
 namespace ShipEngine;
 
-
 /*
  * Throwable ShipEngine error-level message
  ***/
