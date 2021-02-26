@@ -23,15 +23,11 @@ final class TagsService extends AbstractService
      */
     public function create(array $params): Tag
     {
-        if (is_array($params)) {
-            $response = $this->request(self::CREATE, $params);
-            $parsed_response = json_decode((string)$response->getBody());
+        $response = $this->request(self::CREATE, $params);
+        $parsed_response = json_decode((string)$response->getBody());
 
-            return new Tag(
-                $parsed_response->name,
-            );
-        } else {
-            throw new ShipEngineError('Could not create tag, `$params` must be an array');
-        }
+        return new Tag(
+            $parsed_response->name,
+        );
     }
 }

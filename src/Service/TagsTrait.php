@@ -3,7 +3,8 @@
 
 namespace ShipEngine\Service;
 
-use ShipEngine\ShipEngineError;
+
+use Psr\Http\Message\ResponseInterface;
 
 trait TagsTrait
 {
@@ -16,11 +17,7 @@ trait TagsTrait
      */
     public function createTag(string $tag): string
     {
-        try {
-            $parameters = array('name' => $tag);
-            return $this->tags->create($parameters)->name;
-        } catch (ShipEngineError $e) {
-            echo $e->getMessage();
-        }
+        $parameters = array('name' => $tag);
+        return $this->tags->create($parameters)->name;
     }
 }
