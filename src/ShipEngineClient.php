@@ -32,7 +32,6 @@ final class ShipEngineClient
         
         $headers = array();
         $headers['Api-Key'] = $config->api_key;
-        $headers['Content-Type'] = 'application/json';
         $headers['User-Agent'] = $config->user_agent;
 
         $uri_factory = UriFactoryDiscovery::find();

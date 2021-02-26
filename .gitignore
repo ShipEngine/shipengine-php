@@ -8,3 +8,6 @@ config.yaml
 .phpdoc
 reports
 build
+
+# Intellij IDEA
+.idea/

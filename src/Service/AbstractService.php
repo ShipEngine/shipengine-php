@@ -2,34 +2,63 @@
 
 namespace ShipEngine\Service;
 
-use Http\Client\Exception\HttpException;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
 
 use Psr\Http\Message\ResponseInterface;
 
+use Ramsey\Uuid\Uuid;
 use ShipEngine\ShipEngineClient;
 
 /**
- * Serialize and send HTTP requests.
+ * Serialize and send RPC requests over HTTP messages.
  */
 abstract class AbstractService
 {
+    /**
+     * @var ShipEngineClient
+     */
     protected ShipEngineClient $client;
+
+    /**
+     * @var MessageFactory
+     */
     protected MessageFactory $message_factory;
 
+    /**
+     * @var string
+     */
+    private const RPC_PATH = '/rpc';
+
+    /**
+     * AbstractService constructor.
+     * @param ShipEngineClient $client
+     */
     public function __construct(ShipEngineClient $client)
     {
         $this->client = $client;
         $this->message_factory = MessageFactoryDiscovery::find();
     }
-    
+
     /**
-     * Create and send an HTTP request.
+     * Create and send an RPC request over HTTP messages.
+     *
+     * @param string $method Name of an RPC method.
+     * @param array $params Data that a remote procedure will make use of.
+     * @return ResponseInterface
      */
-    protected function request(string $method, string $path, string $body = null): ResponseInterface
+    protected function request(string $method, array $params): ResponseInterface
     {
-        $request = $this->message_factory->createRequest($method, $path, array(), $body);
+        $HTTP_METHOD = 'POST';
+
+        $jsonData = json_encode(array_filter([
+            'id' => Uuid::uuid4(),
+            'jsonrpc' => '2.0',
+            'method' => $method,
+            'params' => $params
+        ]));
+
+        $request = $this->message_factory->createRequest($HTTP_METHOD, self::RPC_PATH, array(), $jsonData);
 
         return $this->client->sendRequest($request);
     }
