@@ -1,19 +1,15 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace ShipEngine\Service;
 
 use ShipEngine\Model\Tags\Tag;
 use ShipEngine\ShipEngineError;
 
-/*
- * Service to create tags
+/**
+ * Service to create tags.
  */
-
 final class TagsService extends AbstractService
 {
-    private const CREATE = 'create_tag';
-
     /**
      * Make a `create_tag` RPC request.
      *
@@ -23,7 +19,7 @@ final class TagsService extends AbstractService
      */
     public function create(array $params): Tag
     {
-        $response = $this->request(self::CREATE, $params);
+        $response = $this->request('create_tag', $params);
         $parsed_response = json_decode((string)$response->getBody());
 
         return new Tag(

@@ -6,8 +6,6 @@ use Http\Client\HttpClient;
 
 use ShipEngine\Service\TagsTrait;
 use ShipEngine\Service\ServiceFactory;
-use ShipEngine\Service\AddressesTrait;
-use ShipEngine\Service\TrackingTrait;
 
 /**
  * ShipEngine client.

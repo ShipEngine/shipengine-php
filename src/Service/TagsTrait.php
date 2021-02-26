@@ -1,10 +1,10 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace ShipEngine\Service;
 
-use Psr\Http\Message\ResponseInterface;
-
+/**
+ * Convenience method to create a tag.
+ */
 trait TagsTrait
 {
     /**

@@ -1,8 +1,6 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace Service;
-
 
 use PHPUnit\Framework\TestCase;
 
@@ -11,12 +9,12 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the methods provided in the `TagsTrait`.
  *
- * @covers \ShipEngine\Service\TagTrait
+ * @covers \ShipEngine\Service\TagsTrait
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
- **/
+ */
 class TagsTraitTest extends TestCase
 {
     /**
