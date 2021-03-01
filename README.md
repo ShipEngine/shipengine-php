@@ -48,8 +48,6 @@ $http = new HttplugClient();
 $shipengine = new ShipEngine(['api_key' => $api_key], $http);
 ```
 
-> :neckbeard: You can find a more in-depth tutorial of the Addresses Service in our [docs](https://shipengine.github.io/shipengine-php/tutorials/addresses.html).
-
 ## Test
 
 You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
