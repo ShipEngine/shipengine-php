@@ -2,12 +2,11 @@
 
 namespace ShipEngine\Service;
 
+use cbschuld\UuidBase58;
+use Http\Discovery\Exception\NotFoundException;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
-
 use Psr\Http\Message\ResponseInterface;
-
-use Ramsey\Uuid\Uuid;
 use ShipEngine\ShipEngineClient;
 
 /**
@@ -33,6 +32,7 @@ abstract class AbstractService
     /**
      * AbstractService constructor.
      * @param ShipEngineClient $client
+     * @throws NotFoundException
      */
     public function __construct(ShipEngineClient $client)
     {
@@ -52,7 +52,7 @@ abstract class AbstractService
         $HTTP_METHOD = 'POST';
 
         $jsonData = json_encode(array_filter([
-            'id' => Uuid::uuid4(),
+            'id' => UuidBase58::id(),
             'jsonrpc' => '2.0',
             'method' => $method,
             'params' => $params

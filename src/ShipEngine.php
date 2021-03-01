@@ -22,13 +22,9 @@ final class ShipEngine
 
     const VERSION = '0.0.1';
     
-    public function __construct(array $config = array(), HttpClient $client = null)
+    public function __construct(string $api_key, HttpClient $client = null)
     {
-        $config['user_agent'] = $this->deriveUserAgent();
-        
-        $config = new ShipEngineConfig($config);
-        
-        $client = new ShipEngineClient($config, $client);
+        $client = new ShipEngineClient($api_key, $this->deriveUserAgent(), $client);
         
         $this->service_factory = new ServiceFactory($client);
     }
