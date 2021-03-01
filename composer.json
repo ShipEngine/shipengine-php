@@ -19,9 +19,10 @@
     "sort-packages": true
   },
   "require": {
+    "php": ">=7.4.0",
     "ext-json": "*",
     "ext-openssl": "*",
-    "php": ">=7.4.0",
+    "cbschuld/php-uuid-base58": "^1.0",
     "php-http/client-common": "^2.3.0",
     "php-http/discovery": "^1.12.0",
     "php-http/httplug": "^2.2.0",
@@ -29,8 +30,7 @@
     "php-http/message-factory": "^1.0.2",
     "psr/http-client": "^1.0.1",
     "psr/http-message": "^1.0",
-    "rakit/validation": "^1.4",
-    "ramsey/uuid": "^4.1"
+    "rakit/validation": "^1.4"
   },
   "require-dev": {
     "guzzlehttp/psr7": "^1.7.0",
@@ -48,5 +48,10 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "scripts": {
+    "test:phpunit": "phpunit",
+    "test:codesniffer": "phpcs --standard=PSR2 src",
+    "test:phpstan": "phpstan analyse src --level 5"
+  }
 }
