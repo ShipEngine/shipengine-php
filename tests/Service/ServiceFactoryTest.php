@@ -10,7 +10,6 @@ use ShipEngine\Service\ServiceFactory;
 
 /**
  * @covers ShipEngine\ShipEngineClient
- * @covers ShipEngine\ShipEngineConfig
  * @covers ShipEngine\Service\ServiceFactory
  */
 final class ServiceFactoryTest extends TestCase
@@ -19,8 +18,10 @@ final class ServiceFactoryTest extends TestCase
     {
         $this->expectException(\BadMethodCallException::class);
 
-        $config = new ShipEngineConfig(['api_key' => 'FOO', 'user_agent' => 'BAR']);
-        $client = new ShipEngineClient($config);
+        $api_key = 'baz';
+        $user_agent = 'PHP';
+
+        $client = new ShipEngineClient($api_key, $user_agent);
         $factory = new ServiceFactory($client);
 
         $factory->foo;

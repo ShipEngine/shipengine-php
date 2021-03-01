@@ -16,7 +16,6 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\ShipEngineConfig
  */
 class TagsTraitTest extends TestCase
 {
@@ -32,6 +31,7 @@ class TagsTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        putenv("RPC_CLIENT_BASE_URI=http://localhost:8500");
         exec('hoverctl import simengine/rpc/rpc.json');
     }
 
@@ -43,6 +43,7 @@ class TagsTraitTest extends TestCase
     public static function tearDownAfterClass(): void
     {
         exec('hoverctl delete --force simengine/rpc/rpc.json');
+        putenv("RPC_CLIENT_BASE_URI");
     }
 
     /**
@@ -52,7 +53,7 @@ class TagsTraitTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->shipengine = new ShipEngine(['api_key' => 'baz', 'base_uri' => 'http://localhost:8500']);
+        $this->shipengine = new ShipEngine('baz');
     }
 
     /**
