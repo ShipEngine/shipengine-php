@@ -59,6 +59,10 @@ You can now run all tests using [PHPUnit](https://phpunit.de/):
 ```
 %> ./vendor/bin/phpunit
 ```
+OR using our `Composer` script:
+```bash
+composer test:phpunit
+```
 
 To stop hoverfly (after you are done testing):
 ```
