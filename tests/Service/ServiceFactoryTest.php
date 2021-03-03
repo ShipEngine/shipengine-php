@@ -1,16 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Service\Test;
+namespace ShipEngine\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
-
 use ShipEngine\ShipEngineClient;
-use ShipEngine\ShipEngineConfig;
 use ShipEngine\Service\ServiceFactory;
 
 /**
- * @covers ShipEngine\ShipEngineClient
- * @covers ShipEngine\Service\ServiceFactory
+ * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\Service\ServiceFactory
  */
 final class ServiceFactoryTest extends TestCase
 {

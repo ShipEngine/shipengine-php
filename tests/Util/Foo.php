@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util\Tests;
+namespace ShipEngine\Tests\Util;
 
 use ShipEngine\Util\Getters;
 

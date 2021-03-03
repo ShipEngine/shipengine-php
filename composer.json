@@ -47,6 +47,11 @@
       "ShipEngine\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "ShipEngine\\Tests\\": "tests/"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "scripts": {

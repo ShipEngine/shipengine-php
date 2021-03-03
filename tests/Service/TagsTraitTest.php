@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Service;
+namespace ShipEngine\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
 
