@@ -4,8 +4,6 @@ namespace ShipEngine\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
 
-use ShipEngine\Util\Tests\Foo;
-
 /**
  * @covers \ShipEngine\Util\Getters
  */

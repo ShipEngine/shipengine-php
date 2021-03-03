@@ -3,9 +3,7 @@
 namespace ShipEngine\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
-
 use ShipEngine\Util\Json;
-use ShipEngine\Util\Tests\Foo;
 
 /**
  * @covers \ShipEngine\Util\JSON::encode

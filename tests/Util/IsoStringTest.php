@@ -3,7 +3,6 @@
 namespace ShipEngine\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
-
 use ShipEngine\Util\IsoString;
 
 /**
