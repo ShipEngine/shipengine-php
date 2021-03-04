@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Message;
+namespace ShipEngine;
 
 /**
  * Error-level message.
  *
  * Is throwable.
  */
-class Error extends \RuntimeException
+class ShipEngineError extends \RuntimeException
 {
 }

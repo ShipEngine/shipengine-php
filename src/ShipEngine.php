@@ -17,21 +17,17 @@ use ShipEngine\Service\TrackingTrait;
 final class ShipEngine
 {
     // Convenience method Traits.
-    use AddressesTrait;
-    use TrackingTrait;
     
     // Factory providing services.
     private ServiceFactory $service_factory;
 
     const VERSION = '0.0.1';
     
-    public function __construct(array $config = array(), HttpClient $client = null)
+    public function __construct(string $api_key, HttpClient $client = null)
     {
-        $config['user_agent'] = $this->deriveUserAgent();
+        $user_agent = $this->deriveUserAgent();
         
-        $config = new ShipEngineConfig($config);
-        
-        $client = new ShipEngineClient($config, $client);
+        $client = new ShipEngineClient($api_key, $user_agent, $client);
         
         $this->service_factory = new ServiceFactory($client);
     }

@@ -10,19 +10,15 @@ use ShipEngine\ShipEngineConfig;
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Service\ServiceFactory
  */
 final class ShipEngineTest extends TestCase
 {
     public function testShipEngineConstructor(): void
     {
-        $config = array('api_key' => 'PHP');
-        $config['base_uri'] = ShipEngineConfig::DEFAULT_BASE_URI;
-        $config['page_size'] = ShipEngineConfig::DEFAULT_PAGE_SIZE;
-        $config['retries'] = ShipEngineConfig::DEFAULT_RETRIES;
+        $api_key = 'FOO/BAR';
 
-        $shipengine = new ShipEngine($config);
+        $shipengine = new ShipEngine($api_key);
         
         $this->assertInstanceOf(ShipEngine::class, $shipengine);
     }
