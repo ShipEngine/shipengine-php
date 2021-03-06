@@ -1,6 +1,7 @@
 [![ShipEngine](https://shipengine.github.io/img/shipengine-logo-wide.png)](https://shipengine.com)
 
-# ShipEngine PHP
+ShipEngine PHP
+==============
 
 [![Build Status](https://github.com/ShipEngine/shipengine-php/workflows/shipengine-php/badge.svg)](https://github.com/ShipEngine/shipengine-php/actions)
 [![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-php/badge.svg?branch=main&t=SkXqIE)](https://coveralls.io/github/ShipEngine/shipengine-php?branch=main)
@@ -13,27 +14,46 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 
 </hr>
 
-## Quick Start
-
+Quick Start
+-----------
 Install ShipEngine via [Composer](https://getcomposer.org/):
 ```
 %> composer require shipengine/shipengine
 ```
 
-The only configuration requirement is an [API key](https://www.shipengine.com/docs/auth/#api-keys).
+- The only configuration requirement is an [API key](https://www.shipengine.com/docs/auth/#api-keys).
+
+> The following example assumes that you have already set the `SHIPENGIEN_API_KEY` using `putenv()`.
+> 
+`Validate an Address`
+-------------------
 ```php
 use ShipEngine\ShipEngine;
 
 $api_key = getenv('SHIPENGINE_API_KEY');
 
-$shipengine = new ShipEngine(['api_key' => $api_key]);
+$shipengine = new ShipEngine($api_key);
 
 $valid = $shipengine->validateAddress(['1 E 161 St'], 'The Bronx', 'NY', '10451', 'US');
 
 assert($valid);
 ```
 
-To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
+`Create a Tag`
+------------
+```php
+use ShipEngine\ShipEngine;
+
+$api_key = getenv('SHIPENGINE_API_KEY');
+
+$shipengine = new ShipEngine($api_key);
+
+$new_tag = $shipengine->createTag('shipengine_sdk');
+
+echo $new_tag;
+```
+
+- To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
 If you don't already have a [php-http](http://docs.php-http.org/en/latest/) compliant HTTP Client in your project, you'll need to [install one](http://docs.php-http.org/en/latest/httplug/users.html).
 ShipEngine will automatically discover it.
 But, you can also pass in a configured client manually.
@@ -45,33 +65,56 @@ use Symfony\Component\HttpClient\HttplugClient;
 $api_key = getenv('SHIPENGINE_API_KEY');
 $http = new HttplugClient();
 
-$shipengine = new ShipEngine(['api_key' => $api_key], $http);
+$shipengine = new ShipEngine($api_key, $http);
 ```
 
-> :neckbeard: You can find a more in-depth tutorial of the Addresses Service in our [docs](https://shipengine.github.io/shipengine-php/tutorials/addresses.html).
+Test
+----
 
-## Test
-
-You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
-```
-%> hoverfly -webserver -response-body-files-path simengine > /dev/null &
+- You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
+```bash
+hoverfly -webserver -response-body-files-path simengine > /dev/null &
 ```
 
-You can now run all tests using [PHPUnit](https://phpunit.de/):
+- You can now run all tests using [PHPUnit](https://phpunit.de/):
+```bash
+./vendor/bin/phpunit
 ```
-%> ./vendor/bin/phpunit
+OR using our `composer scripts`:
+
+_phpunit_
+```bash
+composer phpunit
+```
+- You can also run `phpcs`:
+
+_phpcs_
+```bash
+composer phpcs
 ```
 
 To stop hoverfly (after you are done testing):
-```
-%> hoverctl stop
+```bash
+hoverctl stop
 ```
 
-## Lint
+Lint
+----
+```bash
+./vendor/bin/phpstan analyse src --level 5
 ```
-%> ./vendor/bin/phpstan analyse src --level 5
+
+_phpstan_ using our `composer script`:
+```bash
+compser phpstan
 ```
-## Generate Documentation
+
+Generate Documentation
+----------------------
+```bash
+./vendor/bin/phpdoc -d src -t doc
 ```
-%> ./vendor/bin/phpdoc -d src -t doc
-```
+
+Local Development
+=================
+We are managing `php environment` with [Nix](https://nixos.org/download.html "Nix Website") and [Direnv](https://direnv.net/docs/installation.html "Direnv Install page"), and we recommend downloading them before contributing to this project.

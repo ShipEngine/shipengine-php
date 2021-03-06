@@ -39,6 +39,12 @@
   "config": {
     "sort-packages": true
   },
+  "scripts": {
+    "phpunit": "./vendor/bin/phpunit",
+    "phpstan": "./vendor/bin/phpstan analyse src --level 5",
+    "phpcs": "./vendor/bin/phpcs --standard=PSR2 src",
+    "gen:docs": "./vendor/bin/phpdoc -d src -t doc"
+  },
   "minimum-stability": "dev",
   "prefer-stable": true
 }
