@@ -2,7 +2,7 @@
 
 namespace ShipEngine\Service;
 
-// use cbschuld\UuidBase58;
+ use cbschuld\UuidBase58;
 use Http\Discovery\Exception\NotFoundException;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
@@ -52,8 +52,7 @@ abstract class AbstractService
         $HTTP_METHOD = 'POST';
 
         $jsonData = json_encode(array_filter([
-            // @TODO change to base 58
-            'id' => 'foo/bar',
+            'id' => UuidBase58::id(),
             'jsonrpc' => '2.0',
             'method' => $method,
             'params' => $params

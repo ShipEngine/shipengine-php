@@ -3,21 +3,24 @@
 namespace ShipEngine;
 
 use Http\Client\HttpClient;
-
-use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\Address\AddressTrait;
 use ShipEngine\Service\AddressesTrait;
+use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\Tag\TagTrait;
 use ShipEngine\Service\TrackingTrait;
 
 /**
  * ShipEngine client.
  *
- * @property \ShipEngine\Service\AddressesService $addresses
- * @property \ShipEngine\Service\TrackingService $tracking
+ * @property \ShipEngine\Service\Tag\TagService $tags
+ * @property \ShipEngine\Service\Address\AddressService $addresses
  */
 final class ShipEngine
 {
     // Convenience method Traits.
-    
+    use TagTrait;
+    use AddressTrait;
+
     // Factory providing services.
     private ServiceFactory $service_factory;
 

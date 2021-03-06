@@ -33,9 +33,14 @@ final class ShipEngineClient
         $headers['User-Agent'] = $user_agent;
 
         $uri_factory = UriFactoryDiscovery::find();
-        // @TODO check for env var
-        $base_uri = "http://localhost:8500";
-        $base_uri = $uri_factory->createUri($base_uri);
+
+        if (!getenv('CLIENT_BASE_URI')) {
+            $base_url = 'http://localhost:8500';
+        } else {
+            $base_url = getenv('CLIENT_BASE_URI');
+        }
+
+        $base_uri = $uri_factory->createUri($base_url);
         
         $plugins = array();
         $plugins[] = new HeaderDefaultsPlugin($headers);

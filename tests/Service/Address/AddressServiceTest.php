@@ -1,22 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace Service\Tag;
+namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
 use ShipEngine\ShipEngine;
 
 /**
- * Tests the methods provided in the `TagTrait`.
+ * Tests the methods provided in the `AddressService`.
  *
- * @covers \ShipEngine\Model\Tag\Tag
- * @covers \ShipEngine\Service\Tag\TagTrait
- * @covers \ShipEngine\Service\Tag\TagService
+ * @covers \ShipEngine\Service\Address\AddressTrait
+ * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  */
-final class TagTraitTest extends TestCase
+final class AddressServiceTest extends TestCase
 {
     /**
      * @var ShipEngine
@@ -44,7 +43,7 @@ final class TagTraitTest extends TestCase
     }
 
     /**
-     * Pass in an `api-key` the new instance of the *ShipEngine* class.
+     * Pass an `api-key` into the new instance of the *ShipEngine* class.
      *
      * @return void
      */
@@ -53,17 +52,21 @@ final class TagTraitTest extends TestCase
         $this->shipengine = new ShipEngine('baz');
     }
 
-    /**
-     * Test the `createTag()` convenience method on the *TagTrait* successfully creates a new tag using
-     * the `tag/create` remote procedure.
-     *
-     * @return void
-     */
-    public function testCreateValidTag(): void
+    public function testValidateMethod(): void
     {
-        $good_test_value = 'calque_rpc';
-        $new_tag = $this->shipengine->createTag($good_test_value);
+        $params = array(
+            'street' => [
+                '4 Jersey St',
+                'ste 200'
+            ],
+            'city' => 'Boston',
+            'state' => 'MA',
+            'postal_code' => '02215',
+            'country_code' => 'US',
+        );
 
-        $this->assertEquals($new_tag->name, $good_test_value);
+        $validation = $this->shipengine->addresses->validate($params);
+
+        $this->assertEquals($params['city'], $validation->city_locality);
     }
 }

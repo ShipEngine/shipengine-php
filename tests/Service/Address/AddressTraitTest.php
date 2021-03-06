@@ -1,22 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace Service\Tag;
+namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
 use ShipEngine\ShipEngine;
 
 /**
- * Tests the methods provided in the `TagTrait`.
+ * Tests the methods provided in the `AddressTrait`.
  *
- * @covers \ShipEngine\Model\Tag\Tag
- * @covers \ShipEngine\Service\Tag\TagTrait
- * @covers \ShipEngine\Service\Tag\TagService
+ * @covers \ShipEngine\Service\Address\AddressTrait
+ * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  */
-final class TagTraitTest extends TestCase
+final class AddressTraitTest extends TestCase
 {
     /**
      * @var ShipEngine
@@ -53,17 +52,25 @@ final class TagTraitTest extends TestCase
         $this->shipengine = new ShipEngine('baz');
     }
 
-    /**
-     * Test the `createTag()` convenience method on the *TagTrait* successfully creates a new tag using
-     * the `tag/create` remote procedure.
-     *
-     * @return void
-     */
-    public function testCreateValidTag(): void
+    public function testValidateAddress(): void
     {
-        $good_test_value = 'calque_rpc';
-        $new_tag = $this->shipengine->createTag($good_test_value);
+        $street = array(
+            '4 Jersey St',
+            'ste 200'
+        );
+        $city = 'Boston';
+        $state = 'MA';
+        $postal_code = '02215';
+        $country_code = 'US';
 
-        $this->assertEquals($new_tag->name, $good_test_value);
+        $validation = $this->shipengine->validateAddress(
+            $street,
+            $city,
+            $state,
+            $postal_code,
+            $country_code
+        );
+
+        $this->assertEquals($city, $validation->city_locality);
     }
 }
