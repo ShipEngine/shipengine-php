@@ -3,11 +3,13 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
 /**
  * Tests the methods provided in the `AddressService`.
  *
+ * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Service\Address\AddressTrait
  * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Service\AbstractService
@@ -21,6 +23,11 @@ final class AddressServiceTest extends TestCase
      * @var ShipEngine
      */
     private ShipEngine $shipengine;
+
+    /**
+     * @var array
+     */
+    private array $params;
 
     /**
      * Import `simengine/rpc/rpc.json` into *Hoverfly* before class instantiation.
@@ -49,12 +56,7 @@ final class AddressServiceTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->shipengine = new ShipEngine('baz');
-    }
-
-    public function testValidateMethod(): void
-    {
-        $params = array(
+        $this->params = array(
             'street' => [
                 '4 Jersey St',
                 'ste 200'
@@ -65,8 +67,22 @@ final class AddressServiceTest extends TestCase
             'country_code' => 'US',
         );
 
-        $validation = $this->shipengine->addresses->validate($params);
+        $this->shipengine = new ShipEngine('baz');
+    }
 
-        $this->assertEquals($params['city'], $validation->city_locality);
+    public function testValidateMethod(): void
+    {
+        $validation = $this->shipengine->addresses->validate($this->params);
+
+        $this->assertEquals($this->params['city'], $validation->city_locality);
+    }
+
+    /**
+     * Test the return type, should be an instance of the `Address` Type.
+     */
+    public function testReturnType(): void {
+        $validation = $this->shipengine->addresses->validate($this->params);
+
+        $this->assertInstanceOf(Address::class, $validation);
     }
 }

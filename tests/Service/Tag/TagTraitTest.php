@@ -3,6 +3,7 @@
 namespace Service\Tag;
 
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Model\Tag\Tag;
 use ShipEngine\ShipEngine;
 
 /**
@@ -22,6 +23,11 @@ final class TagTraitTest extends TestCase
      * @var ShipEngine
      */
     private ShipEngine $shipengine;
+
+    /**
+     * @var string
+     */
+    private string $test_tag;
 
     /**
      * Import `simengine/rpc/rpc.json` into *Hoverfly* before class instantiation.
@@ -50,6 +56,7 @@ final class TagTraitTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->test_tag = 'calque';
         $this->shipengine = new ShipEngine('baz');
     }
 
@@ -61,9 +68,18 @@ final class TagTraitTest extends TestCase
      */
     public function testCreateValidTag(): void
     {
-        $good_test_value = 'calque_rpc';
-        $new_tag = $this->shipengine->createTag($good_test_value);
+        $new_tag = $this->shipengine->createTag($this->test_tag);
 
-        $this->assertEquals($new_tag->name, $good_test_value);
+        $this->assertEquals($this->test_tag, $new_tag->name);
+    }
+
+    /**
+     * Test the return type, should be an instance of the `Tag` Type.
+     */
+    public function testReturnValue(): void
+    {
+        $new_tag = $this->shipengine->tags->create(array('name' => $this->test_tag));
+
+        $this->assertInstanceOf(Tag::class, $new_tag);
     }
 }

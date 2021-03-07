@@ -9,4 +9,5 @@ namespace ShipEngine;
  */
 class ShipEngineError extends \RuntimeException
 {
+    // TODO: get this working, exception being linted as not throwable.
 }
