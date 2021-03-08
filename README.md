@@ -34,9 +34,9 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 
 $shipengine = new ShipEngine($api_key);
 
-$new_tag = $shipengine->createTag('shipengine_tag');
+$validated_address = $shipengine->validateAddress(['4 Jersey St', 'ste 200'], 'Boston', 'MA', '02215', 'US');
 
-echo $new_tag;
+print_r($validated_address);
 ```
 
 `Create a Tag`
@@ -50,7 +50,7 @@ $shipengine = new ShipEngine($api_key);
 
 $new_tag = $shipengine->createTag('shipengine_sdk');
 
-echo $new_tag;
+print_r($new_tag);
 ```
 
 - To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
@@ -58,6 +58,8 @@ If you don't already have a [php-http](http://docs.php-http.org/en/latest/) comp
 ShipEngine will automatically discover it.
 But, you can also pass in a configured client manually.
 
+Pass the ShipEngine Class a custom client
+-----------------------------------------
 ```php
 use ShipEngine\ShipEngine;
 use Symfony\Component\HttpClient\HttplugClient;
