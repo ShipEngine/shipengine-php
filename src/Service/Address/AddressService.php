@@ -31,12 +31,14 @@ final class AddressService extends AbstractService
             );
         }
 
+        $status_code = $response->getStatusCode();
+
 //        $errors = array();
 //        foreach ($parsed_response['result'][0]['messages']['errors'] as $error) {
 //            $errors[] = $error;
 //        }
 
         // TODO: check with Anthony on why this is not working properly
-//        throw new ShipEngineError('Failed to validate the provided address: ', $errors);
+        throw new ShipEngineError('Failed to validate the provided address: ', $status_code);
     }
 }
