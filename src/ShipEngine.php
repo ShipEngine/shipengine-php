@@ -3,9 +3,9 @@
 namespace ShipEngine;
 
 use Http\Client\HttpClient;
-
-use ShipEngine\Service\TagsTrait;
+use ShipEngine\Service\Address\AddressTrait;
 use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\Tag\TagTrait;
 
 /**
  * ShipEngine client.

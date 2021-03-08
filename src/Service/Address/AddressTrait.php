@@ -37,8 +37,6 @@ trait AddressTrait
             $residential
         );
 
-//      NOTE: For now this just returns the string that is the city of
-//      the address passed in IF the address was validated.
         return $this->addresses->validate($parameters);
     }
 }

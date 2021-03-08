@@ -15,9 +15,6 @@
       "homepage": "https://github.com/ShipEngine/shipengine-php/contributors"
     }
   ],
-  "config": {
-    "sort-packages": true
-  },
   "require": {
     "php": ">=7.4.0",
     "cbschuld/php-uuid-base58": "^1.0",
@@ -55,10 +52,5 @@
     "gen:docs": "./vendor/bin/phpdoc -d src -t doc"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "test:phpunit": "phpunit",
-    "test:codesniffer": "phpcs --standard=PSR2 src",
-    "test:phpstan": "phpstan analyse src --level 5"
-  }
+  "prefer-stable": true
 }

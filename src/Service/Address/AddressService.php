@@ -39,6 +39,6 @@ final class AddressService extends AbstractService
         }
 
         // TODO: check with Anthony on why this is not working properly
-        throw new ShipEngineError('Failed to validate the provided address: ', $status_code, $errors);
+        throw new ShipEngineError('Failed to validate the provided address: ', $errors);
     }
 }

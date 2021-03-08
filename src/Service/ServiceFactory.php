@@ -11,20 +11,37 @@ use ShipEngine\ShipEngineClient;
  */
 class ServiceFactory
 {
+    /**
+     * @var ShipEngineClient
+     */
     private ShipEngineClient $client;
 
+    /**
+     * @var string[]
+     */
     private $classes = [
         'tags' => TagService::class,
         'addresses' => AddressService::class
     ];
 
+    /**
+     * @var array
+     */
     private $services = array();
 
+    /**
+     * ServiceFactory constructor.
+     * @param ShipEngineClient $client
+     */
     public function __construct(ShipEngineClient $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function __get(string $name)
     {
         if (!array_key_exists($name, $this->classes)) {

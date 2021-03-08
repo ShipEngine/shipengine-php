@@ -17,9 +17,19 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class ShipEngineClient
 {
-
+    /**
+     * @var PluginClient
+     */
     private PluginClient $client;
-   
+
+    /**
+     * ShipEngineClient constructor.
+     *
+     * @param string $api_key
+     * @param string $user_agent
+     * @param HttpClient|null $client
+     * @throws \Http\Discovery\Exception\NotFoundException
+     */
     public function __construct(string $api_key, string $user_agent, HttpClient $client = null)
     {
         
@@ -56,7 +66,8 @@ final class ShipEngineClient
     }
 
     /**
-     * Send an HTTP request.
+     * Send an RPC request via HTTP Messages.
+     *
      * @param RequestInterface $request
      * @return ResponseInterface
      */

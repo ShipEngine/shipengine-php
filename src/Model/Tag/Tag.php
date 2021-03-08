@@ -13,6 +13,9 @@ final class Tag
 {
     use Util\Getters;
 
+    /**
+     * @var string
+     */
     private string $name;
 
     /**
