@@ -31,8 +31,6 @@ final class AddressService extends AbstractService
             );
         }
 
-        $status_code = $response->getStatusCode();
-
         $errors = array();
         foreach ($parsed_response['result'][0]['messages']['errors'] as $error) {
             $errors[] = $error;
