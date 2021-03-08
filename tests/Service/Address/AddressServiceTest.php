@@ -5,6 +5,7 @@ namespace Service\Address;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
+use ShipEngine\ShipEngineError;
 
 /**
  * Tests the methods provided in the `AddressService`.
@@ -27,7 +28,12 @@ final class AddressServiceTest extends TestCase
     /**
      * @var array
      */
-    private array $params;
+    private array $goodAddress;
+
+    /**
+     * @var array
+     */
+    private array $badAddress;
 
     /**
      * Import `simengine/rpc/rpc.json` into *Hoverfly* before class instantiation.
@@ -56,10 +62,20 @@ final class AddressServiceTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->params = array(
+        $this->goodAddress = array(
             'street' => [
                 '4 Jersey St',
                 'ste 200'
+            ],
+            'city' => 'Boston',
+            'state' => 'MA',
+            'postal_code' => '02215',
+            'country_code' => 'US',
+        );
+
+        $this->badAddress = array(
+            'street' => [
+               'validate-with-error'
             ],
             'city' => 'Boston',
             'state' => 'MA',
@@ -72,17 +88,25 @@ final class AddressServiceTest extends TestCase
 
     public function testValidateMethod(): void
     {
-        $validation = $this->shipengine->addresses->validate($this->params);
+        $validation = $this->shipengine->addresses->validate($this->goodAddress);
 
-        $this->assertEquals($this->params['city'], $validation->city_locality);
+        $this->assertEquals($this->goodAddress['city'], $validation->city_locality);
     }
 
     /**
      * Test the return type, should be an instance of the `Address` Type.
      */
-    public function testReturnType(): void {
-        $validation = $this->shipengine->addresses->validate($this->params);
+    public function testReturnType(): void
+    {
+        $validation = $this->shipengine->addresses->validate($this->goodAddress);
 
         $this->assertInstanceOf(Address::class, $validation);
+    }
+
+    public function testValidateWithError(): void
+    {
+        $this->expectException(ShipEngineError::class);
+
+        $this->shipengine->addresses->validate($this->badAddress);
     }
 }
