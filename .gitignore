@@ -9,5 +9,5 @@ config.yaml
 reports
 build
 
-# Intellij IDEA
+# Intellij IDE
 .idea/

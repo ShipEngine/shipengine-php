@@ -18,12 +18,11 @@ use Psr\Http\Message\ResponseInterface;
 final class ShipEngineClient
 {
 
-    const DEFAULT_BASE_URI = 'https://api.shipengine.com/v1/';
-
     private PluginClient $client;
-
+   
     public function __construct(string $api_key, string $user_agent, HttpClient $client = null)
     {
+        
         if (!$client) {
             $client = HttpClientDiscovery::find();
         }
@@ -33,13 +32,20 @@ final class ShipEngineClient
         $headers['User-Agent'] = $user_agent;
 
         $uri_factory = UriFactoryDiscovery::find();
-        $base_uri = $uri_factory->createUri(getenv('RPC_CLIENT_BASE_URI') ?? self::DEFAULT_BASE_URI);
 
+        if (!getenv('CLIENT_BASE_URI')) {
+            $base_url = 'http://localhost:8500';
+        } else {
+            $base_url = getenv('CLIENT_BASE_URI');
+        }
+
+        $base_uri = $uri_factory->createUri($base_url);
+        
         $plugins = array();
         $plugins[] = new HeaderDefaultsPlugin($headers);
         $plugins[] = new BaseUriPlugin($base_uri);
         $plugins[] = new RetryPlugin([
-            'retries' => 1,
+            'retries' => 2,
             'error_response_decider' => function (RequestInterface $request, ResponseInterface $response): bool {
                 $status = $response->getStatusCode();
                 return $status === 429;

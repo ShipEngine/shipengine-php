@@ -10,13 +10,15 @@ use ShipEngine\Service\ServiceFactory;
 /**
  * ShipEngine client.
  *
- * @property \ShipEngine\Service\TagsService $tags
+ * @property \ShipEngine\Service\Tag\TagService $tags
+ * @property \ShipEngine\Service\Address\AddressService $addresses
  */
 final class ShipEngine
 {
     // Convenience method Traits.
-    use TagsTrait;
-    
+    use TagTrait;
+    use AddressTrait;
+
     // Factory providing services.
     private ServiceFactory $service_factory;
 
@@ -24,7 +26,9 @@ final class ShipEngine
     
     public function __construct(string $api_key, HttpClient $client = null)
     {
-        $client = new ShipEngineClient($api_key, $this->deriveUserAgent(), $client);
+        $user_agent = $this->deriveUserAgent();
+        
+        $client = new ShipEngineClient($api_key, $user_agent, $client);
         
         $this->service_factory = new ServiceFactory($client);
     }

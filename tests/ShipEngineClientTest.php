@@ -8,7 +8,6 @@ use Http\Message\MessageFactory;
 use PHPUnit\Framework\TestCase;
 
 use ShipEngine\ShipEngineClient;
-use ShipEngine\ShipEngineConfig;
 
 /**
  * @covers \ShipEngine\ShipEngineClient
@@ -32,14 +31,17 @@ final class ShipEngineClientTest extends TestCase
 
     public function setUp(): void
     {
+        $this->config = array(
+            'api_key' => 'TEST',
+            'user_agent' => 'TEST'
+        );
         $this->message_factory = MessageFactoryDiscovery::find();
     }
     
     public function testRetries(): void
     {
-        $user_agent = 'PHP';
-        $api_key = 'baz';
-        $client = new ShipEngineClient($api_key, $user_agent);
+        
+        $client = new ShipEngineClient($this->config['api_key'], $this->config['user_agent']);
 
         $request = $this->message_factory->createRequest('GET', '/retries');
         $response = $client->sendRequest($request);

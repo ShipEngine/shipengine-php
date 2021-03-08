@@ -3,8 +3,11 @@
 namespace ShipEngine;
 
 /**
- * Throwable ShipEngine error-level message
+ * Error-level message.
+ *
+ * Is throwable.
  */
-final class ShipEngineError extends \RuntimeException
+class ShipEngineError extends \RuntimeException
 {
+    // TODO: get this working, exception being linted as not throwable.
 }

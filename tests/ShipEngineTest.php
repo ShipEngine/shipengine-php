@@ -16,7 +16,7 @@ final class ShipEngineTest extends TestCase
 {
     public function testShipEngineConstructor(): void
     {
-        $api_key = 'baz';
+        $api_key = 'FOO/BAR';
 
         $shipengine = new ShipEngine($api_key);
         
