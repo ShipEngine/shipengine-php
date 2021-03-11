@@ -45,18 +45,32 @@ final class Address
     private string $country_code;
 
     /**
-     * @var bool|null
+     * @var bool
      */
-    private ?bool $residential;
+    private bool $valid;
+
+    /**
+     * @var bool
+     */
+    private bool $residential;
+
+    /**
+     * @var array
+     */
+    private array $messages;
+
 
     /**
      * Address Type constructor.
+     *
      * @param array $street
      * @param string $city_locality
      * @param string $state_province
      * @param string $postal_code
      * @param string $country_code
-     * @param bool|null $residential
+     * @param bool $valid
+     * @param bool $residential
+     * @param array $messages
      */
     public function __construct(
         array $street,
@@ -64,8 +78,12 @@ final class Address
         string $state_province,
         string $postal_code,
         string $country_code,
-        ?bool $residential
+        bool $valid,
+        bool $residential,
+        array $messages
     ) {
+        $this->$valid = $valid;
+        $this->messages = $messages;
         $this->street = $street;
         $this->city_locality = $city_locality;
         $this->state_province = $state_province;
@@ -83,5 +101,23 @@ final class Address
             return $this->residential;
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function jsonSerialize(): string
+    {
+        return json_encode([
+            'valid' => $this->valid,
+            'messages' => $this->messages,
+            'street' => $this->street,
+            'city_locality' => $this->city_locality,
+            'state_province' => $this->state_province,
+            'postal_code' => $this->postal_code,
+            'country_code' => $this->country_code,
+            'residential' => $this->residential,
+
+        ]);
     }
 }

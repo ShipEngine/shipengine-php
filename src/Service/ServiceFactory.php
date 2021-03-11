@@ -3,6 +3,7 @@
 namespace ShipEngine\Service;
 
 use ShipEngine\Service\Address\AddressService;
+use ShipEngine\Service\Package\PackageTrackingService;
 use ShipEngine\Service\Tag\TagService;
 use ShipEngine\ShipEngineClient;
 
@@ -21,7 +22,8 @@ class ServiceFactory
      */
     private $classes = [
         'tags' => TagService::class,
-        'addresses' => AddressService::class
+        'addresses' => AddressService::class,
+        'tracking' => PackageTrackingService::class
     ];
 
     /**

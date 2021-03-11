@@ -2,43 +2,46 @@
 
 namespace ShipEngine\Service\Address;
 
+use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineErrorMessage;
+use ShipEngine\Message\ShipEngineInfo;
+use ShipEngine\Message\ShipEngineWarning;
 use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressValidateParams;
+use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
-use ShipEngine\ShipEngineError;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 final class AddressService extends AbstractService
 {
     /**
      * Validate a single address via the `address/validate` remote procedure.
      *
-     * @param array $params
-     * @return Address
-     * @throws ShipEngineError if the provided address could not be validated.
+     * @param AddressValidateParams $params
+     * @return AddressValidateResult
      */
-    public function validate(array $params): Address
+    public function validate(AddressValidateParams $params)
     {
-        $response = $this->request('address/validate', $params);
-        $parsed_response = json_decode($response->getBody()->getContents(), true);
+        $messages = array();
 
-        if (empty($parsed_response['result'][0]['messages']['errors'])) {
-            return new Address(
-                $parsed_response['result'][0]['address']['street'],
-                $parsed_response['result'][0]['address']['city_locality'],
-                $parsed_response['result'][0]['address']['state_province'],
-                $parsed_response['result'][0]['address']['postal_code'],
-                $parsed_response['result'][0]['address']['country_code'],
-                $parsed_response['result'][0]['address']['residential']
-            );
-        }
 
-        $status_code = $response->getStatusCode();
+//        original code
+//        $parameters = $params;
+        $response = $this->request('address/validate', (array)$params);
+        $parsed_response = json_decode($response->getBody()->getContents())->result;
+//        $response_body = $response->getBody()->getContents();
+//        $result = $parsed_response['result'][0];
+//        $address = $parsed_response['result'][0]['address'];
 
-//        $errors = array();
-//        foreach ($parsed_response['result'][0]['messages']['errors'] as $error) {
-//            $errors[] = $error;
-//        }
+        return $parsed_response;
+//        return $parsed_response->result;
+        // TODO: implement the below once we get the hoverfly response to match the spec
+//        return $this->deserializeJsonToType($parsed_response, AddressValidateResult::class);
+//        return $this->deserializeJsonToType(json_encode($parsed_response), AddressValidateResult::class);
 
-        // TODO: check with Anthony on why this is not working properly
-        throw new ShipEngineError('Failed to validate the provided address', $status_code);
+//        $status_code = $response->getStatusCode();
     }
 }

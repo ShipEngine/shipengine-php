@@ -3,6 +3,7 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\ShipEngineError;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
@@ -90,7 +91,6 @@ final class AddressTraitTest extends TestCase
 
     public function testValidateAddress(): void
     {
-
         $validation = $this->shipengine->validateAddress(
             $this->street,
             $this->city,
@@ -115,5 +115,18 @@ final class AddressTraitTest extends TestCase
         );
 
         $this->assertInstanceOf(Address::class, $validation);
+    }
+
+    public function testValidateWithError(): void
+    {
+        $this->expectException(ShipEngineError::class);
+
+        $this->shipengine->validateAddress(
+            ['validate-with-error'],
+            $this->city,
+            $this->state,
+            $this->postal_code,
+            $this->country_code
+        );
     }
 }

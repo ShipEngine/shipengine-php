@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine;
+namespace ShipEngine\Message;
 
 /**
  * Error-level message.
@@ -9,5 +9,4 @@ namespace ShipEngine;
  */
 class ShipEngineError extends \RuntimeException
 {
-    // TODO: get this working, exception being linted as not throwable.
 }

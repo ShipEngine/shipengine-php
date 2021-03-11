@@ -4,6 +4,7 @@ namespace ShipEngine;
 
 use Http\Client\HttpClient;
 use ShipEngine\Service\Address\AddressTrait;
+use ShipEngine\Service\Package\PackageTrackingTrait;
 use ShipEngine\Service\ServiceFactory;
 use ShipEngine\Service\Tag\TagTrait;
 
@@ -12,12 +13,14 @@ use ShipEngine\Service\Tag\TagTrait;
  *
  * @property \ShipEngine\Service\Tag\TagService $tags
  * @property \ShipEngine\Service\Address\AddressService $addresses
+ * @property \ShipEngine\Service\Package\PackageTrackingService $tracking
  */
 final class ShipEngine
 {
     // Convenience method Traits.
     use TagTrait;
     use AddressTrait;
+    use PackageTrackingTrait;
 
     // Factory providing services.
     private ServiceFactory $service_factory;

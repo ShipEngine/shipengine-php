@@ -4,7 +4,7 @@ namespace ShipEngine\Model\Package;
 
 use ShipEngine\Model\Tag\Information;
 
-final class TrackingData
+final class PackageTrackingResult
 {
     private Information $information;
 
@@ -14,15 +14,15 @@ final class TrackingData
         Information $information,
         array $messages
     ) {
-       $this->information = $information;
-       $this->messages = $messages;
+        $this->information = $information;
+        $this->messages = $messages;
     }
 
     public function jsonSerialize(): string
     {
         return json_encode([
-            'information' => $this->information,
-            'messages' => $this->messages
+           'information' => $this->information,
+           'messages' => $this->messages
         ]);
     }
 }

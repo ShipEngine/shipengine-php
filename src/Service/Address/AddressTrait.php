@@ -3,6 +3,8 @@
 namespace ShipEngine\Service\Address;
 
 use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressValidateParams;
+use ShipEngine\ShipEngineError;
 
 /**
  * Convenience method to `validate` a single address.
@@ -28,7 +30,8 @@ trait AddressTrait
         string $country_code,
         ?bool $residential = null
     ): Address {
-        $parameters = array(
+
+        $address_validation_params = new AddressValidateParams(
             $street,
             $city,
             $state,
@@ -37,6 +40,34 @@ trait AddressTrait
             $residential
         );
 
-        return $this->addresses->validate($parameters);
+        $result = $this->addresses->validate($address_validation_params);
+
+        if ($result->valid == false) {
+            $errors = $result->messages['errors'][0];
+            $error_string = '';
+            foreach ($errors as $error) { // TODO: FIX CODE BREAKING HERE.
+                $error_string += $error;
+            }
+            throw new ShipEngineError($error_string);
+        }
+
+        if ($result->address != null) {
+            $address = $result->address;
+            return new Address(
+                $address->valid,
+                $result->messages,
+                $address->street,
+                $address->city_locality,
+                $address->state_province,
+                $address->postal_code,
+                $address->country_code,
+                $address->residential
+            );
+        }
     }
+//    TODO: Need to look into how to specify a type of an array of type Address
+//    public function validateAddresses(Address $addresses): Address
+//    {
+//
+//    }
 }
