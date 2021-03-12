@@ -2,7 +2,6 @@
 
 namespace ShipEngine\Model\Address;
 
-use ShipEngine\Message\MessageWrapper;
 use ShipEngine\Util;
 
 /**
@@ -10,9 +9,8 @@ use ShipEngine\Util;
  *
  * @package ShipEngine\Model\Address
  */
-final class AddressValidateResult
+final class AddressValidateResult implements \JsonSerializable
 {
-    use MessageWrapper;
     use Util\Getters;
 
     /**
@@ -25,35 +23,70 @@ final class AddressValidateResult
      */
     private array $messages;
 
+
     /**
-     * @var Address|null
+     * @var array|null
      */
-    private ?Address $address;
+    private ?array $address;
 
     /**
      * AddressValidateResult Type constructor.
      *
      * @param bool $valid
-     * @param Address|null $address
+     * @param array|null $address
      * @param array $messages
      */
     public function __construct(
         bool $valid,
         array $messages,
-        ?Address $address
+        ?array $address
     ) {
         $this->valid = $valid;
         $this->address = $address;
         $this->messages = $messages;
     }
 
-    // TODO: add Docstring with json example.
+
+    /**
+     * Return a JsonSerialized string representation of the `AddressValidateResult` Type.
+     *
+     * ```json
+     * {
+     * "valid": true,
+     * "address": {
+     * "street": [
+     * "in nostrud consequat nisi"
+     * ],
+     * "country_code": "BK",
+     * "postal_code": "ullamco culpa",
+     * "city_locality": "aliqua",
+     * "residential": false
+     * },
+     * "messages": {
+     * "errors": [
+     * "aute ea nulla",
+     * "occaecat consequat consectetur in esse",
+     * "aliqua sed"
+     * ],
+     * "info": [
+     * "Duis",
+     * "voluptate sed sunt",
+     * "nisi irure amet",
+     * "dolore aute",
+     * "exercitation esse aliquip aute est"
+     * ]
+     * }
+     * }
+     * ```
+     *
+     * @return string
+     */
     public function jsonSerialize(): string
     {
         return json_encode([
             'valid' => $this->valid,
             'address' => $this->address,
             'messages' => $this->messages
-        ]);
+        ], JSON_PRETTY_PRINT);
     }
 }

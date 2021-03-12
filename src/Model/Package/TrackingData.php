@@ -2,20 +2,18 @@
 
 namespace ShipEngine\Model\Package;
 
-use ShipEngine\Model\Tag\Information;
-
 final class TrackingData
 {
-    private Information $information;
+    private array $information;
 
     private array $messages;
 
     public function __construct(
-        Information $information,
+        array $information,
         array $messages
     ) {
-       $this->information = $information;
-       $this->messages = $messages;
+        $this->information = $information;
+        $this->messages = $messages;
     }
 
     public function jsonSerialize(): string

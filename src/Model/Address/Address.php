@@ -15,44 +15,14 @@ use ShipEngine\Util;
  * @property string $country_code
  * @property bool|null $residential
  */
-final class Address
+final class Address implements \JsonSerializable
 {
     use Util\Getters;
 
     /**
-     * @var array
-     */
-    private array $street;
-
-    /**
-     * @var string
-     */
-    private string $city_locality;
-
-    /**
-     * @var string
-     */
-    private string $state_province;
-
-    /**
-     * @var string
-     */
-    private string $postal_code;
-
-    /**
-     * @var string
-     */
-    private string $country_code;
-
-    /**
      * @var bool
      */
-    private bool $valid;
-
-    /**
-     * @var bool
-     */
-    private bool $residential;
+    private ?bool $valid;
 
     /**
      * @var array
@@ -61,63 +31,61 @@ final class Address
 
 
     /**
-     * Address Type constructor.
+     * @var array|null
+     */
+    private ?array $address;
+
+    /**
+     * AddressValidateResult Type constructor.
      *
-     * @param array $street
-     * @param string $city_locality
-     * @param string $state_province
-     * @param string $postal_code
-     * @param string $country_code
      * @param bool $valid
-     * @param bool $residential
+     * @param array|null $address
      * @param array $messages
      */
     public function __construct(
-        array $street,
-        string $city_locality,
-        string $state_province,
-        string $postal_code,
-        string $country_code,
         bool $valid,
-        bool $residential,
-        array $messages
+        array $messages,
+        ?array $address
     ) {
-        $this->$valid = $valid;
+        $this->valid = $valid;
+        $this->address = $address;
         $this->messages = $messages;
-        $this->street = $street;
-        $this->city_locality = $city_locality;
-        $this->state_province = $state_province;
-        $this->postal_code = $postal_code;
-        $this->country_code = $country_code;
-        $this->residential = $residential;
     }
 
     /**
-     * @return bool
-     */
-    public function isResidential(): bool
-    {
-        if (isset($this->residential)) {
-            return $this->residential;
-        }
-        return false;
-    }
-
-    /**
+     * Return a JsonSerialized string representation of the `Address` Type.
+     *
+     * ```json
+     * {
+     * "valid": true,
+     * "address": {
+     * "street": [
+     * "4 Jersey St"
+     * ],
+     * "city_locality": "Boston",
+     * "state_province": "MA",
+     * "postal_code": "02215",
+     * "country_code": "US",
+     * "residential": false
+     * },
+     * "messages": {
+     * "info": [],
+     * "errors": [],
+     * "warnings": [
+     * "There was a change or addition to the state/province."
+     * ]
+     * }
+     * }
+     * ```
+     *
      * @return string
      */
     public function jsonSerialize(): string
     {
         return json_encode([
             'valid' => $this->valid,
-            'messages' => $this->messages,
-            'street' => $this->street,
-            'city_locality' => $this->city_locality,
-            'state_province' => $this->state_province,
-            'postal_code' => $this->postal_code,
-            'country_code' => $this->country_code,
-            'residential' => $this->residential,
-
-        ]);
+            'address' => $this->address,
+            'messages' => $this->messages
+        ], JSON_PRETTY_PRINT);
     }
 }

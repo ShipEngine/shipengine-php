@@ -7,29 +7,34 @@ use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use ShipEngine\Model\Address\AddressValidateParams;
+use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * @covers \ShipEngine\Model\Address\AddressValidateParams;
  */
 final class AddressValidateParamsTest extends TestCase
 {
-    /**
-     * @var AddressValidateParams
-     */
-    private AddressValidateParams $address_validation_params;
+    private static ShipEngineSerializer $serializer;
+    private static string $initial_address_validate_params;
+    private static AddressValidateParams $successful_address_validate_params;
 
-    /**
-     * Setup an instance of `AddressValidationParams`.
-     */
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->address_validation_params = new AddressValidateParams(
-            array('4 Jersey St', 'ste 200'),
-            'US',
-            'Boston',
-            'MA',
-            '02215'
+        self::$serializer = new ShipEngineSerializer();
+        self::$initial_address_validate_params = json_encode(array (
+            'street' =>
+                array (
+                    0 => 'validate-batch',
+                ),
+            'city_locality' => 'Boston',
+            'state_province' => 'MA',
+            'postal_code' => '02215',
+            'country_code' => 'US',
+        ), JSON_PRETTY_PRINT);
+        self::$successful_address_validate_params = self::$serializer->deserializeJsonToType(
+            self::$initial_address_validate_params, AddressValidateParams::class
         );
+
     }
 
     /**
@@ -41,7 +46,7 @@ final class AddressValidateParamsTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $this->assertInstanceOf(AddressValidateParams::class, $this->address_validation_params);
+        $this->assertInstanceOf(AddressValidateParams::class, self::$successful_address_validate_params);
     }
 
     /**
@@ -52,33 +57,9 @@ final class AddressValidateParamsTest extends TestCase
      */
     public function testJsonSerialize(): void
     {
-        $json = $this->address_validation_params->jsonSerialize();
+        $json = self::$successful_address_validate_params->jsonSerialize();
 
         $this->assertNotNull($json);
         $this->assertIsString($json);
-    }
-
-    /**
-     * Test the instantiation via the construct function for the `AddressValidationParams` Type
-     * with default *null values*.
-     *
-     * @throws Exception
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     */
-    public function testNullProperties(): void
-    {
-        $address_validation_params_with_null_values = new AddressValidateParams(
-            array('4 Jersey St', 'ste 200'),
-            'US'
-        );
-
-        $this->assertNull($address_validation_params_with_null_values->city_locality);
-        $this->assertInstanceOf(AddressValidateParams::class, $address_validation_params_with_null_values);
-    }
-
-    public function testParse()
-    {
-       $this->assertEquals('Boston', $this->address_validation_params->city_locality);
     }
 }

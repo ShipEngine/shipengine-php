@@ -10,6 +10,5 @@ final class TagResult
 
     public function __construct()
     {
-
     }
 }

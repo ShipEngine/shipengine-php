@@ -67,20 +67,6 @@ abstract class AbstractService
     }
 
     /**
-     * Create a batch RPC request.
-     *
-     * @param string $method
-     * @param array $batch
-     * @return ResponseInterface
-     */
-    protected function batchRequest(string $method, array $batch): ResponseInterface
-    {
-        $body = $this->wrapBatchRequest($method, $batch);
-
-        return $this->sendRequest($body);
-    }
-
-    /**
      * Wrap request per JSON-RPC 2.0 spec.
      *
      * @param string $method
@@ -96,6 +82,20 @@ abstract class AbstractService
             'params' => $params
         ]);
     }
+    /**
+     * Create a batch RPC request.
+     *
+     * @param string $method
+     * @param array $batch
+     * @return ResponseInterface
+     */
+    protected function batchRequest(string $method, array $batch): ResponseInterface
+    {
+        $body = $this->wrapBatchRequest($method, $batch);
+
+        return $this->sendRequest($body);
+    }
+
 
     /**
      * Wrap `batch` request per JSON-RPC 2.0 spec.
@@ -107,7 +107,7 @@ abstract class AbstractService
     private function wrapBatchRequest(string $method, array $batch): array
     {
         foreach ($batch as &$item) {
-            $item = $this->wrapRequest($method, $item);
+            $item = $this->wrapRequest($method, (array)$item);
         }
 
         return $batch;
@@ -121,29 +121,4 @@ abstract class AbstractService
 
         return $this->client->sendRequest($request);
     }
-
-    protected function deserializeJsonToType(string $json_data, $target_class)
-    {
-        if (!class_exists($target_class)) {
-            throw new ShipEngineError('The target_class provided does not exist in this namespace.');
-        }
-
-        $json_encoder = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-
-        try {
-            $serializer = new Serializer($normalizers, $json_encoder);
-        } catch (InvalidArgumentException $e) {
-            throw new ShipEngineError('Failed to initialize Serializer: ' . $e);
-        }
-
-        try {
-            $obj = $serializer->deserialize($json_data, $target_class, 'json');
-        } catch (NotEncodableValueException $e) {
-            throw new ShipEngineError('Failed to deserialize the data provided -- should be a json string:' . $e);
-        }
-
-        return $obj;
-    }
-
 }

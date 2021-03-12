@@ -10,11 +10,13 @@ use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
 
 /**
- * Tests the methods provided in the `AddressService`.
+ * Tests the method provided in the `AddressService` that allows for single address validation.
  *
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Service\Address\AddressTrait
  * @covers \ShipEngine\Service\Address\AddressService
+ * @covers \ShipEngine\Model\Address\AddressValidateParams
+ * @covers \ShipEngine\Model\Address\AddressValidateResult
  * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
@@ -30,12 +32,12 @@ final class AddressServiceTest extends TestCase
     /**
      * @var AddressValidateParams
      */
-    private AddressValidateParams $goodAddress;
+    private AddressValidateParams $good_address;
 
     /**
      * @var AddressValidateParams
      */
-    private AddressValidateParams $badAddress;
+    private AddressValidateParams $bad_address;
 
     /**
      * Import `simengine/rpc/rpc.json` into *Hoverfly* before class instantiation.
@@ -44,6 +46,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        exec('hoverctl import simengine/rpc/rpc.json');
     }
 
     /**
@@ -53,6 +56,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function tearDownAfterClass(): void
     {
+        exec('hoverctl delete --force simengine/rpc/rpc.json');
     }
 
     /**
@@ -62,7 +66,7 @@ final class AddressServiceTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->goodAddress = new AddressValidateParams(
+        $this->good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
             'US',
             'Boston',
@@ -70,7 +74,7 @@ final class AddressServiceTest extends TestCase
             '02215'
         );
 
-        $this->badAddress = new AddressValidateParams(
+        $this->bad_address = new AddressValidateParams(
             array('validate-with-error'),
             'US',
             'Boston',
@@ -83,8 +87,8 @@ final class AddressServiceTest extends TestCase
 
     public function testValidateMethod()
     {
-        $validation = $this->shipengine->addresses->validate($this->goodAddress);
-        $this->assertEquals($this->goodAddress->city_locality, $validation->address->city_locality);
+        $validation = $this->shipengine->addresses->validate($this->good_address);
+        $this->assertEquals($this->good_address->city_locality, $validation->address['city_locality']);
     }
 
     /**
@@ -92,20 +96,19 @@ final class AddressServiceTest extends TestCase
      */
     public function testReturnType()
     {
-        $validation = $this->shipengine->addresses->validate($this->goodAddress);
-        print_r(json_encode($validation, JSON_PRETTY_PRINT));
-//        $this->assertInstanceOf(AddressValidateResult::class, $validation);
+        $validation = $this->shipengine->addresses->validate($this->good_address);
+//        print_r($validation->jsonSerialize());
+        $this->assertInstanceOf(AddressValidateResult::class, $validation);
     }
 
     public function testValidateWithError()
     {
         $this->assertInstanceOf(AddressValidateResult::class,
-            $this->shipengine->addresses->validate($this->badAddress));
+            $this->shipengine->addresses->validate($this->bad_address));
     }
 
-//    public function testJsonSerialize()
-//    {
-//        print_r($this->shipengine->addresses->validate($this->badAddress)->jsonSerialize());
-////        print_r($this->shipengine->addresses->validate($this->badAddress)->errors());
-//    }
+    public function testJsonSerialize()
+    {
+        $this->assertIsString($this->shipengine->addresses->validate($this->good_address)->jsonSerialize());
+    }
 }

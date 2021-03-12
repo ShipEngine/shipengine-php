@@ -28,6 +28,10 @@ Install ShipEngine via [Composer](https://getcomposer.org/):
 `Validate an Address`
 -------------------
 ```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
 use ShipEngine\ShipEngine;
 
 $api_key = getenv('SHIPENGINE_API_KEY');
@@ -39,9 +43,44 @@ $validated_address = $shipengine->validateAddress(['4 Jersey St', 'ste 200'], 'B
 print_r($validated_address);
 ```
 
+`Validate Multiple Addresses`
+-----------------------------
+```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
+use ShipEngine\ShipEngine;
+
+$api_key = 'SHIPENGINE_API_KEY';
+
+$shipengine = new ShipEngine($api_key);
+
+$validation = $shipengine->addresses->validateAddresses(
+    array(
+        ['4 Jersey St', 'ste 200'],
+        'Boston',
+        'TX',
+        '02215',
+        'US',
+        ['4 Jersey St', 'ste 200'],
+        'Boston',
+        'TX',
+        '02215',
+        'US'
+    )
+);
+
+print_r($validation);
+```
+
 `Create a Tag`
 ------------
 ```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
 use ShipEngine\ShipEngine;
 
 $api_key = getenv('SHIPENGINE_API_KEY');
@@ -61,6 +100,10 @@ But, you can also pass in a configured client manually.
 Pass the ShipEngine Class a custom client
 -----------------------------------------
 ```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
 use ShipEngine\ShipEngine;
 use Symfony\Component\HttpClient\HttplugClient;
 

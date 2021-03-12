@@ -2,16 +2,14 @@
 
 namespace ShipEngine\Model\Package;
 
-use ShipEngine\Model\Tag\Information;
-
 final class PackageTrackingResult
 {
-    private Information $information;
+    private array $information;
 
     private array $messages;
 
     public function __construct(
-        Information $information,
+        array $information,
         array $messages
     ) {
         $this->information = $information;

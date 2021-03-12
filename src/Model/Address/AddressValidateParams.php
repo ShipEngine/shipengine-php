@@ -54,8 +54,7 @@ final class AddressValidateParams
         ?string $state_province = null,
         ?string $postal_code = null,
         ?bool $residential = null
-    )
-    {
+    ) {
         $this->street = $street;
         $this->city_locality = $city_locality;
         $this->state_province = $state_province;
@@ -92,6 +91,6 @@ final class AddressValidateParams
             'postal_code' => $this->postal_code,
             'country_code' => $this->country_code,
             'residential' => $this->residential
-        ]);
+        ], JSON_PRETTY_PRINT);
     }
 }
