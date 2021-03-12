@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Service\Address;
 
+use ShipEngine\Message\ShipEngineError;
 use ShipEngine\Model\Address\AddressValidateParams;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
@@ -19,7 +20,12 @@ final class AddressService extends AbstractService
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->request('address/validate', (array)$params);
-        $parsed_response = json_decode($response->getBody()->getContents())->result;
+
+        if ($response->getStatusCode() != 200) {
+            throw new ShipEngineError("Validation request failed -- status_code: {$response->getStatusCode()} reason: {$response->getReasonPhrase()}");
+        }
+
+        $parsed_response = json_decode($response->getBody()->getContents());
 
         return $serializer->deserializeJsonToType(json_encode($parsed_response), AddressValidateResult::class);
     }
@@ -28,6 +34,11 @@ final class AddressService extends AbstractService
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->batchRequest('address/validate', $params);
+
+        if ($response->getStatusCode() != 200) {
+            throw new ShipEngineError("Validation request failed -- status_code: {$response->getStatusCode()} reason: {$response->getReasonPhrase()}");
+        }
+
         $parsed_response = json_decode($response->getBody()->getContents());
 
         $result_array = array();

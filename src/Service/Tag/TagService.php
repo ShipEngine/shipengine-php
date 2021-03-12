@@ -2,9 +2,10 @@
 
 namespace ShipEngine\Service\Tag;
 
+use ShipEngine\Message\ShipEngineError;
 use ShipEngine\Model\Tag\Tag;
 use ShipEngine\Service\AbstractService;
-use ShipEngine\ShipEngineError;
+use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Service to create tags.
@@ -20,20 +21,15 @@ class TagService extends AbstractService
      */
     public function create(array $params): Tag
     {
+        $serializer = new ShipEngineSerializer();
         $response = $this->request('tag/create', $params);
-        $parsed_response = json_decode($response->getBody()->getContents(), true);
 
-        if (empty($parsed_response['result'][0]['messages']['errors'])) {
-            return new Tag(
-                $parsed_response['result']['name'],
-            );
+        if ($response->getStatusCode() != 200) {
+            throw new ShipEngineError("Validation request failed -- status_code: {$response->getStatusCode()} reason: {$response->getReasonPhrase()}");
         }
 
-//        $errors = array();
-//        foreach ($parsed_response['result'][0]['messages']['errors'] as $error) {
-//            $errors[] = $error;
-//        }
+        $parsed_response = json_decode($response->getBody()->getContents(), true);
 
-        throw new ShipEngineError('Faild to create the provided.');
+       return $serializer->deserializeJsonToType(json_encode($parsed_response->result), Tag::class);
     }
 }
