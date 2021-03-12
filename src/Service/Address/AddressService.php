@@ -27,7 +27,7 @@ final class AddressService extends AbstractService
 
         $parsed_response = json_decode($response->getBody()->getContents());
 
-        return $serializer->deserializeJsonToType(json_encode($parsed_response), AddressValidateResult::class);
+        return $serializer->deserializeJsonToType(json_encode($parsed_response->result), AddressValidateResult::class);
     }
 
     public function validateAddresses(array $params): array
