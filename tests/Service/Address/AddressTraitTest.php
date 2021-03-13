@@ -120,13 +120,15 @@ final class AddressTraitTest extends TestCase
 
     public function testValidateWithError(): void
     {
-        // TODO: This should respond with valid false, but does not.
-        $this->assertInstanceOf(Address::class, $this->shipengine->validateAddress(
-            ['validate-with-error'],
+        $this->expectException(ShipEngineError::class);
+
+        $this->shipengine->validateAddress(
+            ['with-error'],
             $this->city,
             $this->state,
             $this->postal_code,
             $this->country_code
-        ));
+        );
+
     }
 }

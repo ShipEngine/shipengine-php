@@ -16,7 +16,7 @@ final class AddressValidateResult implements \JsonSerializable
     /**
      * @var bool
      */
-    private ?bool $valid;
+    private bool $valid;
 
     /**
      * @var array

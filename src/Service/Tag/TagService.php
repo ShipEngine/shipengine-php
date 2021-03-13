@@ -23,13 +23,17 @@ class TagService extends AbstractService
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->request('tag/create', $params);
+        $status_code = $response->getStatusCode();
+        $reason_phrase = $response->getReasonPhrase();
 
         if ($response->getStatusCode() != 200) {
-            throw new ShipEngineError("Validation request failed -- status_code: {$response->getStatusCode()} reason: {$response->getReasonPhrase()}");
+            throw new ShipEngineError(
+                "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
+            );
         }
 
-        $parsed_response = json_decode($response->getBody()->getContents(), true);
+        $parsed_response = json_decode($response->getBody()->getContents());
 
-       return $serializer->deserializeJsonToType(json_encode($parsed_response->result), Tag::class);
+        return $serializer->deserializeJsonToType(json_encode($parsed_response->result), Tag::class);
     }
 }

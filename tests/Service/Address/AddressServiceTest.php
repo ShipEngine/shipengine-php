@@ -75,7 +75,7 @@ final class AddressServiceTest extends TestCase
         );
 
         $this->bad_address = new AddressValidateParams(
-            array('validate-with-error'),
+            array('with-error'),
             'US',
             'Boston',
             'MA',

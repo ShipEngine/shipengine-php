@@ -21,8 +21,8 @@ trait AddressTrait
      * @param string $postal_code
      * @param string $country_code
      * @param bool|null $residential
-     * @throws ShipEngineError
      * @return Address
+     * @throws ShipEngineError
      */
     public function validateAddress(
         array $street,
@@ -47,16 +47,14 @@ trait AddressTrait
         $result = $this->addresses->validate($address_validation_params);
 
         if ($result->valid == false) {
-            $errors = $result->messages['errors'][0];
+            $errors = $result->messages['errors'];
             $error_string = '';
             foreach ($errors as $error) { // TODO: FIX CODE BREAKING HERE.
-                $error_string += $error;
+                $error_string = $error;
             }
             throw new ShipEngineError($error_string);
         }
 
-        if ($result->address != null) {
-            return $serializer->deserializeJsonToType($result->jsonSerialize(), Address::class);
-        }
+        return $serializer->deserializeJsonToType($result->jsonSerialize(), Address::class);
     }
 }

@@ -6,7 +6,7 @@ use ShipEngine\Model\Package\PackageTrackingParams;
 
 trait PackageTrackingTrait
 {
-    public function trackPackage(string $tracking_number, string $carrier_code): TrackingData
+    public function trackPackage(string $tracking_number, string $carrier_code)
     {
         $package_track_params = new PackageTrackingParams(
             $tracking_number,
@@ -15,6 +15,6 @@ trait PackageTrackingTrait
 
         $result = $this->tracking->track($package_track_params);
 
-        return new TrackingData(); // TODO: implement the build of this from the result data above.
+        return $result; // TODO: implement the build of this from the result data above.
     }
 }

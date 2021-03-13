@@ -21,12 +21,12 @@ final class PackageTrackingParams
 
     /**
      * PackageTrackingParams constructor.
-     * @param $carrier_code
-     * @param $tracking_number
+     * @param string $carrier_code
+     * @param string $tracking_number
      */
     public function __construct(
-        $carrier_code,
-        $tracking_number
+        string $carrier_code,
+        string $tracking_number
     ) {
         $this->carrier_code = $carrier_code;
         $this->tracking_number = $tracking_number;
