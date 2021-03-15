@@ -2,12 +2,19 @@
 
 namespace ShipEngine\Model\Package;
 
+use ShipEngine\Util;
+
 /**
- * Class TrackingData
+ * `TrackingData` Type to be returned by the *trackPackage()* convenience method.
+ *
  * @package ShipEngine\Model\Package
+ * @property array $information
+ * @property array $messages
  */
-final class TrackingData
+final class TrackingData implements \JsonSerializable
 {
+    use Util\Getters;
+
     /**
      * @var array
      */

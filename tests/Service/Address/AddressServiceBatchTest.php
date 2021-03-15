@@ -81,10 +81,4 @@ final class AddressServiceBatchTest extends TestCase
         $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[0]);
         $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[1]);
     }
-
-//    public function testValidateBatchMethodViaFixture()
-//    {
-//
-//    }
-
 }
