@@ -2,12 +2,27 @@
 
 namespace ShipEngine\Model\Package;
 
+/**
+ * Class TrackingData
+ * @package ShipEngine\Model\Package
+ */
 final class TrackingData
 {
+    /**
+     * @var array
+     */
     private array $information;
 
+    /**
+     * @var array
+     */
     private array $messages;
 
+    /**
+     * TrackingData constructor.
+     * @param array $information
+     * @param array $messages
+     */
     public function __construct(
         array $information,
         array $messages
@@ -16,6 +31,9 @@ final class TrackingData
         $this->messages = $messages;
     }
 
+    /**
+     * @return string
+     */
     public function jsonSerialize(): string
     {
         return json_encode([
