@@ -46,8 +46,10 @@ trait AddressTrait
 
         $result = $this->addresses->validate($address_validation_params);
 
-        if ($result->valid === false) {
-            $errors = $result->messages['errors'];
+        $returnValue = $serializer->deserializeJsonToType($result->jsonSerialize(), Address::class);
+
+        if ($returnValue->valid === false) {
+            $errors = $returnValue->messages['errors'];
             $error_string = '';
             foreach ($errors as $error) {
                 $error_string = $error;
@@ -55,6 +57,6 @@ trait AddressTrait
             throw new ShipEngineError($error_string);
         }
 
-        return $serializer->deserializeJsonToType($result->jsonSerialize(), Address::class);
+        return $returnValue;
     }
 }
