@@ -74,6 +74,24 @@ $validation = $shipengine->addresses->validateAddresses(
 print_r($validation);
 ```
 
+`Track a Package`
+-----------------
+```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
+use ShipEngine\ShipEngine;
+
+$api_key = 'SHIPENGINE_API_KEY';
+
+$shipengine = new ShipEngine($api_key);
+
+$tracking_data = $shipengine->trackPackage('ups', 'abc123');
+
+print_r($tracking_data);
+```
+
 `Create a Tag`
 ------------
 ```php

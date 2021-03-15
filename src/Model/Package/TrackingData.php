@@ -46,6 +46,6 @@ final class TrackingData implements \JsonSerializable
         return json_encode([
             'information' => $this->information,
             'messages' => $this->messages
-        ]);
+        ], JSON_PRETTY_PRINT);
     }
 }
