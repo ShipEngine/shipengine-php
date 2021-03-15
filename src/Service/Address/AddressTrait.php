@@ -46,10 +46,10 @@ trait AddressTrait
 
         $result = $this->addresses->validate($address_validation_params);
 
-        if ($result->valid == false) {
+        if ($result->valid === false) {
             $errors = $result->messages['errors'];
             $error_string = '';
-            foreach ($errors as $error) { // TODO: FIX CODE BREAKING HERE.
+            foreach ($errors as $error) {
                 $error_string = $error;
             }
             throw new ShipEngineError($error_string);

@@ -23,7 +23,7 @@ final class AddressService extends AbstractService
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
 
-        if ($status_code != 200) {
+        if ($status_code !== 200) {
             throw new ShipEngineError(
                 "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
@@ -31,17 +31,25 @@ final class AddressService extends AbstractService
 
         $parsed_response = json_decode($response->getBody()->getContents());
 
-        return $serializer->deserializeJsonToType(json_encode($parsed_response->result), AddressValidateResult::class);
+        return $serializer->deserializeJsonToType(json_encode(
+            $parsed_response->result),
+            AddressValidateResult::class
+        );
     }
 
     public function validateAddresses(array $params): array
     {
         $serializer = new ShipEngineSerializer();
+
+        foreach ($params as &$rpcRequest) {
+            $rpcRequest = $serializer->serializeDataToType($rpcRequest, AddressValidateParams::class);
+        }
+
         $response = $this->batchRequest('address/validate', $params);
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
 
-        if ($response->getStatusCode() != 200) {
+        if ($response->getStatusCode() !== 200) {
             throw new ShipEngineError(
                 "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
