@@ -2,21 +2,42 @@
 
 namespace ShipEngine\Service\Package;
 
+use ShipEngine\Message\ShipEngineError;
 use ShipEngine\Model\Package\PackageTrackingParams;
 use ShipEngine\Model\Package\PackageTrackingResult;
 use ShipEngine\Service\AbstractService;
 use ShipEngine\Util\ShipEngineSerializer;
 
+/**
+ * Track a single package via the `package/track` remote procedure.
+ */
 final class PackageTrackingService extends AbstractService
 {
-    // TODO: Implement PackageTrackingService
-
-    public function track(PackageTrackingParams $params)
+    /**
+     * Track a single package via the `package/track` remote procedure.
+     *
+     * @param PackageTrackingParams $params
+     * @return PackageTrackingResult
+     */
+    public function track(PackageTrackingParams $params): PackageTrackingResult
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->request('package/track', (array)$params);
-        $parsed_response = json_decode($response->getBody()->getContents())->result;
 
-        return $serializer->deserializeJsonToType($parsed_response, PackageTrackingResult::class);
+        $status_code = $response->getStatusCode();
+        $reason_phrase = $response->getReasonPhrase();
+
+        if ($status_code !== 200) {
+            throw new ShipEngineError(
+                "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
+            );
+        }
+
+        $parsed_response = json_decode($response->getBody()->getContents());
+
+        return $serializer->deserializeJsonToType(
+            json_encode($parsed_response->result),
+            PackageTrackingResult::class
+        );
     }
 }
