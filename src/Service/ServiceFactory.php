@@ -31,7 +31,7 @@ class ServiceFactory
     /**
      * @var array
      */
-    private $services = array();
+    private array $services = array();
 
     /**
      * ServiceFactory constructor.
