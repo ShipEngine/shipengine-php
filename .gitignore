@@ -92,7 +92,7 @@ config.yaml
 .phpdoc
 reports
 build
-./.gitmodules
+.gitmodules
 
 # Simengine
 ./sim
