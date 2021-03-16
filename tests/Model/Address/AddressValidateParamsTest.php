@@ -21,9 +21,9 @@ final class AddressValidateParamsTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$serializer = new ShipEngineSerializer();
-        self::$initial_address_validate_params = json_encode(array (
+        self::$initial_address_validate_params = json_encode(array(
             'street' =>
-                array (
+                array(
                     0 => 'validate-batch',
                 ),
             'city_locality' => 'Boston',
@@ -32,9 +32,9 @@ final class AddressValidateParamsTest extends TestCase
             'country_code' => 'US',
         ), JSON_PRETTY_PRINT);
         self::$successful_address_validate_params = self::$serializer->deserializeJsonToType(
-            self::$initial_address_validate_params, AddressValidateParams::class
+            self::$initial_address_validate_params,
+            AddressValidateParams::class
         );
-
     }
 
     /**

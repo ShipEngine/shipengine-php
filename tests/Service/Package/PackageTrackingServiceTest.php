@@ -38,7 +38,7 @@ final class PackageTrackingServiceTest extends TestCase
         self::$good_tracking_params = new PackageTrackingParams(
             'ups',
             'abc123'
-            );
+        );
         self::$shipengine = new ShipEngine('baz');
     }
 

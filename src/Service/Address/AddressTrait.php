@@ -32,7 +32,6 @@ trait AddressTrait
         string $country_code,
         ?bool $residential = null
     ): Address {
-
         $serializer = new ShipEngineSerializer();
 
         $address_validation_params = new AddressValidateParams(

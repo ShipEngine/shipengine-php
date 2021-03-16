@@ -32,7 +32,6 @@ final class ShipEngineClient
      */
     public function __construct(string $api_key, string $user_agent, HttpClient $client = null)
     {
-        
         if (!$client) {
             $client = HttpClientDiscovery::find();
         }

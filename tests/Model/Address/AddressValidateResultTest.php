@@ -66,7 +66,8 @@ final class AddressValidateResultTest extends TestCase
                 ),
         ), JSON_PRETTY_PRINT);
         self::$successful_address_validate_result = self::$serializer->deserializeJsonToType(
-            self::$successful_address_validate_rpc_response, AddressValidateResult::class
+            self::$successful_address_validate_rpc_response,
+            AddressValidateResult::class
         );
 
         // TODO: Add error test cases.

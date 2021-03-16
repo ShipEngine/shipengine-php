@@ -4,5 +4,4 @@ namespace ShipEngine\Model\Tag;
 
 final class TagParams
 {
-
 }

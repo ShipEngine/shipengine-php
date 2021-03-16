@@ -40,7 +40,6 @@ final class ShipEngineClientTest extends TestCase
     
     public function testRetries(): void
     {
-        
         $client = new ShipEngineClient($this->config['api_key'], $this->config['user_agent']);
 
         $request = $this->message_factory->createRequest('GET', '/retries');

@@ -129,6 +129,5 @@ final class AddressTraitTest extends TestCase
             $this->postal_code,
             $this->country_code
         );
-
     }
 }

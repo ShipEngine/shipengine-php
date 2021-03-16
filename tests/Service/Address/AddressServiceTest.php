@@ -103,8 +103,10 @@ final class AddressServiceTest extends TestCase
 
     public function testValidateWithError()
     {
-        $this->assertInstanceOf(AddressValidateResult::class,
-            $this->shipengine->addresses->validate($this->bad_address));
+        $this->assertInstanceOf(
+            AddressValidateResult::class,
+            $this->shipengine->addresses->validate($this->bad_address)
+        );
     }
 
     public function testJsonSerialize()

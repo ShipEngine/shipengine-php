@@ -38,11 +38,11 @@ final class AddressServiceBatchTest extends TestCase
         exec('hoverctl import simengine/rpc/rpc.json');
 
         self::$shipengine = new ShipEngine('baz');
-        self::$batchAddresses = array (
+        self::$batchAddresses = array(
             0 =>
-                array (
+                array(
                     'street' =>
-                        array (
+                        array(
                             0 => 'validate-batch',
                         ),
                     'city_locality' => 'Boston',
@@ -51,9 +51,9 @@ final class AddressServiceBatchTest extends TestCase
                     'country_code' => 'US',
                 ),
             1 =>
-                array (
+                array(
                     'street' =>
-                        array (
+                        array(
                             0 => 'validate-batch',
                         ),
                     'city_locality' => 'Boston',

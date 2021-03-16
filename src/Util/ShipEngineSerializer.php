@@ -29,7 +29,7 @@ final class ShipEngineSerializer
 
     public function deserializeJsonToType(string $json_data, $target_class)
     {
-             return $this->serializer->deserialize($json_data, $target_class, 'json');
+        return $this->serializer->deserialize($json_data, $target_class, 'json');
     }
 
     public function serializeDataToType($php_object, $target_class)
