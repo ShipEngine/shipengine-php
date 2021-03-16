@@ -5,9 +5,12 @@ namespace ShipEngine\Model\Address;
 use ShipEngine\Util;
 
 /**
- * AddressValidateResult Type to be returned by *AddressService*.
+ * `AddressValidateResult` Type to be returned by *AddressService*.
  *
  * @package ShipEngine\Model\Address
+ * @property bool $valid
+ * @property array $messages
+ * @property array|null $address
  */
 final class AddressValidateResult implements \JsonSerializable
 {
@@ -33,8 +36,8 @@ final class AddressValidateResult implements \JsonSerializable
      * AddressValidateResult Type constructor.
      *
      * @param bool $valid
-     * @param array|null $address
      * @param array $messages
+     * @param array|null $address
      */
     public function __construct(
         bool $valid,
@@ -45,7 +48,6 @@ final class AddressValidateResult implements \JsonSerializable
         $this->address = $address;
         $this->messages = $messages;
     }
-
 
     /**
      * Return a JsonSerialized string representation of the `AddressValidateResult` Type.

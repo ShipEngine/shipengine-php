@@ -5,15 +5,12 @@ namespace ShipEngine\Model\Address;
 use ShipEngine\Util;
 
 /**
- * Address Class to be used as an Address Type.
+ * `Address` Type to be returned by the *validateAddress()* method in the *AddressTrait*.
  *
  * @package ShipEngine\Model\Address
- * @property array $street
- * @property string $city_locality
- * @property string $state_province
- * @property string $postal_code
- * @property string $country_code
- * @property bool|null $residential
+ * @property bool $valid
+ * @property array|null $address
+ * @property array $messages
  */
 final class Address implements \JsonSerializable
 {
@@ -25,15 +22,14 @@ final class Address implements \JsonSerializable
     private ?bool $valid;
 
     /**
-     * @var array
-     */
-    private array $messages;
-
-
-    /**
      * @var array|null
      */
     private ?array $address;
+
+    /**
+     * @var array
+     */
+    private array $messages;
 
     /**
      * AddressValidateResult Type constructor.

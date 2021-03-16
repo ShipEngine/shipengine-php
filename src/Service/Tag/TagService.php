@@ -9,6 +9,8 @@ use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Service to create tags.
+ *
+ * @package ShipEngine\Service\Tag
  */
 class TagService extends AbstractService
 {

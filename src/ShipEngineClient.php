@@ -13,7 +13,9 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * A wrapped HTTP client.
+ * A wrapped `JSON-RPC 2.0` HTTP client.
+ *
+ * @pacakge ShipEngine
  */
 final class ShipEngineClient
 {
@@ -65,7 +67,7 @@ final class ShipEngineClient
     }
 
     /**
-     * Send an RPC request via HTTP Messages.
+     * Send a `JSON-RPC 2.0` request via HTTP Messages.
      *
      * @param RequestInterface $request
      * @return ResponseInterface

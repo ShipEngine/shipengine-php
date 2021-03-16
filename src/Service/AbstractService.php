@@ -8,16 +8,11 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Psr\Http\Message\ResponseInterface;
 use ShipEngine\ShipEngineClient;
-use ShipEngine\Message\ShipEngineError;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Serialize and send RPC requests over HTTP messages.
+ *
+ * @package ShipEngine\Service
  */
 abstract class AbstractService
 {
@@ -43,6 +38,7 @@ abstract class AbstractService
 
     /**
      * AbstractService constructor.
+     *
      * @param ShipEngineClient $client
      * @throws NotFoundException
      */
@@ -53,7 +49,7 @@ abstract class AbstractService
     }
 
     /**
-     * Create and send an RPC request over HTTP messages.
+     * Create and send a `JSON-RPC 2.0` request over HTTP messages.
      *
      * @param string $method Name of an RPC method.
      * @param array $params Data that a remote procedure will make use of.
@@ -67,7 +63,7 @@ abstract class AbstractService
     }
 
     /**
-     * Wrap request per JSON-RPC 2.0 spec.
+     * Wrap request per `JSON-RPC 2.0` spec.
      *
      * @param string $method
      * @param array $params
@@ -82,8 +78,9 @@ abstract class AbstractService
             'params' => $params
         ]);
     }
+
     /**
-     * Create a batch RPC request.
+     * Create and wrap a batch `JSON-RPC 2.0` request.
      *
      * @param string $method
      * @param array $batch
@@ -98,7 +95,7 @@ abstract class AbstractService
 
 
     /**
-     * Wrap `batch` request per JSON-RPC 2.0 spec.
+     * Wrap `batch` request per *JSON-RPC 2.0* spec.
      *
      * @param string $method
      * @param array $batch
@@ -113,6 +110,12 @@ abstract class AbstractService
         return $batch;
     }
 
+    /**
+     * Send a `JSON-RPC 2.0` request via *ShipEngineClient*.
+     *
+     * @param array $body
+     * @return ResponseInterface
+     */
     private function sendRequest(array $body): ResponseInterface
     {
         $jsonData = json_encode($body);

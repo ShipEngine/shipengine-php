@@ -6,6 +6,7 @@ namespace ShipEngine\Message;
  * Error-level message.
  *
  * Is throwable.
+ * @package ShipEngine\Message
  */
 class ShipEngineError extends \RuntimeException
 {

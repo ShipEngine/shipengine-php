@@ -42,21 +42,9 @@ final class PackageTrackingTraitTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        exec('hoverctl import simengine/rpc/rpc.json');
-
         self::$shipengine = new ShipEngine('baz');
         self::$carrier_code = 'stamps.com';
         self::$tracking_number = 'abc123';
-    }
-
-    /**
-     * Delete `simengine/rpc/rpc.json` from *Hoverfly*.
-     *
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        exec('hoverctl delete --force simengine/rpc/rpc.json');
     }
 
     public function testTrackPackage(): void

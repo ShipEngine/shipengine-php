@@ -30,26 +30,6 @@ final class TagServiceTest extends TestCase
     private string $test_tag;
 
     /**
-     * Import `simengine/rpc/rpc.json` into *Hoverfly* before class instantiation.
-     *
-     * @return void
-     */
-    public static function setUpBeforeClass(): void
-    {
-        exec('hoverctl import simengine/rpc/rpc.json');
-    }
-
-    /**
-     * Delete `simengine/rpc/rpc.json` from *Hoverfly*.
-     *
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        exec('hoverctl delete --force simengine/rpc/rpc.json');
-    }
-
-    /**
      * Pass an `api-key` into the new instance of the *ShipEngine* class.
      *
      * @return void

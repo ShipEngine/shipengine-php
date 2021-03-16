@@ -35,8 +35,6 @@ final class AddressServiceBatchTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        exec('hoverctl import simengine/rpc/rpc.json');
-
         self::$shipengine = new ShipEngine('baz');
         self::$batchAddresses = array(
             0 =>
@@ -62,16 +60,6 @@ final class AddressServiceBatchTest extends TestCase
                     'country_code' => 'US',
                 ),
         );
-    }
-
-    /**
-     * Delete `simengine/rpc/rpc.json` from *Hoverfly*.
-     *
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        exec('hoverctl delete --force simengine/rpc/rpc.json');
     }
 
     public function testValidateBatchMethodViaHTTP(): void

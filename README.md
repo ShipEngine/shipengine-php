@@ -17,10 +17,9 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 Quick Start
 -----------
 Install ShipEngine via [Composer](https://getcomposer.org/):
+```bash
+composer require shipengine/shipengine
 ```
-%> composer require shipengine/shipengine
-```
-
 - The only configuration requirement is an [API key](https://www.shipengine.com/docs/auth/#api-keys).
 
 > The following example assumes that you have already set the `SHIPENGIEN_API_KEY` using `putenv()`.

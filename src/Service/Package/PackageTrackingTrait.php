@@ -15,6 +15,7 @@ trait PackageTrackingTrait
     /**
      * A method to get `tracking data` via the *package/track* remote procedure.
      *
+     * @package ShipEngine\Service\Package
      * @param string $tracking_number
      * @param string $carrier_code
      * @return TrackingData

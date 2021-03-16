@@ -31,8 +31,6 @@ final class AddressValidateResultTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        exec('hoverctl import simengine/rpc/rpc.json');
-
         self::$serializer = new ShipEngineSerializer();
         self::$successful_address_validate_rpc_response = json_encode(array(
             'valid' => true,
@@ -69,18 +67,7 @@ final class AddressValidateResultTest extends TestCase
             self::$successful_address_validate_rpc_response,
             AddressValidateResult::class
         );
-
         // TODO: Add error test cases.
-    }
-
-    /**
-     * Delete `simengine/rpc/rpc.json` from *Hoverfly*.
-     *
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        exec('hoverctl delete --force simengine/rpc/rpc.json');
     }
 
     /**

@@ -3,9 +3,11 @@
 namespace ShipEngine\Model\Package;
 
 /**
- * PackageTrackingParams Type to be passed into the *PackageTrackService*.
+ * `PackageTrackingParams` Type to be passed into the *PackageTrackService*.
  *
  * @package ShipEngine\Model\Package
+ * @property string $carrier_code
+ * @property string $tracking_number
  */
 final class PackageTrackingParams
 {
@@ -33,6 +35,14 @@ final class PackageTrackingParams
     }
 
     /**
+     * Return a JsonSerialized string representation of the `PackageTrackingParams` Type.
+     *
+     * ```json
+     * {
+     * "carrier_code": "ups",
+     * "tracking_number": "abc123"
+     * }
+     * ```
      * @return string
      */
     public function jsonSerialize(): string

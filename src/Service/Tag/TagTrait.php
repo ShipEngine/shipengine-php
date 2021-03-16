@@ -6,6 +6,8 @@ use ShipEngine\Model\Tag\Tag;
 
 /**
  * Convenience method to create a tag.
+ *
+ * @package @package ShipEngine\Service\Tag
  */
 trait TagTrait
 {

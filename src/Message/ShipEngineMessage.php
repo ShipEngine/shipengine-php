@@ -6,6 +6,7 @@ use ShipEngine\Util;
 
 /**
  * Class ShipEngineMessage -- Generic Message.
+ *
  * @package ShipEngine\Message
  */
 class ShipEngineMessage

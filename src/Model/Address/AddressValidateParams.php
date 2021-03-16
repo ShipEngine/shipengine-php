@@ -5,9 +5,15 @@ namespace ShipEngine\Model\Address;
 use ShipEngine\Util;
 
 /**
- * AddressValidateParams Type to be passed into the *AddressService*.
+ * `AddressValidateParams` Type to be passed into the *AddressService*.
  *
  * @package ShipEngine\Model\Address
+ * @property array $street
+ * @property string $country_code
+ * @property string|null $city_locality
+ * @property string|null $state_province
+ * @property string|null $postal_code
+ * @property bool|null $residential
  */
 final class AddressValidateParams
 {
@@ -17,22 +23,27 @@ final class AddressValidateParams
      * @var array
      */
     private array $street;
+
+    /**
+     * @var string
+     */
+    private string $country_code;
+
     /**
      * @var string|null
      */
     private ?string $city_locality;
+
     /**
      * @var string|null
      */
     private ?string $state_province;
+
     /**
      * @var string|null
      */
     private ?string $postal_code;
-    /**
-     * @var string|null
-     */
-    private ?string $country_code;
+
     /**
      * @var bool|null
      */

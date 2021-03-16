@@ -8,6 +8,11 @@ use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
 use ShipEngine\Util\ShipEngineSerializer;
 
+/**
+ * Validate a single address or multiple addresses.
+ *
+ * @package ShipEngine\Service\Address
+ */
 final class AddressService extends AbstractService
 {
     /**
@@ -37,6 +42,12 @@ final class AddressService extends AbstractService
         );
     }
 
+    /**
+     * Validate multiple addresses by passing in an array of `AddressValidateParams`.
+     *
+     * @param array $params
+     * @return array An array of *AddressValidateResult* objects.
+     */
     public function validateAddresses(array $params): array
     {
         $serializer = new ShipEngineSerializer();

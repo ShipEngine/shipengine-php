@@ -10,6 +10,8 @@ use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Track a single package via the `package/track` remote procedure.
+ *
+ * @package ShipEngine\Service\Package
  */
 final class PackageTrackingService extends AbstractService
 {

@@ -8,7 +8,9 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * Class ShipEngineSerializer
+ * ShipEngineSerializer to deserialize JSON strings to our PHP Type objects,
+ * and serialize our PHP Type objects into JSON strings.
+ *
  * @package ShipEngine\Util
  */
 final class ShipEngineSerializer
@@ -20,6 +22,7 @@ final class ShipEngineSerializer
 
     /**
      * ShipEngineSerializer constructor.
+     *
      * @throws \Symfony\Component\Serializer\Exception\InvalidArgumentException
      */
     public function __construct()
@@ -27,17 +30,40 @@ final class ShipEngineSerializer
         $this->serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
     }
 
-    public function deserializeJsonToType(string $json_data, $target_class)
+    /**
+     * Deserialize a JSON string into a PHP Type object.
+     *
+     * @param string $json_data
+     * @param string $target_class
+     * @return mixed
+     * @throws NotEncodableValueException
+     */
+    public function deserializeJsonToType(string $json_data, string $target_class)
     {
         return $this->serializer->deserialize($json_data, $target_class, 'json');
     }
 
-    public function serializeDataToType($php_object, $target_class)
+    /**
+     * Serialize a PHP Type object into a JSON string.
+     *
+     * @param mixed $php_object
+     * @param string $target_class
+     * @return mixed
+     * @throws NotEncodableValueException
+     */
+    public function serializeDataToType($php_object, string $target_class)
     {
         $json = $this->serializeDataToJson($php_object);
         return $this->deserializeJsonToType($json, $target_class);
     }
 
+    /**
+     * Serialize arbitrary PHP data objects (e.g. an array or explicit object) into JSON strings.
+     *
+     * @param mixed $data
+     * @return string
+     * @throws NotEncodableValueException
+     */
     public function serializeDataToJson($data): string
     {
         return $this->serializer->serialize($data, 'json');

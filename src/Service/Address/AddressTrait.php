@@ -9,12 +9,15 @@ use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Convenience method to `validate` a single address.
+ *
+ * @package ShipEgnine\Service\Address
  */
 trait AddressTrait
 {
     /**
      * A method to `validate` a single address via the *address/validate* remote procedure.
      *
+     * @package ShipEngine\Service\Address
      * @param array $street
      * @param string $city
      * @param string $state
@@ -22,7 +25,7 @@ trait AddressTrait
      * @param string $country_code
      * @param bool|null $residential
      * @return Address
-     * @throws ShipEngineError
+     * @throws ShipEngineError|\Symfony\Component\Serializer\Exception\NotEncodableValueException
      */
     public function validateAddress(
         array $street,

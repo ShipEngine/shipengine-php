@@ -9,6 +9,8 @@ use ShipEngine\ShipEngineClient;
 
 /**
  * Instantiate and attach services to the \ShipEngine\ShipEngine client.
+ *
+ * @package ShipEngine\Service
  */
 class ServiceFactory
 {
@@ -20,7 +22,7 @@ class ServiceFactory
     /**
      * @var string[]
      */
-    private $classes = [
+    private array $classes = [
         'tags' => TagService::class,
         'addresses' => AddressService::class,
         'tracking' => PackageTrackingService::class
@@ -33,6 +35,7 @@ class ServiceFactory
 
     /**
      * ServiceFactory constructor.
+     *
      * @param ShipEngineClient $client
      */
     public function __construct(ShipEngineClient $client)
@@ -41,6 +44,8 @@ class ServiceFactory
     }
 
     /**
+     * Service Getter.
+     *
      * @param string $name
      * @return mixed
      */

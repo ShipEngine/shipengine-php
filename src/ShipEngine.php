@@ -9,8 +9,9 @@ use ShipEngine\Service\ServiceFactory;
 use ShipEngine\Service\Tag\TagTrait;
 
 /**
- * ShipEngine client.
+ * ShipEngine RPC 2.0 client.
  *
+ * @package ShipEngine
  * @property \ShipEngine\Service\Tag\TagService $tags
  * @property \ShipEngine\Service\Address\AddressService $addresses
  * @property \ShipEngine\Service\Package\PackageTrackingService $tracking
@@ -22,21 +23,41 @@ final class ShipEngine
     use AddressTrait;
     use PackageTrackingTrait;
 
-    // Factory providing services.
+    /**
+     * Factory providing services.
+     *
+     * @var ServiceFactory
+     */
     private ServiceFactory $service_factory;
 
+    /**
+     *
+     */
     const VERSION = '0.0.1';
-    
+
+    /**
+     * ShipEngine constructor.
+     *
+     * @param string $api_key
+     * @param HttpClient|null $client
+     * @throws \Http\Discovery\Exception\NotFoundException
+     */
     public function __construct(string $api_key, HttpClient $client = null)
     {
         $user_agent = $this->deriveUserAgent();
-        
+
         $client = new ShipEngineClient($api_key, $user_agent, $client);
-        
+
         $this->service_factory = new ServiceFactory($client);
     }
-    
-    public function __get($name)
+
+    /**
+     * Service Getter.
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get(string $name)
     {
         return $this->service_factory->__get($name);
     }
@@ -47,7 +68,7 @@ final class ShipEngine
     private function deriveUserAgent(): string
     {
         $sdk_version = 'shipengine-php/' . self::VERSION;
-        
+
         $os = explode(' ', php_uname());
         $os_kernel = $os[0] . '/' . $os[2];
 
