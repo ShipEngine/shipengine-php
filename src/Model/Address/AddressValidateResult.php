@@ -36,8 +36,8 @@ final class AddressValidateResult implements \JsonSerializable
      * AddressValidateResult Type constructor.
      *
      * @param bool $valid
-     * @param array $messages
      * @param array|null $address
+     * @param array $messages
      */
     public function __construct(
         bool $valid,
@@ -56,6 +56,9 @@ final class AddressValidateResult implements \JsonSerializable
      * {
      * "valid": true,
      * "address": {
+     * "name": "ShipEngine",
+     * "phone": "1234567891",
+     * "company_name": "ShipEngine",
      * "street": [
      * "in nostrud consequat nisi"
      * ],

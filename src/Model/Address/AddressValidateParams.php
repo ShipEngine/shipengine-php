@@ -13,6 +13,9 @@ use ShipEngine\Util;
  * @property string|null $city_locality
  * @property string|null $state_province
  * @property string|null $postal_code
+ * @property string|null $name
+ * @property string|null $phone
+ * @property string|null $company_name
  * @property bool|null $residential
  */
 final class AddressValidateParams
@@ -45,32 +48,58 @@ final class AddressValidateParams
     private ?string $postal_code;
 
     /**
+     * @var string|null
+     */
+    private ?string $name;
+
+    /**
+     * @var string|null
+     */
+    private ?string $phone;
+
+    /**
+     * @var string|null
+     */
+    private ?string $company_name;
+
+    /**
      * @var bool|null
      */
     private ?bool $residential;
 
+
     /**
      * AddressValidateParams Type constructor.
+     *
      * @param array $street
-     * @param string $country_code
      * @param string|null $city_locality
      * @param string|null $state_province
      * @param string|null $postal_code
+     * @param string $country_code
+     * @param string|null $name
+     * @param string|null $phone
+     * @param string|null $company_name
      * @param bool|null $residential
      */
     public function __construct(
         array $street,
+        ?string $city_locality,
+        ?string $state_province,
+        ?string $postal_code,
         string $country_code,
-        ?string $city_locality = null,
-        ?string $state_province = null,
-        ?string $postal_code = null,
+        ?string $name = null,
+        ?string $phone = null,
+        ?string $company_name = null,
         ?bool $residential = null
     ) {
         $this->street = $street;
         $this->city_locality = $city_locality;
         $this->state_province = $state_province;
         $this->postal_code = $postal_code;
-        $this->country_code = $country_code; // TODO: Add validation to enforce 2 char country_codes
+        $this->country_code = $country_code;
+        $this->name = $name;
+        $this->phone = $phone;
+        $this->company_name = $company_name;
         $this->residential = $residential;
     }
 
@@ -80,6 +109,9 @@ final class AddressValidateParams
      * Output Example:
      * ```json
      * {
+     * "name": "ShipEngine",
+     * "phone": "123465798",
+     * "company_name": "ShipEngine",
      * "street": [
      * "4 Jersey St",
      * "ste 200"
@@ -96,6 +128,9 @@ final class AddressValidateParams
     public function jsonSerialize(): string
     {
         return json_encode([
+            'name' => $this->name,
+            'phone' => $this->phone,
+            'company_name' => $this->company_name,
             'street' => $this->street,
             'city_locality' => $this->city_locality,
             'state_province' => $this->state_province,

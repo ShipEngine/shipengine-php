@@ -3,8 +3,6 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Message\ShipEngineError;
-use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateParams;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
@@ -48,18 +46,18 @@ final class AddressServiceTest extends TestCase
     {
         $this->good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
-            'US',
             'Boston',
             'MA',
-            '02215'
+            '02215',
+            'US'
         );
 
         $this->bad_address = new AddressValidateParams(
             array('with-error'),
-            'US',
             'Boston',
             'MA',
-            '02215'
+            '02215',
+            'US'
         );
 
         $this->shipengine = new ShipEngine('baz');

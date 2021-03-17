@@ -55,20 +55,29 @@ final class Address implements \JsonSerializable
      * {
      * "valid": true,
      * "address": {
+     * "name": "ShipEngine",
+     * "phone": "1234567891",
+     * "company_name": "ShipEngine",
      * "street": [
-     * "4 Jersey St"
+     * "in nostrud consequat nisi"
      * ],
-     * "city_locality": "Boston",
-     * "state_province": "MA",
-     * "postal_code": "02215",
-     * "country_code": "US",
+     * "country_code": "BK",
+     * "postal_code": "ullamco culpa",
+     * "city_locality": "aliqua",
      * "residential": false
      * },
      * "messages": {
-     * "info": [],
-     * "errors": [],
-     * "warnings": [
-     * "There was a change or addition to the state/province."
+     * "errors": [
+     * "aute ea nulla",
+     * "occaecat consequat consectetur in esse",
+     * "aliqua sed"
+     * ],
+     * "info": [
+     * "Duis",
+     * "voluptate sed sunt",
+     * "nisi irure amet",
+     * "dolore aute",
+     * "exercitation esse aliquip aute est"
      * ]
      * }
      * }

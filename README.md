@@ -15,7 +15,7 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 </hr>
 
 Quick Start
------------
+===========
 Install ShipEngine via [Composer](https://getcomposer.org/):
 ```bash
 composer require shipengine/shipengine
@@ -23,9 +23,9 @@ composer require shipengine/shipengine
 - The only configuration requirement is an [API key](https://www.shipengine.com/docs/auth/#api-keys).
 
 > The following example assumes that you have already set the `SHIPENGIEN_API_KEY` using `putenv()`.
-> 
-`Validate an Address`
--------------------
+
+Instantiate ShipEngine Class
+------------------------------
 ```php
 <?php declare(strict_types=1);
 
@@ -36,42 +36,11 @@ use ShipEngine\ShipEngine;
 $api_key = getenv('SHIPENGINE_API_KEY');
 
 $shipengine = new ShipEngine($api_key);
-
-$validated_address = $shipengine->validateAddress(['4 Jersey St', 'ste 200'], 'Boston', 'MA', '02215', 'US');
-
-print_r($validated_address);
 ```
 
-`Validate Multiple Addresses`
------------------------------
-```php
-<?php declare(strict_types=1);
-
-require __DIR__ . '/vendor/autoload.php';
-
-use ShipEngine\ShipEngine;
-
-$api_key = 'SHIPENGINE_API_KEY';
-
-$shipengine = new ShipEngine($api_key);
-
-$validation = $shipengine->addresses->validateAddresses(
-    array(
-        ['4 Jersey St', 'ste 200'],
-        'Boston',
-        'TX',
-        '02215',
-        'US',
-        ['4 Jersey St', 'ste 200'],
-        'Boston',
-        'TX',
-        '02215',
-        'US'
-    )
-);
-
-print_r($validation);
-```
+Examples
+--------
+- [Address Validation](./docs/addressValidateExamples.md)
 
 `Track a Package`
 -----------------

@@ -3,6 +3,7 @@
 namespace ShipEngine\Service\Address;
 
 use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateParams;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
@@ -73,7 +74,7 @@ final class AddressService extends AbstractService
         foreach ($parsed_response as &$validated_address) {
             $validated_address = $serializer->deserializeJsonToType(
                 json_encode($validated_address->result),
-                AddressValidateResult::class
+                Address::class
             );
 
             array_push($result_array, $validated_address);

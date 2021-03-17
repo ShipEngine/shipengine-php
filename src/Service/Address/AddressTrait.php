@@ -17,22 +17,28 @@ trait AddressTrait
     /**
      * A method to `validate` a single address via the *address/validate* remote procedure.
      *
-     * @package ShipEngine\Service\Address
      * @param array $street
-     * @param string $city
-     * @param string $state
-     * @param string $postal_code
+     * @param string|null $city
+     * @param string|null $state
+     * @param string|null $postal_code
      * @param string $country_code
+     * @param string|null $name
+     * @param string|null $phone
+     * @param string|null $company_name
      * @param bool|null $residential
      * @return Address
-     * @throws ShipEngineError|\Symfony\Component\Serializer\Exception\NotEncodableValueException
+     * @throws \Symfony\Component\Serializer\Exception\NotEncodableValueException
+     * @package ShipEngine\Service\Address
      */
     public function validateAddress(
         array $street,
-        string $city,
-        string $state,
-        string $postal_code,
+        ?string $city,
+        ?string $state,
+        ?string $postal_code,
         string $country_code,
+        ?string $name = null,
+        ?string $phone = null,
+        ?string $company_name = null,
         ?bool $residential = null
     ): Address {
         $serializer = new ShipEngineSerializer();
@@ -43,6 +49,9 @@ trait AddressTrait
             $state,
             $postal_code,
             $country_code,
+            $name,
+            $phone,
+            $company_name,
             $residential
         );
 

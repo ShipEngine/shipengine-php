@@ -3,8 +3,7 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Model\Address\AddressValidateParams;
-use ShipEngine\Model\Address\AddressValidateResult;
+use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
 /**
@@ -66,7 +65,7 @@ final class AddressServiceBatchTest extends TestCase
     {
         $batchValidation = self::$shipengine->addresses->validateAddresses(self::$batchAddresses);
 
-        $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[0]);
-        $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[1]);
+        $this->assertInstanceOf(Address::class, $batchValidation[0]);
+        $this->assertInstanceOf(Address::class, $batchValidation[1]);
     }
 }
