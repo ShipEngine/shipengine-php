@@ -38,8 +38,8 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 $shipengine = new ShipEngine($api_key);
 ```
 
-Examples
---------
+`Examples`
+----------
 - [Address Validation](./docs/addressValidateExamples.md)
 
 `Track a Package`
