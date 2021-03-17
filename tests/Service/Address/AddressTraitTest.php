@@ -100,7 +100,7 @@ final class AddressTraitTest extends TestCase
 
     public function testValidateWithError()
     {
-//        $this->expectException(ShipEngineError::class);
+        $this->expectException(ShipEngineError::class);
 
         print_r($this->shipengine->validateAddress(
             ['with-error'],
