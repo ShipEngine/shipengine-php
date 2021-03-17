@@ -25,48 +25,58 @@ final class AddressServiceTest extends TestCase
     /**
      * @var ShipEngine
      */
-    private ShipEngine $shipengine;
+    private static ShipEngine $shipengine;
 
     /**
      * @var AddressValidateParams
      */
-    private AddressValidateParams $good_address;
+    private static AddressValidateParams $good_address;
 
     /**
      * @var AddressValidateParams
      */
-    private AddressValidateParams $bad_address;
+    private static AddressValidateParams $valid_residential_address;
 
     /**
-     * Pass an `api-key` into the new instance of the *ShipEngine* class.
+     * @var AddressValidateParams
+     */
+    private static AddressValidateParams $bad_address;
+
+    /**
+     * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
      *
      * @return void
      */
     protected function setUp(): void
     {
-        $this->good_address = new AddressValidateParams(
+        self::$good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
             'Boston',
             'MA',
             '02215',
             'US'
         );
-
-        $this->bad_address = new AddressValidateParams(
+        self::$valid_residential_address = new AddressValidateParams(
+            array('validate-residential'),
+            'Boston',
+            'MA',
+            '02215',
+            'US'
+        );
+        self::$bad_address = new AddressValidateParams(
             array('with-error'),
             'Boston',
             'MA',
             '02215',
             'US'
         );
-
-        $this->shipengine = new ShipEngine('baz');
+        self::$shipengine = new ShipEngine('baz');
     }
 
     public function testValidateMethod()
     {
-        $validation = $this->shipengine->addresses->validate($this->good_address);
-        $this->assertEquals($this->good_address->city_locality, $validation->address['city_locality']);
+        $validation = self::$shipengine->addresses->validate(self::$good_address);
+        $this->assertEquals(self::$good_address->city_locality, $validation->address['city_locality']);
     }
 
     /**
@@ -74,21 +84,35 @@ final class AddressServiceTest extends TestCase
      */
     public function testReturnType()
     {
-        $validation = $this->shipengine->addresses->validate($this->good_address);
-//        print_r($validation->jsonSerialize());
+        $validation = self::$shipengine->addresses->validate(self::$good_address);
+
         $this->assertInstanceOf(AddressValidateResult::class, $validation);
+    }
+
+    public function testValidResidentialAddress()
+    {
+        $validation = self::$shipengine->addresses->validate(self::$valid_residential_address);
+
+
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->address);
+        $this->assertNotEmpty($validation->address);
+//        $this->assertEquals(self::$valid_residential_address, $validation->address);
+        $this->assertTrue($validation->address['residential']);
+        $this->assertEmpty($validation->address['errors']);
+        $this->assertEmpty($validation->address['warnings']);
     }
 
     public function testValidateWithError()
     {
         $this->assertInstanceOf(
             AddressValidateResult::class,
-            $this->shipengine->addresses->validate($this->bad_address)
+            self::$shipengine->addresses->validate(self::$bad_address)
         );
     }
 
     public function testJsonSerialize()
     {
-        $this->assertIsString($this->shipengine->addresses->validate($this->good_address)->jsonSerialize());
+        $this->assertIsString(self::$shipengine->addresses->validate(self::$good_address)->jsonSerialize());
     }
 }

@@ -1,0 +1,21 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: forbid-new-submodules
+      - id: name-tests-test
+  - repo: https://github.com/digitalpulp/pre-commit-php.git
+    rev: 1.4.0
+    hooks:
+#      - id: php-unit
+#      - id: php-cs
+#        files: \.(php)$
+#        args: [--standard=PSR2 src]
+#      - id: php-stan
+#        files: \.(php)$
+      - id: php-cs-fixer
+        files: \.(php)$
+        args: [-vv --config=.php_cs.dist]

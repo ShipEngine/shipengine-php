@@ -28,7 +28,7 @@ final class AddressServiceBatchTest extends TestCase
     private static array $batchAddressResponse;
 
     /**
-     *
+     * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
      *
      * @return void
      */
