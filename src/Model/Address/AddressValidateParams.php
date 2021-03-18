@@ -13,10 +13,10 @@ use ShipEngine\Util;
  * @property string|null $city_locality
  * @property string|null $state_province
  * @property string|null $postal_code
+ * @property bool|null $residential
  * @property string|null $name
  * @property string|null $phone
  * @property string|null $company_name
- * @property bool|null $residential
  */
 final class AddressValidateParams
 {
@@ -48,6 +48,11 @@ final class AddressValidateParams
     private ?string $postal_code;
 
     /**
+     * @var bool|null
+     */
+    private ?bool $residential;
+
+    /**
      * @var string|null
      */
     private ?string $name;
@@ -63,12 +68,6 @@ final class AddressValidateParams
     private ?string $company_name;
 
     /**
-     * @var bool|null
-     */
-    private ?bool $residential;
-
-
-    /**
      * AddressValidateParams Type constructor.
      *
      * @param array $street
@@ -76,10 +75,10 @@ final class AddressValidateParams
      * @param string|null $state_province
      * @param string|null $postal_code
      * @param string $country_code
+     * @param bool|null $residential
      * @param string|null $name
      * @param string|null $phone
      * @param string|null $company_name
-     * @param bool|null $residential
      */
     public function __construct(
         array $street,
@@ -87,20 +86,20 @@ final class AddressValidateParams
         ?string $state_province,
         ?string $postal_code,
         string $country_code,
+        ?bool $residential = null,
         ?string $name = null,
         ?string $phone = null,
-        ?string $company_name = null,
-        ?bool $residential = null
+        ?string $company_name = null
     ) {
         $this->street = $street;
         $this->city_locality = $city_locality;
         $this->state_province = $state_province;
         $this->postal_code = $postal_code;
         $this->country_code = $country_code;
+        $this->residential = $residential;
         $this->name = $name;
         $this->phone = $phone;
         $this->company_name = $company_name;
-        $this->residential = $residential;
     }
 
     /**

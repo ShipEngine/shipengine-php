@@ -36,10 +36,10 @@ trait AddressTrait
         ?string $state,
         ?string $postal_code,
         string $country_code,
+        ?bool $residential = null,
         ?string $name = null,
         ?string $phone = null,
-        ?string $company_name = null,
-        ?bool $residential = null
+        ?string $company_name = null
     ): Address {
         $serializer = new ShipEngineSerializer();
 
@@ -49,10 +49,10 @@ trait AddressTrait
             $state,
             $postal_code,
             $country_code,
+            $residential,
             $name,
             $phone,
-            $company_name,
-            $residential
+            $company_name
         );
 
         $result = $this->addresses->validate($address_validation_params);

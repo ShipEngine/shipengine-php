@@ -40,6 +40,11 @@ final class AddressServiceTest extends TestCase
     /**
      * @var AddressValidateParams
      */
+    private static AddressValidateParams $unknown_address_type;
+
+    /**
+     * @var AddressValidateParams
+     */
     private static AddressValidateParams $bad_address;
 
     /**
@@ -54,14 +59,23 @@ final class AddressServiceTest extends TestCase
             'Boston',
             'MA',
             '02215',
-            'US'
+            'US',
+            false
         );
-        self::$valid_residential_address = new AddressValidateParams(
-            array('validate-residential'),
+        self::$unknown_address_type = new AddressValidateParams(
+            array('validate-unknown-address'),
             'Boston',
             'MA',
             '02215',
             'US'
+        );
+        self::$valid_residential_address = new AddressValidateParams(
+            array('validate-residential-address'),
+            'Boston',
+            'MA',
+            '02215',
+            'US',
+            true
         );
         self::$bad_address = new AddressValidateParams(
             array('with-error'),
@@ -89,19 +103,87 @@ final class AddressServiceTest extends TestCase
         $this->assertInstanceOf(AddressValidateResult::class, $validation);
     }
 
+    /**
+     * Tests with a valid residential address.
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is set to `true`.
+     * - There are no **warnings** and **errors** messages.
+     */
     public function testValidResidentialAddress()
     {
         $validation = self::$shipengine->addresses->validate(self::$valid_residential_address);
 
-
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
         $this->assertNotEmpty($validation->address);
-//        $this->assertEquals(self::$valid_residential_address, $validation->address);
+//        TODO: Add in line 100 when hoverfly is removed from testing workflow and moved to hosted solution.
+//        $this->assertEquals(self::$valid_residential_address->street, $validation->address['street']);
+        $this->assertEquals(self::$valid_residential_address->city_locality, $validation->address['city_locality']);
+        $this->assertEquals(self::$valid_residential_address->state_province, $validation->address['state_province']);
+        $this->assertEquals(self::$valid_residential_address->postal_code, $validation->address['postal_code']);
+        $this->assertEquals(self::$valid_residential_address->country_code, $validation->address['country_code']);
         $this->assertTrue($validation->address['residential']);
         $this->assertEmpty($validation->address['errors']);
         $this->assertEmpty($validation->address['warnings']);
     }
+
+    /**
+     * Tests with a valid commercial address.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is set to `false`.
+     * - There are no **warnings** and **errors** messages.
+     */
+    public function testValidCommercialAddress()
+    {
+        $validation = self::$shipengine->addresses->validate(self::$good_address);
+
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->address);
+        $this->assertNotEmpty($validation->address);
+//        TODO: Add in line 135 when hoverfly is removed from testing workflow and moved to hosted solution.
+//        $this->assertEquals(self::$good_address->street, $validation->address['street']);
+        $this->assertEquals(self::$good_address->city_locality, $validation->address['city_locality']);
+        $this->assertEquals(self::$good_address->state_province, $validation->address['state_province']);
+        $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
+        $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
+        $this->assertFalse($validation->address['residential']);
+        $this->assertEmpty($validation->address['errors']);
+        $this->assertEmpty($validation->address['warnings']);
+    }
+
+    /**
+     * Tests with an address of unknown type (residential|commercial) .
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is `unknown`.
+     * - There are no **warnings** and **errors** messages.
+     */
+    public function testAddressUnknownType()
+    {
+        $validation = self::$shipengine->addresses->validate(self::$unknown_address_type);
+
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->address);
+        $this->assertNotEmpty($validation->address);
+//        TODO: Add in line 166 when hoverfly is removed from testing workflow and moved to hosted solution.
+//        $this->assertEquals(self::self::$$unknown_address_type->street, $validation->address['street']);
+        $this->assertEquals(self::$unknown_address_type->city_locality, $validation->address['city_locality']);
+        $this->assertEquals(self::$unknown_address_type->state_province, $validation->address['state_province']);
+        $this->assertEquals(self::$unknown_address_type->postal_code, $validation->address['postal_code']);
+        $this->assertEquals(self::$unknown_address_type->country_code, $validation->address['country_code']);
+        $this->assertNull($validation->address['residential']);
+        $this->assertEmpty($validation->address['errors']);
+        $this->assertEmpty($validation->address['warnings']);
+    }
+
+
 
     public function testValidateWithError()
     {
