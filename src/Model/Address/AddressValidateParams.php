@@ -9,10 +9,10 @@ use ShipEngine\Util;
  *
  * @package ShipEngine\Model\Address
  * @property array $street
- * @property string $country_code
  * @property string|null $city_locality
  * @property string|null $state_province
  * @property string|null $postal_code
+ * @property string $country_code
  * @property bool|null $residential
  * @property string|null $name
  * @property string|null $phone

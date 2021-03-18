@@ -8,7 +8,7 @@ There are two ways to validate an address using this SDK.
 `validateAddress()` -  Validate a single address.
 =================================================
 
-- The `validateAddress` method takes in an array containing street information, which would typically be 
+- The `validateAddress` method takes in an array containing street information, which would typically be
 a set of **Address Line 1, Address Line 2, and Address Line 3**. You can add these as values to the `street` array.
 This method also requires a `country_code` which should be the 2 character capitalized abbreviation for a given country.
 
@@ -16,18 +16,18 @@ This method also requires a `country_code` which should be the 2 character capit
 the even that the address passed in was not *valid*.
 
 Method Arguments:
------------------    
+-----------------
 - **street** *array* `required`
-- **city** *string* `required`
+- **city** *string*
 - **state** *string*
 - **postal_code** *string*
-- **country_code** *string*
+- **country_code** *string* `required`
+- **residential** *boolean*
 - **name** *string*
 - **phone** *string*
 - **company_name** *string*
-- **residential** *boolean*
 
-Examples: 
+Examples:
 =========
 
 **Successful Address Validation:**
@@ -43,11 +43,12 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 $shipengine = new ShipEngine($api_key);
 
 $validated_address = $shipengine->validateAddress(
-    ['4 Jersey St', 'ste 200'], 
-    'Boston', 
-    'MA', 
-    '02215', 
+    ['4 Jersey St', 'ste 200'],
+    'Boston',
+    'MA',
+    '02215',
     'US',
+    false,
     'ShipEngine',
     '1234567891',
     'ShipEngine',
@@ -75,7 +76,7 @@ ShipEngine\Model\Address\Address Object
             [state_province] => MA
             [postal_code] => 02215
             [country_code] => US
-            [residential] => 
+            [residential] =>
         )
 
     [messages:ShipEngine\Model\Address\Address:private] => Array
@@ -105,11 +106,12 @@ by using the `jsonSerialize()` method. View the example below:
 ...
 
 \$validated_address = \$shipengine->validateAddress(
-    ['4 Jersey St', 'ste 200'], 
-    'Boston', 
-    'MA', 
-    '02215', 
+    ['4 Jersey St', 'ste 200'],
+    'Boston',
+    'MA',
+    '02215',
     'US',
+    false,
     'ShipEngine',
     '1234567891',
     'ShipEngine',
@@ -119,6 +121,7 @@ print_r($validated_address->jsonSerialize());  // Return the Address Type as a J
 ```
 
 **Successful Address Validation Output:** This is the `Address` Type serialized as JSON.
+This example contains lorem ipsum text.
 ```json5
 {
   "valid": true,
@@ -153,22 +156,25 @@ print_r($validated_address->jsonSerialize());  // Return the Address Type as a J
 
 `validateAddresses()` - Validate multiple addresses.
 ====================================================
-- This
-- **Behavior:**
+- This method takes an `array` of php objects that contain the appropriate method arguments used in the
+  `validateAddress()` method. This allows you to validate multiple addresses by passing in an array of addresses.
+- **Behavior:** The `validateAddresses()` method will always return an array of addresses, and will return an error
+  if something goes wrong with the request itself.
 
-Method Arguments:
------------------
-- An `array` of objects each containing the same arguments that the `validateAddress()` method uses, also listed below:
+Method Arguments: Multi-Address
+--------------------------------
+- An `array` of objects, each containing the same arguments that the `validateAddress()`
+  method uses. Each address object should at minimum, provide a `street` and `country_code`.
+  The complete arguments of the listed below:
   - **street** *array* `required`
-  - **city** *string* `required`
+  - **city** *string*
   - **state** *string*
   - **postal_code** *string*
-  - **country_code** *string*
+  - **country_code** *string* `required`
+  - **residential** *boolean*
   - **name** *string*
   - **phone** *string*
   - **company_name** *string*
-  - **residential** *boolean*
-
 
 ```php
 <?php declare(strict_types=1);
@@ -190,7 +196,7 @@ $validation = $shipengine->addresses->validateAddresses(
         'US',
         ['4 Jersey St', 'ste 200'],
         'Boston',
-        'TX',
+        'MA',
         '02215',
         'US'
     )
@@ -220,7 +226,7 @@ Array
                     [state_province] => MA
                     [postal_code] => 02215
                     [country_code] => US
-                    [residential] => 
+                    [residential] =>
                 )
 
             [messages:ShipEngine\Model\Address\Address:private] => Array
@@ -259,7 +265,7 @@ Array
                     [state_province] => MA
                     [postal_code] => 02215
                     [country_code] => US
-                    [residential] => 
+                    [residential] =>
                 )
 
             [messages:ShipEngine\Model\Address\Address:private] => Array
