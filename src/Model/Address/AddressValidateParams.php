@@ -18,7 +18,7 @@ use ShipEngine\Util;
  * @property string|null $phone
  * @property string|null $company_name
  */
-final class AddressValidateParams
+final class AddressValidateParams implements \JsonSerializable
 {
     use Util\Getters;
 

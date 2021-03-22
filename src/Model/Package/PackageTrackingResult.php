@@ -9,7 +9,7 @@ namespace ShipEngine\Model\Package;
  * @property array $information
  * @property array $messages
  */
-final class PackageTrackingResult
+final class PackageTrackingResult implements \JsonSerializable
 {
     /**
      * @var array

@@ -9,7 +9,7 @@ namespace ShipEngine\Model\Package;
  * @property string $carrier_code
  * @property string $tracking_number
  */
-final class PackageTrackingParams
+final class PackageTrackingParams implements \JsonSerializable
 {
     /**
      * @var string
