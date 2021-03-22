@@ -84,17 +84,4 @@ final class AddressTraitTest extends TestCase
 
         $this->assertInstanceOf(Address::class, $validation);
     }
-
-    public function testValidateWithError()
-    {
-        $this->expectException(ShipEngineError::class);
-
-        print_r($this->shipengine->validateAddress(
-            ['with-error'],
-            $this->city,
-            $this->state,
-            $this->postal_code,
-            $this->country_code
-        ));
-    }
 }

@@ -43,13 +43,12 @@ final class PackageTrackingParams implements \JsonSerializable
      * "tracking_number": "abc123"
      * }
      * ```
-     * @return string
      */
-    public function jsonSerialize(): string
+    public function jsonSerialize()
     {
-        return json_encode([
+        return [
             'carrier_code' => $this->carrier_code,
             'tracking_number' => $this->tracking_number
-        ]);
+        ];
     }
 }

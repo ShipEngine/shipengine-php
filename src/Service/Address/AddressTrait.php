@@ -57,7 +57,7 @@ trait AddressTrait
 
         $result = $this->addresses->validate($address_validation_params);
 
-        $returnValue = $serializer->deserializeJsonToType($result->jsonSerialize(), Address::class);
+        $returnValue = $serializer->deserializeJsonToType(json_encode($result), Address::class);
 
         if ($returnValue->valid === false) {
             $errors = $returnValue->messages['errors'];

@@ -30,7 +30,7 @@ final class AddressValidateParamsTest extends TestCase
             'state_province' => 'MA',
             'postal_code' => '02215',
             'country_code' => 'US',
-        ), JSON_PRETTY_PRINT);
+        ));
         self::$successful_address_validate_params = self::$serializer->deserializeJsonToType(
             self::$initial_address_validate_params,
             AddressValidateParams::class
@@ -60,6 +60,6 @@ final class AddressValidateParamsTest extends TestCase
         $json = self::$successful_address_validate_params->jsonSerialize();
 
         $this->assertNotNull($json);
-        $this->assertIsString($json);
+        $this->assertIsArray($json);
     }
 }

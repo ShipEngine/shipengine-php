@@ -8,6 +8,7 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Psr\Http\Message\ResponseInterface;
 use ShipEngine\ShipEngineClient;
+use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Serialize and send RPC requests over HTTP messages.

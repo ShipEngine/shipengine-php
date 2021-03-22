@@ -34,7 +34,7 @@ trait PackageTrackingTrait
 
 
         $returnValue = $serializer->deserializeJsonToType(
-            $result->jsonSerialize(),
+            json_encode($result),
             TrackingData::class
         );
 

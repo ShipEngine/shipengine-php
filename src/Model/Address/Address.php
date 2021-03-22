@@ -82,15 +82,13 @@ final class Address implements \JsonSerializable
      * }
      * }
      * ```
-     *
-     * @return string
      */
-    public function jsonSerialize(): string
+    public function jsonSerialize()
     {
-        return json_encode([
+        return [
             'valid' => $this->valid,
             'address' => $this->address,
             'messages' => $this->messages
-        ], JSON_PRETTY_PRINT);
+        ];
     }
 }

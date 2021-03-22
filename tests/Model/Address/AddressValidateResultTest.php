@@ -80,11 +80,6 @@ final class AddressValidateResultTest extends TestCase
         $this->assertInstanceOf(AddressValidateResult::class, self::$successful_address_validate_result);
     }
 
-//    public function testConstructValidationFailure()
-//    {
-//
-//    }
-
     /**
      * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
@@ -94,6 +89,6 @@ final class AddressValidateResultTest extends TestCase
         $json = self::$successful_address_validate_result->jsonSerialize();
 
         $this->assertNotNull($json);
-        $this->assertIsString($json);
+        $this->assertIsArray($json);
     }
 }

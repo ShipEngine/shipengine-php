@@ -60,6 +60,16 @@ final class AddressServiceTest extends TestCase
     /**
      * @var AddressValidateParams
      */
+    private static AddressValidateParams $validate_with_warning;
+
+    /**
+     * @var AddressValidateParams
+     */
+    private static AddressValidateParams $validate_with_error;
+
+    /**
+     * @var AddressValidateParams
+     */
     private static AddressValidateParams $non_latin_chars_address;
 
     /**
@@ -69,7 +79,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-//        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com/');
+//        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
 
         self::$good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
@@ -105,7 +115,7 @@ final class AddressServiceTest extends TestCase
             'US',
         );
         self::$canada_address = new AddressValidateParams(
-            array('170 Princes\' Blvd'),
+            array('170 Princes\' Blvd', 'validate-canadian-address'),
             'Toronto',
             'ON',
             'M6K 3C3',
@@ -120,6 +130,23 @@ final class AddressServiceTest extends TestCase
             'MA',
             '02215',
             'US'
+        );
+        self::$non_latin_chars_address = new AddressValidateParams(
+            array(
+                '上鳥羽角田町６８',
+                'validate-with-non-latin-chars'
+            ),
+            '南区',
+            '京都',
+            '601-8104',
+            'JP'
+        );
+        self::$validate_with_warning = new AddressValidateParams(
+            array('170 Princes\' Blvd', 'validate-with-warning'),
+            'Toronto',
+            'ON',
+            'M6K 3C3',
+            'CA',
         );
         self::$shipengine = new ShipEngine('baz');
     }
@@ -308,12 +335,12 @@ final class AddressServiceTest extends TestCase
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
         $this->assertNotEmpty($validation->address);
-        $this->assertEquals(self::$canada_address->street, $validation->address['street']);
+        $this->assertEquals(self::$canada_address->street[0], $validation->address['street'][0]);
         $this->assertEquals(
             self::$canada_address->city_locality,
             $validation->address['city_locality']
         );
-        $this->assertMatchesRegularExpression('/[[:alnum:]\s]/', self::$canada_address->postal_code);
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', self::$canada_address->postal_code);
         $this->assertEquals(self::$canada_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$canada_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
@@ -321,16 +348,50 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['warnings']);
     }
 
-    public function testValidateWithError()
+    public function testAddressWithNonLatinCharacters()
     {
-        $this->assertInstanceOf(
-            AddressValidateResult::class,
-            self::$shipengine->addresses->validate(self::$bad_address)
+        $validation = self::$shipengine->addresses->validate(self::$non_latin_chars_address);
+
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->address);
+        $this->assertNotEmpty($validation->address);
+        $this->assertEquals('68 Kamitobatsunodacho', $validation->address['street'][0]);
+        $this->assertEquals(
+            'Kyoto-Shi Minami-Ku',
+            $validation->address['city_locality']
         );
+        $this->assertEquals('Kyoto', $validation->address['state_province']);
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9- ]*$/', self::$non_latin_chars_address->postal_code);
+        $this->assertEquals(self::$non_latin_chars_address->postal_code, $validation->address['postal_code']);
+        $this->assertEquals(self::$non_latin_chars_address->country_code, $validation->address['country_code']);
+        $this->assertFalse($validation->address['residential']);
+        $this->assertEmpty($validation->address['errors']);
+        $this->assertEmpty($validation->address['warnings']);
+    }
+
+    public function testValidateWithWarning()
+    {
+        $validation = self::$shipengine->addresses->validate(self::$validate_with_warning);
+
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->address);
+        $this->assertNotEmpty($validation->address);
+        $this->assertEquals(self::$validate_with_warning->street[0], $validation->address['street'][0]);
+        $this->assertEquals(
+            self::$validate_with_warning->city_locality,
+            $validation->address['city_locality']
+        );
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', self::$validate_with_warning->postal_code);
+        $this->assertEquals(self::$validate_with_warning->postal_code, $validation->address['postal_code']);
+        $this->assertEquals(self::$validate_with_warning->country_code, $validation->address['country_code']);
+        $this->assertFalse($validation->address['residential']);
+        $this->assertEmpty($validation->address['errors']);
+        $this->assertNotEmpty($validation->messages['warnings']);
+        $this->assertIsString($validation->messages['warnings'][0]);
     }
 
     public function testJsonSerialize()
     {
-        $this->assertIsString(self::$shipengine->addresses->validate(self::$good_address)->jsonSerialize());
+        $this->assertIsArray(self::$shipengine->addresses->validate(self::$good_address)->jsonSerialize());
     }
 }

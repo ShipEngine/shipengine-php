@@ -111,3 +111,7 @@ docker-compose.yaml
 
 # PHP Unit
 .phpunit.*
+
+# Locals
+foo.php
+baz.php

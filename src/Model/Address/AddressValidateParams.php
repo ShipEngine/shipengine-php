@@ -28,11 +28,6 @@ final class AddressValidateParams implements \JsonSerializable
     private array $street;
 
     /**
-     * @var string
-     */
-    private string $country_code;
-
-    /**
      * @var string|null
      */
     private ?string $city_locality;
@@ -46,6 +41,11 @@ final class AddressValidateParams implements \JsonSerializable
      * @var string|null
      */
     private ?string $postal_code;
+
+    /**
+     * @var string
+     */
+    private string $country_code;
 
     /**
      * @var bool|null
@@ -121,12 +121,10 @@ final class AddressValidateParams implements \JsonSerializable
      * "country_code": "US"
      * }
      * ```
-     *
-     * @return string
      */
-    public function jsonSerialize(): string
+    public function jsonSerialize()
     {
-        return json_encode([
+        return [
             'name' => $this->name,
             'phone' => $this->phone,
             'company_name' => $this->company_name,
@@ -136,6 +134,6 @@ final class AddressValidateParams implements \JsonSerializable
             'postal_code' => $this->postal_code,
             'country_code' => $this->country_code,
             'residential' => $this->residential
-        ]);
+        ];
     }
 }
