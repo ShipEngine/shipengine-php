@@ -136,6 +136,6 @@ final class AddressValidateParams
             'postal_code' => $this->postal_code,
             'country_code' => $this->country_code,
             'residential' => $this->residential
-        ], JSON_PRETTY_PRINT);
+        ]);
     }
 }

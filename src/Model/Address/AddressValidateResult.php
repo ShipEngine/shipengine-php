@@ -92,6 +92,6 @@ final class AddressValidateResult implements \JsonSerializable
             'valid' => $this->valid,
             'address' => $this->address,
             'messages' => $this->messages
-        ], JSON_PRETTY_PRINT);
+        ]);
     }
 }

@@ -69,19 +69,6 @@ final class AddressTraitTest extends TestCase
         $this->shipengine = new ShipEngine('baz');
     }
 
-    public function testValidateAddress(): void
-    {
-        $validation = $this->shipengine->validateAddress(
-            $this->street,
-            $this->city,
-            $this->state,
-            $this->postal_code,
-            $this->country_code
-        );
-
-        $this->assertEquals($this->city, $validation->address['city_locality']);
-    }
-
     /**
      * Test the return type, should be an instance of the `Address` Type.
      */
