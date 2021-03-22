@@ -27,7 +27,9 @@ final class ShipEngineSerializer
      */
     public function __construct()
     {
-        $this->serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        $encoder = [new JsonEncoder()];
+        $normalizer = [new ObjectNormalizer()];
+        $this->serializer = new Serializer($normalizer, $encoder);
     }
 
     /**
