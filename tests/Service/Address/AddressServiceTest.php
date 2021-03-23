@@ -73,19 +73,12 @@ final class AddressServiceTest extends TestCase
     private static AddressValidateParams $non_latin_chars_address;
 
     /**
-     * @var AddressValidateParams
-     */
-    private static AddressValidateParams $fictional_address;
-
-    /**
      * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
      *
      * @return void
      */
     public static function setUpBeforeClass(): void
     {
-        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
-
         self::$good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
             'Boston',
@@ -153,7 +146,7 @@ final class AddressServiceTest extends TestCase
             'M6K 3C3',
             'CA',
         );
-        self::$fictional_address = new AddressValidateParams(
+        self::$validate_with_error = new AddressValidateParams(
             array('124 Conch St', 'validate-with-error'),
             'Bikini Bottom',
             'Pacific Ocean',
@@ -314,6 +307,7 @@ final class AddressServiceTest extends TestCase
      * `Assertions:`
      * - **valid** flag is `true`.
      * - **normalized address** is returned and matches the given address.
+     * **postal_code** is numeric and matches original postal_code.
      * - **residential** flag on the normalized address is `false`.
      * - There are no **warnings** and **errors** messages.
      */
@@ -340,6 +334,16 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['warnings']);
     }
 
+    /**
+     * Tests with that the `postal-code` is alpha-numeric and matches the postal_code passed in.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **postal_code** is alpha-numeric and matches the original address.
+     * - **residential** flag on the normalized address is `false`.
+     * - There are no **warnings** and **errors** messages.
+     */
     public function testAlphaPostalCode()
     {
         $validation = self::$shipengine->addresses->validate(self::$canada_address);
@@ -360,6 +364,16 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['warnings']);
     }
 
+    /**
+     * Tests as address with non-latin characters and confirms the normalization.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **normalized address** has proper normalization applied to non-latin characters.
+     * - **residential** flag on the normalized address is `false`.
+     * - There are no **warnings** and **errors** messages.
+     */
     public function testAddressWithNonLatinCharacters()
     {
         $validation = self::$shipengine->addresses->validate(self::$non_latin_chars_address);
@@ -381,6 +395,16 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['warnings']);
     }
 
+    /**
+     * Tests a validation with `warning` messages.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is `false`.
+     * - That **warning** messages are provided.
+     * - There are no **error** messages.
+     */
     public function testValidateWithWarning()
     {
         $validation = self::$shipengine->addresses->validate(self::$validate_with_warning);
@@ -402,9 +426,19 @@ final class AddressServiceTest extends TestCase
         $this->assertIsString($validation->messages['warnings'][0]);
     }
 
+    /**
+     * Tests a validation with `error` messages.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is `false`.
+     * - That **error** messages are provided.
+     * - There are no **warning** messages.
+     */
     public function testValidationError()
     {
-        $validation = self::$shipengine->addresses->validate(self::$fictional_address);
+        $validation = self::$shipengine->addresses->validate(self::$validate_with_error);
 
         $this->assertFalse($validation->valid);
         $this->assertNull($validation->address);

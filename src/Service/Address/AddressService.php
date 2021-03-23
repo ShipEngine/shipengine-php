@@ -20,12 +20,12 @@ final class AddressService extends AbstractService
      * Validate a single address via the `address/validate` remote procedure.
      *
      * @param AddressValidateParams $params
-     * @return AddressValidateResult
      */
     public function validate(AddressValidateParams $params)
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->request('address/validate', (array)$params->jsonSerialize());
+
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
 

@@ -23,50 +23,49 @@ final class AddressTraitTest extends TestCase
     /**
      * @var ShipEngine
      */
-    private ShipEngine $shipengine;
+    private static ShipEngine $shipengine;
 
     /**
      * @var array|string[]
      */
-    private array $street;
+    private static array $street;
 
     /**
      * @var string
      */
-    private string $city;
+    private static string $city;
 
     /**
      * @var string
      */
-    private string $state;
+    private static string $state;
 
     /**
      * @var string
      */
-    private string $postal_code;
+    private static string $postal_code;
 
     /**
      * @var string
      */
-    private string $country_code;
+    private static string $country_code;
 
     /**
-     * Pass in an `api-key` the new instance of the *ShipEngine* class.
+     * Pass in an `api-key` the new instance of the *ShipEngine* class and create fixtures.
      *
      * @return void
      */
-    protected function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->street = array(
-            '4 Jersey St',
-            'ste 200'
+        self::$street = array(
+           '4 Jersey St',
+           'Ste 200',
         );
-        $this->city = 'Boston';
-        $this->state = 'MA';
-        $this->postal_code = '02215';
-        $this->country_code = 'US';
-
-        $this->shipengine = new ShipEngine('baz');
+        self::$city = 'Boston';
+        self::$state = 'MA';
+        self::$postal_code = '02215';
+        self::$country_code = 'US';
+        self::$shipengine = new ShipEngine('baz');
     }
 
     /**
@@ -74,12 +73,12 @@ final class AddressTraitTest extends TestCase
      */
     public function testReturnType(): void
     {
-        $validation = $this->shipengine->validateAddress(
-            $this->street,
-            $this->city,
-            $this->state,
-            $this->postal_code,
-            $this->country_code
+        $validation = self::$shipengine->validateAddress(
+            self::$street,
+            self::$city,
+            self::$state,
+            self::$postal_code,
+            self::$country_code
         );
 
         $this->assertInstanceOf(Address::class, $validation);

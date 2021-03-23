@@ -41,17 +41,18 @@ final class ShipEngineClient
         $headers = array();
         $headers['Api-Key'] = $api_key;
         $headers['User-Agent'] = $user_agent;
+        $headers['Content-Type'] = 'application/json';
 
         $uri_factory = UriFactoryDiscovery::find();
 
         if (!getenv('CLIENT_BASE_URI')) {
-            $base_url = 'http://localhost:8500';
+            $base_url = 'https://simengine.herokuapp.com';
         } else {
             $base_url = getenv('CLIENT_BASE_URI');
         }
 
         $base_uri = $uri_factory->createUri($base_url);
-        
+
         $plugins = array();
         $plugins[] = new HeaderDefaultsPlugin($headers);
         $plugins[] = new BaseUriPlugin($base_uri);

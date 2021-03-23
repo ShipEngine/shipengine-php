@@ -11,7 +11,7 @@ on:
 env:
   COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-  
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,10 +29,10 @@ jobs:
       - uses: agilepathway/hoverfly-github-action@main
         with:
           runner_github_workspace_path: ${{ github.workspace }}
-      - run: hoverfly -webserver -response-body-files-path simengine > /dev/null &
       - run: composer install
       - run: phpcs --standard=PSR2 src
       - run: phpstan analyse src --level 5
+      - run: php-cs-fixer fix -vvv --config=.php_cs.dist
       - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
   deploy:

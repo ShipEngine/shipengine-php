@@ -119,7 +119,7 @@ abstract class AbstractService
      */
     private function sendRequest(array $body): ResponseInterface
     {
-        $jsonData = json_encode($body);
+        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
         $request = $this->message_factory->createRequest(self::RPC_METHOD, self::RPC_PATH, array(), $jsonData);
 
