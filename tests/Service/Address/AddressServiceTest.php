@@ -73,13 +73,18 @@ final class AddressServiceTest extends TestCase
     private static AddressValidateParams $non_latin_chars_address;
 
     /**
+     * @var AddressValidateParams
+     */
+    private static AddressValidateParams $fictional_address;
+
+    /**
      * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
      *
      * @return void
      */
     public static function setUpBeforeClass(): void
     {
-//        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
+        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
 
         self::$good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
@@ -147,6 +152,13 @@ final class AddressServiceTest extends TestCase
             'ON',
             'M6K 3C3',
             'CA',
+        );
+        self::$fictional_address = new AddressValidateParams(
+            array('124 Conch St', 'validate-with-error'),
+            'Bikini Bottom',
+            'Pacific Ocean',
+            '4A6 G67',
+            'Earth'
         );
         self::$shipengine = new ShipEngine('baz');
     }
@@ -388,6 +400,20 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['errors']);
         $this->assertNotEmpty($validation->messages['warnings']);
         $this->assertIsString($validation->messages['warnings'][0]);
+    }
+
+    public function testValidationError()
+    {
+        $validation = self::$shipengine->addresses->validate(self::$fictional_address);
+
+        $this->assertFalse($validation->valid);
+        $this->assertNull($validation->address);
+        $this->assertEmpty($validation->messages['info']);
+        $this->assertIsArray($validation->messages['info']);
+        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertIsArray($validation->messages['warnings']);
+        $this->assertNotEmpty($validation->messages['errors']);
+        $this->assertIsArray($validation->messages['errors']);
     }
 
     public function testJsonSerialize()

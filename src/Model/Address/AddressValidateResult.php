@@ -36,8 +36,8 @@ final class AddressValidateResult implements \JsonSerializable
      * AddressValidateResult Type constructor.
      *
      * @param bool $valid
-     * @param array|null $address
      * @param array $messages
+     * @param array|null $address
      */
     public function __construct(
         bool $valid,
