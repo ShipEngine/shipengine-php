@@ -24,10 +24,8 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          tools: phpcs, phpstan, phpunit
+          tools: phpcs, phpstan, phpunit, php-cs-fixer
           extensions: xdebug
-      - uses: agilepathway/hoverfly-github-action@main
-        with:
           runner_github_workspace_path: ${{ github.workspace }}
       - run: composer install
       - run: phpcs --standard=PSR2 src
