@@ -26,6 +26,7 @@ jobs:
           php-version: '7.4'
           tools: phpcs, phpstan, phpunit, php-cs-fixer
           extensions: xdebug
+          runner_github_workspace_path: ${{ github.workspace }}
       - run: composer install
       - run: phpcs --standard=PSR2 src
       - run: phpstan analyse src --level 5
