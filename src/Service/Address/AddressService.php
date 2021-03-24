@@ -20,8 +20,9 @@ final class AddressService extends AbstractService
      * Validate a single address via the `address/validate` remote procedure.
      *
      * @param AddressValidateParams $params
+     * @return AddressValidateResult
      */
-    public function validate(AddressValidateParams $params)
+    public function validate(AddressValidateParams $params): AddressValidateResult
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->request('address/validate', (array)$params->jsonSerialize());
@@ -31,7 +32,7 @@ final class AddressService extends AbstractService
 
         if ($status_code !== 200) {
             throw new ShipEngineError(
-                "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
+                "Address Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
         }
 

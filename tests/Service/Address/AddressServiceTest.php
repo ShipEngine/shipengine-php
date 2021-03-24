@@ -3,6 +3,7 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\ShipEngineError;
 use ShipEngine\Model\Address\AddressValidateParams;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
@@ -71,6 +72,8 @@ final class AddressServiceTest extends TestCase
      * @var AddressValidateParams
      */
     private static AddressValidateParams $non_latin_chars_address;
+
+    private static AddressValidateParams $address_with_empty_street_array;
 
     /**
      * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
@@ -152,6 +155,13 @@ final class AddressServiceTest extends TestCase
             'Pacific Ocean',
             '4A6 G67',
             'Earth'
+        );
+        self::$address_with_empty_street_array = new AddressValidateParams(
+            array(),
+            'Boston',
+            'MA',
+            '02215',
+            'US',
         );
         self::$shipengine = new ShipEngine('baz');
     }
@@ -436,19 +446,15 @@ final class AddressServiceTest extends TestCase
      * - That **error** messages are provided.
      * - There are no **warning** messages.
      */
-    public function testValidationError()
-    {
-        $validation = self::$shipengine->addresses->validate(self::$validate_with_error);
-
-        $this->assertFalse($validation->valid);
-        $this->assertNull($validation->address);
-        $this->assertEmpty($validation->messages['info']);
-        $this->assertIsArray($validation->messages['info']);
-        $this->assertEmpty($validation->messages['warnings']);
-        $this->assertIsArray($validation->messages['warnings']);
-        $this->assertNotEmpty($validation->messages['errors']);
-        $this->assertIsArray($validation->messages['errors']);
-    }
+//    public function testValidationError()
+//    {
+//    //        assert that an error is thrown
+//    //        assert that error source is ShipEngine
+//    //        assert error type is 'validation'
+//    //        assert that error code is "field_value_required"
+//    //        assert the error message is specified message
+//    //        assert that errors request ID is null
+//    }
 
     public function testJsonSerialize()
     {

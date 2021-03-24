@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Model\Address;
 
+use ShipEngine\Message\ShipEngineError;
 use ShipEngine\Util;
 
 /**
@@ -91,7 +92,23 @@ final class AddressValidateParams implements \JsonSerializable
         ?string $phone = null,
         ?string $company_name = null
     ) {
-        $this->street = $street;
+//        if (isNotEmpty($street)) {
+//            throw new ShipEngineError(
+//                'Street[] is empty, you must pass in at least 1 street line.'
+//            );
+//        }
+        if (!empty($street)) {
+            $this->street = $street;
+        } else {
+            throw new ShipEngineError(
+                'Invalid address. At least one address line is required.',
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        }
+
         $this->city_locality = $city_locality;
         $this->state_province = $state_province;
         $this->postal_code = $postal_code;
