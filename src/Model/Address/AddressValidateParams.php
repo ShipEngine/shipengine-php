@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace ShipEngine\Model\Address;
 
 use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineValidationError;
 use ShipEngine\Util;
 
 /**
@@ -18,6 +21,7 @@ use ShipEngine\Util;
  * @property string|null $name
  * @property string|null $phone
  * @property string|null $company_name
+ * @throws ShipEngineValidationError
  */
 final class AddressValidateParams implements \JsonSerializable
 {
@@ -92,15 +96,10 @@ final class AddressValidateParams implements \JsonSerializable
         ?string $phone = null,
         ?string $company_name = null
     ) {
-//        if (isNotEmpty($street)) {
-//            throw new ShipEngineError(
-//                'Street[] is empty, you must pass in at least 1 street line.'
-//            );
-//        }
         if (!empty($street)) {
             $this->street = $street;
         } else {
-            throw new ShipEngineError(
+            throw new ShipEngineValidationError(
                 'Invalid address. At least one address line is required.',
                 null,
                 'ShipEngine',
@@ -109,10 +108,81 @@ final class AddressValidateParams implements \JsonSerializable
             );
         }
 
-        $this->city_locality = $city_locality;
-        $this->state_province = $state_province;
-        $this->postal_code = $postal_code;
-        $this->country_code = $country_code;
+        if (count($street) > 3) {
+            throw new ShipEngineValidationError(
+                'Invalid address. No more than 3 street lines are allowed.',
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        } else {
+            $this->street = $street;
+        }
+
+        if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $city_locality) === false || $city_locality === '') {
+            throw new ShipEngineValidationError(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        } else {
+            $this->city_locality = $city_locality;
+        }
+
+        if (preg_match('/^[A-Z\W]{2}$/', $state_province) === false || $state_province === '') {
+            throw new ShipEngineValidationError(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        } else {
+            $this->state_province = $state_province;
+        }
+
+        if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postal_code) === false || $postal_code == '') {
+            throw new ShipEngineValidationError(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        } else {
+            $this->postal_code = $postal_code;
+        }
+
+
+
+        if (preg_match('/^[A-Z]{2}$/', $country_code)) {
+            $this->country_code = $country_code;
+        } elseif ($country_code == '') {
+            throw new ShipEngineValidationError(
+                "Invalid address. The country must be specified.",
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        } elseif (!preg_match('/^[A-Z]{2}$/', $country_code)) {
+            throw new ShipEngineValidationError(
+                "Invalid address. {$country_code} is not a valid country code.",
+                null,
+                'ShipEngine',
+                'validation',
+                'field_value_required'
+            );
+        }
+
+//        $this->street = $street;
+//        $this->city_locality = $city_locality;
+//        $this->state_province = $state_province;
+//        $this->postal_code = $postal_code;
+//        $this->country_code = $country_code;
         $this->residential = $residential;
         $this->name = $name;
         $this->phone = $phone;

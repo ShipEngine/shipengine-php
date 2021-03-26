@@ -73,7 +73,6 @@ final class AddressServiceTest extends TestCase
      */
     private static AddressValidateParams $non_latin_chars_address;
 
-    private static AddressValidateParams $address_with_empty_street_array;
 
     /**
      * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
@@ -82,6 +81,16 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        self::$non_latin_chars_address = new AddressValidateParams(
+            array(
+                '上鳥羽角田町６８',
+                'validate-with-non-latin-chars'
+            ),
+            '南区',
+            '京都',
+            '601-8104',
+            'JP'
+        );
         self::$good_address = new AddressValidateParams(
             array('4 Jersey St', 'ste 200'),
             'Boston',
@@ -107,7 +116,6 @@ final class AddressServiceTest extends TestCase
             array(
                 '4 Jersey St',
                 'ste 200',
-                '2nd Floor',
                 'multi-line-address'
             ),
             'Boston',
@@ -132,16 +140,6 @@ final class AddressServiceTest extends TestCase
             '02215',
             'US'
         );
-        self::$non_latin_chars_address = new AddressValidateParams(
-            array(
-                '上鳥羽角田町６８',
-                'validate-with-non-latin-chars'
-            ),
-            '南区',
-            '京都',
-            '601-8104',
-            'JP'
-        );
         self::$validate_with_warning = new AddressValidateParams(
             array('170 Princes\' Blvd', 'validate-with-warning'),
             'Toronto',
@@ -154,14 +152,7 @@ final class AddressServiceTest extends TestCase
             'Bikini Bottom',
             'Pacific Ocean',
             '4A6 G67',
-            'Earth'
-        );
-        self::$address_with_empty_street_array = new AddressValidateParams(
-            array(),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            'EA'
         );
         self::$shipengine = new ShipEngine('baz');
     }
@@ -294,10 +285,6 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(
             strtoupper(self::$multi_line_address->street[0] . ' ' . self::$multi_line_address->street[1]),
             $validation->address['street'][0]
-        );
-        $this->assertEquals(
-            strtoupper(self::$multi_line_address->street[2]),
-            $validation->address['street'][1]
         );
         $this->assertEquals(
             strtoupper(self::$multi_line_address->city_locality),
@@ -436,25 +423,6 @@ final class AddressServiceTest extends TestCase
         $this->assertIsString($validation->messages['warnings'][0]);
     }
 
-    /**
-     * Tests a validation with `error` messages.
-     *
-     * `Assertions:`
-     * - **valid** flag is `true`.
-     * - **normalized address** is returned and matches the given address.
-     * - **residential** flag on the normalized address is `false`.
-     * - That **error** messages are provided.
-     * - There are no **warning** messages.
-     */
-//    public function testValidationError()
-//    {
-//    //        assert that an error is thrown
-//    //        assert that error source is ShipEngine
-//    //        assert error type is 'validation'
-//    //        assert that error code is "field_value_required"
-//    //        assert the error message is specified message
-//    //        assert that errors request ID is null
-//    }
 
     public function testJsonSerialize()
     {
