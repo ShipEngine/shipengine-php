@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Service;
 
+use ShipEngine\Message\ShipEngineValidationError;
 use ShipEngine\Util;
 
 final class ShipEngineConfig
@@ -29,7 +30,38 @@ final class ShipEngineConfig
      */
     public function __construct(array $config = array())
     {
-        $this->api_key = $config['api_key'];
+        if (isset($config['api_key']) === false) {
+            throw new ShipEngineValidationError(
+                'A ShipEngine API key must be specified.',
+                null,
+                'shipengine',
+                'validation',
+                'field_value_required'
+            );
+        } else {
+            $this->api_key = $config['api_key'];
+        }
+
+//        if (isset($config['']) === false) {
+//
+//        }
+//
+//        if (isset($config['']) === false) {
+//
+//        }
+//
+//        if (isset($config['']) === false) {
+//
+//        }
+//
+//        if (isset($config['']) === false) {
+//
+//        }
+//
+//        if (isset($config['']) === false) {
+//
+//        }
+
         $this->base_url = isset($config['base_url']) ? $config['base_url'] : self::DEFAULT_BASE_URI;
         $this->page_size = isset($config['page_size']) ? $config['page_size'] : self::DEFAULT_PAGE_SIZE;
         $this->retries = isset($config['retries']) ? $config['retries'] : self::DEFAULT_RETRIES;

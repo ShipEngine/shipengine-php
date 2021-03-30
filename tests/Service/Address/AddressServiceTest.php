@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\ShipEngineValidationError;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
+use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngine;
 
 /**
@@ -25,6 +26,8 @@ final class AddressServiceTest extends TestCase
      * @var ShipEngine
      */
     private static ShipEngine $shipengine;
+
+    private static ShipEngineConfig $config;
 
     /**
      * @var Address
@@ -84,6 +87,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
         self::$non_latin_chars_address = new Address(
             array(
                 '上鳥羽角田町６８',
@@ -164,7 +168,8 @@ final class AddressServiceTest extends TestCase
             '02215',
             'US',
         );
-        self::$shipengine = new ShipEngine('baz');
+        self::$config = new ShipEngineConfig(array('api_key' => 'baz'));
+        self::$shipengine = new ShipEngine(self::$config);
     }
 
     /**

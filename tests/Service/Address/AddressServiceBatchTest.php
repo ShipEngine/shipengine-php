@@ -5,6 +5,7 @@ namespace Service\Address;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Model\Address\AddressResult;
 use ShipEngine\Model\Address\AddressValidateResult;
+use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngine;
 
 /**
@@ -21,6 +22,8 @@ final class AddressServiceBatchTest extends TestCase
 {
     private static ShipEngine $shipengine;
 
+    private static ShipEngineConfig $config;
+
     private static array $batchAddresses;
 
     private static array $batchAddressResponse;
@@ -32,7 +35,10 @@ final class AddressServiceBatchTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$shipengine = new ShipEngine('baz');
+        self::$config = new ShipEngineConfig(
+            array('api_key' => 'baz')
+        );
+        self::$shipengine = new ShipEngine(self::$config);
         self::$batchAddresses = array(
             0 =>
                 array(
