@@ -3,19 +3,17 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressResult;
+use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
 
 /**
  * Tests the batched method provided in the `AddressService` that allows for validation multiple addresses.
  *
- * @covers \ShipEngine\Model\Address\Address
- * @covers \ShipEngine\Service\Address\AddressTrait
+ * @covers \ShipEngine\Model\Address\AddressResult
  * @covers \ShipEngine\Service\Address\AddressService
- * @covers \ShipEngine\Model\Address\AddressValidateParams
  * @covers \ShipEngine\Model\Address\AddressValidateResult
  * @covers \ShipEngine\Service\AbstractService
- * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  */
@@ -61,11 +59,11 @@ final class AddressServiceBatchTest extends TestCase
         );
     }
 
-    public function testValidateBatchMethodViaHTTP(): void
+    public function testValidateBatchMethodViaHTTP(): void  // TODO: debug -- broke after simplification.
     {
-        $batchValidation = self::$shipengine->addresses->validateAddresses(self::$batchAddresses);
+        $batchValidation = self::$shipengine->validateAddresses(self::$batchAddresses);
 
-        $this->assertInstanceOf(Address::class, $batchValidation[0]);
-        $this->assertInstanceOf(Address::class, $batchValidation[1]);
+        $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[0]);
+        $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[1]);
     }
 }

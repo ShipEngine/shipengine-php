@@ -3,21 +3,19 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Message\ShipEngineError;
-use ShipEngine\Model\Address\AddressValidateParams;
+use ShipEngine\Message\ShipEngineValidationError;
+use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
 
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
- * @covers \ShipEngine\Model\Address\Address
- * @covers \ShipEngine\Service\Address\AddressTrait
+ * @covers \ShipEngine\Model\Address\AddressResult
  * @covers \ShipEngine\Service\Address\AddressService
- * @covers \ShipEngine\Model\Address\AddressValidateParams
+ * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\AddressValidateResult
  * @covers \ShipEngine\Service\AbstractService
- * @covers \ShipEngine\Service\ServiceFactory
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
  */
@@ -29,49 +27,54 @@ final class AddressServiceTest extends TestCase
     private static ShipEngine $shipengine;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $good_address;
+    private static Address $good_address;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $valid_residential_address;
+    private static Address $valid_residential_address;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $canada_address;
+    private static Address $canada_address;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $multi_line_address;
+    private static Address $multi_line_address;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $unknown_address_type;
+    private static Address $unknown_address_type;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $bad_address;
+    private static Address $bad_address;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $validate_with_warning;
+    private static Address $validate_with_warning;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $validate_with_error;
+    private static Address $validate_with_error;
 
     /**
-     * @var AddressValidateParams
+     * @var Address
      */
-    private static AddressValidateParams $non_latin_chars_address;
+    private static Address $non_latin_chars_address;
+
+    /**
+     * @var Address
+     */
+    private static Address $get_rpc_server_error;
 
 
     /**
@@ -81,7 +84,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$non_latin_chars_address = new AddressValidateParams(
+        self::$non_latin_chars_address = new Address(
             array(
                 '上鳥羽角田町６８',
                 'validate-with-non-latin-chars'
@@ -91,28 +94,28 @@ final class AddressServiceTest extends TestCase
             '601-8104',
             'JP'
         );
-        self::$good_address = new AddressValidateParams(
+        self::$good_address = new Address(
             array('4 Jersey St', 'ste 200'),
             'Boston',
             'MA',
             '02215',
             'US',
         );
-        self::$unknown_address_type = new AddressValidateParams(
+        self::$unknown_address_type = new Address(
             array('4 Jersey St', 'validate-unknown-address'),
             'Boston',
             'MA',
             '02215',
             'US'
         );
-        self::$valid_residential_address = new AddressValidateParams(
+        self::$valid_residential_address = new Address(
             array('4 Jersey St', 'validate-residential-address'),
             'Boston',
             'MA',
             '02215',
             'US'
         );
-        self::$multi_line_address = new AddressValidateParams(
+        self::$multi_line_address = new Address(
             array(
                 '4 Jersey St',
                 'ste 200',
@@ -123,14 +126,14 @@ final class AddressServiceTest extends TestCase
             '02215',
             'US',
         );
-        self::$canada_address = new AddressValidateParams(
+        self::$canada_address = new Address(
             array('170 Princes\' Blvd', 'validate-canadian-address'),
             'Toronto',
             'ON',
             'M6K 3C3',
             'CA',
         );
-        self::$bad_address = new AddressValidateParams(
+        self::$bad_address = new Address(
             array(
                 '4 Jersey St',
                 'with-error'
@@ -140,29 +143,36 @@ final class AddressServiceTest extends TestCase
             '02215',
             'US'
         );
-        self::$validate_with_warning = new AddressValidateParams(
+        self::$validate_with_warning = new Address(
             array('170 Princes\' Blvd', 'validate-with-warning'),
             'Toronto',
             'ON',
             'M6K 3C3',
             'CA',
         );
-        self::$validate_with_error = new AddressValidateParams(
+        self::$validate_with_error = new Address(
             array('124 Conch St', 'validate-with-error'),
             'Bikini Bottom',
             'Pacific Ocean',
             '4A6 G67',
             'EA'
         );
+        self::$get_rpc_server_error = new Address(
+            array('4 Jersey St', 'ste 200', 'rpc-server-error'),
+            'Boston',
+            'MA',
+            '02215',
+            'US',
+        );
         self::$shipengine = new ShipEngine('baz');
     }
 
     /**
-     * Test the return type, should be an instance of the `Address` Type.
+     * Test the return type, should be an instance of the `AddressTest` Type.
      */
     public function testReturnType()
     {
-        $validation = self::$shipengine->addresses->validate(self::$good_address);
+        $validation = self::$shipengine->validateAddress(self::$good_address);
 
         $this->assertInstanceOf(AddressValidateResult::class, $validation);
     }
@@ -178,7 +188,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testValidResidentialAddress()
     {
-        $validation = self::$shipengine->addresses->validate(self::$valid_residential_address);
+        $validation = self::$shipengine->validateAddress(self::$valid_residential_address);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -210,7 +220,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testValidCommercialAddress()
     {
-        $validation = self::$shipengine->addresses->validate(self::$good_address);
+        $validation = self::$shipengine->validateAddress(self::$good_address);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -242,7 +252,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testAddressUnknownType()
     {
-        $validation = self::$shipengine->addresses->validate(self::$unknown_address_type);
+        $validation = self::$shipengine->validateAddress(self::$unknown_address_type);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -275,13 +285,14 @@ final class AddressServiceTest extends TestCase
      */
     public function testMultiLineAddress()
     {
-        $validation = self::$shipengine->addresses->validate(self::$multi_line_address);
+        $validation = self::$shipengine->validateAddress(self::$multi_line_address);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
         $this->assertNotEmpty($validation->address);
         $this->assertArrayHasKey(0, $validation->address['street']);
         $this->assertArrayHasKey(1, $validation->address['street']);
+        $this->assertArrayNotHasKey(3, $validation->address['street']);
         $this->assertEquals(
             strtoupper(self::$multi_line_address->street[0] . ' ' . self::$multi_line_address->street[1]),
             $validation->address['street'][0]
@@ -310,7 +321,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testNumericPostalCode()
     {
-        $validation = self::$shipengine->addresses->validate(self::$good_address);
+        $validation = self::$shipengine->validateAddress(self::$good_address);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -343,7 +354,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testAlphaPostalCode()
     {
-        $validation = self::$shipengine->addresses->validate(self::$canada_address);
+        $validation = self::$shipengine->validateAddress(self::$canada_address);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -373,7 +384,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testAddressWithNonLatinCharacters()
     {
-        $validation = self::$shipengine->addresses->validate(self::$non_latin_chars_address);
+        $validation = self::$shipengine->validateAddress(self::$non_latin_chars_address);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -384,7 +395,10 @@ final class AddressServiceTest extends TestCase
             $validation->address['city_locality']
         );
         $this->assertEquals('Kyoto', $validation->address['state_province']);
-        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9- ]*$/', self::$non_latin_chars_address->postal_code);
+        $this->assertMatchesRegularExpression(
+            '/^[a-zA-Z0-9-]*$/',
+            self::$non_latin_chars_address->postal_code
+        );
         $this->assertEquals(self::$non_latin_chars_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$non_latin_chars_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
@@ -404,7 +418,7 @@ final class AddressServiceTest extends TestCase
      */
     public function testValidateWithWarning()
     {
-        $validation = self::$shipengine->addresses->validate(self::$validate_with_warning);
+        $validation = self::$shipengine->validateAddress(self::$validate_with_warning);
 
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->address);
@@ -421,11 +435,287 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['errors']);
         $this->assertNotEmpty($validation->messages['warnings']);
         $this->assertIsString($validation->messages['warnings'][0]);
+//        $this->assertEqual(
+//'This address has been verified down to the house/building level (highest possible accuracy with the provided data)',
+// $validation->messages['warnings'][0]);
     }
 
+    /**
+     * Tests a validation with `error` messages.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `field_value_required`.
+     * - **error_message** is "Invalid address. At least one address line is required.".
+     */
+    public function testNoAddressLinesValidationError()
+    {
+        try {
+            $validationError = new Address(
+                array(),
+                'Boston',
+                'MA',
+                '02215',
+                'US',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. At least one address line is required.',
+                $error['error_message']
+            );
+        }
+    }
+
+    /**
+     * Tests a validation with too many address lines.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `field_value_required`.
+     * - **error_message** is "Invalid address. No more than 3 street lines are allowed.".
+     */
+    public function testTooManyAddressLinesValidationError()
+    {
+        try {
+            $validationError = new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
+                'Boston',
+                'MA',
+                '02215',
+                'US',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. No more than 3 street lines are allowed.',
+                $error['error_message']
+            );
+        }
+    }
+
+    /**
+     * Tests a validation with missing `city`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `field_value_required`.
+     * - **error_message** is -
+     * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
+     */
+    public function testMissingCity()
+    {
+        try {
+            $validationError = new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                '',
+                'MA',
+                '02215',
+                'US',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                $error['error_message']
+            );
+        }
+    }
+
+    // TODO: rename per AC -- removed state and postal.
+    /**
+     * Tests a validation with missing `state`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `field_value_required`.
+     * - **error_message** is -
+     * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
+     */
+    public function testMissingState()
+    {
+        try {
+            $validationError = new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                '',
+                '',
+                '',
+                'US',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                $error['error_message']
+            );
+        }
+    }
+
+    /**
+     * Tests a validation with missing `postal_code`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `field_value_required`.
+     * - **error_message** is -
+     * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
+     */
+    public function testMissingPostalCode()
+    {
+        try {
+            $validationError = new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                'Boston',
+                'MA',
+                '',
+                'US',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                $error['error_message']
+            );
+        }
+    }
+
+    /**
+     * Tests a validation with missing `country_code`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `invalid_field_value`.
+     * - **error_message** is "Invalid address. The country must be specified.".
+     */
+    public function testMissingCountryCode()
+    {
+        try {
+            $validationError = new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                'Boston',
+                'MA',
+                '02215',
+                '',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. The country must be specified.',
+                $error['error_message']
+            );
+        }
+    }
+
+    /**
+     * Tests a validation with invalid `country_code`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **error_source** is `ShipEngine`.
+     * - **error_type** is `validation`.
+     * - **error_code** os `invalid_field_value`.
+     * - **error_message** is "Invalid address. XX is not a valid country code."
+     * (where XX is the value that was specified).
+     */
+    public function testInvalidCountryCode()
+    {
+        try {
+            $validationError = new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                'Boston',
+                'MA',
+                '02215',
+                'USA',
+            );
+            $this->expectException(ShipEngineValidationError::class);
+        } catch (ShipEngineValidationError $e) {
+            $error = $e->errorData();
+            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['error_source']);
+            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(
+                "Invalid address. USA is not a valid country code.",
+                $error['error_message']
+            );
+        }
+    }
+
+//    public function testServerSideError()
+//    {
+//        $validationError = self::$shipengine->validateAddress(self::$get_rpc_server_error);
+//
+//
+//
+    ////        try {
+    ////            $validationError = self::$shipengine->validateAddress(self::$get_rpc_server_error);
+    ////            $this->expectException(ShipEngineValidationError::class);
+    ////        } catch (ShipEngineValidationError $e) {
+    ////            $error = $e->errorData();
+    ////            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+    ////            $this->assertNotEmpty($error['request_id']);
+    ////            $this->assertStringStartsWith('req_', $error['request_id']);
+    ////            $this->assertEquals('shipengine', $error['error_source']);
+    ////            $this->assertEquals('unspecified', $error['data']['']);
+    ////            $this->assertEquals('system', $error['error_type']);
+    ////            $this->assertEquals(
+    ////                "Invalid address. USA is not a valid country code.",
+    ////                $error['error_message']
+    ////            );
+    ////        }
+//    }
 
     public function testJsonSerialize()
     {
-        $this->assertIsArray(self::$shipengine->addresses->validate(self::$good_address)->jsonSerialize());
+        $this->assertIsArray(self::$shipengine->validateAddress(self::$good_address)->jsonSerialize());
     }
 }

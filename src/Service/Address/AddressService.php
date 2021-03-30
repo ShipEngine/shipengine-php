@@ -3,8 +3,8 @@
 namespace ShipEngine\Service\Address;
 
 use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineServerError;
 use ShipEngine\Model\Address\Address;
-use ShipEngine\Model\Address\AddressValidateParams;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
 use ShipEngine\Util\ShipEngineSerializer;
@@ -19,10 +19,10 @@ final class AddressService extends AbstractService
     /**
      * Validate a single address via the `address/validate` remote procedure.
      *
-     * @param AddressValidateParams $params
+     * @param Address $params
      * @return AddressValidateResult
      */
-    public function validate(AddressValidateParams $params): AddressValidateResult
+    public function validate(Address $params): AddressValidateResult
     {
         $serializer = new ShipEngineSerializer();
         $response = $this->request('address/validate', (array)$params->jsonSerialize());
@@ -37,6 +37,18 @@ final class AddressService extends AbstractService
         }
 
         $parsed_response = json_decode($response->getBody()->getContents());
+
+
+//        if (count($parsed_response['error']) > 0) {
+//            $errors = $parsed_response['error'];
+//            throw new ShipEngineServerError(
+//                $errors['message'],
+//                $parsed_response['id'],
+//                $errors['data']['error_source'],
+//                $errors['data']['error_type'],
+//                $errors['data']['error_code']
+//            );
+//        }
 
         return $serializer->deserializeJsonToType(
             json_encode($parsed_response->result),
@@ -55,7 +67,7 @@ final class AddressService extends AbstractService
         $serializer = new ShipEngineSerializer();
 
         foreach ($params as &$rpcRequest) {
-            $rpcRequest = $serializer->serializeDataToType($rpcRequest, AddressValidateParams::class);
+            $rpcRequest = $serializer->serializeDataToType($rpcRequest, AddressValidateResult::class);
         }
 
         $response = $this->batchRequest('address/validate', $params);
@@ -75,7 +87,7 @@ final class AddressService extends AbstractService
         foreach ($parsed_response as &$validated_address) {
             $validated_address = $serializer->deserializeJsonToType(
                 json_encode($validated_address->result),
-                Address::class
+                AddressValidateResult::class
             );
 
             array_push($result_array, $validated_address);

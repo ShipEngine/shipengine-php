@@ -12,7 +12,7 @@ There are two ways to validate an address using this SDK.
 a set of **Address Line 1, Address Line 2, and Address Line 3**. You can add these as values to the `street` array.
 This method also requires a `country_code` which should be the 2 character capitalized abbreviation for a given country.
 
-- **Behavior**: The `validateAddress` method will always return an [Address Type](../src/Model/Address/Address.php), even in
+- **Behavior**: The `validateAddress` method will always return an [Address Type](../src/Model/Address/AddressResult.php), even in
 the even that the address passed in was not *valid*.
 
 Method Arguments:

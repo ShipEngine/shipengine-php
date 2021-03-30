@@ -3,32 +3,28 @@
 namespace ShipEngine;
 
 use Http\Client\HttpClient;
+use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressResult;
+use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\Address\AddressTrait;
 use ShipEngine\Service\Package\PackageTrackingTrait;
 use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Service\Tag\TagTrait;
+use ShipEngine\Service\Address\AddressService;
 
 /**
  * ShipEngine RPC 2.0 client.
  *
  * @package ShipEngine
- * @property \ShipEngine\Service\Tag\TagService $tags
- * @property \ShipEngine\Service\Address\AddressService $addresses
- * @property \ShipEngine\Service\Package\PackageTrackingService $tracking
  */
 final class ShipEngine
 {
-    // Convenience method Traits.
-    use TagTrait;
-    use AddressTrait;
-    use PackageTrackingTrait;
+    private AddressService $address_service;
 
-    /**
-     * Factory providing services.
-     *
-     * @var ServiceFactory
-     */
-    private ServiceFactory $service_factory;
+    private ShipEngineClient $shipengine;
+
+    private ShipEngineConfig $config;
 
     /**
      *
@@ -38,28 +34,58 @@ final class ShipEngine
     /**
      * ShipEngine constructor.
      *
-     * @param string $api_key
+     * @param ShipEngineConfig $config
      * @param HttpClient|null $client
-     * @throws \Http\Discovery\Exception\NotFoundException
      */
-    public function __construct(string $api_key, HttpClient $client = null)
+    public function __construct(ShipEngineConfig $config, HttpClient $client = null)
     {
+        $this->config = $config;
         $user_agent = $this->deriveUserAgent();
-
-        $client = new ShipEngineClient($api_key, $user_agent, $client);
-
-        $this->service_factory = new ServiceFactory($client);
+        $this->shipengine = new ShipEngineClient($config, $user_agent, $client);
+        $this->address_service = new AddressService($this->shipengine);
     }
 
     /**
-     * Service Getter.
-     *
-     * @param string $name
-     * @return mixed
+     * @param Address $address
+     * @param array|null $config {api_key:string, retries:int, timeout:int}|null
+     * @return AddressValidateResult
      */
-    public function __get(string $name)
+    public function validateAddress(Address $address, ?array $config = null): AddressValidateResult
     {
-        return $this->service_factory->__get($name);
+        if (isset($config)) {
+            if (array_key_exists('api_key', $config) === true) {
+                $this->updateApiKey($config['api_key']);
+            } elseif (array_key_exists('retries', $config)) {
+                $this->updateRetries($config['retries']);
+            } elseif (array_key_exists('timeout', $config)) {
+                $this->updateTimeout($config['timeout']);
+            }
+        }
+
+        return $this->address_service->validate($address);
+    }
+
+    public function validateAddresses(array $addresses): array
+    {
+        return $this->address_service->validateAddresses($addresses);
+    }
+
+    public function updateApiKey(string $api_key): ShipEngineConfig
+    {
+        $this->config->api_key = $api_key;
+        return $this->config;
+    }
+
+    public function updateRetries(int $retries): ShipEngineConfig
+    {
+        $this->config->retries = $retries;
+        return $this->config;
+    }
+
+    public function updateTimeout(int $timeout): ShipEngineConfig
+    {
+        $this->config->timeout = $timeout;
+        return $this->config;
     }
 
     /**

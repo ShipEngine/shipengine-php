@@ -2,6 +2,6 @@
 
 namespace ShipEngine\Message;
 
-final class ShipEngineValidationError extends ShipEngineError
+final class ShipEngineServerError extends ShipEngineError
 {
 }
