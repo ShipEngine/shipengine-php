@@ -12,6 +12,7 @@ use ShipEngine\Service\ServiceFactory;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Service\Tag\TagTrait;
 use ShipEngine\Service\Address\AddressService;
+use ShipEngine\Util;
 
 /**
  * ShipEngine RPC 2.0 client.
@@ -20,6 +21,8 @@ use ShipEngine\Service\Address\AddressService;
  */
 final class ShipEngine
 {
+    use Util\Getters;
+
     private AddressService $address_service;
 
     private ShipEngineClient $shipengine;
@@ -54,11 +57,11 @@ final class ShipEngine
     {
         if (isset($config)) {
             if (array_key_exists('api_key', $config) === true) {
-                $this->updateApiKey($config['api_key']);
+                $this->config->updateApiKey($config['api_key']);
             } elseif (array_key_exists('retries', $config)) {
-                $this->updateRetries($config['retries']);
+                $this->config->updateRetries($config['retries']);
             } elseif (array_key_exists('timeout', $config)) {
-                $this->updateTimeout($config['timeout']);
+                $this->config->updateTimeout($config['timeout']);
             }
         }
 
@@ -70,23 +73,6 @@ final class ShipEngine
         return $this->address_service->validateAddresses($addresses);
     }
 
-    public function updateApiKey(string $api_key): ShipEngineConfig
-    {
-        $this->config->api_key = $api_key;
-        return $this->config;
-    }
-
-    public function updateRetries(int $retries): ShipEngineConfig
-    {
-        $this->config->retries = $retries;
-        return $this->config;
-    }
-
-    public function updateTimeout(int $timeout): ShipEngineConfig
-    {
-        $this->config->timeout = $timeout;
-        return $this->config;
-    }
 
     /**
      * Derive a User-Agent header from the environment.

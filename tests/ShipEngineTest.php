@@ -4,8 +4,8 @@ namespace ShipEngine\Test;
 
 use PHPUnit\Framework\TestCase;
 
+use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngine;
-use ShipEngine\ShipEngineConfig;
 
 /**
  * @covers \ShipEngine\ShipEngine
@@ -16,10 +16,14 @@ final class ShipEngineTest extends TestCase
 {
     public function testShipEngineConstructor(): void
     {
-        $api_key = 'FOO/BAR';
+        $config = new ShipEngineConfig(
+            array(
+                'api_key' => 'baz'
+            )
+        );
 
-        $shipengine = new ShipEngine($api_key);
-        
+        $shipengine = new ShipEngine($config);
+
         $this->assertInstanceOf(ShipEngine::class, $shipengine);
     }
 }
