@@ -2,8 +2,7 @@
 
 namespace ShipEngine\Service\Address;
 
-use ShipEngine\Message\ShipEngineError;
-use ShipEngine\Message\ShipEngineServerError;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
@@ -31,7 +30,7 @@ final class AddressService extends AbstractService
         $reason_phrase = $response->getReasonPhrase();
 
         if ($status_code !== 200) {
-            throw new ShipEngineError(
+            throw new ShipEngineException(
                 "Address Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
         }
@@ -41,7 +40,7 @@ final class AddressService extends AbstractService
 
 //        if (count($parsed_response['error']) > 0) {
 //            $errors = $parsed_response['error'];
-//            throw new ShipEngineServerError(
+//            throw new ShipEngineServerException(
 //                $errors['message'],
 //                $parsed_response['id'],
 //                $errors['data']['error_source'],
@@ -75,7 +74,7 @@ final class AddressService extends AbstractService
         $reason_phrase = $response->getReasonPhrase();
 
         if ($response->getStatusCode() !== 200) {
-            throw new ShipEngineError(
+            throw new ShipEngineException(
                 "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
         }

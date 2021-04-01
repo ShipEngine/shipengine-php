@@ -48,7 +48,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
+
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
@@ -65,21 +65,17 @@
                     <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></h3>
                                 <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/ShipEngine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h3>
                         <ul class="phpdocumentor-list">
-                                    <li><a href="packages/ShipEngine-Message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
-                            </ul>
-                                <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/ShipEgnine.html"><abbr title="\ShipEgnine">ShipEgnine</abbr></a></h3>
-                        <ul class="phpdocumentor-list">
-                                    <li><a href="packages/ShipEgnine-Service.html"><abbr title="\ShipEgnine\Service">Service</abbr></a></li>
+                                    <li><a href="packages/ShipEngine-Message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                             </ul>
                                 <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/packageShipEngine.html"><abbr title="\packageShipEngine">packageShipEngine</abbr></a></h3>
                         <ul class="phpdocumentor-list">
                                     <li><a href="packages/packageShipEngine-Service.html"><abbr title="\packageShipEngine\Service">Service</abbr></a></li>
                             </ul>
                         </section>
-    
+
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -104,7 +100,7 @@
         <h2 class="phpdocumentor-content__title">
     Address
 
-    
+
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
@@ -113,11 +109,11 @@
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/ShipEngine-Model-Address.html">Address</a></li>
                             </ul>
         </div>
-    
+
             <span class="phpdocumentor-element__implements">
             implements
                             <abbr title="\JsonSerializable">JsonSerializable</abbr>                    </span>
-    
+
             <span class="phpdocumentor-element__extends">
             Uses
                             <a href="classes/ShipEngine-Util-Getters.html"><abbr title="\ShipEngine\Util\Getters">Getters</abbr></a>                    </span>
@@ -126,14 +122,30 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 </aside>
 
-            <p class="phpdocumentor-summary">`Address` Type to be returned by the *validateAddress()* method in the *AddressTrait*.</p>
+            <p class="phpdocumentor-summary">`Address` Type to be passed into the *validateAddress* method
+and internal **AddressService**.</p>
 
     <section class="phpdocumentor-description"></section>
 
 
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/ShipEngine-Message-ShipEngineValidationException.html"><abbr title="\ShipEngine\Message\ShipEngineValidationException">ShipEngineValidationException</abbr></a></span>
+
+                                                 <section class="phpdocumentor-description"></section>
+
+                                    </dd>
+                        </dl>
 
 
 
@@ -146,8 +158,8 @@
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\JsonSerializable">JsonSerializable</abbr></dt>
         <dd></dd>
-    
-    
+
+
     </dl>
 
 
@@ -158,44 +170,128 @@
 
 <dl class="phpdocumentor-table-of-contents">
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-Address.html#property_address">$address</a>
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_city_locality">$city_locality</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
+                &nbsp;: string|null            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-Address.html#property_messages">$messages</a>
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_company_name">$company_name</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                &nbsp;: string|null            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-Address.html#property_valid">$valid</a>
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_country_code">$country_code</a>
     <span>
-                &nbsp;: bool            </span>
+                &nbsp;: string            </span>
 </dt>
 <dd></dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-Model-Address-Address.html#property_address">$address</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_name">$name</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
+                &nbsp;: string|null            </span>
 </dt>
 <dd></dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-Model-Address-Address.html#property_messages">$messages</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_phone">$phone</a>
     <span>
-                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                &nbsp;: string|null            </span>
 </dt>
 <dd></dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-Model-Address-Address.html#property_valid">$valid</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_postal_code">$postal_code</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_residential">$residential</a>
     <span>
                 &nbsp;: bool|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_state_province">$state_province</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_street">$street</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_city_locality">$city_locality</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_company_name">$company_name</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_country_code">$country_code</a>
+    <span>
+                &nbsp;: string            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_name">$name</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_phone">$phone</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_postal_code">$postal_code</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_residential">$residential</a>
+    <span>
+                &nbsp;: bool|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_state_province">$state_province</a>
+    <span>
+                &nbsp;: string|null            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-Model-Address-Address.html#property_street">$street</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd></dd>
 
@@ -204,7 +300,7 @@
     <span>
                         &nbsp;: mixed    </span>
 </dt>
-<dd>AddressValidateResult Type constructor.</dd>
+<dd>Address Type constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Util-Getters.html#method___get">__get()</a>
@@ -216,7 +312,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Model-Address-Address.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
-                        &nbsp;: string    </span>
+                        &nbsp;: mixed    </span>
 </dt>
 <dd>Return a JsonSerialized string representation of the `Address` Type.</dd>
 
@@ -224,9 +320,9 @@
 
 
 
-        
 
-        
+
+
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
@@ -239,9 +335,9 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_address">
-        $address
-        <a href="classes/ShipEngine-Model-Address-Address.html#property_address" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_city_locality">
+        $city_locality
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_city_locality" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -251,16 +347,16 @@
     <span class="phpdocumentor-element-found-in__line">0</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|null</span>
-    <span class="phpdocumentor-signature__name">$address</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$city_locality</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article
@@ -270,9 +366,9 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_messages">
-        $messages
-        <a href="classes/ShipEngine-Model-Address-Address.html#property_messages" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_company_name">
+        $company_name
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_company_name" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -282,16 +378,16 @@
     <span class="phpdocumentor-element-found-in__line">0</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$messages</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$company_name</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article
@@ -301,9 +397,9 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_valid">
-        $valid
-        <a href="classes/ShipEngine-Model-Address-Address.html#property_valid" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_country_code">
+        $country_code
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_country_code" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -313,78 +409,202 @@
     <span class="phpdocumentor-element-found-in__line">0</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool</span>
-    <span class="phpdocumentor-signature__name">$valid</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$country_code</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_address">
-        $address
-        <a href="classes/ShipEngine-Model-Address-Address.html#property_address" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_name">
+        $name
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_name" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">0</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;|null</span>
-    <span class="phpdocumentor-signature__name">$address</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$name</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_messages">
-        $messages
-        <a href="classes/ShipEngine-Model-Address-Address.html#property_messages" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_phone">
+        $phone
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_phone" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">0</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$phone</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_postal_code">
+        $postal_code
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_postal_code" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$postal_code</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_residential">
+        $residential
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_residential" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">bool|null</span>
+    <span class="phpdocumentor-signature__name">$residential</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_state_province">
+        $state_province
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_state_province" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$state_province</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_street">
+        $street
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_street" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">0</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$messages</span>
+    <span class="phpdocumentor-signature__name">$street</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article
@@ -394,28 +614,276 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_valid">
-        $valid
-        <a href="classes/ShipEngine-Model-Address-Address.html#property_valid" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_city_locality">
+        $city_locality
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_city_locality" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 </aside>
 
-    
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$city_locality</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_company_name">
+        $company_name
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_company_name" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">71</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$company_name</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_country_code">
+        $country_code
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_country_code" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">51</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$country_code</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_name">
+        $name
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_name" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$name</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_phone">
+        $phone
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_phone" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">66</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$phone</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_postal_code">
+        $postal_code
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_postal_code" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">46</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$postal_code</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_residential">
+        $residential
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_residential" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">56</span>
+</aside>
+
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">bool|null</span>
-    <span class="phpdocumentor-signature__name">$valid</span>
+    <span class="phpdocumentor-signature__name">$residential</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
 
-    
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_state_province">
+        $state_province
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_state_province" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$state_province</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_street">
+        $street
+        <a href="classes/ShipEngine-Model-Address-Address.html#property_street" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">31</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$street</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
 
 </article>
             </section>
@@ -438,29 +906,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 </aside>
 
-        <p class="phpdocumentor-summary">AddressValidateResult Type constructor.</p>
+        <p class="phpdocumentor-summary">Address Type constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$valid</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$messages</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$address</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$street</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$city_locality</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$state_province</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$postal_code</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$country_code</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$residential</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phone</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$company_name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$valid</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$messages</span>
+                <span class="phpdocumentor-signature__argument__name">$street</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -468,23 +928,79 @@
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$address</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
+                <span class="phpdocumentor-signature__argument__name">$city_locality</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$state_province</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$postal_code</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$country_code</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$residential</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$phone</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$company_name</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -502,12 +1018,12 @@
     <span class="phpdocumentor-element-found-in__line">10</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                 <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-    
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -515,18 +1031,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+
             </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -541,56 +1057,41 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/Address.php"><a href="files/src-model-address-address.html"><abbr title="src/Model/Address/Address.php">Address.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return a JsonSerialized string representation of the `Address` Type.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"><pre class="prettyprint"><code class="language-json">{
-&quot;valid&quot;: true,
-&quot;address&quot;: {
+        <section class="phpdocumentor-description"><p>Output Example:</p>
+<pre class="prettyprint"><code class="language-json">{
 &quot;name&quot;: &quot;ShipEngine&quot;,
-&quot;phone&quot;: &quot;1234567891&quot;,
+&quot;phone&quot;: &quot;123465798&quot;,
 &quot;company_name&quot;: &quot;ShipEngine&quot;,
 &quot;street&quot;: [
-&quot;in nostrud consequat nisi&quot;
+&quot;4 Jersey St&quot;,
+&quot;ste 200&quot;
 ],
-&quot;country_code&quot;: &quot;BK&quot;,
-&quot;postal_code&quot;: &quot;ullamco culpa&quot;,
-&quot;city_locality&quot;: &quot;aliqua&quot;,
-&quot;residential&quot;: false
-},
-&quot;messages&quot;: {
-&quot;errors&quot;: [
-&quot;aute ea nulla&quot;,
-&quot;occaecat consequat consectetur in esse&quot;,
-&quot;aliqua sed&quot;
-],
-&quot;info&quot;: [
-&quot;Duis&quot;,
-&quot;voluptate sed sunt&quot;,
-&quot;nisi irure amet&quot;,
-&quot;dolore aute&quot;,
-&quot;exercitation esse aliquip aute est&quot;
-]
-}
+&quot;city_locality&quot;: &quot;Boston&quot;,
+&quot;state_province&quot;: &quot;MA&quot;,
+&quot;postal_code&quot;: &quot;02215&quot;,
+&quot;country_code&quot;: &quot;US&quot;
 }
 </code></pre>
 </section>
 
-    
-    
+
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
             </section>
 

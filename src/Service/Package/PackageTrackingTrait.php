@@ -2,7 +2,7 @@
 
 namespace ShipEngine\Service\Package;
 
-use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Package\PackageTrackingParams;
 use ShipEngine\Model\Package\TrackingData;
 use ShipEngine\Util\ShipEngineSerializer;
@@ -15,11 +15,11 @@ trait PackageTrackingTrait
     /**
      * A method to get `tracking data` via the *package/track* remote procedure.
      *
-     * @package ShipEngine\Service\Package
      * @param string $tracking_number
      * @param string $carrier_code
      * @return TrackingData
-     * @throws ShipEngineError
+     * @throws ShipEngineException
+     *@package ShipEngine\Service\Package
      */
     public function trackPackage(string $tracking_number, string $carrier_code): TrackingData
     {
@@ -46,7 +46,7 @@ trait PackageTrackingTrait
             foreach ($errors as $error) {
                 $error_string = $error;
             }
-            throw new ShipEngineError($error_string);
+            throw new ShipEngineException($error_string);
         }
     }
 }

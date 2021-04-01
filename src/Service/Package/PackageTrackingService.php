@@ -2,7 +2,7 @@
 
 namespace ShipEngine\Service\Package;
 
-use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Package\PackageTrackingParams;
 use ShipEngine\Model\Package\PackageTrackingResult;
 use ShipEngine\Service\AbstractService;
@@ -30,7 +30,7 @@ final class PackageTrackingService extends AbstractService
         $reason_phrase = $response->getReasonPhrase();
 
         if ($status_code !== 200) {
-            throw new ShipEngineError(
+            throw new ShipEngineException(
                 "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
         }

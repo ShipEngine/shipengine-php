@@ -73,7 +73,7 @@ abstract class AbstractService
     private function wrapRequest(string $method, array $params)
     {
         return array_filter([
-            'id' => UuidBase58::id(),
+            'id' => 'req_' . UuidBase58::id(),
             'jsonrpc' => '2.0',
             'method' => $method,
             'params' => $params

@@ -2,7 +2,7 @@
 
 namespace Service;
 
-use ShipEngine\Message\ShipEngineValidationError;
+use ShipEngine\Message\ShipEngineValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Service\ShipEngineConfig;
 use PHPUnit\Framework\TestCase;
@@ -15,6 +15,8 @@ final class ShipEngineConfigTest extends TestCase
 {
     private static ShipEngine $shipengine;
 
+    private static ShipEngineConfig $config;
+
     private static Address $good_address;
 
     private static string $test_url;
@@ -22,8 +24,9 @@ final class ShipEngineConfigTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$test_url = 'https://simengine.herokuapp.com';
-        $config = new ShipEngineConfig(
+        self::$config = new ShipEngineConfig(
             array(
+                'api_key' => 'baz',
                 'base_url' => self::$test_url,
                 'page_size' => 75,
                 'retries' => 7,
@@ -31,7 +34,16 @@ final class ShipEngineConfigTest extends TestCase
                 'events' => null
             )
         );
-        self::$shipengine = new ShipEngine($config);
+        self::$shipengine = new ShipEngine(
+            array(
+                'api_key' => 'baz',
+                'base_url' => self::$test_url,
+                'page_size' => 75,
+                'retries' => 7,
+                'timeout' => 15000,
+                'events' => null
+            )
+        );
         self::$good_address = new Address(
             array('4 Jersey St', 'ste 200'),
             'Boston',
@@ -53,16 +65,16 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'A ShipEngine API key must be specified.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -80,16 +92,16 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'A ShipEngine API key must be specified.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -107,16 +119,16 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 'Retries must be zero or greater.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -134,35 +146,76 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 'Timeout must be greater than zero.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
 
-//    public function testEmptyAPIKeyInMethodCall()
-//    {
-//        try {
-//            self::$shipengine->validateAddress(self::$good_address, array('api_key' => ''));
-//        } catch (ShipEngineValidationError $e) {
-//            $error = $e->errorData();
-//            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
-//            $this->assertNull($error['request_id']);
-//            $this->assertEquals('shipengine', $error['error_source']);
-//            $this->assertEquals('validation', $error['error_type']);
-//            $this->assertEquals('field_value_required', $error['error_code']);
-//            $this->assertEquals(
-//                'A ShipEngine API key must be specified.',
-//                $error['error_message']
-//            );
-//        }
-//    }
+    public function testEmptyAPIKeyInMethodCall()
+    {
+        try {
+            self::$shipengine->validateAddress(self::$good_address, array('api_key' => ''));
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
+            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(
+                'A ShipEngine API key must be specified.',
+                $error['message']
+            );
+        }
+    }
+
+    public function testInvalidRetriesInMethodCall()
+    {
+        try {
+            self::$shipengine->validateAddress(self::$good_address, array('retries' => -7));
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
+            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(
+                'Retries must be zero or greater.',
+                $error['message']
+            );
+        }
+    }
+
+    public function testInvalidTimeoutInMethodCall()
+    {
+        try {
+            self::$shipengine->validateAddress(self::$good_address, array('timeout' => -7));
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
+            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(
+                'Timeout must be greater than zero.',
+                $error['message']
+            );
+        }
+    }
+
+    public function testInstantiation()
+    {
+        $this->assertInstanceOf(ShipEngineConfig::class, self::$config);
+    }
 }

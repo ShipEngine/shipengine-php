@@ -2,7 +2,8 @@
 
 namespace ShipEngine\Service;
 
-use ShipEngine\Message\ShipEngineValidationError;
+use Http\Client\HttpClient;
+use ShipEngine\Message\ShipEngineValidationException;
 use ShipEngine\Util;
 
 final class ShipEngineConfig
@@ -13,25 +14,24 @@ final class ShipEngineConfig
     const DEFAULT_PAGE_SIZE = 50;
     const DEFAULT_RETRIES = 1;
     const DEFAULT_TIMEOUT = 5000;
-    const DEFAULT_EVENTS = null;
 
     public string $api_key;
     public string $base_url;
     public int $page_size;
     public int $retries;
-    public int $timeout;  //TODO: get confirmation on how to enforce this in the client.
-    public ?string $events;
+    public int $timeout;
+    public ?HttpClient $client = null; // TODO: bring in from ShipEngine.php.
 
     /**
      * ShipEngineConfig constructor.
      *
-     * @param array $config {api_key:string, base_url:string, page_size:ing,
-     * retries:int, timeout:int, log:string}
+     * @param array $config {api_key:string, base_url:string, page_size:int,
+     * retries:int, timeout:int, client:HttpClient|null}
      */
     public function __construct(array $config = array())
     {
         if (isset($config['api_key']) === false || $config['api_key'] === '') {
-            throw new ShipEngineValidationError(
+            throw new ShipEngineValidationException(
                 'A ShipEngine API key must be specified.',
                 null,
                 'shipengine',
@@ -42,22 +42,22 @@ final class ShipEngineConfig
             $this->api_key = $config['api_key'];
         }
 
-        if ($config['retries'] < 0) {
-            throw new ShipEngineValidationError(
+        if (isset($config['retries']) === true && $config['retries'] > 0) {
+            $this->retries = $config['retries'];
+        } elseif (isset($config['retries']) === false) {
+            $this->retries = self::DEFAULT_RETRIES;
+        } elseif ($config['retries'] <= 0) {
+            throw new ShipEngineValidationException(
                 'Retries must be zero or greater.',
                 null,
                 'shipengine',
                 'validation',
                 'invalid_field_value'
             );
-        } elseif (isset($config['retries']) === false) {
-            $this->retries = self::DEFAULT_RETRIES;
-        } else {
-            $this->retries = $config['retries'];
         }
 
         if (isset($config['timeout']) === true && $config['timeout'] <= 0) {
-            throw new ShipEngineValidationError(
+            throw new ShipEngineValidationException(
                 'Timeout must be greater than zero.',
                 null,
                 'shipengine',
@@ -70,52 +70,49 @@ final class ShipEngineConfig
             $this->timeout = $config['timeout'];
         }
 
-//        if (isset($config['']) === false) {
-//
-//        }
-//
-//        if (isset($config['']) === false) {
-//
-//        }
-//
-//        if (isset($config['']) === false) {
-//
-//        }
+        if (isset($config['client']) === true) {
+            $this->client = $config['client'];
+        }
 
         $this->base_url = isset($config['base_url']) ? $config['base_url'] : self::DEFAULT_BASE_URI;
         $this->page_size = isset($config['page_size']) ? $config['page_size'] : self::DEFAULT_PAGE_SIZE;
-        $this->timeout = isset($config['timeout']) ? $config['timeout'] : self::DEFAULT_TIMEOUT;
-        $this->events = isset($config['events']) ? $config['events'] : self::DEFAULT_EVENTS;
     }
 
-    public function updateApiKey(string $api_key): ShipEngineConfig
+    public function merge(array $new_config): ShipEngineConfig
     {
-        $this->api_key = $api_key;
-        return $this;
-    }
+        $config = array();
 
-    public function updateRetries(int $retries): ShipEngineConfig
-    {
-        $this->retries = $retries;
-        return $this;
-    }
+        isset($new_config['api_key']) ?
+            ($config['api_key'] = $new_config['api_key']) :
+            ($config['api_key'] = $this->api_key);
 
-    public function updateTimeout(int $timeout): ShipEngineConfig
-    {
-        $this->timeout = $timeout;
-        return $this;
-    }
+        isset($new_config['base_url']) ?
+            ($config['base_url'] = $new_config['base_url']) :
+            ($config['base_url'] = $this->base_url);
 
-    public function updateBaseUrl(string $base_url): ShipEngineConfig
-    {
-        $this->base_url = $base_url;
-        return $this;
-    }
+        isset($new_config['page_size']) ?
+            ($config['page_size'] = $new_config['page_size']) :
+            ($config['page_size'] = $this->page_size);
 
-    public function updatePageSize(int $page_size): ShipEngineConfig
-    {
-        $this->page_size = $page_size;
-        return $this;
+        isset($new_config['retries']) ?
+            ($config['retries'] = $new_config['retries']) :
+            ($config['retries'] = $this->retries);
+
+        isset($new_config['timeout']) ?
+            ($config['timeout'] = $new_config['timeout']) :
+            ($config['timeout'] = $this->timeout);
+
+        isset($new_config['client']) ?
+            ($config['client'] = $new_config['client']) :
+            ($config['client'] = $this->client);
+
+//        if (isset($new_config['api_key'])) {
+//            $config['api_key'] = $new_config['api_key'];
+//        } else {
+//            $api_key = $this->api_key;
+//        }
+
+        return new ShipEngineConfig($config);
     }
 
     public function checkConfig(): ShipEngineConfig

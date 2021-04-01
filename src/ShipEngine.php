@@ -37,32 +37,32 @@ final class ShipEngine
     /**
      * ShipEngine constructor.
      *
-     * @param ShipEngineConfig $config
-     * @param HttpClient|null $client
+     * @param mixed $config can be a string that is your api key or an array {api_key:string,
+     * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      */
-    public function __construct(ShipEngineConfig $config, HttpClient $client = null)
+    public function __construct($config = null)
     {
-        $this->config = $config;
+        $this->config = new ShipEngineConfig(
+            is_string($config) ? array('api_key' => $config) : $config
+        );
         $user_agent = $this->deriveUserAgent();
-        $this->shipengine = new ShipEngineClient($config, $user_agent, $client);
+
+        $this->shipengine = new ShipEngineClient($this->config, $user_agent);
         $this->address_service = new AddressService($this->shipengine);
     }
 
     /**
      * @param Address $address
-     * @param array|null $config {api_key:string, retries:int, timeout:int}|null
+     * @param array|null $config {api_key:string, base_url:string, page_size:int,
+     * retries:int, timeout:int, client:HttpClient|null}
      * @return AddressValidateResult
      */
-    public function validateAddress(Address $address, ?array $config = null): AddressValidateResult
+    public function validateAddress(Address $address, array $config = null): AddressValidateResult
     {
+        //TODO: implement new config update function below - merge()
         if (isset($config)) {
-            if (array_key_exists('api_key', $config) === true) {
-                $this->config->updateApiKey($config['api_key']);
-            } elseif (array_key_exists('retries', $config)) {
-                $this->config->updateRetries($config['retries']);
-            } elseif (array_key_exists('timeout', $config)) {
-                $this->config->updateTimeout($config['timeout']);
-            }
+            $this->config->merge($config);
+            return $this->address_service->validate($address);
         }
 
         return $this->address_service->validate($address);

@@ -2,7 +2,7 @@
 
 namespace ShipEngine\Service\Tag;
 
-use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Tag\Tag;
 use ShipEngine\Service\AbstractService;
 use ShipEngine\Util\ShipEngineSerializer;
@@ -19,7 +19,7 @@ class TagService extends AbstractService
      *
      * @param array $params
      * @return Tag
-     * @throws ShipEngineError if a tag cannot be created.
+     * @throws ShipEngineException if a tag cannot be created.
      */
     public function create(array $params): Tag
     {
@@ -29,7 +29,7 @@ class TagService extends AbstractService
         $reason_phrase = $response->getReasonPhrase();
 
         if ($response->getStatusCode() != 200) {
-            throw new ShipEngineError(
+            throw new ShipEngineException(
                 "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
         }

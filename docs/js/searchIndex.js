@@ -1,44 +1,14 @@
 Search.appendIndex(
     [
                 {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineError",
-            "name": "ShipEngineError",
-            "summary": "Error\u002Dlevel\u0020message.",
-            "url": "classes/ShipEngine-Message-ShipEngineError.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineInfo",
-            "name": "ShipEngineInfo",
-            "summary": "Class\u0020ShipEngineInfo\u0020\u002D\u002D\u0020Information\u0020Message.",
-            "url": "classes/ShipEngine-Message-ShipEngineInfo.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineMessage",
-            "name": "ShipEngineMessage",
-            "summary": "Class\u0020ShipEngineMessage\u0020\u002D\u002D\u0020Generic\u0020Message.",
-            "url": "classes/ShipEngine-Message-ShipEngineMessage.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineMessage\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "ShipEngineMessage\u0020Type\u0020constructor.",
-            "url": "classes/ShipEngine-Message-ShipEngineMessage.html#method___construct"
-        },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineMessage\u003A\u003A\u0024message",
-            "name": "message",
-            "summary": "",
-            "url": "classes/ShipEngine-Message-ShipEngineMessage.html#property_message"
-        },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineWarning",
-            "name": "ShipEngineWarning",
-            "summary": "Class\u0020ShipEngineWarning\u0020\u002D\u002D\u0020Warning\u0020Message.",
-            "url": "classes/ShipEngine-Message-ShipEngineWarning.html"
-        },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\Address",
             "name": "Address",
-            "summary": "\u0060Address\u0060\u0020Type\u0020to\u0020be\u0020returned\u0020by\u0020the\u0020\u002AvalidateAddress\u0028\u0029\u002A\u0020method\u0020in\u0020the\u0020\u002AAddressTrait\u002A.",
+            "summary": "\u0060Address\u0060\u0020Type\u0020to\u0020be\u0020passed\u0020into\u0020the\u0020\u002AvalidateAddress\u002A\u0020method\nand\u0020internal\u0020\u002A\u002AAddressService\u002A\u002A.",
             "url": "classes/ShipEngine-Model-Address-Address.html"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "AddressValidateResult\u0020Type\u0020constructor.",
+            "summary": "Address\u0020Type\u0020constructor.",
             "url": "classes/ShipEngine-Model-Address-Address.html#method___construct"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003AjsonSerialize\u0028\u0029",
@@ -46,80 +16,50 @@ Search.appendIndex(
             "summary": "Return\u0020a\u0020JsonSerialized\u0020string\u0020representation\u0020of\u0020the\u0020\u0060Address\u0060\u0020Type.",
             "url": "classes/ShipEngine-Model-Address-Address.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024valid",
-            "name": "valid",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_valid"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024address",
-            "name": "address",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_address"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024messages",
-            "name": "messages",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_messages"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams",
-            "name": "AddressValidateParams",
-            "summary": "\u0060AddressValidateParams\u0060\u0020Type\u0020to\u0020be\u0020passed\u0020into\u0020the\u0020\u002AAddressService\u002A.",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "AddressValidateParams\u0020Type\u0020constructor.",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#method___construct"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020a\u0020JsonSerialized\u0020string\u0020representation\u0020of\u0020the\u0020\u0060AddressValidateParams\u0060\u0020Type.",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#method_jsonSerialize"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024street",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024street",
             "name": "street",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_street"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_street"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024country_code",
-            "name": "country_code",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_country_code"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024city_locality",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024city_locality",
             "name": "city_locality",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_city_locality"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_city_locality"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024state_province",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024state_province",
             "name": "state_province",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_state_province"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_state_province"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024postal_code",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024postal_code",
             "name": "postal_code",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_postal_code"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_postal_code"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024name",
-            "name": "name",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024country_code",
+            "name": "country_code",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_name"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_country_code"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024phone",
-            "name": "phone",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_phone"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024company_name",
-            "name": "company_name",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_company_name"
-        },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateParams\u003A\u003A\u0024residential",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024residential",
             "name": "residential",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateParams.html#property_residential"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_residential"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024name",
+            "name": "name",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_name"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024phone",
+            "name": "phone",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_phone"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024company_name",
+            "name": "company_name",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_company_name"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult",
             "name": "AddressValidateResult",
@@ -141,15 +81,15 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_valid"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024messages",
-            "name": "messages",
-            "summary": "",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_messages"
-        },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024address",
             "name": "address",
             "summary": "",
             "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_address"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024messages",
+            "name": "messages",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_messages"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Package\\PackageTrackingParams",
             "name": "PackageTrackingParams",
@@ -326,16 +266,6 @@ Search.appendIndex(
             "summary": "Validate\u0020multiple\u0020addresses\u0020by\u0020passing\u0020in\u0020an\u0020array\u0020of\u0020\u0060AddressValidateParams\u0060.",
             "url": "classes/ShipEngine-Service-Address-AddressService.html#method_validateAddresses"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\Address\\AddressTrait",
-            "name": "AddressTrait",
-            "summary": "Convenience\u0020method\u0020to\u0020\u0060validate\u0060\u0020a\u0020single\u0020address.",
-            "url": "classes/ShipEngine-Service-Address-AddressTrait.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\Address\\AddressTrait\u003A\u003AvalidateAddress\u0028\u0029",
-            "name": "validateAddress",
-            "summary": "A\u0020method\u0020to\u0020\u0060validate\u0060\u0020a\u0020single\u0020address\u0020via\u0020the\u0020\u002Aaddress\/validate\u002A\u0020remote\u0020procedure.",
-            "url": "classes/ShipEngine-Service-Address-AddressTrait.html#method_validateAddress"
-        },                {
             "fqsen": "\\ShipEngine\\Service\\Package\\PackageTrackingService",
             "name": "PackageTrackingService",
             "summary": "Track\u0020a\u0020single\u0020package\u0020via\u0020the\u0020\u0060package\/track\u0060\u0020remote\u0020procedure.",
@@ -355,36 +285,6 @@ Search.appendIndex(
             "name": "trackPackage",
             "summary": "A\u0020method\u0020to\u0020get\u0020\u0060tracking\u0020data\u0060\u0020via\u0020the\u0020\u002Apackage\/track\u002A\u0020remote\u0020procedure.",
             "url": "classes/ShipEngine-Service-Package-PackageTrackingTrait.html#method_trackPackage"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ServiceFactory",
-            "name": "ServiceFactory",
-            "summary": "Instantiate\u0020and\u0020attach\u0020services\u0020to\u0020the\u0020\\ShipEngine\\ShipEngine\u0020client.",
-            "url": "classes/ShipEngine-Service-ServiceFactory.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ServiceFactory\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "ServiceFactory\u0020constructor.",
-            "url": "classes/ShipEngine-Service-ServiceFactory.html#method___construct"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ServiceFactory\u003A\u003A__get\u0028\u0029",
-            "name": "__get",
-            "summary": "Service\u0020Getter.",
-            "url": "classes/ShipEngine-Service-ServiceFactory.html#method___get"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ServiceFactory\u003A\u003A\u0024client",
-            "name": "client",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ServiceFactory.html#property_client"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ServiceFactory\u003A\u003A\u0024classes",
-            "name": "classes",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ServiceFactory.html#property_classes"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ServiceFactory\u003A\u003A\u0024services",
-            "name": "services",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ServiceFactory.html#property_services"
         },                {
             "fqsen": "\\ShipEngine\\Service\\Tag\\TagService",
             "name": "TagService",
@@ -416,10 +316,15 @@ Search.appendIndex(
             "summary": "ShipEngine\u0020constructor.",
             "url": "classes/ShipEngine-ShipEngine.html#method___construct"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A__get\u0028\u0029",
-            "name": "__get",
-            "summary": "Service\u0020Getter.",
-            "url": "classes/ShipEngine-ShipEngine.html#method___get"
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateAddress\u0028\u0029",
+            "name": "validateAddress",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#method_validateAddress"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateAddresses\u0028\u0029",
+            "name": "validateAddresses",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#method_validateAddresses"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AderiveUserAgent\u0028\u0029",
             "name": "deriveUserAgent",
@@ -431,10 +336,20 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-ShipEngine.html#constant_VERSION"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024service_factory",
-            "name": "service_factory",
-            "summary": "Factory\u0020providing\u0020services.",
-            "url": "classes/ShipEngine-ShipEngine.html#property_service_factory"
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024address_service",
+            "name": "address_service",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#property_address_service"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024shipengine",
+            "name": "shipengine",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#property_shipengine"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024config",
+            "name": "config",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#property_config"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngineClient",
             "name": "ShipEngineClient",
@@ -455,6 +370,11 @@ Search.appendIndex(
             "name": "client",
             "summary": "",
             "url": "classes/ShipEngine-ShipEngineClient.html#property_client"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineClient\u003A\u003A\u0024config",
+            "name": "config",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineClient.html#property_config"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Arr",
             "name": "Arr",
@@ -548,7 +468,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\Util\\ShipEngineSerializer\u003A\u003AserializeDataToType\u0028\u0029",
             "name": "serializeDataToType",
-            "summary": "Serialize\u0020a\u0020PHP\u0020Type\u0020object\u0020into\u0020a\u0020JSON\u0020string.",
+            "summary": "Serialize\u0020a\u0020PHP\u0020Type\u0020object\u0020into\u0020a\u0020specific\u0020PHP\u0020Object\/Type.",
             "url": "classes/ShipEngine-Util-ShipEngineSerializer.html#method_serializeDataToType"
         },                {
             "fqsen": "\\ShipEngine\\Util\\ShipEngineSerializer\u003A\u003AserializeDataToJson\u0028\u0029",
@@ -560,6 +480,121 @@ Search.appendIndex(
             "name": "serializer",
             "summary": "",
             "url": "classes/ShipEngine-Util-ShipEngineSerializer.html#property_serializer"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException",
+            "name": "ShipEngineException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024request_id",
+            "name": "request_id",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_request_id"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024error_code",
+            "name": "error_code",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_error_code"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024source",
+            "name": "source",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_source"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024type",
+            "name": "type",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_type"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineServerException",
+            "name": "ShipEngineServerException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-ShipEngineServerException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineValidationException",
+            "name": "ShipEngineValidationException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-ShipEngineValidationException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig",
+            "name": "ShipEngineConfig",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ShipEngineConfig\u0020constructor.",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003Amerge\u0028\u0029",
+            "name": "merge",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#method_merge"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003AcheckConfig\u0028\u0029",
+            "name": "checkConfig",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#method_checkConfig"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_BASE_URI",
+            "name": "DEFAULT_BASE_URI",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_BASE_URI"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_PAGE_SIZE",
+            "name": "DEFAULT_PAGE_SIZE",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_PAGE_SIZE"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_RETRIES",
+            "name": "DEFAULT_RETRIES",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_RETRIES"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_TIMEOUT",
+            "name": "DEFAULT_TIMEOUT",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_TIMEOUT"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024api_key",
+            "name": "api_key",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_api_key"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024base_url",
+            "name": "base_url",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_base_url"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024page_size",
+            "name": "page_size",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_page_size"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024retries",
+            "name": "retries",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_retries"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024timeout",
+            "name": "timeout",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_timeout"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024client",
+            "name": "client",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_client"
         },                {
             "fqsen": "\\",
             "name": "\\",

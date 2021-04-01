@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Test;
+namespace ShipEngine\Tests;
 
 use PHPUnit\Framework\TestCase;
-
-use ShipEngine\Service\ShipEngineConfig;
+use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
 /**
@@ -14,16 +13,40 @@ use ShipEngine\ShipEngine;
  */
 final class ShipEngineTest extends TestCase
 {
-    public function testShipEngineConstructor(): void
+    private static ShipEngine $shipengine;
+
+    private static Address $good_address;
+
+    public static function setUpBeforeClass(): void
     {
-        $config = new ShipEngineConfig(
+        self::$shipengine = new ShipEngine(
             array(
-                'api_key' => 'baz'
+                'api_key' => 'baz',
+                'base_url' => 'https://api.shipengine.com',
+                'page_size' => 75,
+                'retries' => 7,
+                'timeout' => 15000,
+                'events' => null
             )
         );
-
-        $shipengine = new ShipEngine($config);
-
-        $this->assertInstanceOf(ShipEngine::class, $shipengine);
+        self::$good_address = new Address(
+            array('4 Jersey St', 'ste 200'),
+            'Boston',
+            'MA',
+            '02215',
+            'US',
+        );
     }
+
+    public function testInstantiation(): void
+    {
+        $this->assertInstanceOf(ShipEngine::class, self::$shipengine);
+    }
+
+//    public function testUserAgentVersionNumber()
+//    {
+//        $user_agent = self::$shipengine::VERSION;
+//
+//        $this->assertEquals($user_agent, '');
+//    }
 }

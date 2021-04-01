@@ -6,7 +6,7 @@ use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
-use ShipEngine\Message\ShipEngineValidationError;
+use ShipEngine\Message\ShipEngineValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Util\ShipEngineSerializer;
 
@@ -70,10 +70,10 @@ final class AddressTest extends TestCase
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);
@@ -105,10 +105,10 @@ final class AddressTest extends TestCase
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);
@@ -141,10 +141,10 @@ final class AddressTest extends TestCase
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);
@@ -177,10 +177,10 @@ final class AddressTest extends TestCase
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);
@@ -213,10 +213,10 @@ final class AddressTest extends TestCase
                 '',
                 'US',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);
@@ -248,10 +248,10 @@ final class AddressTest extends TestCase
                 '02215',
                 '',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);
@@ -284,10 +284,10 @@ final class AddressTest extends TestCase
                 '02215',
                 'USA',
             );
-            $this->expectException(ShipEngineValidationError::class);
-        } catch (ShipEngineValidationError $e) {
-            $error = $e->errorData();
-            $this->assertInstanceOf(ShipEngineValidationError::class, $e);
+            $this->expectException(ShipEngineValidationException::class);
+        } catch (ShipEngineValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['error_source']);
             $this->assertEquals('validation', $error['error_type']);

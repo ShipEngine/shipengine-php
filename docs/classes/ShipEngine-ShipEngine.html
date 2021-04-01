@@ -48,7 +48,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
+
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
@@ -65,21 +65,17 @@
                     <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></h3>
                                 <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/ShipEngine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h3>
                         <ul class="phpdocumentor-list">
-                                    <li><a href="packages/ShipEngine-Message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
-                            </ul>
-                                <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/ShipEgnine.html"><abbr title="\ShipEgnine">ShipEgnine</abbr></a></h3>
-                        <ul class="phpdocumentor-list">
-                                    <li><a href="packages/ShipEgnine-Service.html"><abbr title="\ShipEgnine\Service">Service</abbr></a></li>
+                                    <li><a href="packages/ShipEngine-Message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                             </ul>
                                 <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/packageShipEngine.html"><abbr title="\packageShipEngine">packageShipEngine</abbr></a></h3>
                         <ul class="phpdocumentor-list">
                                     <li><a href="packages/packageShipEngine-Service.html"><abbr title="\packageShipEngine\Service">Service</abbr></a></li>
                             </ul>
                         </section>
-    
+
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -102,24 +98,24 @@
         <h2 class="phpdocumentor-content__title">
     ShipEngine
 
-    
+
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/ShipEngine.html">ShipEngine</a></li>
                             </ul>
         </div>
-    
-    
+
+
             <span class="phpdocumentor-element__extends">
             Uses
-                            <a href="classes/ShipEngine-Service-Tag-TagTrait.html"><abbr title="\ShipEngine\Service\Tag\TagTrait">TagTrait</abbr></a>,                             <a href="classes/ShipEngine-Service-Address-AddressTrait.html"><abbr title="\ShipEngine\Service\Address\AddressTrait">AddressTrait</abbr></a>,                             <a href="classes/ShipEngine-Service-Package-PackageTrackingTrait.html"><abbr title="\ShipEngine\Service\Package\PackageTrackingTrait">PackageTrackingTrait</abbr></a>                    </span>
+                            <a href="classes/ShipEngine-Util-Getters.html"><abbr title="\ShipEngine\Util\Getters">Getters</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">22</span>
 </aside>
 
             <p class="phpdocumentor-summary">ShipEngine RPC 2.0 client.</p>
@@ -146,33 +142,26 @@
 </dt>
 <dd></dd>
 
-                <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-ShipEngine.html#property_addresses">$addresses</a>
+                <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-ShipEngine.html#property_address_service">$address_service</a>
     <span>
                 &nbsp;: <a href="classes/ShipEngine-Service-Address-AddressService.html"><abbr title="\ShipEngine\Service\Address\AddressService">AddressService</abbr></a>            </span>
 </dt>
 <dd></dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-ShipEngine.html#property_tags">$tags</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/ShipEngine-ShipEngine.html#property_config">$config</a>
     <span>
-                &nbsp;: <a href="classes/ShipEngine-Service-Tag-TagService.html"><abbr title="\ShipEngine\Service\Tag\TagService">TagService</abbr></a>            </span>
-</dt>
-<dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-ShipEngine.html#property_tracking">$tracking</a>
-    <span>
-                &nbsp;: <a href="classes/ShipEngine-Service-Package-PackageTrackingService.html"><abbr title="\ShipEngine\Service\Package\PackageTrackingService">PackageTrackingService</abbr></a>            </span>
+                &nbsp;: <a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\Service\ShipEngineConfig">ShipEngineConfig</abbr></a>            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-ShipEngine.html#property_service_factory">$service_factory</a>
+    <a href="classes/ShipEngine-ShipEngine.html#property_shipengine">$shipengine</a>
     <span>
-                &nbsp;: <a href="classes/ShipEngine-Service-ServiceFactory.html"><abbr title="\ShipEngine\Service\ServiceFactory">ServiceFactory</abbr></a>            </span>
+                &nbsp;: <a href="classes/ShipEngine-ShipEngineClient.html"><abbr title="\ShipEngine\ShipEngineClient">ShipEngineClient</abbr></a>            </span>
 </dt>
-<dd>Factory providing services.</dd>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-ShipEngine.html#method___construct">__construct()</a>
@@ -182,32 +171,25 @@
 <dd>ShipEngine constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-ShipEngine.html#method___get">__get()</a>
+    <a href="classes/ShipEngine-Util-Getters.html#method___get">__get()</a>
     <span>
                         &nbsp;: mixed    </span>
 </dt>
-<dd>Service Getter.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-Service-Tag-TagTrait.html#method_createTag">createTag()</a>
+    <a href="classes/ShipEngine-ShipEngine.html#method_validateAddress">validateAddress()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-Tag-Tag.html"><abbr title="\ShipEngine\Model\Tag\Tag">Tag</abbr></a>    </span>
+                        &nbsp;: <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html"><abbr title="\ShipEngine\Model\Address\AddressValidateResult">AddressValidateResult</abbr></a>    </span>
 </dt>
-<dd>A convenience method to `create a tag` via the *tag/create* remote procedure.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-Service-Package-PackageTrackingTrait.html#method_trackPackage">trackPackage()</a>
+    <a href="classes/ShipEngine-ShipEngine.html#method_validateAddresses">validateAddresses()</a>
     <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-Package-TrackingData.html"><abbr title="\ShipEngine\Model\Package\TrackingData">TrackingData</abbr></a>    </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>A method to get `tracking data` via the *package/track* remote procedure.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-Service-Address-AddressTrait.html#method_validateAddress">validateAddress()</a>
-    <span>
-                        &nbsp;: <a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>    </span>
-</dt>
-<dd>A method to `validate` a single address via the *address/validate* remote procedure.</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/ShipEngine-ShipEngine.html#method_deriveUserAgent">deriveUserAgent()</a>
@@ -220,7 +202,7 @@
 
 
 
-        
+
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
@@ -235,10 +217,10 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
@@ -249,12 +231,12 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
             </section>
 
-        
+
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
@@ -264,93 +246,30 @@
         class="
             phpdocumentor-element
             -property
-            -public
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_addresses">
-        $addresses
-        <a href="classes/ShipEngine-ShipEngine.html#property_addresses" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_address_service">
+        $address_service
+        <a href="classes/ShipEngine-ShipEngine.html#property_address_service" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">0</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Service-Address-AddressService.html"><abbr title="\ShipEngine\Service\Address\AddressService">AddressService</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$addresses</span>
+    <span class="phpdocumentor-signature__name">$address_service</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
 
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_tags">
-        $tags
-        <a href="classes/ShipEngine-ShipEngine.html#property_tags" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Service-Tag-TagService.html"><abbr title="\ShipEngine\Service\Tag\TagService">TagService</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$tags</span>
-    </code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_tracking">
-        $tracking
-        <a href="classes/ShipEngine-ShipEngine.html#property_tracking" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-</aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Service-Package-PackageTrackingService.html"><abbr title="\ShipEngine\Service\Package\PackageTrackingService">PackageTrackingService</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$tracking</span>
-    </code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
 
 </article>
                     <article
@@ -360,29 +279,57 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_service_factory">
-        $service_factory
-        <a href="classes/ShipEngine-ShipEngine.html#property_service_factory" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_config">
+        $config
+        <a href="classes/ShipEngine-ShipEngine.html#property_config" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Factory providing services.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Service-ServiceFactory.html"><abbr title="\ShipEngine\Service\ServiceFactory">ServiceFactory</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$service_factory</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\Service\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$config</span>
     </code>
 
-        <section class="phpdocumentor-description"></section>
 
-    
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_shipengine">
+        $shipengine
+        <a href="classes/ShipEngine-ShipEngine.html#property_shipengine" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-ShipEngineClient.html"><abbr title="\ShipEngine\ShipEngineClient">ShipEngineClient</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$shipengine</span>
+    </code>
+
+
+
 
 </article>
             </section>
@@ -405,60 +352,39 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 </aside>
 
         <p class="phpdocumentor-summary">ShipEngine constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$api_key</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Http\Client\HttpClient">HttpClient</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$client</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$api_key</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$client</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Http\Client\HttpClient">HttpClient</abbr>|null</span>
+                <span class="phpdocumentor-signature__argument__name">$config</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>can be a string that is your api key or an array {api_key:string,
+base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}</p>
+</section>
 
             </dd>
             </dl>
 
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Http\Discovery\Exception\NotFoundException">NotFoundException</abbr></span>
-                                                            
-                                                 <section class="phpdocumentor-description"></section>
 
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -468,170 +394,39 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___get">
         __get()
-        <a href="classes/ShipEngine-ShipEngine.html#method___get" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/ShipEngine-Util-Getters.html#method___get" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Getters.php"><a href="files/src-util-getters.html"><abbr title="src/Util/Getters.php">Getters.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">10</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Service Getter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
-        <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$name</span>
+                <span class="phpdocumentor-signature__argument__name">$property</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_createTag">
-        createTag()
-        <a href="classes/ShipEngine-Service-Tag-TagTrait.html#method_createTag" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/Tag/TagTrait.php"><a href="files/src-service-tag-tagtrait.html"><abbr title="src/Service/Tag/TagTrait.php">TagTrait.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">21</span>
-</aside>
 
-        <p class="phpdocumentor-summary">A convenience method to `create a tag` via the *tag/create* remote procedure.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">createTag</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tag</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Tag-Tag.html"><abbr title="\ShipEngine\Model\Tag\Tag">Tag</abbr></a></span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$tag</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">see</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                    <span class="phpdocumentor-tag-link"><a href="classes/ShipEngine-Service-Tag-TagService.html#method_create"><abbr title="\ShipEngine\Service\Tag\TagService::create()">TagService::create()</abbr></a></span>
-                                        
-                                                 <section class="phpdocumentor-description"></section>
-
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Tag-Tag.html"><abbr title="\ShipEngine\Model\Tag\Tag">Tag</abbr></a></span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_trackPackage">
-        trackPackage()
-        <a href="classes/ShipEngine-Service-Package-PackageTrackingTrait.html#method_trackPackage" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/Package/PackageTrackingTrait.php"><a href="files/src-service-package-packagetrackingtrait.html"><abbr title="src/Service/Package/PackageTrackingTrait.php">PackageTrackingTrait.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">24</span>
-</aside>
-
-        <p class="phpdocumentor-summary">A method to get `tracking data` via the *package/track* remote procedure.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">trackPackage</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tracking_number</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$carrier_code</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Package-TrackingData.html"><abbr title="\ShipEngine\Model\Package\TrackingData">TrackingData</abbr></a></span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$tracking_number</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$carrier_code</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><a href="classes/ShipEngine-Message-ShipEngineError.html"><abbr title="\ShipEngine\Message\ShipEngineError">ShipEngineError</abbr></a></span>
-                                                            
-                                                 <section class="phpdocumentor-description"></section>
-
-                                    </dd>
-                        </dl>
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Package-TrackingData.html"><abbr title="\ShipEngine\Model\Package\TrackingData">TrackingData</abbr></a></span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -641,121 +436,93 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_validateAddress">
         validateAddress()
-        <a href="classes/ShipEngine-Service-Address-AddressTrait.html#method_validateAddress" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/ShipEngine-ShipEngine.html#method_validateAddress" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/Address/AddressTrait.php"><a href="files/src-service-address-addresstrait.html"><abbr title="src/Service/Address/AddressTrait.php">AddressTrait.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 </aside>
 
-        <p class="phpdocumentor-summary">A method to `validate` a single address via the *address/validate* remote procedure.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">validateAddress</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$street</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$city</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$state</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$postal_code</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$country_code</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$phone</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$company_name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$residential</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a></span></code>
+                <span class="phpdocumentor-signature__name">validateAddress</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$address</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-AddressValidateResult.html"><abbr title="\ShipEngine\Model\Address\AddressValidateResult">AddressValidateResult</abbr></a></span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$street</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                <span class="phpdocumentor-signature__argument__name">$address</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$city</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$state</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$postal_code</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$country_code</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                <span class="phpdocumentor-signature__argument__name">$config</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$phone</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$company_name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$residential</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>{api_key:string, base_url:string, page_size:int,
+retries:int, timeout:int, client:HttpClient|null}</p>
+</section>
 
             </dd>
             </dl>
 
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">throws</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Symfony\Component\Serializer\Exception\NotEncodableValueException">NotEncodableValueException</abbr></span>
-                                                            
-                                                 <section class="phpdocumentor-description"></section>
 
-                                    </dd>
-                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Address-AddressValidateResult.html"><abbr title="\ShipEngine\Model\Address\AddressValidateResult">AddressValidateResult</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_validateAddresses">
+        validateAddresses()
+        <a href="classes/ShipEngine-ShipEngine.html#method_validateAddresses" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">71</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">validateAddresses</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$addresses</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$addresses</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -770,7 +537,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngine.php"><a href="files/src-shipengine.html"><abbr title="src/ShipEngine.php">ShipEngine.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 </aside>
 
         <p class="phpdocumentor-summary">Derive a User-Agent header from the environment.</p>
@@ -781,15 +548,15 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
-    
+
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
             </section>
 
