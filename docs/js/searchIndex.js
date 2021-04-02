@@ -216,20 +216,15 @@ Search.appendIndex(
             "summary": "Wrap\u0020request\u0020per\u0020\u0060JSON\u002DRPC\u00202.0\u0060\u0020spec.",
             "url": "classes/ShipEngine-Service-AbstractService.html#method_wrapRequest"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\AbstractService\u003A\u003AbatchRequest\u0028\u0029",
-            "name": "batchRequest",
-            "summary": "Create\u0020and\u0020wrap\u0020a\u0020batch\u0020\u0060JSON\u002DRPC\u00202.0\u0060\u0020request.",
-            "url": "classes/ShipEngine-Service-AbstractService.html#method_batchRequest"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\AbstractService\u003A\u003AwrapBatchRequest\u0028\u0029",
-            "name": "wrapBatchRequest",
-            "summary": "Wrap\u0020\u0060batch\u0060\u0020request\u0020per\u0020\u002AJSON\u002DRPC\u00202.0\u002A\u0020spec.",
-            "url": "classes/ShipEngine-Service-AbstractService.html#method_wrapBatchRequest"
-        },                {
             "fqsen": "\\ShipEngine\\Service\\AbstractService\u003A\u003AsendRequest\u0028\u0029",
             "name": "sendRequest",
             "summary": "Send\u0020a\u0020\u0060JSON\u002DRPC\u00202.0\u0060\u0020request\u0020via\u0020\u002AShipEngineClient\u002A.",
             "url": "classes/ShipEngine-Service-AbstractService.html#method_sendRequest"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\AbstractService\u003A\u003AhandleResponse\u0028\u0029",
+            "name": "handleResponse",
+            "summary": "",
+            "url": "classes/ShipEngine-Service-AbstractService.html#method_handleResponse"
         },                {
             "fqsen": "\\ShipEngine\\Service\\AbstractService\u003A\u003ARPC_PATH",
             "name": "RPC_PATH",
@@ -260,11 +255,6 @@ Search.appendIndex(
             "name": "validate",
             "summary": "Validate\u0020a\u0020single\u0020address\u0020via\u0020the\u0020\u0060address\/validate\u0060\u0020remote\u0020procedure.",
             "url": "classes/ShipEngine-Service-Address-AddressService.html#method_validate"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\Address\\AddressService\u003A\u003AvalidateAddresses\u0028\u0029",
-            "name": "validateAddresses",
-            "summary": "Validate\u0020multiple\u0020addresses\u0020by\u0020passing\u0020in\u0020an\u0020array\u0020of\u0020\u0060AddressValidateParams\u0060.",
-            "url": "classes/ShipEngine-Service-Address-AddressService.html#method_validateAddresses"
         },                {
             "fqsen": "\\ShipEngine\\Service\\Package\\PackageTrackingService",
             "name": "PackageTrackingService",
@@ -320,11 +310,6 @@ Search.appendIndex(
             "name": "validateAddress",
             "summary": "",
             "url": "classes/ShipEngine-ShipEngine.html#method_validateAddress"
-        },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateAddresses\u0028\u0029",
-            "name": "validateAddresses",
-            "summary": "",
-            "url": "classes/ShipEngine-ShipEngine.html#method_validateAddresses"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AderiveUserAgent\u0028\u0029",
             "name": "deriveUserAgent",
@@ -516,16 +501,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Message-ShipEngineException.html#property_type"
         },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineServerException",
-            "name": "ShipEngineServerException",
-            "summary": "Error\u002Dlevel\u0020message.",
-            "url": "classes/ShipEngine-Message-ShipEngineServerException.html"
-        },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineValidationException",
-            "name": "ShipEngineValidationException",
-            "summary": "Error\u002Dlevel\u0020message.",
-            "url": "classes/ShipEngine-Message-ShipEngineValidationException.html"
-        },                {
             "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig",
             "name": "ShipEngineConfig",
             "summary": "",
@@ -595,6 +570,31 @@ Search.appendIndex(
             "name": "client",
             "summary": "",
             "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_client"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\AccountStatusException",
+            "name": "AccountStatusException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-AccountStatusException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\BusinessRuleException",
+            "name": "BusinessRuleException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-BusinessRuleException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\SecurityException",
+            "name": "SecurityException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-SecurityException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\SystemException",
+            "name": "SystemException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-SystemException.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\ValidationException",
+            "name": "ValidationException",
+            "summary": "Error\u002Dlevel\u0020message.",
+            "url": "classes/ShipEngine-Message-ValidationException.html"
         },                {
             "fqsen": "\\",
             "name": "\\",

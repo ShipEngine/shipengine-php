@@ -7,6 +7,12 @@ use Http\Discovery\Exception\NotFoundException;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\MessageFactory;
 use Psr\Http\Message\ResponseInterface;
+use ShipEngine\Message\AccountStatusException;
+use ShipEngine\Message\BusinessRuleException;
+use ShipEngine\Message\SecurityException;
+use ShipEngine\Message\ShipEngineException;
+use ShipEngine\Message\SystemException;
+use ShipEngine\Message\ValidationException;
 use ShipEngine\ShipEngineClient;
 use ShipEngine\Util\ShipEngineSerializer;
 
@@ -54,13 +60,22 @@ abstract class AbstractService
      *
      * @param string $method Name of an RPC method.
      * @param array $params Data that a remote procedure will make use of.
-     * @return ResponseInterface
+     * @param ShipEngineConfig $config
      */
-    protected function request(string $method, array $params): ResponseInterface
+    protected function request(string $method, array $params, ShipEngineConfig $config)
     {
         $body = $this->wrapRequest($method, $params);
+        $response = $this->sendRequest($body);
+        $status_code = $response->getStatusCode();
+        $reason_phrase = $response->getReasonPhrase();
 
-        return $this->sendRequest($body);
+        if ($status_code !== 200) {
+            throw new ShipEngineException(
+                "Address Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
+            );
+        }
+
+        return $this->handleResponse(json_decode($response->getBody()->getContents(), true));
     }
 
     /**
@@ -68,7 +83,6 @@ abstract class AbstractService
      *
      * @param string $method
      * @param array $params
-     * @return mixed
      */
     private function wrapRequest(string $method, array $params)
     {
@@ -78,37 +92,6 @@ abstract class AbstractService
             'method' => $method,
             'params' => $params
         ]);
-    }
-
-    /**
-     * Create and wrap a batch `JSON-RPC 2.0` request.
-     *
-     * @param string $method
-     * @param array $batch
-     * @return ResponseInterface
-     */
-    protected function batchRequest(string $method, array $batch): ResponseInterface
-    {
-        $body = $this->wrapBatchRequest($method, $batch);
-
-        return $this->sendRequest($body);
-    }
-
-
-    /**
-     * Wrap `batch` request per *JSON-RPC 2.0* spec.
-     *
-     * @param string $method
-     * @param array $batch
-     * @return array
-     */
-    private function wrapBatchRequest(string $method, array $batch): array
-    {
-        foreach ($batch as &$item) {
-            $item = $this->wrapRequest($method, (array)$item);
-        }
-
-        return $batch;
     }
 
     /**
@@ -124,5 +107,57 @@ abstract class AbstractService
         $request = $this->message_factory->createRequest(self::RPC_METHOD, self::RPC_PATH, array(), $jsonData);
 
         return $this->client->sendRequest($request);
+    }
+
+    private function handleResponse($response)
+    {
+        if (isset($response['result']) === true) {
+            return $response['result'];
+        }
+
+        $error = $response['error'];
+
+        switch ($error['data']['error_type']) {
+            case 'account_status':
+                throw new AccountStatusException(
+                    $error['message'],
+                    $response['id'],
+                    $error['data']['error_source'],
+                    $error['data']['error_type'],
+                    $error['data']['error_code']
+                );
+            case 'security':
+                throw new SecurityException(
+                    $error['message'],
+                    $response['id'],
+                    $error['data']['error_source'],
+                    $error['data']['error_type'],
+                    $error['data']['error_code']
+                );
+            case 'validation':
+                throw new ValidationException(
+                    $error['message'],
+                    $response['id'],
+                    $error['data']['error_source'],
+                    $error['data']['error_type'],
+                    $error['data']['error_code']
+                );
+            case 'business_rules':
+                throw new BusinessRuleException(
+                    $error['message'],
+                    $response['id'],
+                    $error['data']['error_source'],
+                    $error['data']['error_type'],
+                    $error['data']['error_code']
+                );
+            case 'system':
+                throw new SystemException(
+                    $error['message'],
+                    $response['id'],
+                    $error['data']['error_source'],
+                    $error['data']['error_type'],
+                    $error['data']['error_code']
+                );
+        }
     }
 }

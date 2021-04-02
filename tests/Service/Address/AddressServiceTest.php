@@ -3,7 +3,8 @@
 namespace Service\Address;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Message\ShipEngineValidationException;
+use ShipEngine\Message\SystemException;
+use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\ShipEngineConfig;
@@ -467,9 +468,13 @@ final class AddressServiceTest extends TestCase
         $this->assertEmpty($validation->address['errors']);
         $this->assertNotEmpty($validation->messages['warnings']);
         $this->assertIsString($validation->messages['warnings'][0]);
-//        $this->assertEqual(
-//'This address has been verified down to the house/building level (highest possible accuracy with the provided data)',
-// $validation->messages['warnings'][0]);
+        $this->assertEquals(
+            <<<'EOT'
+This address has been verified down to the house/building level (highest possible accuracy with the provided data)
+EOT
+            ,
+            $validation->messages['warnings'][0]
+        );
     }
 
     /**
@@ -492,10 +497,10 @@ final class AddressServiceTest extends TestCase
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -520,21 +525,21 @@ final class AddressServiceTest extends TestCase
     public function testTooManyAddressLinesValidationError()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
                 'Boston',
                 'MA',
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
                 $error['message']
@@ -563,10 +568,10 @@ final class AddressServiceTest extends TestCase
                 '02215',
                 'US',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -579,6 +584,7 @@ final class AddressServiceTest extends TestCase
     }
 
     // TODO: rename per AC -- removed state and postal.
+
     /**
      * Tests a validation with missing `state`.
      *
@@ -600,10 +606,10 @@ final class AddressServiceTest extends TestCase
                 '',
                 'US',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -636,10 +642,10 @@ final class AddressServiceTest extends TestCase
                 '',
                 'US',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -671,10 +677,10 @@ final class AddressServiceTest extends TestCase
                 '02215',
                 '',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -707,10 +713,10 @@ final class AddressServiceTest extends TestCase
                 '02215',
                 'USA',
             );
-            $this->expectException(ShipEngineValidationException::class);
-        } catch (ShipEngineValidationException $e) {
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -722,29 +728,80 @@ final class AddressServiceTest extends TestCase
         }
     }
 
-//    public function testServerSideError()
-//    {
-//        $validationError = self::$shipengine->validateAddress(self::$get_rpc_server_error);
-//
-//
-//
-    ////        try {
-    ////            $validationError = self::$shipengine->validateAddress(self::$get_rpc_server_error);
-    ////            $this->expectException(ShipEngineValidationException::class);
-    ////        } catch (ShipEngineValidationException $e) {
-    ////            $error = $e->jsonSerialize();
-    ////            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
-    ////            $this->assertNotEmpty($error['request_id']);
-    ////            $this->assertStringStartsWith('req_', $error['request_id']);
-    ////            $this->assertEquals('shipengine', $error['source']);
-    ////            $this->assertEquals('unspecified', $error['data']['']);
-    ////            $this->assertEquals('system', $error['type']);
-    ////            $this->assertEquals(
-    ////                "Invalid address. USA is not a valid country code.",
-    ////                $error['message']
-    ////            );
-    ////        }
-//    }
+    public function testServerSideError()
+    {
+        try {
+            self::$shipengine->validateAddress(self::$get_rpc_server_error);
+        } catch (SystemException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(SystemException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('system', $error['type']);
+            $this->assertEquals('unspecified', $error['error_code']);
+            $this->assertEquals(
+                "Unable to connect to the database",
+                $error['message']
+            );
+        }
+    }
+
+    public function testNoNameCompanyPhone()
+    {
+        $validation = self::$shipengine->validateAddress(self::$good_address);
+
+        $this->assertTrue($validation->valid);
+        $this->assertNotEmpty($validation->address);
+        $this->assertEquals(
+            strtoupper(self::$good_address->street[0]),
+            $validation->address['street'][0]
+        );
+        $this->assertEquals(
+            strtoupper(self::$good_address->city_locality),
+            $validation->address['city_locality']
+        );
+        $this->assertEquals(self::$good_address->state_province, $validation->address['state_province']);
+        $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
+        $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
+        $this->assertNotContains($validation->address['name'], $validation->address);
+        $this->assertNotContains($validation->address['phone'], $validation->address);
+        $this->assertNotContains($validation->address['company'], $validation->address);
+    }
+
+    public function testWithNameCompanyPhone()
+    {
+        $address = new Address(
+            array(
+                '4 Jersey St',
+                'ste 200',
+                'validate-with-personal-info'
+            ),
+            'Boston',
+            'MA',
+            '02215',
+            'US',
+            false,
+            'Bruce Wayne',
+            '1234567891',
+            'ShipEngine'
+        );
+        $validation = self::$shipengine->validateAddress($address);
+
+        $this->assertTrue($validation->valid);
+        $this->assertNotEmpty($validation->address);
+        $this->assertEquals(
+            strtoupper($address->name),
+            $validation->address['name']
+        );
+        $this->assertEquals($address->phone, $validation->address['phone']);
+        $this->assertEquals(
+            strtoupper($address->company_name),
+            $validation->address['company_name']
+        );
+        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+    }
 
     public function testJsonSerialize()
     {

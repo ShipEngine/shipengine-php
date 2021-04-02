@@ -3,7 +3,7 @@
 namespace ShipEngine\Service;
 
 use Http\Client\HttpClient;
-use ShipEngine\Message\ShipEngineValidationException;
+use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
 
 final class ShipEngineConfig
@@ -31,7 +31,7 @@ final class ShipEngineConfig
     public function __construct(array $config = array())
     {
         if (isset($config['api_key']) === false || $config['api_key'] === '') {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'A ShipEngine API key must be specified.',
                 null,
                 'shipengine',
@@ -47,7 +47,7 @@ final class ShipEngineConfig
         } elseif (isset($config['retries']) === false) {
             $this->retries = self::DEFAULT_RETRIES;
         } elseif ($config['retries'] <= 0) {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Retries must be zero or greater.',
                 null,
                 'shipengine',
@@ -57,7 +57,7 @@ final class ShipEngineConfig
         }
 
         if (isset($config['timeout']) === true && $config['timeout'] <= 0) {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Timeout must be greater than zero.',
                 null,
                 'shipengine',
@@ -78,8 +78,12 @@ final class ShipEngineConfig
         $this->page_size = isset($config['page_size']) ? $config['page_size'] : self::DEFAULT_PAGE_SIZE;
     }
 
-    public function merge(array $new_config): ShipEngineConfig
+    public function merge(?array $new_config): ShipEngineConfig
     {
+        if (!isset($new_config)) {
+            return $this;
+        }
+
         $config = array();
 
         isset($new_config['api_key']) ?
@@ -105,12 +109,6 @@ final class ShipEngineConfig
         isset($new_config['client']) ?
             ($config['client'] = $new_config['client']) :
             ($config['client'] = $this->client);
-
-//        if (isset($new_config['api_key'])) {
-//            $config['api_key'] = $new_config['api_key'];
-//        } else {
-//            $api_key = $this->api_key;
-//        }
 
         return new ShipEngineConfig($config);
     }

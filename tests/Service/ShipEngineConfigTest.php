@@ -2,7 +2,7 @@
 
 namespace Service;
 
-use ShipEngine\Message\ShipEngineValidationException;
+use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Service\ShipEngineConfig;
 use PHPUnit\Framework\TestCase;
@@ -65,9 +65,9 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -92,9 +92,9 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -119,9 +119,9 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -146,9 +146,9 @@ final class ShipEngineConfigTest extends TestCase
                     'events' => null
                 )
             );
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -164,9 +164,9 @@ final class ShipEngineConfigTest extends TestCase
     {
         try {
             self::$shipengine->validateAddress(self::$good_address, array('api_key' => ''));
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -182,9 +182,9 @@ final class ShipEngineConfigTest extends TestCase
     {
         try {
             self::$shipengine->validateAddress(self::$good_address, array('retries' => -7));
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
@@ -200,9 +200,9 @@ final class ShipEngineConfigTest extends TestCase
     {
         try {
             self::$shipengine->validateAddress(self::$good_address, array('timeout' => -7));
-        } catch (ShipEngineValidationException $e) {
+        } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(ShipEngineValidationException::class, $e);
+            $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);

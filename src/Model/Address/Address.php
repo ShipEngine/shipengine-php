@@ -2,14 +2,14 @@
 
 namespace ShipEngine\Model\Address;
 
-use ShipEngine\Message\ShipEngineValidationException;
+use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
 
 /**
  * `Address` Type to be passed into the *validateAddress* method
  * and internal **AddressService**.
  *
- * @throws ShipEngineValidationException
+ * @throws ValidationException
  *@package ShipEngine\Model\Address
  * @property array $street
  * @property string|null $city_locality
@@ -97,7 +97,7 @@ final class Address implements \JsonSerializable
         if (!empty($street)) {
             $this->street = $street;
         } else {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Invalid address. At least one address line is required.',
                 null,
                 'shipengine',
@@ -107,19 +107,19 @@ final class Address implements \JsonSerializable
         }
 
         if (count($street) > 3) {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Invalid address. No more than 3 street lines are allowed.',
                 null,
                 'shipengine',
                 'validation',
-                'field_value_required'
+                'invalid_field_value'
             );
         } else {
             $this->street = $street;
         }
 
         if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $city_locality) === false || $city_locality === '') {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
                 'shipengine',
@@ -131,7 +131,7 @@ final class Address implements \JsonSerializable
         }
 
         if (preg_match('/^[A-Z\W]{2}$/', $state_province) === false || $state_province === '') {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
                 'shipengine',
@@ -143,7 +143,7 @@ final class Address implements \JsonSerializable
         }
 
         if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postal_code) === false || $postal_code == '') {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
                 'shipengine',
@@ -159,7 +159,7 @@ final class Address implements \JsonSerializable
         if (preg_match('/^[A-Z]{2}$/', $country_code)) {
             $this->country_code = $country_code;
         } elseif ($country_code == '') {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 "Invalid address. The country must be specified.",
                 null,
                 'shipengine',
@@ -167,7 +167,7 @@ final class Address implements \JsonSerializable
                 'invalid_field_value'
             );
         } elseif (!preg_match('/^[A-Z]{2}$/', $country_code)) {
-            throw new ShipEngineValidationException(
+            throw new ValidationException(
                 "Invalid address. {$country_code} is not a valid country code.",
                 null,
                 'shipengine',

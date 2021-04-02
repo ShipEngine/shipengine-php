@@ -59,24 +59,10 @@ final class ShipEngine
      */
     public function validateAddress(Address $address, array $config = null): AddressValidateResult
     {
-        if (isset($config)) {
-            $this->config->merge($config);
-            return $this->address_service->validate($address);
-        }
+        $config = $this->config->merge($config);
 
-        return $this->address_service->validate($address);
+        return $this->address_service->validate($address, $config);
     }
-
-    public function validateAddresses(array $addresses, array $config = null): array
-    {
-        if (isset($config)) {
-            $this->config->merge($config);
-            return $this->address_service->validateAddresses($addresses);
-        }
-
-        return $this->address_service->validateAddresses($addresses);
-    }
-
 
     /**
      * Derive a User-Agent header from the environment.
