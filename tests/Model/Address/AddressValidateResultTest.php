@@ -67,7 +67,6 @@ final class AddressValidateResultTest extends TestCase
             self::$successful_address_validate_rpc_response,
             AddressValidateResult::class
         );
-        // TODO: Add error test cases.
     }
 
     /**

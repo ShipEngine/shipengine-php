@@ -59,7 +59,6 @@ final class ShipEngine
      */
     public function validateAddress(Address $address, array $config = null): AddressValidateResult
     {
-        //TODO: implement new config update function below - merge()
         if (isset($config)) {
             $this->config->merge($config);
             return $this->address_service->validate($address);
@@ -68,8 +67,13 @@ final class ShipEngine
         return $this->address_service->validate($address);
     }
 
-    public function validateAddresses(array $addresses): array
+    public function validateAddresses(array $addresses, array $config = null): array
     {
+        if (isset($config)) {
+            $this->config->merge($config);
+            return $this->address_service->validateAddresses($addresses);
+        }
+
         return $this->address_service->validateAddresses($addresses);
     }
 

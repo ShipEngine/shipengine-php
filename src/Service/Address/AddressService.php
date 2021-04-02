@@ -66,7 +66,7 @@ final class AddressService extends AbstractService
         $serializer = new ShipEngineSerializer();
 
         foreach ($params as &$rpcRequest) {
-            $rpcRequest = $serializer->serializeDataToType($rpcRequest, AddressValidateResult::class);
+            $rpcRequest = $serializer->serializeDataToType($rpcRequest, Address::class);
         }
 
         $response = $this->batchRequest('address/validate', $params);

@@ -22,8 +22,6 @@ final class AddressServiceBatchTest extends TestCase
 {
     private static ShipEngine $shipengine;
 
-    private static ShipEngineConfig $config;
-
     private static array $batchAddresses;
 
     private static array $batchAddressResponse;
@@ -35,16 +33,15 @@ final class AddressServiceBatchTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$config = new ShipEngineConfig(
-            array('api_key' => 'baz')
-        );
-        self::$shipengine = new ShipEngine(self::$config);
+        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
+        self::$shipengine = new ShipEngine('baz');
         self::$batchAddresses = array(
             0 =>
                 array(
                     'street' =>
                         array(
-                            0 => 'validate-batch',
+                            '4 Jersey St',
+                            'ste 200'
                         ),
                     'city_locality' => 'Boston',
                     'state_province' => 'MA',
@@ -55,7 +52,8 @@ final class AddressServiceBatchTest extends TestCase
                 array(
                     'street' =>
                         array(
-                            0 => 'validate-batch',
+                            '4 Jersey St',
+                            'ste 200'
                         ),
                     'city_locality' => 'Boston',
                     'state_province' => 'MA',
@@ -65,8 +63,9 @@ final class AddressServiceBatchTest extends TestCase
         );
     }
 
-    public function testValidateBatchMethodViaHTTP(): void  // TODO: debug -- broke after simplification.
+    public function testValidateBatchMethodViaHTTP(): void
     {
+//        print_r(json_encode(self::$batchAddresses, JSON_PRETTY_PRINT));
         $batchValidation = self::$shipengine->validateAddresses(self::$batchAddresses);
 
         $this->assertInstanceOf(AddressValidateResult::class, $batchValidation[0]);

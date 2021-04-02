@@ -55,10 +55,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `field_value_required`.
-     * - **error_message** is "Invalid address. At least one address line is required.".
+     * - **message** is "Invalid address. At least one address line is required.".
      */
     public function testNoAddressLinesValidationError()
     {
@@ -75,12 +75,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. At least one address line is required.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -90,10 +90,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `field_value_required`.
-     * - **error_message** is "Invalid address. No more than 3 street lines are allowed.".
+     * - **message** is "Invalid address. No more than 3 street lines are allowed.".
      */
     public function testTooManyAddressLinesValidationError()
     {
@@ -110,12 +110,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -125,10 +125,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `field_value_required`.
-     * - **error_message** is -
+     * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
     public function testMissingCity()
@@ -146,12 +146,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -161,10 +161,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `field_value_required`.
-     * - **error_message** is -
+     * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
     public function testMissingState()
@@ -182,12 +182,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -197,10 +197,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `field_value_required`.
-     * - **error_message** is -
+     * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
     public function testMissingPostalCode()
@@ -218,12 +218,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('field_value_required', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -233,10 +233,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `invalid_field_value`.
-     * - **error_message** is "Invalid address. The country must be specified.".
+     * - **message** is "Invalid address. The country must be specified.".
      */
     public function testMissingCountryCode()
     {
@@ -253,12 +253,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. The country must be specified.',
-                $error['error_message']
+                $error['message']
             );
         }
     }
@@ -268,10 +268,10 @@ final class AddressTest extends TestCase
      *
      * `Assertions:`
      * - **request_id** is `null`.
-     * - **error_source** is `ShipEngine`.
-     * - **error_type** is `validation`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
      * - **error_code** os `invalid_field_value`.
-     * - **error_message** is "Invalid address. XX is not a valid country code."
+     * - **message** is "Invalid address. XX is not a valid country code."
      * (where XX is the value that was specified).
      */
     public function testInvalidCountryCode()
@@ -289,12 +289,12 @@ final class AddressTest extends TestCase
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ShipEngineValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['error_source']);
-            $this->assertEquals('validation', $error['error_type']);
+            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals('validation', $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 "Invalid address. USA is not a valid country code.",
-                $error['error_message']
+                $error['message']
             );
         }
     }

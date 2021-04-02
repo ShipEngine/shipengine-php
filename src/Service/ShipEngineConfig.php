@@ -20,7 +20,7 @@ final class ShipEngineConfig
     public int $page_size;
     public int $retries;
     public int $timeout;
-    public ?HttpClient $client = null; // TODO: bring in from ShipEngine.php.
+    public ?HttpClient $client = null;
 
     /**
      * ShipEngineConfig constructor.
