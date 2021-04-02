@@ -10,8 +10,11 @@ use ShipEngine\ShipEngine;
 
 /**
  * @covers \ShipEngine\Service\ShipEngineConfig
- * @covers \ShipEngine\ShipEngine;
- * @covers \ShipEngine\Model\Address\Address;
+ * @covers \ShipEngine\Message\ShipEngineException
+ * @covers \ShipEngine\Message\ValidationException
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\ShipEngine::validateAddress
+ * @covers \ShipEngine\Service\ShipEngineConfig::merge
  */
 final class ShipEngineConfigTest extends TestCase
 {

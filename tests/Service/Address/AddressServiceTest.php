@@ -7,7 +7,6 @@ use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
-use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngine;
 
 /**
@@ -18,7 +17,11 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\Model\Address\AddressValidateResult
  * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\Service\ShipEngineConfig
+ * @covers \ShipEngine\Util\ShipEngineSerializer
  * @covers \ShipEngine\ShipEngineClient
+ * @covers \ShipEngine\Message\ValidationException
+ * @covers \ShipEngine\Message\ShipEngineException
  */
 final class AddressServiceTest extends TestCase
 {
@@ -216,8 +219,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$valid_residential_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$valid_residential_address->country_code, $validation->address['country_code']);
         $this->assertTrue($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -248,8 +251,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -280,8 +283,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$unknown_address_type->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$unknown_address_type->country_code, $validation->address['country_code']);
         $this->assertNull($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -316,8 +319,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$multi_line_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$multi_line_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -349,8 +352,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -379,8 +382,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$canada_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$canada_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -413,8 +416,8 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$non_latin_chars_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$non_latin_chars_address->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
-        $this->assertEmpty($validation->address['warnings']);
+        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->messages['warnings']);
     }
 
     /**
@@ -464,7 +467,7 @@ final class AddressServiceTest extends TestCase
         $this->assertEquals(self::$validate_with_warning->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$validate_with_warning->country_code, $validation->address['country_code']);
         $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->address['errors']);
+        $this->assertEmpty($validation->messages['errors']);
         $this->assertNotEmpty($validation->messages['warnings']);
         $this->assertIsString($validation->messages['warnings'][0]);
         $this->assertEquals(
@@ -763,9 +766,9 @@ EOT
         $this->assertEquals(self::$good_address->state_province, $validation->address['state_province']);
         $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
-        $this->assertNotContains($validation->address['name'], $validation->address);
-        $this->assertNotContains($validation->address['phone'], $validation->address);
-        $this->assertNotContains($validation->address['company'], $validation->address);
+//        $this->assertFalse(array_key_exists($validation->address['name'], $validation->address));
+//        $this->assertFalse(array_key_exists($validation->address['phone'], $validation->address));
+//        $this->assertFalse(array_key_exists($validation->address['company'], $validation->address));
     }
 
     public function testWithNameCompanyPhone()

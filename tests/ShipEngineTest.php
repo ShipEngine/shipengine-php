@@ -9,7 +9,6 @@ use ShipEngine\ShipEngine;
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\Model\Address\Address;
  */
 final class ShipEngineTest extends TestCase
 {
@@ -42,11 +41,4 @@ final class ShipEngineTest extends TestCase
     {
         $this->assertInstanceOf(ShipEngine::class, self::$shipengine);
     }
-
-//    public function testUserAgentVersionNumber()
-//    {
-//        $user_agent = self::$shipengine::VERSION;
-//
-//        $this->assertEquals($user_agent, '');
-//    }
 }

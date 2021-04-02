@@ -11,7 +11,8 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
- * @covers \ShipEngine\Model\Address\Address;
+ * @covers \ShipEngine\Model\Address\Address
+ * @covers \ShipEngine\Message\ShipEngineException
  */
 final class AddressTest extends TestCase
 {
