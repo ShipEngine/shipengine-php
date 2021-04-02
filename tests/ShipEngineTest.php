@@ -9,7 +9,7 @@ use ShipEngine\ShipEngine;
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\Service\ServiceFactory
+ * @covers \ShipEngine\Model\Address\Address;
  */
 final class ShipEngineTest extends TestCase
 {

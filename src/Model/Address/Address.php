@@ -155,7 +155,6 @@ final class Address implements \JsonSerializable
         }
 
 
-
         if (preg_match('/^[A-Z]{2}$/', $country_code)) {
             $this->country_code = $country_code;
         } elseif ($country_code == '') {

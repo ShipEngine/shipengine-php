@@ -10,6 +10,8 @@ use ShipEngine\ShipEngine;
 
 /**
  * @covers \ShipEngine\Service\ShipEngineConfig
+ * @covers \ShipEngine\ShipEngine;
+ * @covers \ShipEngine\Model\Address\Address;
  */
 final class ShipEngineConfigTest extends TestCase
 {
