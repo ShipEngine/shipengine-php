@@ -12,7 +12,7 @@ There are two ways to validate an address using this SDK.
 a set of **Address Line 1, Address Line 2, and Address Line 3**. You can add these as values to the `street` array.
 This method also requires a `country_code` which should be the 2 character capitalized abbreviation for a given country.
 
-- **Behavior**: The `validateAddress` method will always return an [Address Type](../src/Model/Address/Address.php), even in
+- **Behavior**: The `validateAddress` method will always return an [Address Type](../src/Model/Address/AddressResult.php), even in
 the even that the address passed in was not *valid*.
 
 Method Arguments:
@@ -31,6 +31,7 @@ Examples:
 =========
 
 **Successful Address Validation:**
+
 ```php
 <?php declare(strict_types=1);
 
@@ -43,15 +44,8 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 $shipengine = new ShipEngine($api_key);
 
 $validated_address = $shipengine->validateAddress(
-    ['4 Jersey St', 'ste 200'],
-    'Boston',
+    ['4 Jersey St', 'ste 200'],null,
     'MA',
-    '02215',
-    'US',
-    false,
-    'ShipEngine',
-    '1234567891',
-    'ShipEngine',
 );
 
 print_r($validated_address);
@@ -344,7 +338,7 @@ Array
 
 Errors
 ======
-- These methods will only throw an error ([ShipEngineError](../src/Message/ShipEngineError.php)) if there is a problem if a problem occurs,
+- These methods will only throw an error ([ShipEngineError](../src/Message/ShipEngineException.php)) if there is a problem if a problem occurs,
   such as a network error or an error response from the API. In the following example this error responses was
   triggered because there was something wrong with the `Address` provided.
 

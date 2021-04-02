@@ -48,7 +48,7 @@
     Menu
 </label>
 <aside class="phpdocumentor-column -four phpdocumentor-sidebar">
-    
+
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
@@ -65,21 +65,17 @@
                     <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></h3>
                                 <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/ShipEngine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h3>
                         <ul class="phpdocumentor-list">
-                                    <li><a href="packages/ShipEngine-Message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
                                     <li><a href="packages/ShipEngine-Util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
-                            </ul>
-                                <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/ShipEgnine.html"><abbr title="\ShipEgnine">ShipEgnine</abbr></a></h3>
-                        <ul class="phpdocumentor-list">
-                                    <li><a href="packages/ShipEgnine-Service.html"><abbr title="\ShipEgnine\Service">Service</abbr></a></li>
+                                    <li><a href="packages/ShipEngine-Message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
                             </ul>
                                 <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/packageShipEngine.html"><abbr title="\packageShipEngine">packageShipEngine</abbr></a></h3>
                         <ul class="phpdocumentor-list">
                                     <li><a href="packages/packageShipEngine-Service.html"><abbr title="\packageShipEngine\Service">Service</abbr></a></li>
                             </ul>
                         </section>
-    
+
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
                 <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
@@ -107,7 +103,7 @@
         <span class="phpdocumentor-element__extends">
         extends <a href="classes/ShipEngine-Service-AbstractService.html"><abbr title="\ShipEngine\Service\AbstractService">AbstractService</abbr></a>
     </span>
-    
+
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
@@ -116,8 +112,8 @@
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/ShipEngine-Service-Package.html">Package</a></li>
                             </ul>
         </div>
-    
-    
+
+
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
@@ -186,18 +182,18 @@
 <dd>Track a single package via the `package/track` remote procedure.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a href="classes/ShipEngine-Service-AbstractService.html#method_batchRequest">batchRequest()</a>
-    <span>
-                        &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
-</dt>
-<dd>Create and wrap a batch `JSON-RPC 2.0` request.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/ShipEngine-Service-AbstractService.html#method_request">request()</a>
     <span>
-                        &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
+                        &nbsp;: mixed    </span>
 </dt>
 <dd>Create and send a `JSON-RPC 2.0` request over HTTP messages.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/ShipEngine-Service-AbstractService.html#method_handleResponse">handleResponse()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/ShipEngine-Service-AbstractService.html#method_sendRequest">sendRequest()</a>
@@ -205,13 +201,6 @@
                         &nbsp;: <abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr>    </span>
 </dt>
 <dd>Send a `JSON-RPC 2.0` request via *ShipEngineClient*.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/ShipEngine-Service-AbstractService.html#method_wrapBatchRequest">wrapBatchRequest()</a>
-    <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>Wrap `batch` request per *JSON-RPC 2.0* spec.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/ShipEngine-Service-AbstractService.html#method_wrapRequest">wrapRequest()</a>
@@ -224,7 +213,7 @@
 
 
 
-        
+
     <section class="phpdocumentor-constants">
         <h3 class="phpdocumentor-elements__header" id="constants">
             Constants
@@ -239,10 +228,10 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">private</span>
     <span class="phpdocumentor-signature__type">string</span>
@@ -253,7 +242,7 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article class="phpdocumentor-element -constant -private ">
@@ -265,10 +254,10 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">private</span>
     <span class="phpdocumentor-signature__type">string</span>
@@ -279,12 +268,12 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
             </section>
 
-        
+
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
@@ -306,10 +295,10 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-ShipEngineClient.html"><abbr title="\ShipEngine\ShipEngineClient">ShipEngineClient</abbr></a></span>
@@ -318,7 +307,7 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
                     <article
@@ -337,10 +326,10 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 </aside>
 
-    
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type"><abbr title="\Http\Message\MessageFactory">MessageFactory</abbr></span>
@@ -349,7 +338,7 @@
 
         <section class="phpdocumentor-description"></section>
 
-    
+
 
 </article>
             </section>
@@ -372,7 +361,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 </aside>
 
         <p class="phpdocumentor-summary">AbstractService constructor.</p>
@@ -395,7 +384,7 @@
             </dd>
             </dl>
 
-    
+
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
         <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
@@ -406,7 +395,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                 <span class="phpdocumentor-tag-link"><abbr title="\Http\Discovery\Exception\NotFoundException">NotFoundException</abbr></span>
-                                                            
+
                                                  <section class="phpdocumentor-description"></section>
 
                                     </dd>
@@ -417,7 +406,7 @@
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -455,67 +444,14 @@
             </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/ShipEngine-Model-Package-PackageTrackingResult.html"><abbr title="\ShipEngine\Model\Package\PackageTrackingResult">PackageTrackingResult</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -protected
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_batchRequest">
-        batchRequest()
-        <a href="classes/ShipEngine-Service-AbstractService.html#method_batchRequest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">89</span>
-</aside>
 
-        <p class="phpdocumentor-summary">Create and wrap a batch `JSON-RPC 2.0` request.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__name">batchRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$batch</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$method</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$batch</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -530,14 +466,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create and send a `JSON-RPC 2.0` request over HTTP messages.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-                <span class="phpdocumentor-signature__name">request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span></code>
+                <span class="phpdocumentor-signature__name">request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\Service\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -561,16 +497,66 @@
 </section>
 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$config</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\Service\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_handleResponse">
+        handleResponse()
+        <a href="classes/ShipEngine-Service-AbstractService.html#method_handleResponse" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">112</span>
+</aside>
+
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__name">handleResponse</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$response</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$response</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+
+            </dd>
+            </dl>
+
+
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -585,7 +571,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">119</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 </aside>
 
         <p class="phpdocumentor-summary">Send a `JSON-RPC 2.0` request via *ShipEngineClient*.</p>
@@ -608,67 +594,14 @@
             </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\ResponseInterface">ResponseInterface</abbr></span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_wrapBatchRequest">
-        wrapBatchRequest()
-        <a href="classes/ShipEngine-Service-AbstractService.html#method_wrapBatchRequest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">104</span>
-</aside>
 
-        <p class="phpdocumentor-summary">Wrap `batch` request per *JSON-RPC 2.0* spec.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">wrapBatchRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$batch</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$method</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$batch</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -683,7 +616,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Service/AbstractService.php"><a href="files/src-service-abstractservice.html"><abbr title="src/Service/AbstractService.php">AbstractService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">72</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 </aside>
 
         <p class="phpdocumentor-summary">Wrap request per `JSON-RPC 2.0` spec.</p>
@@ -714,14 +647,14 @@
             </dd>
             </dl>
 
-    
+
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
-    
+
 </article>
             </section>
 

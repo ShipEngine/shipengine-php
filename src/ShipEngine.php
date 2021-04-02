@@ -3,32 +3,31 @@
 namespace ShipEngine;
 
 use Http\Client\HttpClient;
+use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressResult;
+use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\Address\AddressTrait;
 use ShipEngine\Service\Package\PackageTrackingTrait;
 use ShipEngine\Service\ServiceFactory;
+use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Service\Tag\TagTrait;
+use ShipEngine\Service\Address\AddressService;
+use ShipEngine\Util;
 
 /**
  * ShipEngine RPC 2.0 client.
  *
  * @package ShipEngine
- * @property \ShipEngine\Service\Tag\TagService $tags
- * @property \ShipEngine\Service\Address\AddressService $addresses
- * @property \ShipEngine\Service\Package\PackageTrackingService $tracking
  */
 final class ShipEngine
 {
-    // Convenience method Traits.
-    use TagTrait;
-    use AddressTrait;
-    use PackageTrackingTrait;
+    use Util\Getters;
 
-    /**
-     * Factory providing services.
-     *
-     * @var ServiceFactory
-     */
-    private ServiceFactory $service_factory;
+    private AddressService $address_service;
+
+    private ShipEngineClient $shipengine;
+
+    private ShipEngineConfig $config;
 
     /**
      *
@@ -38,28 +37,31 @@ final class ShipEngine
     /**
      * ShipEngine constructor.
      *
-     * @param string $api_key
-     * @param HttpClient|null $client
-     * @throws \Http\Discovery\Exception\NotFoundException
+     * @param mixed $config can be a string that is your api key or an array {api_key:string,
+     * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      */
-    public function __construct(string $api_key, HttpClient $client = null)
+    public function __construct($config = null)
     {
+        $this->config = new ShipEngineConfig(
+            is_string($config) ? array('api_key' => $config) : $config
+        );
         $user_agent = $this->deriveUserAgent();
 
-        $client = new ShipEngineClient($api_key, $user_agent, $client);
-
-        $this->service_factory = new ServiceFactory($client);
+        $this->shipengine = new ShipEngineClient($this->config, $user_agent);
+        $this->address_service = new AddressService($this->shipengine);
     }
 
     /**
-     * Service Getter.
-     *
-     * @param string $name
-     * @return mixed
+     * @param Address $address
+     * @param array|null $config {api_key:string, base_url:string, page_size:int,
+     * retries:int, timeout:int, client:HttpClient|null}
+     * @return AddressValidateResult
      */
-    public function __get(string $name)
+    public function validateAddress(Address $address, array $config = null): AddressValidateResult
     {
-        return $this->service_factory->__get($name);
+        $config = $this->config->merge($config);
+
+        return $this->address_service->validate($address, $config);
     }
 
     /**

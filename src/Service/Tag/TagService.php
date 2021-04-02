@@ -2,9 +2,10 @@
 
 namespace ShipEngine\Service\Tag;
 
-use ShipEngine\Message\ShipEngineError;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Tag\Tag;
 use ShipEngine\Service\AbstractService;
+use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
@@ -18,18 +19,18 @@ class TagService extends AbstractService
      * Make a `tag/create` RPC request.
      *
      * @param array $params
+     * @param ShipEngineConfig $config
      * @return Tag
-     * @throws ShipEngineError if a tag cannot be created.
      */
-    public function create(array $params): Tag
+    public function create(array $params, ShipEngineConfig $config): Tag
     {
         $serializer = new ShipEngineSerializer();
-        $response = $this->request('tag/create', $params);
+        $response = $this->request('tag/create', $params, $config);
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
 
         if ($response->getStatusCode() != 200) {
-            throw new ShipEngineError(
+            throw new ShipEngineException(
                 "Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
             );
         }
