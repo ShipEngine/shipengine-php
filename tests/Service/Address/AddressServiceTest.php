@@ -585,8 +585,6 @@ EOT
         }
     }
 
-    // TODO: rename per AC -- removed state and postal.
-
     /**
      * Tests a validation with missing `state`.
      *
@@ -598,7 +596,7 @@ EOT
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testMissingState()
+    public function testMissingStatePostalAndCity()
     {
         try {
             $validationError = new Address(

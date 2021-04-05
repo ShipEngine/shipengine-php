@@ -2,7 +2,6 @@
 
 namespace ShipEngine\Service\Address;
 
-use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
