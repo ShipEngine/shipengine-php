@@ -2,14 +2,23 @@
 
 namespace ShipEngine\Util;
 
-use Psr\Log\LoggerTrait;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerTrait;
 use Psr\Log\LogLevel;
 
+/**
+ * Class ShipEngineLogger
+ * @package ShipEngine\Util
+ */
 final class ShipEngineLogger implements LoggerInterface
 {
     use LoggerTrait;
 
+    /**
+     * @param mixed $level
+     * @param $message
+     * @param array $context
+     */
     public function log($level, $message, array $context = array())
     {
         $message = (string)$message;
