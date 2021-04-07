@@ -10,7 +10,7 @@ use ShipEngine\Util;
  * and internal **AddressService**.
  *
  * @throws ValidationException
- *@package ShipEngine\Model\Address
+ * @package ShipEngine\Model\Address
  * @property array $street
  * @property string|null $city_locality
  * @property string|null $state_province
@@ -19,59 +19,80 @@ use ShipEngine\Util;
  * @property bool|null $residential
  * @property string|null $name
  * @property string|null $phone
- * @property string|null $company_name
+ * @property string|null $company
  */
 final class Address implements \JsonSerializable
 {
     use Util\Getters;
 
     /**
+     * The street address. If the street address is multiple lines, then pass an
+     * array of lines (up to 3).
+     *
      * @var array
      */
     private array $street;
 
     /**
+     * The city or locality.
+     *
      * @var string|null
      */
     private ?string $city_locality;
 
     /**
+     * The state or province.
+     *
      * @var string|null
      */
     private ?string $state_province;
 
     /**
+     * The postal code or zip code.
+     *
      * @var string|null
      */
     private ?string $postal_code;
 
     /**
+     * The ISO 3166 country code
+     *
+     * @see https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
      * @var string
      */
     private string $country_code;
 
     /**
+     * Indicates whether the address is residential or commercial, if known.
+     *
      * @var bool|null
      */
     private ?bool $residential;
 
     /**
+     * The name of the sender or recipient at the address, if applicable.
+     *
      * @var string|null
      */
     private ?string $name;
 
     /**
+     * The phone number associated with this address, if any.
+     *
      * @var string|null
      */
     private ?string $phone;
 
     /**
+     * The company name, if this is a business address.
+     *
      * @var string|null
      */
-    private ?string $company_name;
+    private ?string $company;
 
     /**
-     * Address Type constructor.
+     * Address Type constructor. This object is used in the AddressService
+     * methods as the $params object that gets passed in.
      *
      * @param array $street
      * @param string|null $city_locality
@@ -81,7 +102,7 @@ final class Address implements \JsonSerializable
      * @param bool|null $residential
      * @param string|null $name
      * @param string|null $phone
-     * @param string|null $company_name
+     * @param string|null $company
      */
     public function __construct(
         array $street,
@@ -90,9 +111,9 @@ final class Address implements \JsonSerializable
         ?string $postal_code,
         string $country_code,
         ?bool $residential = null,
-        ?string $name = null,
-        ?string $phone = null,
-        ?string $company_name = null
+        ?string $name = '',
+        ?string $phone = '',
+        ?string $company = ''
     ) {
         if (!empty($street)) {
             $this->street = $street;
@@ -178,11 +199,12 @@ final class Address implements \JsonSerializable
         $this->residential = $residential;
         $this->name = $name;
         $this->phone = $phone;
-        $this->company_name = $company_name;
+        $this->company = $company;
     }
 
     /**
-     * Return a JsonSerialized string representation of the `Address` Type.
+     * Returns an array that can be easily JsonSerialized using `json_encode()` which will
+     * yield a JSON string representation of the `Address` Type.
      *
      * Output Example:
      * ```json
@@ -204,15 +226,17 @@ final class Address implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'name' => $this->name,
-            'phone' => $this->phone,
-            'company_name' => $this->company_name,
-            'street' => $this->street,
-            'city_locality' => $this->city_locality,
-            'state_province' => $this->state_province,
-            'postal_code' => $this->postal_code,
-            'country_code' => $this->country_code,
-            'residential' => $this->residential
+            'address' => [
+                'name' => $this->name,
+                'phone' => $this->phone,
+                'company_name' => $this->company,
+                'street' => $this->street,
+                'city_locality' => $this->city_locality,
+                'state_province' => $this->state_province,
+                'postal_code' => $this->postal_code,
+                'country_code' => $this->country_code,
+                'residential' => $this->residential
+            ]
         ];
     }
 }

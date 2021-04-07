@@ -25,7 +25,7 @@ Method Arguments:
 - **residential** *boolean*
 - **name** *string*
 - **phone** *string*
-- **company_name** *string*
+- **company** *string*
 
 Examples:
 =========
@@ -60,7 +60,7 @@ ShipEngine\Model\Address\Address Object
         (
             [name] => ShipEngine
             [phone] => 1234567891
-            [company_name] => ShipEngine
+            [company] => ShipEngine
             [street] => Array
                 (
                     [0] => 4 Jersey St
@@ -122,7 +122,7 @@ This example contains lorem ipsum text.
   "address": {
     "name": "ShipEngine",
     "phone": "1234567891",
-    "company_name": "ShipEngine",
+    "company": "ShipEngine",
     "street": [
       "in nostrud consequat nisi"
     ],
@@ -168,7 +168,7 @@ Method Arguments: Multi-Address
   - **residential** *boolean*
   - **name** *string*
   - **phone** *string*
-  - **company_name** *string*
+  - **company** *string*
 
 ```php
 <?php declare(strict_types=1);
@@ -210,7 +210,7 @@ Array
                 (
                     [name] => null
                     [phone] => null
-                    [company_name] => null
+                    [company] => null
                     [street] => Array
                         (
                             [0] => 4 Jersey St
@@ -249,7 +249,7 @@ Array
                 (
                     [name] => null
                     [phone] => null
-                    [company_name] => null
+                    [company] => null
                     [street] => Array
                         (
                             [0] => 4 Jersey St
@@ -292,7 +292,7 @@ Array
     "address": {
       "name": null,
       "phone": null,
-      "company_name": null,
+      "company": null,
       "street": [
         "4 Jersey St"
       ],
@@ -315,7 +315,7 @@ Array
     "address": {
       "name": null,
       "phone": null,
-      "company_name": null,
+      "company": null,
       "street": [
         "4 Jersey St"
       ],

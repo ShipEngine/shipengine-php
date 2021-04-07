@@ -6,6 +6,7 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\AbstractService;
 use ShipEngine\Service\ShipEngineConfig;
+use ShipEngine\Util\RPCMethods;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
@@ -25,7 +26,7 @@ final class AddressService extends AbstractService
     public function validate(Address $params, ShipEngineConfig $config): AddressValidateResult
     {
         $serializer = new ShipEngineSerializer();
-        $response = $this->request('address/validate', (array)$params->jsonSerialize(), $config);
+        $response = $this->request(RPCMethods::ADDRESS_VALIDATE, $params->jsonSerialize(), $config);
 
 
         return $serializer->deserializeJsonToType(

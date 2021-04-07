@@ -37,6 +37,24 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 
 $shipengine = new ShipEngine($api_key);
 ```
+- You can also pass the **ShipEngine** object an **array** containing `configuration` options instead of a **string**.
+```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
+use ShipEngine\ShipEngine;
+
+$config = array(
+    'api_key' => 'baz',
+    'page_size' => 75,
+    'retries' => 3,
+    'timeout' => 15000,
+    'client' => null  // Specify null to use the default ShipEngine client.
+);
+
+$shipengine = new ShipEngine($config);
+```
 
 `Examples`
 ----------

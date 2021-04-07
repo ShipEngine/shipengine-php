@@ -25,10 +25,13 @@ final class ShipEngineClient
      */
     private PluginClient $client;
 
+    private array $plugins;
+
     private ShipEngineConfig $config;
 
     /**
-     * ShipEngineClient constructor.
+     * ShipEngineClient constructor, this is the global client and is used if a custom
+     * client is not passed in via configuration options.
      *
      * @param ShipEngineConfig $config
      * @param string $user_agent
@@ -57,10 +60,10 @@ final class ShipEngineClient
 
         $base_uri = $uri_factory->createUri($base_url);
 
-        $plugins = array();
-        $plugins[] = new HeaderDefaultsPlugin($headers);
-        $plugins[] = new BaseUriPlugin($base_uri);
-        $plugins[] = new RetryPlugin([
+        $this->plugins = array();
+        $this->plugins[] = new HeaderDefaultsPlugin($headers);
+        $this->plugins[] = new BaseUriPlugin($base_uri);
+        $this->plugins[] = new RetryPlugin([
             'retries' => $config->retries,
             'error_response_decider' => function (RequestInterface $request, ResponseInterface $response): bool {
                 $status = $response->getStatusCode();
@@ -68,18 +71,21 @@ final class ShipEngineClient
             }
         ]);
 
-        $this->client = new PluginClient($client, $plugins);
+        $this->client = new PluginClient($client, $this->plugins);
     }
 
     /**
-     * Send a `JSON-RPC 2.0` request via HTTP Messages.
+     * Send a `JSON-RPC 2.0` request via HTTP Messages to ShipEngine API. If the response
+     * is successful, the result is returned. Otherwise, an error is thrown..
      *
      * @param RequestInterface $request
+     * @param ShipEngineConfig $config
      * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    public function sendRequest(RequestInterface $request): ResponseInterface
+    public function sendRequest(RequestInterface $request, ShipEngineConfig $config): ResponseInterface
     {
+        //TODO: implement the use of the passed in $config
         return $this->client->sendRequest($request);
     }
 }

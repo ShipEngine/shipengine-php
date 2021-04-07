@@ -161,7 +161,7 @@ final class AddressServiceTest extends TestCase
             'Bikini Bottom',
             'Pacific Ocean',
             '4A6 G67',
-            'EA'
+            'US'
         );
         self::$get_rpc_server_error = new Address(
             array('4 Jersey St', 'ste 200', 'rpc-server-error'),
@@ -796,7 +796,7 @@ EOT
         );
         $this->assertEquals($address->phone, $validation->address['phone']);
         $this->assertEquals(
-            strtoupper($address->company_name),
+            strtoupper($address->company),
             $validation->address['company_name']
         );
         $this->assertEmpty($validation->messages['warnings']);

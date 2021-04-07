@@ -24,17 +24,21 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
 
     private ?string $type;
 
+    private ?string $url;
+
     public function __construct(
         string $message,
         ?string $request_id = null,
         ?string $source = null,
         ?string $type = null,
-        ?string $error_code = null
+        ?string $error_code = null,
+        ?string $url = null
     ) {
         $this->request_id = $request_id;
         $this->source = $source;
         $this->type = $type;
         $this->error_code = $error_code;
+        $this->url = $url;
 
         parent::__construct($message);
     }
@@ -46,7 +50,8 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
             'source' => $this->source,
             'type' => $this->type,
             'error_code' => $this->error_code,
-            'message' => $this->message
+            'message' => $this->message,
+            'url' => $this->url
         ];
     }
 }

@@ -24,11 +24,15 @@ use ShipEngine\Util\ShipEngineSerializer;
 abstract class AbstractService
 {
     /**
+     * ShipEngine HTTP Client - used to make all HTTP Requests.
+     *
      * @var ShipEngineClient
      */
     protected ShipEngineClient $client;
 
     /**
+     *
+     *
      * @var MessageFactory
      */
     protected MessageFactory $message_factory;
@@ -41,7 +45,7 @@ abstract class AbstractService
     /**
      * @var string
      */
-    private const RPC_METHOD = 'POST';
+    private const HTTP_METHOD = 'POST';
 
     /**
      * AbstractService constructor.
@@ -65,7 +69,7 @@ abstract class AbstractService
     protected function request(string $method, array $params, ShipEngineConfig $config)
     {
         $body = $this->wrapRequest($method, $params);
-        $response = $this->sendRequest($body);
+        $response = $this->sendRequest($body, $config);
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
 
@@ -98,15 +102,17 @@ abstract class AbstractService
      * Send a `JSON-RPC 2.0` request via *ShipEngineClient*.
      *
      * @param array $body
+     * @param ShipEngineConfig $config
      * @return ResponseInterface
+     * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    private function sendRequest(array $body): ResponseInterface
+    private function sendRequest(array $body, ShipEngineConfig $config): ResponseInterface
     {
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
-        $request = $this->message_factory->createRequest(self::RPC_METHOD, self::RPC_PATH, array(), $jsonData);
+        $request = $this->message_factory->createRequest(self::HTTP_METHOD, self::RPC_PATH, array(), $jsonData);
 
-        return $this->client->sendRequest($request);
+        return $this->client->sendRequest($request, $config);
     }
 
     private function handleResponse($response)
@@ -152,6 +158,14 @@ abstract class AbstractService
                 );
             case 'system':
                 throw new SystemException(
+                    $error['message'],
+                    $response['id'],
+                    $error['data']['error_source'],
+                    $error['data']['error_type'],
+                    $error['data']['error_code']
+                );
+            default:
+                throw new ShipEngineException(
                     $error['message'],
                     $response['id'],
                     $error['data']['error_source'],
