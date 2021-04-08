@@ -58,7 +58,7 @@ final class Address implements \JsonSerializable
     /**
      * The ISO 3166 country code
      *
-     * @see https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+     * @link https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
      * @var string
      */
     private string $country_code;
@@ -155,21 +155,21 @@ final class Address implements \JsonSerializable
      * yield a JSON string representation of the `Address` Type.
      *
      * Output Example:
-     * ```json
+     * <code>
      * {
-     * "name": "ShipEngine",
-     * "phone": "123465798",
-     * "company_name": "ShipEngine",
-     * "street": [
-     * "4 Jersey St",
-     * "ste 200"
-     * ],
-     * "city_locality": "Boston",
-     * "state_province": "MA",
-     * "postal_code": "02215",
-     * "country_code": "US"
+     *  "name": "ShipEngine",
+     *  "phone": "123465798",
+     *  "company_name": "ShipEngine",
+     *  "street": [
+     *      "4 Jersey St",
+     *      "ste 200"
+     *  ],
+     *  "city_locality": "Boston",
+     *  "state_province": "MA",
+     *  "postal_code": "02215",
+     *  "country_code": "US"
      * }
-     * ```
+     * </code>
      */
     public function jsonSerialize()
     {

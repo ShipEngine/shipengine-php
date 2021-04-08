@@ -6,7 +6,7 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngineClient;
-use ShipEngine\Util\RPCMethods;
+use ShipEngine\Util\Constants\RPCMethods;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
@@ -16,7 +16,23 @@ use ShipEngine\Util\ShipEngineSerializer;
  */
 final class AddressService
 {
+    /**
+     * Service HTTP requests to ShipEngine API.
+     *
+     * @var ShipEngineClient
+     */
     private ShipEngineClient $client;
+
+    /**
+     * AddressService constructor - this takes in the instance of the `ShipEngineClient` that
+     * the `ShipEngine` Class is using.
+     *
+     * @param ShipEngineClient $client
+     */
+    public function __construct(ShipEngineClient $client)
+    {
+        $this->client = $client;
+    }
 
     /**
      * Validate a single address via the `address/validate` remote procedure.

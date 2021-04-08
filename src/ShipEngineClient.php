@@ -21,11 +21,11 @@ use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Service\ShipEngineConfig;
-use ShipEngine\Util\VersionInfo;
 use ShipEngine\Util;
+use ShipEngine\Util\VersionInfo;
 
 /**
- * A wrapped `JSON-RPC 2.0` HTTP client.
+ * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
  *
  * @pacakge ShipEngine
  */
@@ -33,19 +33,51 @@ final class ShipEngineClient
 {
     use Util\Getters;
 
+    /**
+     * Creates an instance of the `PSR` **RequestInterface**, this will be
+     * passed into the `$this->client->sendRequest()`..
+     *
+     * @var MessageFactory
+     */
     protected MessageFactory $message_factory;
 
     /**
+     * The HTTPlug Client that allows the "bring your own client" workflow. This means users
+     * to pass in an existing client (e.g. Symfony client) instead of the default client
+     * we create. It also enables the usage of plugins to manage things like retries, headers,
+     * base url, etc.
+     *
      * @var PluginClient
      */
     private PluginClient $client;
 
+    /**
+     * These plugins are part of the HTTPlug ecosystem and manage things like retries, headers,
+     * base url, etc.
+     *
+     * @var array
+     */
     private array $plugins;
 
+    /**
+     * An array of HTTP Headers to be sent on every request.
+     *
+     * @var array
+     */
     private array $headers;
 
+    /**
+     * The base URL that we are sending HTTP requests to, the following link on ShipEngine API
+     * Encryption goes over **ShipEngine API's Base URL**.
+     *
+     * @link https://www.shipengine.com/docs/auth/#encryption
+     * @var string
+     */
     private string $base_url;
 
+    /**
+     * @var ShipEngineConfig
+     */
     private ShipEngineConfig $config;
 
     /**
@@ -89,15 +121,15 @@ final class ShipEngineClient
                 $status = $response->getStatusCode();
                 return $status === 429;
             },
-//            'error_response_delay' => function (
-//RequestInterface $request,
-// ResponseInterface $response,
-// int $retries
-//): int {
-//                $res = json_decode($response->getBody()->getContents(), true);
-//
-//                return $res->error->data['retry_after'] * 1000; // number of milliseconds to wait
-//            }
+            'error_response_delay' => function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                int $retries
+            ): int {
+                $res = json_decode($response->getBody()->getContents(), true);
+
+                return $res->error->data['retry_after'] * 1000; // number of milliseconds to wait
+            }
         ]);
 
         $this->client = new PluginClient($client, $this->plugins);
@@ -187,7 +219,11 @@ final class ShipEngineClient
         return $this->sendRequest($request, $config);
     }
 
-    private function handleResponse($response)
+    /**
+     * @param array $response
+     * @return mixed
+     */
+    private function handleResponse(array $response)
     {
         if (isset($response['result']) === true) {
             return $response['result'];

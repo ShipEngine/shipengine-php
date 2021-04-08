@@ -63,6 +63,7 @@ final class ShipEngine
             is_string($config) ? array('api_key' => $config) : $config
         );
         $this->shipengine = new ShipEngineClient($this->config);
+        $this->address_service = new AddressService($this->shipengine);
     }
 
     // TODO: change return object from DTO -> a return type.

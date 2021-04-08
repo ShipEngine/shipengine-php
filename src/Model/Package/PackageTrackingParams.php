@@ -37,12 +37,12 @@ final class PackageTrackingParams implements \JsonSerializable
     /**
      * Return a JsonSerialized string representation of the `PackageTrackingParams` Type.
      *
-     * ```json
+     * <code>
      * {
-     * "carrier_code": "ups",
-     * "tracking_number": "abc123"
+     *  "carrier_code": "ups",
+     *  "tracking_number": "abc123"
      * }
-     * ```
+     * </code>
      */
     public function jsonSerialize()
     {

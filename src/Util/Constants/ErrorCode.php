@@ -1,7 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util;
+namespace ShipEngine\Util\Constants;
 
+/**
+ * Class ErrorCode, this class provides constants used for Error Codes.
+ *
+ * @package ShipEngine\Util
+ */
 final class ErrorCode
 {
     /**

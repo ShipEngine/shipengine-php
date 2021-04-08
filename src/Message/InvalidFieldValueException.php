@@ -2,8 +2,10 @@
 
 namespace ShipEngine\Util;
 
-use ShipEngine\Util;
 use ShipEngine\Message\ShipEngineException;
+use ShipEngine\Util;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorType;
 
 /**
  * This error occurs when a field has been set to an invalid value.

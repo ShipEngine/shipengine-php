@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util;
+namespace ShipEngine\Util\Constants;
 
 /**
  * Indicates the type of an error. Think of this as a broad category rather
  * than a specific error.
  *
- * @see https://www.shipengine.com/docs/errors/codes/#error-type
+ * @link https://www.shipengine.com/docs/errors/codes/#error-type
  */
 final class ErrorType
 {

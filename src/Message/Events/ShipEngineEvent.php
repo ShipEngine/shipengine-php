@@ -6,7 +6,7 @@ use DateTime;
 
 class ShipEngineEvent
 {
-    private $timestamp;
+    private DateTime $timestamp;
     private string $type;
     private string $message;
 

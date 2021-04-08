@@ -1,19 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util;
+namespace ShipEngine\Util\Constants;
 
 /**
  * Indicates where an error originated from. This lets you know whether you should
  * contact ShipEngine for support or if you should contact the carrier or
  * marketplace instead.
  *
- * @see https://www.shipengine.com/docs/errors/codes/#error-source
+ * @link https://www.shipengine.com/docs/errors/codes/#error-source
  */
 final class ErrorSource
 {
     /**
      * The error is from ShipEngine. If you have any questions or require support,
      * please contact us
+     *
+     * @const SHIPENGINE
      */
     const SHIPENGINE = "shipengine";
 
@@ -22,6 +24,8 @@ final class ErrorSource
      * ShipEngine support may be able to help clarify the error for you, but if
      * the problem is with your carrier account, then you will need to contact
      * them directly.
+     *
+     * @const CARRIER
      */
     const CARRIER = "carrier";
 
@@ -30,6 +34,8 @@ final class ErrorSource
      * ShipEngine support may be able to help clarify the error for you, but if
      * the problem is with your seller account, then you will need to contact
      * them directly.
+     *
+     * @const ORDER_SOURCE
      */
     const ORDER_SOURCE = "order_source";
 }

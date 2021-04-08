@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Message\Events;
 
+use ShipEngine\Util\Constants\EventType;
+
 /**
  * Class ResponseReceivedEvent
  * @package ShipEngine\Message\Events
@@ -65,7 +67,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent
         int $retry,
         int $elapsed
     ) {
-        parent::__construct('response_received', $message);
+        parent::__construct(EventType::RESPONSE_RECEIVED, $message);
         $this->request_id = $request_id;
         $this->url = $url;
         $this->status_code = $status_code;

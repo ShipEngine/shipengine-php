@@ -7,7 +7,7 @@ use ShipEngine\Model\Package\PackageTrackingParams;
 use ShipEngine\Model\Package\PackageTrackingResult;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngineClient;
-use ShipEngine\Util\RPCMethods;
+use ShipEngine\Util\Constants\RPCMethods;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**

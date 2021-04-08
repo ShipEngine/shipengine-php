@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Message\Events;
 
+use ShipEngine\Util\Constants\EventType;
+
 final class RequestSentEvent extends ShipEngineEvent
 {
     private string $request_id;
@@ -25,7 +27,7 @@ final class RequestSentEvent extends ShipEngineEvent
         int $retry,
         int $timeout
     ) {
-        parent::__construct('request_sent', $message);
+        parent::__construct(EventType::REQUEST_SENT, $message);
         $this->request_id = $request_id;
         $this->url = $url;
         $this->headers = $headers;
