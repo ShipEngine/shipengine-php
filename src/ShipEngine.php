@@ -27,7 +27,7 @@ final class ShipEngine
 
     /**
      * Instantiates the ShipEngine API client used for all HTTP Requests, unless
-     * a custom client has been passed in using configuration options..
+     * a custom client has been passed in using configuration options.
      *
      * @var ShipEngineClient
      */
@@ -49,11 +49,6 @@ final class ShipEngine
      */
     private ShipEngineLogger $logger;
 
-    /**
-     * Current ShipEngine PHP SDK Version.
-     *
-     */
-    const VERSION = '0.0.1';
 
     /**
      * Instantiates the ShipEngine class. The `api_key` you pass in can be either
@@ -67,12 +62,10 @@ final class ShipEngine
         $this->config = new ShipEngineConfig(
             is_string($config) ? array('api_key' => $config) : $config
         );
-        $user_agent = $this->deriveUserAgent();
-
-        $this->shipengine = new ShipEngineClient($this->config, $user_agent);
-        $this->address_service = new AddressService($this->shipengine);
+        $this->shipengine = new ShipEngineClient($this->config);
     }
 
+    // TODO: change return object from DTO -> a return type.
     /**
      * Validate an address sin nearly any country in the world.
      *
@@ -86,23 +79,5 @@ final class ShipEngine
         $config = $this->config->merge($config);
 
         return $this->address_service->validate($address, $config);
-    }
-
-    /**
-     * Derive a User-Agent header from the environment. This is the user-agent that will be set on every request
-     * via the ShipEngine Client.
-     *
-     * @returns string
-     */
-    private function deriveUserAgent(): string
-    {
-        $sdk_version = 'shipengine-php/' . self::VERSION;
-
-        $os = explode(' ', php_uname());
-        $os_kernel = $os[0] . '/' . $os[2];
-
-        $php_version = 'PHP/' . phpversion();
-
-        return $sdk_version . ' ' . $os_kernel . ' ' . $php_version;
     }
 }

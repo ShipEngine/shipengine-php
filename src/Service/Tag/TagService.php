@@ -4,8 +4,8 @@ namespace ShipEngine\Service\Tag;
 
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Tag\Tag;
-use ShipEngine\Service\AbstractService;
 use ShipEngine\Service\ShipEngineConfig;
+use ShipEngine\ShipEngineClient;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
@@ -13,8 +13,10 @@ use ShipEngine\Util\ShipEngineSerializer;
  *
  * @package ShipEngine\Service\Tag
  */
-class TagService extends AbstractService
+class TagService
 {
+    private ShipEngineClient $client;
+
     /**
      * Make a `tag/create` RPC request.
      *
@@ -25,7 +27,7 @@ class TagService extends AbstractService
     public function create(array $params, ShipEngineConfig $config): Tag
     {
         $serializer = new ShipEngineSerializer();
-        $response = $this->request('tag/create', $params, $config);
+        $response = $this->client->request('tag/create', $params, $config);
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
 

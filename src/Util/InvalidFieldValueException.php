@@ -27,7 +27,7 @@ final class InvalidFieldValueException extends ShipEngineException
      *
      * @param string $field_name
      * @param string $reason
-     * @param $field_value
+     * @param mixed $field_value
      * @param string|null $request_id
      * @param string|null $source
      * @param string|null $type
@@ -36,7 +36,7 @@ final class InvalidFieldValueException extends ShipEngineException
     public function __construct(
         string $field_name,
         string $reason,
-        $field_value,
+        mixed $field_value,
         ?string $request_id = null,
         ?string $source = null,
         ?string $type = null,

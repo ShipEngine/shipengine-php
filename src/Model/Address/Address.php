@@ -4,6 +4,7 @@ namespace ShipEngine\Model\Address;
 
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
+use ShipEngine\Util\Assert;
 
 /**
  * `Address` Type to be passed into the *validateAddress* method
@@ -115,91 +116,38 @@ final class Address implements \JsonSerializable
         ?string $phone = '',
         ?string $company = ''
     ) {
-        if (!empty($street)) {
-            $this->street = $street;
-        } else {
-            throw new ValidationException(
-                'Invalid address. At least one address line is required.',
-                null,
-                'shipengine',
-                'validation',
-                'field_value_required'
-            );
-        }
-
-        if (count($street) > 3) {
-            throw new ValidationException(
-                'Invalid address. No more than 3 street lines are allowed.',
-                null,
-                'shipengine',
-                'validation',
-                'invalid_field_value'
-            );
-        } else {
-            $this->street = $street;
-        }
-
-        if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $city_locality) === false || $city_locality === '') {
-            throw new ValidationException(
-                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
-                null,
-                'shipengine',
-                'validation',
-                'field_value_required'
-            );
-        } else {
-            $this->city_locality = $city_locality;
-        }
-
-        if (preg_match('/^[A-Z\W]{2}$/', $state_province) === false || $state_province === '') {
-            throw new ValidationException(
-                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
-                null,
-                'shipengine',
-                'validation',
-                'field_value_required'
-            );
-        } else {
-            $this->state_province = $state_province;
-        }
-
-        if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postal_code) === false || $postal_code == '') {
-            throw new ValidationException(
-                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
-                null,
-                'shipengine',
-                'validation',
-                'field_value_required'
-            );
-        } else {
-            $this->postal_code = $postal_code;
-        }
-
-
-        if (preg_match('/^[A-Z]{2}$/', $country_code)) {
-            $this->country_code = $country_code;
-        } elseif ($country_code == '') {
-            throw new ValidationException(
-                "Invalid address. The country must be specified.",
-                null,
-                'shipengine',
-                'validation',
-                'invalid_field_value'
-            );
-        } elseif (!preg_match('/^[A-Z]{2}$/', $country_code)) {
-            throw new ValidationException(
-                "Invalid address. {$country_code} is not a valid country code.",
-                null,
-                'shipengine',
-                'validation',
-                'invalid_field_value'
-            );
-        }
+        $this->validateInput($street, $city_locality, $state_province, $postal_code, $country_code);
 
         $this->residential = $residential;
         $this->name = $name;
         $this->phone = $phone;
         $this->company = $company;
+    }
+
+    public function validateInput(
+        array $street,
+        ?string $city_locality,
+        ?string $state_province,
+        ?string $postal_code,
+        string $country_code
+    ): void {
+        $assert = new Assert();
+
+        $assert->isStreetSet($street);
+        $assert->tooManyAddressLines($street);
+        $this->street = $street;
+
+        $assert->isCityValid($city_locality);
+        $this->city_locality = $city_locality;
+
+        $assert->isStateValid($state_province);
+        $this->state_province = $state_province;
+
+        $assert->isPostalCodeValid($postal_code);
+        $this->postal_code = $postal_code;
+
+        $assert->isCountryCodeValid($country_code);
+        $this->country_code = $country_code;
     }
 
     /**

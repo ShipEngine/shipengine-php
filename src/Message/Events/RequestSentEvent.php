@@ -17,8 +17,6 @@ final class RequestSentEvent extends ShipEngineEvent
     private int $timeout;
 
     public function __construct(
-        string $timestamp,
-        string $type,
         string $message,
         string $request_id,
         string $url,
@@ -27,7 +25,7 @@ final class RequestSentEvent extends ShipEngineEvent
         int $retry,
         int $timeout
     ) {
-        parent::__construct($timestamp, $type, $message);
+        parent::__construct('request_sent', $message);
         $this->request_id = $request_id;
         $this->url = $url;
         $this->headers = $headers;

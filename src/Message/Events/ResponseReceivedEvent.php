@@ -46,8 +46,6 @@ final class ResponseReceivedEvent extends ShipEngineEvent
     /**
      * ResponseReceivedEvent constructor.
      *
-     * @param string $timestamp
-     * @param string $type
      * @param string $message
      * @param string $request_id
      * @param string $url
@@ -58,8 +56,6 @@ final class ResponseReceivedEvent extends ShipEngineEvent
      * @param int $elapsed
      */
     public function __construct(
-        string $timestamp,
-        string $type,
         string $message,
         string $request_id,
         string $url,
@@ -69,7 +65,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent
         int $retry,
         int $elapsed
     ) {
-        parent::__construct($timestamp, $type, $message);
+        parent::__construct('response_received', $message);
         $this->request_id = $request_id;
         $this->url = $url;
         $this->status_code = $status_code;

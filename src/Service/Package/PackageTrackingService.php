@@ -5,8 +5,9 @@ namespace ShipEngine\Service\Package;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Package\PackageTrackingParams;
 use ShipEngine\Model\Package\PackageTrackingResult;
-use ShipEngine\Service\AbstractService;
 use ShipEngine\Service\ShipEngineConfig;
+use ShipEngine\ShipEngineClient;
+use ShipEngine\Util\RPCMethods;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
@@ -14,8 +15,10 @@ use ShipEngine\Util\ShipEngineSerializer;
  *
  * @package ShipEngine\Service\Package
  */
-final class PackageTrackingService extends AbstractService
+final class PackageTrackingService
 {
+    private ShipEngineClient $client;
+
     /**
      * Track a single package via the `package/track` remote procedure.
      *
@@ -26,7 +29,7 @@ final class PackageTrackingService extends AbstractService
     public function track(PackageTrackingParams $params, ShipEngineConfig $config): PackageTrackingResult
     {
         $serializer = new ShipEngineSerializer();
-        $response = $this->request('package/track', (array)$params, $config);
+        $response = $this->client->request(RPCMethods::PACKAGE_TRACK, (array)$params, $config);
 
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();

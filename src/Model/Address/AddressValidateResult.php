@@ -46,7 +46,7 @@ final class AddressValidateResult implements \JsonSerializable
         $this->valid = $valid;
         $this->messages = $messages;
         $this->address = $address;
-    }
+    } // TODO: refactor this to match JS
 
     /**
      * Return a JsonSerialized string representation of the `AddressValidateResult` Type.
