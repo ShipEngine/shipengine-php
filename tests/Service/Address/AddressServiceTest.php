@@ -12,6 +12,8 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
+ * @covers \ShipEngine\Message\Events\RequestSentEvent
+ * @covers \ShipEngine\Message\Events\ShipEngineEvent
  * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Model\Address\Address
