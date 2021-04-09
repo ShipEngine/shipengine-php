@@ -6,6 +6,11 @@ use ShipEngine\Util\Constants\EventType;
 
 final class RequestSentEvent extends ShipEngineEvent
 {
+    /**
+     * @const REQUEST_SENT
+     */
+    const REQUEST_SENT = 'request_sent';
+
     private string $request_id;
 
     private string $url;
@@ -27,7 +32,7 @@ final class RequestSentEvent extends ShipEngineEvent
         int $retry,
         int $timeout
     ) {
-        parent::__construct(EventType::REQUEST_SENT, $message);
+        parent::__construct(self::REQUEST_SENT, $message);
         $this->request_id = $request_id;
         $this->url = $url;
         $this->headers = $headers;

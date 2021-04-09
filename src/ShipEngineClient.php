@@ -16,13 +16,16 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use ShipEngine\Message\AccountStatusException;
 use ShipEngine\Message\BusinessRuleException;
+use ShipEngine\Message\Events\RequestSentEvent;
 use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util;
+use ShipEngine\Util\Constants\EventType;
 use ShipEngine\Util\VersionInfo;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
@@ -176,21 +179,25 @@ final class ShipEngineClient
      */
     public function request(string $method, array $params, ShipEngineConfig $config)
     {
+        $dispatcher = new EventDispatcher();
         $body = $this->wrapRequest($method, $params);
 
-//        $event = new RequestSentEvent(
-//            "Calling the ShipEngine {$method} API at {$config->base_url}",
-//            $body['id'],
-//            $config->base_url,
-//            $client->headers,
-//            $body,
-//            $config->retries,
-//
-//        );
-
         $response = $this->sendRPCRequest($body, $config, $this);
+
+        $request_sent_event = new RequestSentEvent(
+            "Calling the ShipEngine {$method} API at {$config->base_url}",
+            $body['id'],
+            $config->base_url,
+            $this->headers,
+            json_encode($body),
+            $config->retries,
+            $config->timeout
+        );
+
+        $dispatcher->dispatch($request_sent_event, $request_sent_event::REQUEST_SENT);
+
         $status_code = $response->getStatusCode();
-        $reason_phrase = $response->getReasonPhrase();
+//        $reason_phrase = $response->getReasonPhrase();
         $parsed_response = json_decode($response->getBody()->getContents(), true);
 
 

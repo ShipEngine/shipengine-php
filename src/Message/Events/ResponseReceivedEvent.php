@@ -11,6 +11,11 @@ use ShipEngine\Util\Constants\EventType;
 final class ResponseReceivedEvent extends ShipEngineEvent
 {
     /**
+     * @const RESPONSE_RECEIVED
+     */
+    const RESPONSE_RECEIVED = 'response_received';
+
+    /**
      * @var string
      */
     private string $request_id;
@@ -67,7 +72,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent
         int $retry,
         int $elapsed
     ) {
-        parent::__construct(EventType::RESPONSE_RECEIVED, $message);
+        parent::__construct(self::RESPONSE_RECEIVED, $message);
         $this->request_id = $request_id;
         $this->url = $url;
         $this->status_code = $status_code;
