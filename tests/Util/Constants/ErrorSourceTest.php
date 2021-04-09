@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ErrorSourceTest
  *
- * @covers \ShipEngine\Util\Constants\ErrorSource;
+ * @covers \ShipEngine\Util\Constants\ErrorSource
  * @package Util\Constants
  */
 final class ErrorSourceTest extends TestCase

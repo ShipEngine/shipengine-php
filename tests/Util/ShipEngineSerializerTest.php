@@ -9,8 +9,9 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ShipEngineSerializerTest
  *
- * @covers \ShipEngine\Util\ShipEngineSerializer;
- * @covers \ShipEngine\Model\Address\Address;
+ * @covers \ShipEngine\Util\Assert
+ * @covers \ShipEngine\Util\ShipEngineSerializer
+ * @covers \ShipEngine\Model\Address\Address
  * @package Util
  */
 final class ShipEngineSerializerTest extends TestCase

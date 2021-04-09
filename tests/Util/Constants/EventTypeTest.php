@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class EventTypeTest
  *
- * @covers \ShipEngine\Util\Constants\EventType;
+ * @covers \ShipEngine\Util\Constants\EventType
  * @package Util\Constants
  */
 final class EventTypeTest extends TestCase

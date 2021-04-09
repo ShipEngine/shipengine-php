@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class VersionInfoTest
  *
- * @covers ShipEngine\Util\VersionInfo;
+ * @covers ShipEngine\Util\VersionInfo
  * @package Util
  */
 final class VersionInfoTest extends TestCase

@@ -192,9 +192,10 @@ final class ShipEngineClient
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
         $parsed_response = json_decode($response->getBody()->getContents(), true);
-        $error = $parsed_response['error'];
 
-        if ($status_code === 400 || array_key_exists($parsed_response['errors'], $parsed_response)) {
+
+        if (array_key_exists('error', $parsed_response)) {
+            $error = $parsed_response['error'];
             throw new SystemException(
                 $error['message'],
                 $parsed_response['id'],
@@ -203,10 +204,8 @@ final class ShipEngineClient
                 $error['data']['error_code'],
                 // TODO: confirm with James if the URL will be in the top-level of the response or nested.
             );
-//            throw new ShipEngineException(
-//                "Address Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
-//            );
         } elseif ($status_code === 500) {
+            $error = $parsed_response['error'];
             throw new SystemException(
                 $error['message'],
                 $parsed_response['id'],

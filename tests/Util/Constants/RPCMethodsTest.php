@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class RPCMethodsTest
  *
- * @covers \ShipEngine\Util\Constants\RPCMethods;
+ * @covers \ShipEngine\Util\Constants\RPCMethods
  * @package Util\Constants
  */
 final class RPCMethodsTest extends TestCase

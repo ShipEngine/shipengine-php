@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ShipEngineLoggerTest
  *
- * @covers \ShipEngine\Util\ShipEngineLogger;
+ * @covers \ShipEngine\Util\ShipEngineLogger
  * @package Util
  */
 final class ShipEngineLoggerTest extends TestCase

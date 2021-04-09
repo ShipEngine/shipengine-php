@@ -19,7 +19,6 @@
     "php": ">=7.4",
     "cbschuld/php-uuid-base58": "^1.0",
     "friendsofphp/php-cs-fixer": "^2.18",
-    "league/event": "^3.0",
     "php-http/client-common": "^2.3.0",
     "php-http/discovery": "^1.12.0",
     "php-http/httplug": "^2.2.0",

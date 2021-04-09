@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ErrorTypeTest
  *
- * @covers \ShipEngine\Util\Constants\ErrorType;
+ * @covers \ShipEngine\Util\Constants\ErrorType
  * @package Util\Constants
  */
 final class ErrorTypeTest extends TestCase

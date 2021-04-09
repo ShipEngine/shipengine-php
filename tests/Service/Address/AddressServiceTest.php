@@ -12,9 +12,10 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
+ * @covers \ShipEngine\Util\Assert
+ * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\AddressValidateResult
- * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\Service\ShipEngineConfig
  * @covers \ShipEngine\Util\ShipEngineSerializer
