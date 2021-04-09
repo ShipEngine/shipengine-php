@@ -13,8 +13,8 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\Message\ShipEngineException
  * @covers \ShipEngine\Message\ValidationException
  * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngine::validateAddress
- * @covers \ShipEngine\Service\ShipEngineConfig::merge
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\Service\ShipEngineConfig
  */
 final class ShipEngineConfigTest extends TestCase
 {

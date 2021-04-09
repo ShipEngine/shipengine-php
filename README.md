@@ -78,24 +78,6 @@ $tracking_data = $shipengine->trackPackage('ups', 'abc123');
 print_r($tracking_data);
 ```
 
-`Create a Tag`
-------------
-```php
-<?php declare(strict_types=1);
-
-require __DIR__ . '/vendor/autoload.php';
-
-use ShipEngine\ShipEngine;
-
-$api_key = getenv('SHIPENGINE_API_KEY');
-
-$shipengine = new ShipEngine($api_key);
-
-$new_tag = $shipengine->createTag('shipengine_sdk');
-
-print_r($new_tag);
-```
-
 - To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
 If you don't already have a [php-http](http://docs.php-http.org/en/latest/) compliant HTTP Client in your project, you'll need to [install one](http://docs.php-http.org/en/latest/httplug/users.html).
 ShipEngine will automatically discover it.

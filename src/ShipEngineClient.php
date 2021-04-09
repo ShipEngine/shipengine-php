@@ -191,14 +191,32 @@ final class ShipEngineClient
         $response = $this->sendRPCRequest($body, $config, $this);
         $status_code = $response->getStatusCode();
         $reason_phrase = $response->getReasonPhrase();
+        $parsed_response = json_decode($response->getBody()->getContents(), true);
+        $error = $parsed_response['error'];
 
-        if ($status_code !== 200) {
-            throw new ShipEngineException(
-                "Address Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
+        if ($status_code === 400 || array_key_exists($parsed_response['errors'], $parsed_response)) {
+            throw new SystemException(
+                $error['message'],
+                $parsed_response['id'],
+                $error['data']['error_source'],
+                $error['data']['error_type'],
+                $error['data']['error_code'],
+                // TODO: confirm with James if the URL will be in the top-level of the response or nested.
+            );
+//            throw new ShipEngineException(
+//                "Address Validation request failed -- status_code: {$status_code} reason: {$reason_phrase}"
+//            );
+        } elseif ($status_code === 500) {
+            throw new SystemException(
+                $error['message'],
+                $parsed_response['id'],
+                $error['data']['error_source'],
+                $error['data']['error_type'],
+                $error['data']['error_code']
             );
         }
 
-        return $this->handleResponse(json_decode($response->getBody()->getContents(), true));
+        return $this->handleResponse($parsed_response);
     }
 
     /**
