@@ -2,10 +2,12 @@
 
 namespace ShipEngine\Message\Events;
 
-use ShipEngine\Util\Constants\EventType;
+use ShipEngine\Util;
 
 final class RequestSentEvent extends ShipEngineEvent
 {
+    use Util\Getters;
+
     /**
      * @const REQUEST_SENT
      */

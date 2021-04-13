@@ -3,6 +3,7 @@
 namespace ShipEngine;
 
 use cbschuld\UuidBase58;
+use DateTime;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
@@ -17,13 +18,13 @@ use Psr\Http\Message\ResponseInterface;
 use ShipEngine\Message\AccountStatusException;
 use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\Events\RequestSentEvent;
+use ShipEngine\Message\Events\ResponseReceivedEvent;
 use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util;
-use ShipEngine\Util\Constants\EventType;
 use ShipEngine\Util\VersionInfo;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -182,23 +183,37 @@ final class ShipEngineClient
         $dispatcher = new EventDispatcher();
         $body = $this->wrapRequest($method, $params);
 
-        $response = $this->sendRPCRequest($body, $config, $this);
+        $response = $this->sendRPCRequest($body, $config);
+        $response_body = $response->getBody()->getContents();
 
         $request_sent_event = new RequestSentEvent(
             "Calling the ShipEngine {$method} API at {$config->base_url}",
             $body['id'],
             $config->base_url,
             $this->headers,
-            json_encode($body),
+            $response_body,
             $config->retries,
             $config->timeout
         );
-
         $dispatcher->dispatch($request_sent_event, $request_sent_event::REQUEST_SENT);
 
         $status_code = $response->getStatusCode();
 //        $reason_phrase = $response->getReasonPhrase();
-        $parsed_response = json_decode($response->getBody()->getContents(), true);
+        $parsed_response = json_decode($response_body, true);
+
+        $response_received_event = new ResponseReceivedEvent(
+            "Response Received",
+            $parsed_response['id'],
+            $config->base_url,
+            $status_code,
+            $response->getHeaders(),
+            $response->getBody()->getContents(),
+            $config->retries,
+            1234 // TODO: work on this w/ James
+            //            (int)$request_sent_event->timestamp - (int) new DateTime,
+        );
+
+        $dispatcher->dispatch($response_received_event, $response_received_event::RESPONSE_RECEIVED);
 
 
         if (array_key_exists('error', $parsed_response)) {
@@ -206,19 +221,19 @@ final class ShipEngineClient
             throw new SystemException(
                 $error['message'],
                 $parsed_response['id'],
-                $error['data']['error_source'],
-                $error['data']['error_type'],
-                $error['data']['error_code'],
-                // TODO: confirm with James if the URL will be in the top-level of the response or nested.
+                $error['data']['source'],
+                $error['data']['type'],
+                $error['data']['code'], // TODO: confirm with James if the URL will be in
+                // the top-level of the response or nested.
             );
         } elseif ($status_code === 500) {
             $error = $parsed_response['error'];
             throw new SystemException(
                 $error['message'],
                 $parsed_response['id'],
-                $error['data']['error_source'],
-                $error['data']['error_type'],
-                $error['data']['error_code']
+                $error['data']['source'],
+                $error['data']['type'],
+                $error['data']['code']
             );
         }
 
@@ -234,7 +249,7 @@ final class ShipEngineClient
      * @return ResponseInterface
      * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    private function sendRPCRequest(array $body, ShipEngineConfig $config, ShipEngineClient $client): ResponseInterface
+    private function sendRPCRequest(array $body, ShipEngineConfig $config): ResponseInterface
     {
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
@@ -255,54 +270,54 @@ final class ShipEngineClient
 
         $error = $response['error'];
 
-        switch ($error['data']['error_type']) {
+        switch ($error['data']['type']) {
             case 'account_status':
                 throw new AccountStatusException(
                     $error['message'],
                     $response['id'],
-                    $error['data']['error_source'],
-                    $error['data']['error_type'],
-                    $error['data']['error_code']
+                    $error['data']['source'],
+                    $error['data']['type'],
+                    $error['data']['code']
                 );
             case 'security':
                 throw new SecurityException(
                     $error['message'],
                     $response['id'],
-                    $error['data']['error_source'],
-                    $error['data']['error_type'],
-                    $error['data']['error_code']
+                    $error['data']['source'],
+                    $error['data']['type'],
+                    $error['data']['code']
                 );
             case 'validation':
                 throw new ValidationException(
                     $error['message'],
                     $response['id'],
-                    $error['data']['error_source'],
-                    $error['data']['error_type'],
-                    $error['data']['error_code']
+                    $error['data']['source'],
+                    $error['data']['type'],
+                    $error['data']['code']
                 );
             case 'business_rules':
                 throw new BusinessRuleException(
                     $error['message'],
                     $response['id'],
-                    $error['data']['error_source'],
-                    $error['data']['error_type'],
-                    $error['data']['error_code']
+                    $error['data']['source'],
+                    $error['data']['type'],
+                    $error['data']['code']
                 );
             case 'system':
                 throw new SystemException(
                     $error['message'],
                     $response['id'],
-                    $error['data']['error_source'],
-                    $error['data']['error_type'],
-                    $error['data']['error_code']
+                    $error['data']['source'],
+                    $error['data']['type'],
+                    $error['data']['code']
                 );
             default:
                 throw new ShipEngineException(
                     $error['message'],
                     $response['id'],
-                    $error['data']['error_source'],
-                    $error['data']['error_type'],
-                    $error['data']['error_code']
+                    $error['data']['source'],
+                    $error['data']['type'],
+                    $error['data']['code']
                 );
         }
     }

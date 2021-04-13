@@ -2,7 +2,7 @@
 
 namespace ShipEngine\Message\Events;
 
-use ShipEngine\Util\Constants\EventType;
+use ShipEngine\Util;
 
 /**
  * Class ResponseReceivedEvent
@@ -10,6 +10,8 @@ use ShipEngine\Util\Constants\EventType;
  */
 final class ResponseReceivedEvent extends ShipEngineEvent
 {
+    use Util\Getters;
+
     /**
      * @const RESPONSE_RECEIVED
      */

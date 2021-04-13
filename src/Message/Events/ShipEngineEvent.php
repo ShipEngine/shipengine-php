@@ -3,10 +3,13 @@
 namespace ShipEngine\Message\Events;
 
 use DateTime;
+use ShipEngine\Util;
 
 class ShipEngineEvent
 {
-    private DateTime $timestamp;
+    use Util\Getters;
+
+    public DateTime $timestamp;
     private string $type;
     private string $message;
 

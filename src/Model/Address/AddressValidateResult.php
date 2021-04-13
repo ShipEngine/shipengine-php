@@ -19,7 +19,7 @@ final class AddressValidateResult implements \JsonSerializable
     /**
      * @var bool
      */
-    private ?bool $valid;
+    private bool $valid;
 
     /**
      * @var array|null
@@ -41,7 +41,7 @@ final class AddressValidateResult implements \JsonSerializable
     public function __construct(
         bool $valid,
         array $messages,
-        ?array $address
+        ?array $address = null
     ) {
         $this->valid = $valid;
         $this->messages = $messages;
