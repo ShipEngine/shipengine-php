@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Service;
 
+use DateInterval;
 use Http\Client\HttpClient;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
@@ -10,16 +11,16 @@ final class ShipEngineConfig
 {
     use Util\Getters;
 
-    const DEFAULT_BASE_URI = 'https://api.shipengine.com';
+    const DEFAULT_BASE_URI = 'https://api.shipengine.com/jsonrpc';
     const DEFAULT_PAGE_SIZE = 50;
     const DEFAULT_RETRIES = 1;
-    const DEFAULT_TIMEOUT = 5000;
+    const DEFAULT_TIMEOUT = 'PT5S';
 
     public string $api_key;
     public string $base_url;
     public int $page_size;
     public int $retries;
-    public int $timeout;
+    public DateInterval $timeout;
     public ?HttpClient $client = null;
 
     /**
@@ -30,6 +31,7 @@ final class ShipEngineConfig
      */
     public function __construct(array $config = array())
     {
+        // TODO: move the following validations into the Assert Class.
         if (isset($config['api_key']) === false || $config['api_key'] === '') {
             throw new ValidationException(
                 'A ShipEngine API key must be specified.',
@@ -42,11 +44,11 @@ final class ShipEngineConfig
             $this->api_key = $config['api_key'];
         }
 
-        if (isset($config['retries']) === true && $config['retries'] > 0) {
+        if (isset($config['retries']) === true && $config['retries'] >= 0) {
             $this->retries = $config['retries'];
         } elseif (isset($config['retries']) === false) {
             $this->retries = self::DEFAULT_RETRIES;
-        } elseif ($config['retries'] <= 0) {
+        } elseif ($config['retries'] < 0) {
             throw new ValidationException(
                 'Retries must be zero or greater.',
                 null,
@@ -56,18 +58,29 @@ final class ShipEngineConfig
             );
         }
 
-        if (isset($config['timeout']) === true && $config['timeout'] <= 0) {
+        $timeout = $config['timeout'];
+
+        if ($timeout instanceof DateInterval) {
+            if ($timeout->invert === 1) {
+                throw new ValidationException(
+                    'Timeout must be greater than zero.',
+                    null,
+                    'shipengine',
+                    'validation',
+                    'invalid_field_value'
+                );
+            }
+            $this->timeout = $timeout;
+        } elseif (isset($config['timeout']) === false) {
+            $this->timeout = new DateInterval(self::DEFAULT_TIMEOUT);
+        } else {
             throw new ValidationException(
-                'Timeout must be greater than zero.',
+                'Timeout is not a DateInterval.',
                 null,
                 'shipengine',
                 'validation',
                 'invalid_field_value'
             );
-        } elseif (isset($config['timeout']) === false) {
-            $this->retries = self::DEFAULT_RETRIES;
-        } else {
-            $this->timeout = $config['timeout'];
         }
 
         if (isset($config['client']) === true) {

@@ -12,6 +12,7 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
+ * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
  * @covers \ShipEngine\Message\Events\RequestSentEvent
  * @covers \ShipEngine\Message\Events\ShipEngineEvent
  * @covers \ShipEngine\Util\Assert
@@ -31,7 +32,6 @@ final class AddressServiceTest extends TestCase
      * @var ShipEngine
      */
     private static ShipEngine $shipengine;
-
 
     /**
      * @var Address

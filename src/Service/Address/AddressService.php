@@ -22,6 +22,7 @@ final class AddressService
      * @var ShipEngineClient
      */
     private ShipEngineClient $client;
+    // TODO: refactor to new up a new SE Client for each request -- start in validate()
 
     /**
      * AddressService constructor - this takes in the instance of the `ShipEngineClient` that
@@ -44,7 +45,11 @@ final class AddressService
     public function validate(Address $params, ShipEngineConfig $config): AddressValidateResult
     {
         $serializer = new ShipEngineSerializer();
-        $response = $this->client->request(RPCMethods::ADDRESS_VALIDATE, $params->jsonSerialize(), $config);
+        $response = $this->client->request(
+            RPCMethods::ADDRESS_VALIDATE,
+            $params->jsonSerialize(),
+            $config
+        );
 
 
         return $serializer->deserializeJsonToType(

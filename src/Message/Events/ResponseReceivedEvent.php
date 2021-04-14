@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Message\Events;
 
+use DateInterval;
 use ShipEngine\Util;
 
 /**
@@ -48,9 +49,9 @@ final class ResponseReceivedEvent extends ShipEngineEvent
     private int $retry;
 
     /**
-     * @var int
+     * @var DateInterval
      */
-    private int $elapsed;
+    private DateInterval $elapsed;
 
     /**
      * ResponseReceivedEvent constructor.
@@ -62,7 +63,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent
      * @param array $headers
      * @param string $body
      * @param int $retry
-     * @param int $elapsed
+     * @param DateInterval $elapsed
      */
     public function __construct(
         string $message,
@@ -72,7 +73,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent
         array $headers,
         string $body,
         int $retry,
-        int $elapsed
+        DateInterval $elapsed
     ) {
         parent::__construct(self::RESPONSE_RECEIVED, $message);
         $this->request_id = $request_id;

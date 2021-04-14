@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Message\Events;
 
+use DateInterval;
 use ShipEngine\Util;
 
 final class RequestSentEvent extends ShipEngineEvent
@@ -19,20 +20,20 @@ final class RequestSentEvent extends ShipEngineEvent
 
     private array $headers;
 
-    private string $body;
+    private array $body;
 
     private int $retry;
 
-    private int $timeout;
+    private DateInterval $timeout;
 
     public function __construct(
         string $message,
         string $request_id,
         string $url,
         array $headers,
-        string $body,
+        array $body,
         int $retry,
-        int $timeout
+        DateInterval $timeout
     ) {
         parent::__construct(self::REQUEST_SENT, $message);
         $this->request_id = $request_id;
