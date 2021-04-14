@@ -68,7 +68,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
     private ?string $url;
 
     /**
-     * ShipEngineException constructor - Instantiates a client-side error.
+     * ShipEngineException constructor - Instantiates a client-side error or server-side error.
      *
      * @param string $message
      * @param string|null $request_id

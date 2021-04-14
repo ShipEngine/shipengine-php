@@ -22,7 +22,6 @@ final class AddressService
      * @var ShipEngineClient
      */
     private ShipEngineClient $client;
-    // TODO: refactor to new up a new SE Client for each request -- start in validate()
 
     /**
      * AddressService constructor - this takes in the instance of the `ShipEngineClient` that

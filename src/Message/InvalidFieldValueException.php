@@ -30,29 +30,19 @@ final class InvalidFieldValueException extends ShipEngineException
      * @param string $field_name
      * @param string $reason
      * @param mixed $field_value
-     * @param string|null $request_id
-     * @param string|null $source
-     * @param string|null $type
-     * @param string|null $error_code
-     * @param string|null $url
      */
     public function __construct(
         string $field_name,
         string $reason,
-        $field_value,
-        ?string $request_id = null,
-        ?string $source = null,
-        ?string $type = null,
-        ?string $error_code = null,
-        ?string $url = null
+        $field_value
     ) {
         parent::__construct(
             "{$field_name} - {$reason}",
-            $request_id,
-            $source,
+            null,
+            null,
             ErrorType::VALIDATION,
-            isset($error_code) ? $error_code : ErrorCode::FIELD_VALUE_REQUIRED,
-            $url
+            ErrorCode::FIELD_VALUE_REQUIRED,
+            null
         );
         $this->field_name = $field_name;
         $this->field_value = $field_value;

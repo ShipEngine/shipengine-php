@@ -16,16 +16,29 @@ final class RateLimitExceededException extends ShipEngineException
 {
     use Util\Getters;
 
+    /**
+     * The amount of time (in milliseconds) to wait before retrying the request.
+     *
+     * @var int
+     */
     private int $retryAfter;
 
+    /**
+     * RateLimitExceededException constructor - Instantiates a server-side error.
+     *
+     * @param int $retryAfter
+     * @param string|null $source
+     * @param string|null $request_id
+     */
     public function __construct(
         int $retryAfter,
+        string $source = null,
         ?string $request_id = null
     ) {
         parent::__construct(
             'You have exceeded the rate limit.',
             $request_id,
-            '',
+            $source,
             ErrorType::SYSTEM,
             ErrorCode::RATE_LIMIT_EXCEEDED,
             'https://www.shipengine.com/docs/rate-limits'

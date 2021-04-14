@@ -2,6 +2,7 @@
 
 namespace Service\Address;
 
+use DateInterval;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
@@ -91,7 +92,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
+        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com/jsonrpc');
         self::$non_latin_chars_address = new Address(
             array(
                 '上鳥羽角田町６８',
@@ -175,10 +176,9 @@ final class AddressServiceTest extends TestCase
 
         self::$shipengine = new ShipEngine(array(
             'api_key' => 'baz',
-            'base_url' => 'https://api.shipengine.com',
             'page_size' => 75,
             'retries' => 7,
-            'timeout' => 15000,
+            'timeout' => new DateInterval('PT15000S'),
             'client' => null
         ));
     }

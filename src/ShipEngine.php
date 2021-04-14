@@ -31,7 +31,7 @@ final class ShipEngine
      *
      * @var ShipEngineClient
      */
-    private ShipEngineClient $shipengine;
+    private ShipEngineClient $shipengine_client;
 
     /**
      * Global configuration for the ShipEngine API client, such as timeouts,
@@ -49,7 +49,6 @@ final class ShipEngine
      */
     private ShipEngineLogger $logger;
 
-
     /**
      * Instantiates the ShipEngine class. The `api_key` you pass in can be either
      * a ShipEngine sandbox or production API Key. (sandbox keys start with "TEST_)
@@ -62,8 +61,8 @@ final class ShipEngine
         $this->config = new ShipEngineConfig(
             is_string($config) ? array('api_key' => $config) : $config
         );
-        $this->shipengine = new ShipEngineClient($this->config);
-        $this->address_service = new AddressService($this->shipengine);
+        $this->shipengine_client = new ShipEngineClient($this->config);
+        $this->address_service = new AddressService($this->shipengine_client);
     }
 
     // TODO: change return object from DTO -> a return type.
