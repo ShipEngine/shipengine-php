@@ -4,6 +4,7 @@ namespace ShipEngine;
 
 use cbschuld\UuidBase58;
 use DateTime;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
@@ -121,7 +122,7 @@ final class ShipEngineClient
             'headers' => $request_headers
         );
 
-        $client = new \GuzzleHttp\Client($guzzle_config);
+        $client = new Client($guzzle_config);
 
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
