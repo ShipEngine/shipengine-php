@@ -56,10 +56,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Model-Address-Address.html#property_phone"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024company_name",
-            "name": "company_name",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024company",
+            "name": "company",
             "summary": "",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_company_name"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_company"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult",
             "name": "AddressValidateResult",
@@ -336,6 +336,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-ShipEngine.html#property_config"
         },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024logger",
+            "name": "logger",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#property_logger"
+        },                {
             "fqsen": "\\ShipEngine\\ShipEngineClient",
             "name": "ShipEngineClient",
             "summary": "A\u0020wrapped\u0020\u0060JSON\u002DRPC\u00202.0\u0060\u0020HTTP\u0020client.",
@@ -596,6 +601,131 @@ Search.appendIndex(
             "summary": "Error\u002Dlevel\u0020message.",
             "url": "classes/ShipEngine-Message-ValidationException.html"
         },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ErrorEvent",
+            "name": "ErrorEvent",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ErrorEvent.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent",
+            "name": "RequestSentEvent",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ShipEngineEvent\u0020constructor.",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024request_id",
+            "name": "request_id",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_request_id"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024url",
+            "name": "url",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_url"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024headers",
+            "name": "headers",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_headers"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024body",
+            "name": "body",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_body"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024retry",
+            "name": "retry",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_retry"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024timeout",
+            "name": "timeout",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_timeout"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent",
+            "name": "ResponseReceivedEvent",
+            "summary": "Class\u0020ResponseReceivedEvent",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ResponseReceivedEvent\u0020constructor.",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024request_id",
+            "name": "request_id",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_request_id"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024url",
+            "name": "url",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_url"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024status_code",
+            "name": "status_code",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_status_code"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024headers",
+            "name": "headers",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_headers"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024body",
+            "name": "body",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_body"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024retry",
+            "name": "retry",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_retry"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024elapsed",
+            "name": "elapsed",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_elapsed"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ShipEngineEvent",
+            "name": "ShipEngineEvent",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ShipEngineEvent.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ShipEngineEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ShipEngineEvent\u0020constructor.",
+            "url": "classes/ShipEngine-Message-Events-ShipEngineEvent.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ShipEngineEvent\u003A\u003A\u0024timestamp",
+            "name": "timestamp",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_timestamp"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ShipEngineEvent\u003A\u003A\u0024type",
+            "name": "type",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_type"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ShipEngineEvent\u003A\u003A\u0024message",
+            "name": "message",
+            "summary": "",
+            "url": "classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_message"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\ShipEngineLogger",
+            "name": "ShipEngineLogger",
+            "summary": "Class\u0020ShipEngineLogger",
+            "url": "classes/ShipEngine-Util-ShipEngineLogger.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\ShipEngineLogger\u003A\u003Alog\u0028\u0029",
+            "name": "log",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-ShipEngineLogger.html#method_log"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -605,6 +735,11 @@ Search.appendIndex(
             "name": "Message",
             "summary": "",
             "url": "namespaces/shipengine-message.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Message\\Events",
+            "name": "Events",
+            "summary": "",
+            "url": "namespaces/shipengine-message-events.html"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address",
             "name": "Address",

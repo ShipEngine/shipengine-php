@@ -46,7 +46,7 @@ final class ShipEngineSerializer
     }
 
     /**
-     * Serialize a PHP Type object into a specific PHP Object/Type.
+     * Serialize a PHP object into a specific PHP Object/Type.
      *
      * @param mixed $php_object
      * @param string $target_class

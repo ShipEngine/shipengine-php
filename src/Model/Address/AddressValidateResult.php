@@ -19,7 +19,7 @@ final class AddressValidateResult implements \JsonSerializable
     /**
      * @var bool
      */
-    private ?bool $valid;
+    private bool $valid;
 
     /**
      * @var array|null
@@ -41,47 +41,47 @@ final class AddressValidateResult implements \JsonSerializable
     public function __construct(
         bool $valid,
         array $messages,
-        ?array $address
+        ?array $address = null
     ) {
         $this->valid = $valid;
         $this->messages = $messages;
         $this->address = $address;
-    }
+    } // TODO: refactor this to match JS
 
     /**
      * Return a JsonSerialized string representation of the `AddressValidateResult` Type.
      *
-     * ```json
+     * <code>
      * {
-     * "valid": true,
-     * "address": {
-     * "name": "ShipEngine",
-     * "phone": "1234567891",
-     * "company_name": "ShipEngine",
-     * "street": [
-     * "in nostrud consequat nisi"
-     * ],
-     * "country_code": "BK",
-     * "postal_code": "ullamco culpa",
-     * "city_locality": "aliqua",
-     * "residential": false
+     *  "valid": true,
+     *  "address": {
+     *  "name": "ShipEngine",
+     *  "phone": "1234567891",
+     *  "company_name": "ShipEngine",
+     *  "street": [
+     *      "in nostrud consequat nisi"
+     *  ],
+     *  "country_code": "BK",
+     *  "postal_code": "ullamco culpa",
+     *  "city_locality": "aliqua",
+     *  "residential": false
      * },
-     * "messages": {
-     * "errors": [
-     * "aute ea nulla",
-     * "occaecat consequat consectetur in esse",
-     * "aliqua sed"
-     * ],
-     * "info": [
-     * "Duis",
-     * "voluptate sed sunt",
-     * "nisi irure amet",
-     * "dolore aute",
-     * "exercitation esse aliquip aute est"
-     * ]
+     *  "messages": {
+     *      "errors": [
+     *          "aute ea nulla",
+     *          "occaecat consequat consectetur in esse",
+     *          "aliqua sed"
+     *      ],
+     *      "info": [
+     *          "Duis",
+     *          "voluptate sed sunt",
+     *          "nisi irure amet",
+     *          "dolore aute",
+     *          "exercitation esse aliquip aute est"
+     *      ]
+     *  }
      * }
-     * }
-     * ```
+     * <code>
      */
     public function jsonSerialize()
     {

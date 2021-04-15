@@ -24,7 +24,7 @@ final class ShipEngineTest extends TestCase
                 'base_url' => 'https://api.shipengine.com',
                 'page_size' => 75,
                 'retries' => 7,
-                'timeout' => 15000,
+                'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );

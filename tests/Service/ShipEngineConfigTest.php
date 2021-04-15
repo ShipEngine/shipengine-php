@@ -13,8 +13,8 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\Message\ShipEngineException
  * @covers \ShipEngine\Message\ValidationException
  * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngine::validateAddress
- * @covers \ShipEngine\Service\ShipEngineConfig::merge
+ * @covers \ShipEngine\ShipEngine
+ * @covers \ShipEngine\Service\ShipEngineConfig
  */
 final class ShipEngineConfigTest extends TestCase
 {
@@ -35,7 +35,7 @@ final class ShipEngineConfigTest extends TestCase
                 'base_url' => self::$test_url,
                 'page_size' => 75,
                 'retries' => 7,
-                'timeout' => 15000,
+                'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );
@@ -45,7 +45,7 @@ final class ShipEngineConfigTest extends TestCase
                 'base_url' => self::$test_url,
                 'page_size' => 75,
                 'retries' => 7,
-                'timeout' => 15000,
+                'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );
@@ -66,7 +66,7 @@ final class ShipEngineConfigTest extends TestCase
                     'base_url' => self::$test_url,
                     'page_size' => 75,
                     'retries' => 7,
-                    'timeout' => 15000,
+                    'timeout' => new \DateInterval('PT15000S'),
                     'events' => null
                 )
             );
@@ -93,7 +93,7 @@ final class ShipEngineConfigTest extends TestCase
                     'base_url' => self::$test_url,
                     'page_size' => 75,
                     'retries' => 7,
-                    'timeout' => 15000,
+                    'timeout' => new \DateInterval('PT15000S'),
                     'events' => null
                 )
             );
@@ -120,7 +120,7 @@ final class ShipEngineConfigTest extends TestCase
                     'base_url' => self::$test_url,
                     'page_size' => 75,
                     'retries' => -7,
-                    'timeout' => 15000,
+                    'timeout' => new \DateInterval('PT15000S'),
                     'events' => null
                 )
             );
@@ -147,7 +147,7 @@ final class ShipEngineConfigTest extends TestCase
                     'base_url' => self::$test_url,
                     'page_size' => 75,
                     'retries' => 7,
-                    'timeout' => 0,
+                    'timeout' => new \DateInterval('PT0S'),
                     'events' => null
                 )
             );
@@ -204,7 +204,9 @@ final class ShipEngineConfigTest extends TestCase
     public function testInvalidTimeoutInMethodCall()
     {
         try {
-            self::$shipengine->validateAddress(self::$good_address, array('timeout' => -7));
+            $di = new \DateInterval('PT7S');
+            $di->invert = 1;
+            self::$shipengine->validateAddress(self::$good_address, array('timeout' => $di));
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);

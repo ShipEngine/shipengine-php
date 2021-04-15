@@ -2,11 +2,11 @@
 
 namespace ShipEngine\Service\Address;
 
-use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
-use ShipEngine\Service\AbstractService;
 use ShipEngine\Service\ShipEngineConfig;
+use ShipEngine\ShipEngineClient;
+use ShipEngine\Util\Constants\RPCMethods;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
@@ -14,8 +14,26 @@ use ShipEngine\Util\ShipEngineSerializer;
  *
  * @package ShipEngine\Service\Address
  */
-final class AddressService extends AbstractService
+final class AddressService
 {
+    /**
+     * Service HTTP requests to ShipEngine API.
+     *
+     * @var ShipEngineClient
+     */
+    private ShipEngineClient $client;
+
+    /**
+     * AddressService constructor - this takes in the instance of the `ShipEngineClient` that
+     * the `ShipEngine` Class is using.
+     *
+     * @param ShipEngineClient $client
+     */
+    public function __construct(ShipEngineClient $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * Validate a single address via the `address/validate` remote procedure.
      *
@@ -26,7 +44,11 @@ final class AddressService extends AbstractService
     public function validate(Address $params, ShipEngineConfig $config): AddressValidateResult
     {
         $serializer = new ShipEngineSerializer();
-        $response = $this->request('address/validate', (array)$params->jsonSerialize(), $config);
+        $response = $this->client->request(
+            RPCMethods::ADDRESS_VALIDATE,
+            $params->jsonSerialize(),
+            $config
+        );
 
 
         return $serializer->deserializeJsonToType(

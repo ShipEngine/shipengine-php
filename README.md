@@ -37,6 +37,24 @@ $api_key = getenv('SHIPENGINE_API_KEY');
 
 $shipengine = new ShipEngine($api_key);
 ```
+- You can also pass the **ShipEngine** object an **array** containing `configuration` options instead of a **string**.
+```php
+<?php declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
+
+use ShipEngine\ShipEngine;
+
+$config = array(
+    'api_key' => 'baz',
+    'page_size' => 75,
+    'retries' => 3,
+    'timeout' => 15000,
+    'client' => null  // Specify null to use the default ShipEngine client.
+);
+
+$shipengine = new ShipEngine($config);
+```
 
 `Examples`
 ----------
@@ -58,24 +76,6 @@ $shipengine = new ShipEngine($api_key);
 $tracking_data = $shipengine->trackPackage('ups', 'abc123');
 
 print_r($tracking_data);
-```
-
-`Create a Tag`
-------------
-```php
-<?php declare(strict_types=1);
-
-require __DIR__ . '/vendor/autoload.php';
-
-use ShipEngine\ShipEngine;
-
-$api_key = getenv('SHIPENGINE_API_KEY');
-
-$shipengine = new ShipEngine($api_key);
-
-$new_tag = $shipengine->createTag('shipengine_sdk');
-
-print_r($new_tag);
 ```
 
 - To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).

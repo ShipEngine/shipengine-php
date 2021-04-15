@@ -2,6 +2,7 @@
 
 namespace Service\Address;
 
+use DateInterval;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
@@ -12,10 +13,14 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
+ * @covers \ShipEngine\Util\VersionInfo
+ * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @covers \ShipEngine\Message\Events\RequestSentEvent
+ * @covers \ShipEngine\Message\Events\ShipEngineEvent
+ * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\AddressValidateResult
- * @covers \ShipEngine\Service\AbstractService
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\Service\ShipEngineConfig
  * @covers \ShipEngine\Util\ShipEngineSerializer
@@ -29,7 +34,6 @@ final class AddressServiceTest extends TestCase
      * @var ShipEngine
      */
     private static ShipEngine $shipengine;
-
 
     /**
      * @var Address
@@ -89,7 +93,7 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com');
+        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com/jsonrpc');
         self::$non_latin_chars_address = new Address(
             array(
                 '上鳥羽角田町６８',
@@ -161,7 +165,7 @@ final class AddressServiceTest extends TestCase
             'Bikini Bottom',
             'Pacific Ocean',
             '4A6 G67',
-            'EA'
+            'US'
         );
         self::$get_rpc_server_error = new Address(
             array('4 Jersey St', 'ste 200', 'rpc-server-error'),
@@ -173,11 +177,9 @@ final class AddressServiceTest extends TestCase
 
         self::$shipengine = new ShipEngine(array(
             'api_key' => 'baz',
-            'base_url' => 'https://api.shipengine.com',
             'page_size' => 75,
-            'retries' => 7,
-            'timeout' => 15000,
-            'client' => null
+            'retries' => 1,
+            'timeout' => new DateInterval('PT15000S')
         ));
     }
 
@@ -585,8 +587,6 @@ EOT
         }
     }
 
-    // TODO: rename per AC -- removed state and postal.
-
     /**
      * Tests a validation with missing `state`.
      *
@@ -598,7 +598,7 @@ EOT
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testMissingState()
+    public function testMissingStatePostalAndCity()
     {
         try {
             $validationError = new Address(
@@ -798,7 +798,7 @@ EOT
         );
         $this->assertEquals($address->phone, $validation->address['phone']);
         $this->assertEquals(
-            strtoupper($address->company_name),
+            strtoupper($address->company),
             $validation->address['company_name']
         );
         $this->assertEmpty($validation->messages['warnings']);
