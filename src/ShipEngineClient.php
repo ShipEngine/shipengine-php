@@ -142,7 +142,7 @@ final class ShipEngineClient
             $response = $client->send($request, [
                 'timeout' => $config->timeout->s,
                 'http_errors' => false
-            ]); // TODO: pick up here - debug
+            ]);
         } catch (ClientException $err) {
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine {$method} API:\n" .
