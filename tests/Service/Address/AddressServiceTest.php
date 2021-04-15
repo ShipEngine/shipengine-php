@@ -27,6 +27,8 @@ use ShipEngine\ShipEngine;
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\Message\ValidationException
  * @covers \ShipEngine\Message\ShipEngineException
+ * @backupStaticAttributes enabled
+ * @runTestsInSeparateProcesses
  */
 final class AddressServiceTest extends TestCase
 {
@@ -89,6 +91,7 @@ final class AddressServiceTest extends TestCase
     /**
      * Pass an `api-key` into the new instance of the *ShipEngine* class and instantiate fixtures.
      *
+     * @beforeClass
      * @return void
      */
     public static function setUpBeforeClass(): void
