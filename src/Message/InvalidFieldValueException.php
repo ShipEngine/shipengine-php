@@ -3,7 +3,6 @@
 namespace ShipEngine\Util;
 
 use ShipEngine\Message\ShipEngineException;
-use ShipEngine\Util;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorType;
 
@@ -12,17 +11,15 @@ use ShipEngine\Util\Constants\ErrorType;
  */
 final class InvalidFieldValueException extends ShipEngineException
 {
-    use Util\Getters;
-
     /**
      * The name of the invalid field.
      */
-    private string $field_name;
+    public string $field_name;
 
     /**
      * The value of the invalid field.
      */
-    private string $field_value;
+    public string $field_value;
 
     /**
      * Instantiates a client-side error.

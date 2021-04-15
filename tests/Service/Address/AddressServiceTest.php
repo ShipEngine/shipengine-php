@@ -13,6 +13,7 @@ use ShipEngine\ShipEngine;
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
+ * @covers \ShipEngine\Util\VersionInfo
  * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
  * @covers \ShipEngine\Message\Events\RequestSentEvent
  * @covers \ShipEngine\Message\Events\ShipEngineEvent
@@ -177,9 +178,8 @@ final class AddressServiceTest extends TestCase
         self::$shipengine = new ShipEngine(array(
             'api_key' => 'baz',
             'page_size' => 75,
-            'retries' => 7,
-            'timeout' => new DateInterval('PT15000S'),
-            'client' => null
+            'retries' => 1,
+            'timeout' => new DateInterval('PT15000S')
         ));
     }
 
@@ -766,9 +766,9 @@ EOT
         $this->assertEquals(self::$good_address->state_province, $validation->address['state_province']);
         $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
         $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
-//        $this->assertFalse(array_key_exists($validation->address['name'], $validation->address));
-//        $this->assertFalse(array_key_exists($validation->address['phone'], $validation->address));
-//        $this->assertFalse(array_key_exists($validation->address['company'], $validation->address));
+        $this->assertFalse(array_key_exists($validation->address['name'], $validation->address));
+        $this->assertFalse(array_key_exists($validation->address['phone'], $validation->address));
+        $this->assertFalse(array_key_exists($validation->address['company'], $validation->address));
     }
 
     public function testWithNameCompanyPhone()

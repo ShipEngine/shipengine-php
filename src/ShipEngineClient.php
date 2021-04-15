@@ -4,6 +4,7 @@ namespace ShipEngine;
 
 use cbschuld\UuidBase58;
 use DateTime;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientExceptionInterface;
@@ -71,11 +72,11 @@ final class ShipEngineClient
     {
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                $this->sendRequest($method, $params, $retry, $config);
+                return $this->sendRequest($method, $params, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     ($err instanceof RateLimitExceededException) &&
-                    ($err->retyAfter < $config->timeout)
+                    ($err->retryAfter < $config->timeout->s)
                 ) {
                     // The request was blocked due to exceeding the rate limit.
                     // So wait the specified amount of time and then retry.
@@ -104,7 +105,7 @@ final class ShipEngineClient
         int $retry,
         ShipEngineConfig $config
     ) {
-        $base_uri = !getenv('CLIENT_BASE_URI') ? $config->base_url : getenv('CLIENT_BASE_URI');
+        $base_uri = getenv('CLIENT_BASE_URI') ?? $config->base_url;
         $dispatcher = new EventDispatcher();
         $request_headers = array(
             'Api-Key' => $config->api_key,
@@ -135,11 +136,14 @@ final class ShipEngineClient
         );
         $dispatcher->dispatch($request_sent_event, $request_sent_event::REQUEST_SENT);
 
-        $request = new Request('POST', $config->base_url, $request_headers, $jsonData);
+        $request = new Request('POST', $base_uri, $request_headers, $jsonData);
 
         try {
-            $response = $client->send($request, ['timeout' => $config->timeout->s]); // TODO: pick up here - debug
-        } catch (GuzzleException $err) {
+            $response = $client->send($request, [
+                'timeout' => $config->timeout->s,
+                'http_errors' => false
+            ]); // TODO: pick up here - debug
+        } catch (ClientException $err) {
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine {$method} API:\n" .
                 $err->getMessage(),
@@ -160,7 +164,7 @@ final class ShipEngineClient
         $response_received_event = new ResponseReceivedEvent(
             "Response Received",
             $parsed_response['id'],
-            $config->base_url,
+            $base_uri,
             $status_code,
             $response->getHeaders(),
             $parsed_response,
@@ -177,7 +181,7 @@ final class ShipEngineClient
                 $error['data']['source'],
                 $error['data']['type'],
                 $error['data']['code'],
-                $error['data']['url']
+                $error['data']['url'] ?? null
             );
         } elseif ($status_code === 500) {
             $error = $parsed_response['error'];
@@ -187,7 +191,7 @@ final class ShipEngineClient
                 $error['data']['source'],
                 $error['data']['type'],
                 $error['data']['code'],
-                $error['data']['url']
+                $error['data']['url'] ?? null
             );
         }
 

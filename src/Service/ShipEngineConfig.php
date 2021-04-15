@@ -4,6 +4,7 @@ namespace ShipEngine\Service;
 
 use DateInterval;
 use Http\Client\HttpClient;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
 
@@ -21,7 +22,6 @@ final class ShipEngineConfig
     public int $page_size;
     public int $retries;
     public DateInterval $timeout;
-    public ?HttpClient $client = null;
 
     /**
      * ShipEngineConfig constructor.
@@ -61,7 +61,7 @@ final class ShipEngineConfig
         $timeout = $config['timeout'];
 
         if ($timeout instanceof DateInterval) {
-            if ($timeout->invert === 1) {
+            if ($timeout->invert === 1 || $timeout->s === 0) {
                 throw new ValidationException(
                     'Timeout must be greater than zero.',
                     null,
@@ -83,12 +83,8 @@ final class ShipEngineConfig
             );
         }
 
-        if (isset($config['client']) === true) {
-            $this->client = $config['client'];
-        }
-
-        $this->base_url = isset($config['base_url']) ? $config['base_url'] : self::DEFAULT_BASE_URI;
-        $this->page_size = isset($config['page_size']) ? $config['page_size'] : self::DEFAULT_PAGE_SIZE;
+        $this->base_url = $config['base_url'] ?? self::DEFAULT_BASE_URI;
+        $this->page_size = $config['page_size'] ?? self::DEFAULT_PAGE_SIZE;
     }
 
     public function merge(?array $new_config): ShipEngineConfig
@@ -118,10 +114,6 @@ final class ShipEngineConfig
         isset($new_config['timeout']) ?
             ($config['timeout'] = $new_config['timeout']) :
             ($config['timeout'] = $this->timeout);
-
-        isset($new_config['client']) ?
-            ($config['client'] = $new_config['client']) :
-            ($config['client'] = $this->client);
 
         return new ShipEngineConfig($config);
     }

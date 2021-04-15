@@ -2,7 +2,6 @@
 
 namespace ShipEngine\Message;
 
-use ShipEngine\Util;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorType;
 
@@ -14,14 +13,12 @@ use ShipEngine\Util\Constants\ErrorType;
  */
 final class RateLimitExceededException extends ShipEngineException
 {
-    use Util\Getters;
-
     /**
      * The amount of time (in milliseconds) to wait before retrying the request.
      *
      * @var int
      */
-    private int $retryAfter;
+    public int $retryAfter;
 
     /**
      * RateLimitExceededException constructor - Instantiates a server-side error.
