@@ -943,6 +943,42 @@ EOT
         );
     }
 
+    /**
+     * Tests the `normalizeAddress` method with a valid address of unknown type (e.g. residential vs commercial).
+     *
+     * `Assertions:`
+     * - **valid** flag is `false`.
+     * - **address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is set to `null`.
+     */
+    public function testNormalizeValidAddressUnknownType()
+    {
+        $validation = self::$shipengine->normalizeAddress(self::$unknown_address_type);
+
+        $this->assertNotNull($validation);
+        $this->assertNull($validation->residential);
+        $this->assertEquals(
+            strtoupper(self::$unknown_address_type->street[0]),
+            $validation->street[0]
+        );
+        $this->assertEquals(
+            strtoupper(self::$unknown_address_type->city_locality),
+            $validation->city_locality
+        );
+        $this->assertEquals(
+            self::$unknown_address_type->state_province,
+            $validation->state_province
+        );
+        $this->assertEquals(
+            self::$unknown_address_type->postal_code,
+            $validation->postal_code
+        );
+        $this->assertEquals(
+            self::$unknown_address_type->country_code,
+            $validation->country_code
+        );
+    }
+
 
     public function testJsonSerialize()
     {
