@@ -65,10 +65,8 @@ final class ShipEngine
         $this->address_service = new AddressService();
     }
 
-    // TODO: change return object from DTO -> a return type.
-
     /**
-     * Validate an address sin nearly any country in the world.
+     * Validate an address in nearly any country in the world.
      *
      * @param Address $address The address to validate. This can even be an incomplete or improperly formatted address.
      * @param array|null $config Optional configuration overrides for this method call {api_key:string,
@@ -80,5 +78,21 @@ final class ShipEngine
         $config = $this->config->merge($config);
 
         return $this->address_service->validate($address, $config);
+    }
+
+
+    /**
+     * Normalize a given address into a standardized format used by carriers.
+     *
+     * @param Address $address
+     * @param array|null $config
+     * @return Address
+     * @throws ClientExceptionInterface
+     */
+    public function normalizeAddress(Address $address, array $config = null): Address
+    {
+        $config = $this->config->merge($config);
+
+        return $this->address_service->normalize($address, $config);
     }
 }
