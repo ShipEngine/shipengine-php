@@ -3,12 +3,15 @@
 namespace ShipEngine\Service\Address;
 
 use Psr\Http\Client\ClientExceptionInterface;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngineClient;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 use ShipEngine\Util\Constants\RPCMethods;
-use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Validate a single address or multiple addresses.
@@ -20,24 +23,70 @@ final class AddressService
     /**
      * Validate a single address via the `address/validate` remote procedure.
      *
-     * @param Address $params
+     * @param Address $address
      * @param ShipEngineConfig $config
      * @return AddressValidateResult
      * @throws ClientExceptionInterface
      */
-    public function validate(Address $params, ShipEngineConfig $config): AddressValidateResult
+    public function validate(Address $address, ShipEngineConfig $config): AddressValidateResult
     {
         $client = new ShipEngineClient();
-        $serializer = new ShipEngineSerializer();
         $response = $client->request(
             RPCMethods::ADDRESS_VALIDATE,
-            $params->jsonSerialize(),
+            $address->jsonSerialize(),
             $config
         );
 
-        return $serializer->deserializeJsonToType(
-            json_encode($response),
-            AddressValidateResult::class
+        return new AddressValidateResult(
+            $response['valid'],
+            $response['address'],
+            $response['messages']['info'],
+            $response['messages']['warnings'],
+            $response['messages']['errors']
+        );
+    }
+
+    /**
+     * @param Address $address
+     * @param ShipEngineConfig $config
+     * @return Address
+     * @throws ShipEngineException|ClientExceptionInterface
+     */
+    public function normalize(Address $address, ShipEngineConfig $config): Address
+    {
+        $client = new ShipEngineClient();
+        $response = $client->request(
+            RPCMethods::ADDRESS_VALIDATE,
+            $address->jsonSerialize(),
+            $config
+        );
+
+        $address = $response['address'];
+
+        if ($response['valid'] === true &&
+            isset($response['address']) &&
+            !array_key_exists($response['errors'], $response)
+        ) {
+            return new Address(
+                $address['street'],
+                $address['city_locality'],
+                $address['state_province'],
+                $address['postal_code'],
+                $address['country_code'],
+                $address['residential'],
+                $address['name'],
+                $address['phone'],
+                $address['company']
+            );
+        }
+
+        throw new ShipEngineException(
+            'The address could not be normalized.',
+            null, // TODO: confirm with James if we need to propagate the request_id to the system.
+            ErrorSource::SHIPENGINE,
+            ErrorType::SYSTEM,
+            ErrorCode::INVALID_ADDRESS,
+            null,
         );
     }
 }
