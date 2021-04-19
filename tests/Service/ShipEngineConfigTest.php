@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\ShipEngine;
 
 /**
+ * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\Service\ShipEngineConfig
  * @covers \ShipEngine\Message\ShipEngineException
  * @covers \ShipEngine\Message\ValidationException

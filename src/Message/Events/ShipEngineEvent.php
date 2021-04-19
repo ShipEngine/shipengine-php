@@ -4,11 +4,12 @@ namespace ShipEngine\Message\Events;
 
 use DateTime;
 use ShipEngine\Util;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * The events that are emitted by the ShipEngine SDK
  */
-class ShipEngineEvent
+class ShipEngineEvent extends Event
 {
     use Util\Getters;
 

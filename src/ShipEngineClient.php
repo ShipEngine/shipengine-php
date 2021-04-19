@@ -3,7 +3,6 @@
 namespace ShipEngine;
 
 use cbschuld\UuidBase58;
-use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,7 +18,7 @@ use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Service\ShipEngineConfig;
-use ShipEngine\Util;
+use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
@@ -33,18 +32,21 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  */
 final class ShipEngineClient
 {
-    use Util\Getters;
-
     /**
-     * ShipEngine Configuration for the HTTP Client.
+     * Wrap request per `JSON-RPC 2.0` spec.
      *
-     * @var ShipEngineConfig
+     * @param string $method
+     * @param array $params
+     * @return array
      */
-    private ShipEngineConfig $config;
-
-    public function __construct(ShipEngineConfig $config)
+    private function wrapRequest(string $method, array $params): array
     {
-        $this->config = $config;
+        return array_filter([
+            'id' => 'req_' . UuidBase58::id(),
+            'jsonrpc' => '2.0',
+            'method' => $method,
+            'params' => $params
+        ]);
     }
 
     /**
@@ -53,6 +55,7 @@ final class ShipEngineClient
      * @param string $method Name of an RPC method.
      * @param array $params Data that a remote procedure will make use of.
      * @param ShipEngineConfig $config
+     * @return mixed
      * @throws ClientExceptionInterface
      */
     public function request(string $method, array $params, ShipEngineConfig $config)
@@ -77,11 +80,11 @@ final class ShipEngineClient
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     ($err instanceof RateLimitExceededException) &&
-                    ($err->retryAfter < $config->timeout->s)
+                    ($err->retryAfter->s < $config->timeout->s)
                 ) {
                     // The request was blocked due to exceeding the rate limit.
                     // So wait the specified amount of time and then retry.
-                    sleep($err->retryAfter);
+                    sleep($err->retryAfter->s);
                 } else {
                     throw $err;
                 }
@@ -100,14 +103,16 @@ final class ShipEngineClient
      * @return mixed
      * @throws GuzzleException
      */
-    public function sendRequest(
+    private function sendRequest(
         string $method,
         array $params,
         int $retry,
         ShipEngineConfig $config
     ) {
+        $assert = new Assert();
         $base_uri = getenv('CLIENT_BASE_URI') ?? $config->base_url;
         $dispatcher = new EventDispatcher();
+        $shipengine_event_listener = $config->event_listener;
         $request_headers = array(
             'Api-Key' => $config->api_key,
             'User-Agent' => $this->deriveUserAgent(),
@@ -135,6 +140,11 @@ final class ShipEngineClient
             $retry,
             $config->timeout
         );
+
+        $dispatcher->addListener(
+            $request_sent_event::REQUEST_SENT,
+            [$shipengine_event_listener, 'onRequestSent']
+        );
         $dispatcher->dispatch($request_sent_event, $request_sent_event::REQUEST_SENT);
 
         $request = new Request('POST', $base_uri, $request_headers, $jsonData);
@@ -146,7 +156,7 @@ final class ShipEngineClient
             ]);
         } catch (ClientException $err) {
             throw new ShipEngineException(
-                "An unknown error occurred while calling the ShipEngine {$method} API:\n" .
+                "An unknown error occurred while calling the ShipEngine $method API:\n" .
                 $err->getMessage(),
                 null,
                 ErrorSource::SHIPENGINE,
@@ -155,10 +165,8 @@ final class ShipEngineClient
             );
         }
 
-
-        $response_body = (string) $response->getBody();
+        $response_body = (string)$response->getBody();
         $parsed_response = json_decode($response_body, true);
-
         $status_code = $response->getStatusCode();
 //        $reason_phrase = $response->getReasonPhrase();
 
@@ -170,50 +178,17 @@ final class ShipEngineClient
             $response->getHeaders(),
             $parsed_response,
             $retry,
-            (new DateTime())->diff($request_sent_event->timestamp)
+            (new \DateTime())->diff($request_sent_event->timestamp)
+        );
+        $dispatcher->addListener(
+            $response_received_event::RESPONSE_RECEIVED,
+            [$shipengine_event_listener, 'onResponseReceived']
         );
         $dispatcher->dispatch($response_received_event, $response_received_event::RESPONSE_RECEIVED);
 
-        if (array_key_exists('error', $parsed_response)) {
-            $error = $parsed_response['error'];
-            throw new SystemException(
-                $error['message'],
-                $parsed_response['id'],
-                $error['data']['source'],
-                $error['data']['type'],
-                $error['data']['code'],
-                $error['data']['url'] ?? null
-            );
-        } elseif ($status_code === 500) {
-            $error = $parsed_response['error'];
-            throw new SystemException(
-                $error['message'],
-                $parsed_response['id'],
-                $error['data']['source'],
-                $error['data']['type'],
-                $error['data']['code'],
-                $error['data']['url'] ?? null
-            );
-        }
+        $assert->doesResponseHaveError($parsed_response, $status_code);
 
         return $this->handleResponse($parsed_response);
-    }
-
-    /**
-     * Wrap request per `JSON-RPC 2.0` spec.
-     *
-     * @param string $method
-     * @param array $params
-     * @return array
-     */
-    private function wrapRequest(string $method, array $params): array
-    {
-        return array_filter([
-            'id' => 'req_' . UuidBase58::id(),
-            'jsonrpc' => '2.0',
-            'method' => $method,
-            'params' => $params
-        ]);
     }
 
     /**
@@ -270,8 +245,9 @@ final class ShipEngineClient
                     $error['data']['code']
                 );
             case ErrorCode::RATE_LIMIT_EXCEEDED:
+                $retryAfter = $error['data']['retry_after'] * 1000;
                 throw new RateLimitExceededException(
-                    $error['data']['retry_after'] * 1000,
+                    new \DateInterval("PT{$retryAfter}S"),
                     ErrorSource::SHIPENGINE,
                     $response['id']
                 );

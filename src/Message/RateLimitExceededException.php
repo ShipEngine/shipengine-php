@@ -16,19 +16,19 @@ final class RateLimitExceededException extends ShipEngineException
     /**
      * The amount of time (in milliseconds) to wait before retrying the request.
      *
-     * @var int
+     * @var \DateInterval
      */
-    public int $retryAfter;
+    public \DateInterval $retryAfter;
 
     /**
      * RateLimitExceededException constructor - Instantiates a server-side error.
      *
-     * @param int $retryAfter
+     * @param \DateInterval $retryAfter
      * @param string|null $source
      * @param string|null $request_id
      */
     public function __construct(
-        int $retryAfter,
+        \DateInterval $retryAfter,
         string $source = null,
         ?string $request_id = null
     ) {

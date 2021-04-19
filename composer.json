@@ -50,7 +50,7 @@
     "sort-packages": true
   },
   "scripts": {
-    "phpunit": "./vendor/bin/phpunit",
+    "phpunit": "./vendor/bin/phpunit --process-isolation",
     "phpstan": "./vendor/bin/phpstan analyse src --level 5",
     "phpcs": "./vendor/bin/phpcs --standard=PSR2 src",
     "phpcs-fixer": "./vendor/bin/php-cs-fixer fix -vv --config=.php_cs.dist",

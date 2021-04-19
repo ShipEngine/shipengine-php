@@ -2,6 +2,7 @@
 
 namespace ShipEngine;
 
+use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\Address\AddressService;
@@ -54,18 +55,18 @@ final class ShipEngine
      * a ShipEngine sandbox or production API Key. (sandbox keys start with "TEST_)
      *
      * @param mixed $config Can be either a string that is your `api_key` or an `array` {api_key:string,
-     * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
+     * base_url:string, page_size:int, retries:int, timeout:int, event_listener:object}
      */
     public function __construct($config = null)
     {
         $this->config = new ShipEngineConfig(
             is_string($config) ? array('api_key' => $config) : $config
         );
-        $this->shipengine_client = new ShipEngineClient($this->config);
-        $this->address_service = new AddressService($this->shipengine_client);
+        $this->address_service = new AddressService();
     }
 
     // TODO: change return object from DTO -> a return type.
+
     /**
      * Validate an address sin nearly any country in the world.
      *

@@ -4,9 +4,11 @@ namespace ShipEngine\Service;
 
 use DateInterval;
 use Http\Client\HttpClient;
+use ShipEngine\Message\Events\ShipEngineEventListener;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
+use ShipEngine\Util\Assert;
 
 final class ShipEngineConfig
 {
@@ -22,27 +24,19 @@ final class ShipEngineConfig
     public int $page_size;
     public int $retries;
     public DateInterval $timeout;
+    public $event_listener;
 
     /**
      * ShipEngineConfig constructor.
      *
      * @param array $config {api_key:string, base_url:string, page_size:int,
-     * retries:int, timeout:int, client:HttpClient|null}
+     * retries:int, timeout:DateInterval, event_listener:object}
      */
     public function __construct(array $config = array())
     {
-        // TODO: move the following validations into the Assert Class.
-        if (isset($config['api_key']) === false || $config['api_key'] === '') {
-            throw new ValidationException(
-                'A ShipEngine API key must be specified.',
-                null,
-                'shipengine',
-                'validation',
-                'field_value_required'
-            );
-        } else {
-            $this->api_key = $config['api_key'];
-        }
+        $assert = new Assert();
+        $assert->isApiKeyValid($config);
+        $this->api_key = $config['api_key'];
 
         if (isset($config['retries']) === true && $config['retries'] >= 0) {
             $this->retries = $config['retries'];
@@ -59,17 +53,8 @@ final class ShipEngineConfig
         }
 
         $timeout = $config['timeout'];
-
         if ($timeout instanceof DateInterval) {
-            if ($timeout->invert === 1 || $timeout->s === 0) {
-                throw new ValidationException(
-                    'Timeout must be greater than zero.',
-                    null,
-                    'shipengine',
-                    'validation',
-                    'invalid_field_value'
-                );
-            }
+            $assert->isTimeoutValid($timeout);
             $this->timeout = $timeout;
         } elseif (isset($config['timeout']) === false) {
             $this->timeout = new DateInterval(self::DEFAULT_TIMEOUT);
@@ -82,6 +67,12 @@ final class ShipEngineConfig
                 'invalid_field_value'
             );
         }
+
+        // TODO: debug to ensure this is working properly to set the default listener.
+        $shipengine_event_listener = new ShipEngineEventListener();
+        isset($config['event_listener']) ?
+            $this->event_listener = $config['event_listener'] :
+            $this->event_listener = $shipengine_event_listener;
 
         $this->base_url = $config['base_url'] ?? self::DEFAULT_BASE_URI;
         $this->page_size = $config['page_size'] ?? self::DEFAULT_PAGE_SIZE;
@@ -115,11 +106,14 @@ final class ShipEngineConfig
             ($config['timeout'] = $new_config['timeout']) :
             ($config['timeout'] = $this->timeout);
 
-        return new ShipEngineConfig($config);
-    }
+        isset($new_config['timeout']) ?
+            ($config['timeout'] = $new_config['timeout']) :
+            ($config['timeout'] = $this->timeout);
 
-    public function checkConfig(): ShipEngineConfig
-    {
-        return $this;
+        isset($new_config['$this->event_listener']) ?
+            ($config['$this->event_listener'] = $new_config['$this->event_listener']) :
+            ($config['$this->event_listener'] = $this->event_listener);
+
+        return new ShipEngineConfig($config);
     }
 }

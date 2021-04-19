@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Util;
 
+use ShipEngine\Message\ShipEngineException;
+use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 
 final class Assert
@@ -125,6 +127,57 @@ final class Assert
                 'shipengine',
                 'validation',
                 'invalid_field_value'
+            );
+        }
+    }
+
+    public function isApiKeyValid(array $config): void
+    {
+        if (isset($config['api_key']) === false || $config['api_key'] === '') {
+            throw new ValidationException(
+                'A ShipEngine API key must be specified.',
+                null,
+                'shipengine',
+                'validation',
+                'field_value_required'
+            );
+        }
+    }
+
+    public function isTimeoutValid(\DateInterval $timeout): void
+    {
+        if ($timeout->invert === 1 || $timeout->s === 0) {
+            throw new ValidationException(
+                'Timeout must be greater than zero.',
+                null,
+                'shipengine',
+                'validation',
+                'invalid_field_value'
+            );
+        }
+    }
+
+    public function doesResponseHaveError(array $parsed_response, int $status_code)
+    {
+        if (array_key_exists('error', $parsed_response)) {
+            $error = $parsed_response['error'];
+            throw new SystemException(
+                $error['message'],
+                $parsed_response['id'],
+                $error['data']['source'],
+                $error['data']['type'],
+                $error['data']['code'],
+                $error['data']['url'] ?? null
+            );
+        } elseif ($status_code === 500) {
+            $error = $parsed_response['error'];
+            throw new SystemException(
+                $error['message'],
+                $parsed_response['id'],
+                $error['data']['source'],
+                $error['data']['type'],
+                $error['data']['code'],
+                $error['data']['url'] ?? null
             );
         }
     }
