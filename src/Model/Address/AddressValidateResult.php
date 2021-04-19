@@ -10,7 +10,7 @@ use ShipEngine\Util;
  * @package ShipEngine\Model\Address
  * @property bool $valid
  * @property array $messages
- * @property array|null $address
+ * @property array|null $normalized_address
  */
 final class AddressValidateResult implements \JsonSerializable
 {
@@ -24,7 +24,14 @@ final class AddressValidateResult implements \JsonSerializable
     /**
      * @var array|null
      */
-    private ?array $address;
+    private ?array $normalized_address;
+
+    private array $info;
+
+    private array $warnings;
+
+    private array $errors;
+
 
     /**
      * @var array
@@ -35,51 +42,53 @@ final class AddressValidateResult implements \JsonSerializable
      * AddressValidateResult Type constructor.
      *
      * @param bool $valid
-     * @param array $messages
-     * @param array|null $address
+     * @param array|null $normalized_address
+     * @param array $info
+     * @param array $warnings
+     * @param array $errors
      */
     public function __construct(
         bool $valid,
-        array $messages,
-        ?array $address = null
+        ?array $normalized_address = null,
+        array $info = array(),
+        array $warnings = array(),
+        array $errors = array()
     ) {
         $this->valid = $valid;
-        $this->messages = $messages;
-        $this->address = $address;
-    } // TODO: refactor this to match JS
+        $this->normalized_address = $normalized_address;
+        $this->info = $info;
+        $this->warnings = $warnings;
+        $this->errors = $errors;
+    }
 
     /**
      * Return a JsonSerialized string representation of the `AddressValidateResult` Type.
      *
      * <code>
      * {
-     *  "valid": true,
-     *  "address": {
-     *  "name": "ShipEngine",
-     *  "phone": "1234567891",
-     *  "company_name": "ShipEngine",
-     *  "street": [
-     *      "in nostrud consequat nisi"
-     *  ],
-     *  "country_code": "BK",
-     *  "postal_code": "ullamco culpa",
-     *  "city_locality": "aliqua",
-     *  "residential": false
+     * "valid": true,
+     * "address": {
+     * "street": [
+     * "in nostrud consequat nisi"
+     * ],
+     * "country_code": "BK",
+     * "postal_code": "ullamco culpa",
+     * "city_locality": "aliqua",
+     * "residential": false
      * },
-     *  "messages": {
-     *      "errors": [
-     *          "aute ea nulla",
-     *          "occaecat consequat consectetur in esse",
-     *          "aliqua sed"
-     *      ],
-     *      "info": [
-     *          "Duis",
-     *          "voluptate sed sunt",
-     *          "nisi irure amet",
-     *          "dolore aute",
-     *          "exercitation esse aliquip aute est"
-     *      ]
-     *  }
+     * "info": [
+     * "Duis",
+     * "voluptate sed sunt",
+     * "nisi irure amet",
+     * "dolore aute",
+     * "exercitation esse aliquip aute est"
+     * ],
+     * "warnings": [],
+     * "errors": [
+     * "aute ea nulla",
+     * "occaecat consequat consectetur in esse",
+     * "aliqua sed"
+     * ]
      * }
      * <code>
      */
@@ -87,8 +96,10 @@ final class AddressValidateResult implements \JsonSerializable
     {
         return [
             'valid' => $this->valid,
-            'address' => $this->address,
-            'messages' => $this->messages
+            'normalized_address' => $this->normalized_address,
+            'info' => $this->info,
+            'warnings' => $this->warnings,
+            'errors' => $this->errors
         ];
     }
 }
