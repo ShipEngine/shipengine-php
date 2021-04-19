@@ -979,6 +979,45 @@ EOT
         );
     }
 
+    /**
+     * Tests `normalizeAddress()` with an `multi-line address` or an address that has values for `address_line1`,
+     * `address_line2`, and `address_line3` in the parameters of the request.
+     *
+     * `Assertions:`
+     * - Array keys passed in are the keys we get back include the necessary normalization
+     * provided by ShipEngine API.
+     * - **address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is set to `false`.
+     */
+    public function testNormalizeAddressWithMultiLineAddress()
+    {
+        $validation = self::$shipengine->normalizeAddress(self::$multi_line_address);
+
+        $this->assertArrayHasKey(0, $validation->street);
+        $this->assertArrayHasKey(1, $validation->street);
+        $this->assertArrayNotHasKey(3, $validation->street);
+        $this->assertEquals(
+            strtoupper(self::$multi_line_address->street[0] . ' ' . self::$multi_line_address->street[1]),
+            $validation->street[0]
+        );
+        $this->assertEquals(
+            strtoupper(self::$multi_line_address->city_locality),
+            $validation->city_locality
+        );
+        $this->assertEquals(
+            self::$multi_line_address->state_province,
+            $validation->state_province
+        );
+        $this->assertEquals(
+            self::$multi_line_address->postal_code,
+            $validation->postal_code
+        );
+        $this->assertEquals(
+            self::$multi_line_address->country_code,
+            $validation->country_code
+        );
+        $this->assertFalse($validation->residential);
+    }
 
     public function testJsonSerialize()
     {
