@@ -34,23 +34,6 @@ final class AddressValidateResultTest extends TestCase
         self::$serializer = new ShipEngineSerializer();
         self::$successful_address_validate_rpc_response = json_encode(array(
             'valid' => true,
-            'messages' =>
-                array(
-                    'errors' =>
-                        array(
-                            0 => 'aute ea nulla',
-                            1 => 'occaecat consequat consectetur in esse',
-                            2 => 'aliqua sed',
-                        ),
-                    'info' =>
-                        array(
-                            0 => 'Duis',
-                            1 => 'voluptate sed sunt',
-                            2 => 'nisi irure amet',
-                            3 => 'dolore aute',
-                            4 => 'exercitation esse aliquip aute est',
-                        ),
-                ),
             'address' =>
                 array(
                     'street' =>
@@ -62,6 +45,21 @@ final class AddressValidateResultTest extends TestCase
                     'city_locality' => 'aliqua',
                     'residential' => false,
                 ),
+            'info' =>
+                array(
+                    0 => 'Duis',
+                    1 => 'voluptate sed sunt',
+                    2 => 'nisi irure amet',
+                    3 => 'dolore aute',
+                    4 => 'exercitation esse aliquip aute est',
+                ),
+            'warnings' => array(),
+            'errors' =>
+                array(
+                    0 => 'aute ea nulla',
+                    1 => 'occaecat consequat consectetur in esse',
+                    2 => 'aliqua sed',
+                )
         ), JSON_PRETTY_PRINT);
         self::$successful_address_validate_result = self::$serializer->deserializeJsonToType(
             self::$successful_address_validate_rpc_response,

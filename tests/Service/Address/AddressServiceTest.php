@@ -210,22 +210,31 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$valid_residential_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
         $this->assertEquals(
             strtoupper(self::$valid_residential_address->street[0]),
-            $validation->address['street'][0]
+            $validation->normalized_address['street'][0]
         );
         $this->assertEquals(
             strtoupper(self::$valid_residential_address->city_locality),
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
-        $this->assertEquals(self::$valid_residential_address->state_province, $validation->address['state_province']);
-        $this->assertEquals(self::$valid_residential_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$valid_residential_address->country_code, $validation->address['country_code']);
-        $this->assertTrue($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(
+            self::$valid_residential_address->state_province,
+            $validation->normalized_address['state_province']
+        );
+        $this->assertEquals(
+            self::$valid_residential_address->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$valid_residential_address->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertTrue($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -242,22 +251,31 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$good_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
         $this->assertEquals(
             strtoupper(self::$good_address->street[0]),
-            $validation->address['street'][0]
+            $validation->normalized_address['street'][0]
         );
         $this->assertEquals(
             strtoupper(self::$good_address->city_locality),
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
-        $this->assertEquals(self::$good_address->state_province, $validation->address['state_province']);
-        $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
-        $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(
+            self::$good_address->state_province,
+            $validation->normalized_address['state_province']
+        );
+        $this->assertEquals(
+            self::$good_address->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$good_address->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -274,22 +292,31 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$unknown_address_type);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
         $this->assertEquals(
             strtoupper(self::$unknown_address_type->street[0]),
-            $validation->address['street'][0]
+            $validation->normalized_address['street'][0]
         );
         $this->assertEquals(
             strtoupper(self::$unknown_address_type->city_locality),
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
-        $this->assertEquals(self::$unknown_address_type->state_province, $validation->address['state_province']);
-        $this->assertEquals(self::$unknown_address_type->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$unknown_address_type->country_code, $validation->address['country_code']);
-        $this->assertNull($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(
+            self::$unknown_address_type->state_province,
+            $validation->normalized_address['state_province']
+        );
+        $this->assertEquals(
+            self::$unknown_address_type->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$unknown_address_type->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertNull($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -307,25 +334,34 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$multi_line_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
-        $this->assertArrayHasKey(0, $validation->address['street']);
-        $this->assertArrayHasKey(1, $validation->address['street']);
-        $this->assertArrayNotHasKey(3, $validation->address['street']);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertArrayHasKey(0, $validation->normalized_address['street']);
+        $this->assertArrayHasKey(1, $validation->normalized_address['street']);
+        $this->assertArrayNotHasKey(3, $validation->normalized_address['street']);
         $this->assertEquals(
             strtoupper(self::$multi_line_address->street[0] . ' ' . self::$multi_line_address->street[1]),
-            $validation->address['street'][0]
+            $validation->normalized_address['street'][0]
         );
         $this->assertEquals(
             strtoupper(self::$multi_line_address->city_locality),
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
-        $this->assertEquals(self::$multi_line_address->state_province, $validation->address['state_province']);
-        $this->assertEquals(self::$multi_line_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$multi_line_address->country_code, $validation->address['country_code']);
-        $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(
+            self::$multi_line_address->state_province,
+            $validation->normalized_address['state_province']
+        );
+        $this->assertEquals(
+            self::$multi_line_address->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$multi_line_address->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -343,22 +379,22 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$good_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
         $this->assertEquals(
             strtoupper(self::$good_address->street[0]),
-            $validation->address['street'][0]
+            $validation->normalized_address['street'][0]
         );
         $this->assertEquals(
             strtoupper(self::$good_address->city_locality),
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
         $this->assertIsNumeric(self::$good_address->postal_code);
-        $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
-        $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(self::$good_address->postal_code, $validation->normalized_address['postal_code']);
+        $this->assertEquals(self::$good_address->country_code, $validation->normalized_address['country_code']);
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -376,19 +412,19 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$canada_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
-        $this->assertEquals(self::$canada_address->street[0], $validation->address['street'][0]);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(self::$canada_address->street[0], $validation->normalized_address['street'][0]);
         $this->assertEquals(
             self::$canada_address->city_locality,
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
         $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', self::$canada_address->postal_code);
-        $this->assertEquals(self::$canada_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$canada_address->country_code, $validation->address['country_code']);
-        $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(self::$canada_address->postal_code, $validation->normalized_address['postal_code']);
+        $this->assertEquals(self::$canada_address->country_code, $validation->normalized_address['country_code']);
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -406,23 +442,29 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$non_latin_chars_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
-        $this->assertEquals('68 Kamitobatsunodacho', $validation->address['street'][0]);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals('68 Kamitobatsunodacho', $validation->normalized_address['street'][0]);
         $this->assertEquals(
             'Kyoto-Shi Minami-Ku',
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
-        $this->assertEquals('Kyoto', $validation->address['state_province']);
+        $this->assertEquals('Kyoto', $validation->normalized_address['state_province']);
         $this->assertMatchesRegularExpression(
             '/^[a-zA-Z0-9-]*$/',
             self::$non_latin_chars_address->postal_code
         );
-        $this->assertEquals(self::$non_latin_chars_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$non_latin_chars_address->country_code, $validation->address['country_code']);
-        $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertEquals(
+            self::$non_latin_chars_address->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$non_latin_chars_address->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -439,11 +481,11 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$validate_with_error);
 
         $this->assertFalse($validation->valid);
-        $this->assertNull($validation->address);
-        $this->assertNotEmpty($validation->messages['errors']);
-        $this->assertIsArray($validation->messages['errors']);
-        $this->assertIsString($validation->messages['errors'][0]);
-        $this->assertEmpty($validation->messages['warnings']);
+        $this->assertNull($validation->normalized_address);
+        $this->assertNotEmpty($validation->errors);
+        $this->assertIsArray($validation->errors);
+        $this->assertIsString($validation->errors[0]);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -461,26 +503,32 @@ final class AddressServiceTest extends TestCase
         $validation = self::$shipengine->validateAddress(self::$validate_with_warning);
 
         $this->assertTrue($validation->valid);
-        $this->assertIsArray($validation->address);
-        $this->assertNotEmpty($validation->address);
-        $this->assertEquals(self::$validate_with_warning->street[0], $validation->address['street'][0]);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(self::$validate_with_warning->street[0], $validation->normalized_address['street'][0]);
         $this->assertEquals(
             self::$validate_with_warning->city_locality,
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
         $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', self::$validate_with_warning->postal_code);
-        $this->assertEquals(self::$validate_with_warning->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$validate_with_warning->country_code, $validation->address['country_code']);
-        $this->assertFalse($validation->address['residential']);
-        $this->assertEmpty($validation->messages['errors']);
-        $this->assertNotEmpty($validation->messages['warnings']);
-        $this->assertIsString($validation->messages['warnings'][0]);
+        $this->assertEquals(
+            self::$validate_with_warning->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$validate_with_warning->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertNotEmpty($validation->warnings);
+        $this->assertIsString($validation->warnings[0]);
         $this->assertEquals(
             <<<'EOT'
 This address has been verified down to the house/building level (highest possible accuracy with the provided data)
 EOT
             ,
-            $validation->messages['warnings'][0]
+            $validation->warnings[0]
         );
     }
 
@@ -757,21 +805,30 @@ EOT
         $validation = self::$shipengine->validateAddress(self::$good_address);
 
         $this->assertTrue($validation->valid);
-        $this->assertNotEmpty($validation->address);
+        $this->assertNotEmpty($validation->normalized_address);
         $this->assertEquals(
             strtoupper(self::$good_address->street[0]),
-            $validation->address['street'][0]
+            $validation->normalized_address['street'][0]
         );
         $this->assertEquals(
             strtoupper(self::$good_address->city_locality),
-            $validation->address['city_locality']
+            $validation->normalized_address['city_locality']
         );
-        $this->assertEquals(self::$good_address->state_province, $validation->address['state_province']);
-        $this->assertEquals(self::$good_address->postal_code, $validation->address['postal_code']);
-        $this->assertEquals(self::$good_address->country_code, $validation->address['country_code']);
-//        $this->assertFalse(array_key_exists($validation->address['name'], $validation->address));
-//        $this->assertFalse(array_key_exists($validation->address['phone'], $validation->address));
-//        $this->assertFalse(array_key_exists($validation->address['company'], $validation->address));
+        $this->assertEquals(self::$good_address->state_province, $validation->normalized_address['state_province']);
+        $this->assertEquals(self::$good_address->postal_code, $validation->normalized_address['postal_code']);
+        $this->assertEquals(self::$good_address->country_code, $validation->normalized_address['country_code']);
+//        $this->assertFalse(
+//array_key_exists($validation->normalized_address['name'],
+// $validation->normalized_address)
+//);
+//        $this->assertFalse(
+//array_key_exists($validation->normalized_address['phone'],
+// $validation->normalized_address)
+//);
+//        $this->assertFalse(
+//array_key_exists($validation->normalized_address['company'],
+// $validation->normalized_address)
+//);
     }
 
     public function testWithNameCompanyPhone()
@@ -794,18 +851,18 @@ EOT
         $validation = self::$shipengine->validateAddress($address);
 
         $this->assertTrue($validation->valid);
-        $this->assertNotEmpty($validation->address);
+        $this->assertNotEmpty($validation->normalized_address);
         $this->assertEquals(
             strtoupper($address->name),
-            $validation->address['name']
+            $validation->normalized_address['name']
         );
-        $this->assertEquals($address->phone, $validation->address['phone']);
+        $this->assertEquals($address->phone, $validation->normalized_address['phone']);
         $this->assertEquals(
             strtoupper($address->company),
-            $validation->address['company_name']
+            $validation->normalized_address['company_name']
         );
-        $this->assertEmpty($validation->messages['warnings']);
-        $this->assertEmpty($validation->messages['errors']);
+        $this->assertEmpty($validation->warnings);
+        $this->assertEmpty($validation->errors);
     }
 
     // Normalize Address Tests
@@ -849,6 +906,43 @@ EOT
             $validation->country_code
         );
     }
+
+    /**
+     * Tests the `normalizeAddress` method with a valid commercial address.
+     *
+     * `Assertions:`
+     * - **valid** flag is `false`.
+     * - **address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is set to `true`.
+     */
+    public function testNormalizeValidCommercialAddress()
+    {
+        $validation = self::$shipengine->normalizeAddress(self::$good_address);
+
+        $this->assertNotNull($validation);
+        $this->assertFalse($validation->residential);
+        $this->assertEquals(
+            strtoupper(self::$good_address->street[0]),
+            $validation->street[0]
+        );
+        $this->assertEquals(
+            strtoupper(self::$good_address->city_locality),
+            $validation->city_locality
+        );
+        $this->assertEquals(
+            self::$good_address->state_province,
+            $validation->state_province
+        );
+        $this->assertEquals(
+            self::$good_address->postal_code,
+            $validation->postal_code
+        );
+        $this->assertEquals(
+            self::$good_address->country_code,
+            $validation->country_code
+        );
+    }
+
 
     public function testJsonSerialize()
     {
