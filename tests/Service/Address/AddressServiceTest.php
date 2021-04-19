@@ -808,6 +808,48 @@ EOT
         $this->assertEmpty($validation->messages['errors']);
     }
 
+    // Normalize Address Tests
+    public function testNormalizeAddressReturnType()
+    {
+        $this->assertInstanceOf(Address::class, self::$shipengine->normalizeAddress(self::$good_address));
+    }
+
+    /**
+     * Tests the `normalizeAddress` method with a valid residential address.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is set to `true`.
+     */
+    public function testNormalizeValidResidentialAddress()
+    {
+        $validation = self::$shipengine->normalizeAddress(self::$valid_residential_address);
+
+        $this->assertNotNull($validation);
+        $this->assertTrue($validation->residential);
+        $this->assertEquals(
+            strtoupper(self::$valid_residential_address->street[0]),
+            $validation->street[0]
+        );
+        $this->assertEquals(
+            strtoupper(self::$valid_residential_address->city_locality),
+            $validation->city_locality
+        );
+        $this->assertEquals(
+            self::$valid_residential_address->state_province,
+            $validation->state_province
+        );
+        $this->assertEquals(
+            self::$valid_residential_address->postal_code,
+            $validation->postal_code
+        );
+        $this->assertEquals(
+            self::$valid_residential_address->country_code,
+            $validation->country_code
+        );
+    }
+
     public function testJsonSerialize()
     {
         $this->assertIsArray(self::$shipengine->validateAddress(self::$good_address, null)->jsonSerialize());
