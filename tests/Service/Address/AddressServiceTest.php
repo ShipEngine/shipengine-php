@@ -1346,6 +1346,41 @@ EOT
         }
     }
 
+    /**
+     * Tests `normalizeAddress` a validation with missing `country_code`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
+     * - **code** os `invalid_field_value`.
+     * - **message** is "Invalid address. The country must be specified.".
+     */
+    public function testNormalizeAddressWithMissingCountryCode()
+    {
+        try {
+            new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                'Boston',
+                'MA',
+                '02215',
+                '',
+            );
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. The country must be specified.',
+                $error['message']
+            );
+        }
+    }
+
     public function testJsonSerialize()
     {
         $this->assertIsArray(self::$shipengine->validateAddress(self::$good_address, null)->jsonSerialize());
