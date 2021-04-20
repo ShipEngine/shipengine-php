@@ -1050,6 +1050,82 @@ EOT
         $this->assertFalse($validation->normalized_address['residential']);
     }
 
+    /**
+     * Tests `normalizeAddress` with that the `postal-code` is alpha and matches the postal_code passed in.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **postal_code** is alpha and matches the original address.
+     * - **residential** flag on the normalized address is `false`.
+     */
+    public function testNormalizeAddressWithAlphaPostalCode()
+    {
+        $validation = self::$shipengine->validateAddress(self::$canada_address);
+
+        $this->addressObjectAssertions($validation);
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(self::$canada_address->street[0], $validation->normalized_address['street'][0]);
+        $this->assertEquals(
+            self::$canada_address->city_locality,
+            $validation->normalized_address['city_locality']
+        );
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', self::$canada_address->postal_code);
+        $this->assertEquals(self::$canada_address->postal_code, $validation->normalized_address['postal_code']);
+        $this->assertEquals(self::$canada_address->country_code, $validation->normalized_address['country_code']);
+        $this->assertFalse($validation->normalized_address['residential']);
+    }
+
+    /**
+     * Tests `normalizeAddress` as address with non-latin characters and confirms the normalization.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **normalized address** has proper normalization applied to non-latin characters.
+     * - **residential** flag on the normalized address is `false`.
+     * - There are no **warnings** and **errors** messages.
+     */
+    public function testNormalizeAddressWithNonLatinCharacters()
+    {
+        $validation = self::$shipengine->validateAddress(self::$non_latin_chars_address);
+
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals('68 Kamitobatsunodacho', $validation->normalized_address['street'][0]);
+        $this->assertEquals(
+            'Kyoto-Shi Minami-Ku',
+            $validation->normalized_address['city_locality']
+        );
+        $this->assertEquals('Kyoto', $validation->normalized_address['state_province']);
+        $this->assertMatchesRegularExpression(
+            '/^[a-zA-Z0-9-]*$/',
+            self::$non_latin_chars_address->postal_code
+        );
+        $this->assertEquals(
+            self::$non_latin_chars_address->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$non_latin_chars_address->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertFalse($validation->normalized_address['residential']);
+    }
+
+    public function addressObjectAssertions($object)
+    {
+        $this->assertInstanceOf(AddressValidateResult::class, $object);
+        $this->assertObjectHasAttribute('valid', $object);
+        $this->assertObjectHasAttribute('normalized_address', $object);
+        $this->assertObjectHasAttribute('info', $object);
+        $this->assertObjectHasAttribute('warnings', $object);
+        $this->assertObjectHasAttribute('errors', $object);
+    }
+
     public function testJsonSerialize()
     {
         $this->assertIsArray(self::$shipengine->validateAddress(self::$good_address, null)->jsonSerialize());
