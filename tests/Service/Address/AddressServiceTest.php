@@ -883,6 +883,7 @@ EOT
     {
         $validation = self::$shipengine->normalizeAddress(self::$valid_residential_address);
 
+        $this->addressObjectAssertions($validation);
         $this->assertNotNull($validation);
         $this->assertTrue($validation->residential);
         $this->assertEquals(
@@ -919,6 +920,7 @@ EOT
     {
         $validation = self::$shipengine->normalizeAddress(self::$good_address);
 
+        $this->addressObjectAssertions($validation);
         $this->assertNotNull($validation);
         $this->assertFalse($validation->residential);
         $this->assertEquals(
@@ -955,6 +957,7 @@ EOT
     {
         $validation = self::$shipengine->normalizeAddress(self::$unknown_address_type);
 
+        $this->addressObjectAssertions($validation);
         $this->assertNotNull($validation);
         $this->assertNull($validation->residential);
         $this->assertEquals(
@@ -993,6 +996,7 @@ EOT
     {
         $validation = self::$shipengine->normalizeAddress(self::$multi_line_address);
 
+        $this->addressObjectAssertions($validation);
         $this->assertArrayHasKey(0, $validation->street);
         $this->assertArrayHasKey(1, $validation->street);
         $this->assertArrayNotHasKey(3, $validation->street);
@@ -1034,7 +1038,7 @@ EOT
     {
         $validation = self::$shipengine->validateAddress(self::$good_address);
 
-        $this->assertInstanceOf(AddressValidateResult::class, $validation);
+        $this->addressObjectAssertions($validation);
         $this->assertTrue($validation->valid);
         $this->assertEquals(
             strtoupper(self::$good_address->street[0]),
