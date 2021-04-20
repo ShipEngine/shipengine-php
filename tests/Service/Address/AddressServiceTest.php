@@ -597,7 +597,7 @@ EOT
             $this->assertNull($error['request_id']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             $this->assertEquals(ErrorType::VALIDATION, $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
                 $error['message']
@@ -740,7 +740,7 @@ EOT
             $this->assertNull($error['request_id']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             $this->assertEquals(ErrorType::VALIDATION, $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. The country must be specified.',
                 $error['message']
@@ -776,7 +776,7 @@ EOT
             $this->assertNull($error['request_id']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             $this->assertEquals(ErrorType::VALIDATION, $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
             $this->assertEquals(
                 "Invalid address. USA is not a valid country code.",
                 $error['message']
@@ -1234,6 +1234,41 @@ EOT
             $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. At least one address line is required.',
+                $error['message']
+            );
+        }
+    }
+
+    /**
+     * Tests `normalizeAddress` a validation with too many address lines.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
+     * - **code** os `field_value_required`.
+     * - **message** is "Invalid address. No more than 3 street lines are allowed.".
+     */
+    public function testNormalizeAddressWithTooManyAddressLines()
+    {
+        try {
+            new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
+                'Boston',
+                'MA',
+                '02215',
+                'US',
+            );
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. No more than 3 street lines are allowed.',
                 $error['message']
             );
         }
