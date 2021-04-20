@@ -1034,6 +1034,7 @@ EOT
     {
         $validation = self::$shipengine->validateAddress(self::$good_address);
 
+        $this->assertInstanceOf(AddressValidateResult::class, $validation);
         $this->assertTrue($validation->valid);
         $this->assertEquals(
             strtoupper(self::$good_address->street[0]),
@@ -1041,12 +1042,12 @@ EOT
         );
         $this->assertEquals(
             strtoupper(self::$good_address->city_locality),
-            $validation->city_locality
+            $validation->normalized_address['city_locality']
         );
         $this->assertIsNumeric(self::$good_address->postal_code);
-        $this->assertEquals(self::$good_address->postal_code, $validation->postal_code);
-        $this->assertEquals(self::$good_address->country_code, $validation->country_code);
-        $this->assertFalse($validation->residential);
+        $this->assertEquals(self::$good_address->postal_code, $validation->normalized_address['postal_code']);
+        $this->assertEquals(self::$good_address->country_code, $validation->normalized_address['country_code']);
+        $this->assertFalse($validation->normalized_address['residential']);
     }
 
     public function testJsonSerialize()
