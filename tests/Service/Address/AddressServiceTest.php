@@ -9,6 +9,9 @@ use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
@@ -557,9 +560,9 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. At least one address line is required.',
                 $error['message']
@@ -592,8 +595,8 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
@@ -628,9 +631,9 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
@@ -664,9 +667,9 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
@@ -700,9 +703,9 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
@@ -735,8 +738,8 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 'Invalid address. The country must be specified.',
@@ -771,8 +774,8 @@ EOT
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
             $this->assertNull($error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
-            $this->assertEquals('validation', $error['type']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
             $this->assertEquals('invalid_field_value', $error['error_code']);
             $this->assertEquals(
                 "Invalid address. USA is not a valid country code.",
@@ -790,7 +793,7 @@ EOT
             $this->assertInstanceOf(SystemException::class, $e);
             $this->assertNotEmpty($error['request_id']);
             $this->assertStringStartsWith('req_', $error['request_id']);
-            $this->assertEquals('shipengine', $error['source']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             $this->assertEquals('system', $error['type']);
             $this->assertEquals('unspecified', $error['error_code']);
             $this->assertEquals(
@@ -1169,6 +1172,28 @@ EOT
         );
     }
 
+    /**
+     * Tests `normalizeAddress` a validation with `error` messages.
+     *
+     * `Assertions:`
+     * - **valid** flag is `false`.
+     * - **address** is null.
+     * - That **error** messages are provided.
+     * - There are no **warning** messages.
+     */
+    public function testNormalizeAddressWithError()
+    {
+        // TODO: REFACTOR: per DX-1140 - should throw an error on successful reqs if address validation fails.
+        $validation = self::$shipengine->validateAddress(self::$validate_with_error);
+
+        $this->assertFalse($validation->valid);
+        $this->assertNull($validation->normalized_address);
+        $this->assertNotEmpty($validation->errors);
+        $this->assertIsArray($validation->errors);
+        $this->assertIsString($validation->errors[0]);
+        $this->assertEmpty($validation->warnings);
+    }
+
     public function addressObjectAssertions($object)
     {
         $this->assertInstanceOf(AddressValidateResult::class, $object);
@@ -1177,6 +1202,41 @@ EOT
         $this->assertObjectHasAttribute('info', $object);
         $this->assertObjectHasAttribute('warnings', $object);
         $this->assertObjectHasAttribute('errors', $object);
+    }
+
+    /**
+     * Tests `normalizeAddress` a validation with `error` messages.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
+     * - **code** os `field_value_required`.
+     * - **message** is "Invalid address. At least one address line is required.".
+     */
+    public function testNormalizeAddressWithNoAddressLines()
+    {
+        try {
+            $validationError = new Address(
+                array(),
+                'Boston',
+                'MA',
+                '02215',
+                'US',
+            );
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. At least one address line is required.',
+                $error['message']
+            );
+        }
     }
 
     public function testJsonSerialize()
