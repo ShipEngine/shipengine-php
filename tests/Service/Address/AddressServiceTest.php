@@ -548,7 +548,7 @@ EOT
     public function testNoAddressLinesValidationError()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array(),
                 'Boston',
                 'MA',
@@ -619,7 +619,7 @@ EOT
     public function testMissingCity()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array('4 Jersey St', 'Ste 200', '2nd Floor'),
                 '',
                 'MA',
@@ -655,7 +655,7 @@ EOT
     public function testMissingStatePostalAndCity()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array('4 Jersey St', 'Ste 200', '2nd Floor'),
                 '',
                 '',
@@ -726,7 +726,7 @@ EOT
     public function testMissingCountryCode()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array('4 Jersey St', 'Ste 200', '2nd Floor'),
                 'Boston',
                 'MA',
@@ -762,7 +762,7 @@ EOT
     public function testInvalidCountryCode()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array('4 Jersey St', 'Ste 200', '2nd Floor'),
                 'Boston',
                 'MA',
@@ -1217,7 +1217,7 @@ EOT
     public function testNormalizeAddressWithNoAddressLines()
     {
         try {
-            $validationError = new Address(
+            new Address(
                 array(),
                 'Boston',
                 'MA',
@@ -1269,6 +1269,78 @@ EOT
             $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
             $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
+                $error['message']
+            );
+        }
+    }
+
+    /**
+     * Tests `normalizeAddress` a validation with missing `state`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
+     * - **code** os `field_value_required`.
+     * - **message** is -
+     * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
+     */
+    public function testNormalizeAddressWithMissingStatePostalAndCity()
+    {
+        try {
+            new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                '',
+                '',
+                '',
+                'US',
+            );
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                $error['message']
+            );
+        }
+    }
+
+    /**
+     * Tests `normalizeAddress` a validation with missing `city`.
+     *
+     * `Assertions:`
+     * - **request_id** is `null`.
+     * - **source** is `ShipEngine`.
+     * - **type** is `validation`.
+     * - **code** os `field_value_required`.
+     * - **message** is -
+     * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
+     */
+    public function testNormalizeAddressWithMissingCity()
+    {
+        try {
+            new Address(
+                array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                '',
+                'MA',
+                '02215',
+                'US',
+            );
+            $this->expectException(ValidationException::class);
+        } catch (ValidationException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
             );
         }
