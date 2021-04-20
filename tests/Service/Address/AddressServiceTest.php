@@ -980,7 +980,7 @@ EOT
     }
 
     /**
-     * Tests `normalizeAddress()` with an `multi-line address` or an address that has values for `address_line1`,
+     * Tests `normalizeAddress` with an `multi-line address` or an address that has values for `address_line1`,
      * `address_line2`, and `address_line3` in the parameters of the request.
      *
      * `Assertions:`
@@ -1016,6 +1016,36 @@ EOT
             self::$multi_line_address->country_code,
             $validation->country_code
         );
+        $this->assertFalse($validation->residential);
+    }
+
+    /**
+     * Tests `normalizeAddress` where the `postal-code` on the given address is
+     * numeric and matches the postal_code passed in.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * **postal_code** is numeric and matches original postal_code.
+     * - **residential** flag on the normalized address is `false`.
+     * - There are no **warnings** and **errors** messages.
+     */
+    public function testNormalizeAddressWithNumericPostalCode()
+    {
+        $validation = self::$shipengine->validateAddress(self::$good_address);
+
+        $this->assertTrue($validation->valid);
+        $this->assertEquals(
+            strtoupper(self::$good_address->street[0]),
+            $validation->normalized_address['street'][0]
+        );
+        $this->assertEquals(
+            strtoupper(self::$good_address->city_locality),
+            $validation->city_locality
+        );
+        $this->assertIsNumeric(self::$good_address->postal_code);
+        $this->assertEquals(self::$good_address->postal_code, $validation->postal_code);
+        $this->assertEquals(self::$good_address->country_code, $validation->country_code);
         $this->assertFalse($validation->residential);
     }
 
