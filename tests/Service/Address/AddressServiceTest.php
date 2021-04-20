@@ -1086,7 +1086,6 @@ EOT
      * - **normalized address** is returned and matches the given address.
      * - **normalized address** has proper normalization applied to non-latin characters.
      * - **residential** flag on the normalized address is `false`.
-     * - There are no **warnings** and **errors** messages.
      */
     public function testNormalizeAddressWithNonLatinCharacters()
     {
@@ -1095,11 +1094,15 @@ EOT
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->normalized_address);
         $this->assertNotEmpty($validation->normalized_address);
-        $this->assertEquals('68 Kamitobatsunodacho', $validation->normalized_address['street'][0]);
+        $this->assertEquals(
+            '68 Kamitobatsunodacho',
+            $validation->normalized_address['street'][0]
+        );
         $this->assertEquals(
             'Kyoto-Shi Minami-Ku',
             $validation->normalized_address['city_locality']
         );
+
         $this->assertEquals('Kyoto', $validation->normalized_address['state_province']);
         $this->assertMatchesRegularExpression(
             '/^[a-zA-Z0-9-]*$/',
@@ -1113,6 +1116,7 @@ EOT
             self::$non_latin_chars_address->country_code,
             $validation->normalized_address['country_code']
         );
+
         $this->assertFalse($validation->normalized_address['residential']);
     }
 
