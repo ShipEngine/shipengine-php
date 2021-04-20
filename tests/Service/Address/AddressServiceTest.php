@@ -1124,6 +1124,51 @@ EOT
         $this->assertFalse($validation->normalized_address['residential']);
     }
 
+    /**
+     * Tests `normalizeAddress` a validation with `warning` messages.
+     *
+     * `Assertions:`
+     * - **valid** flag is `true`.
+     * - **normalized address** is returned and matches the given address.
+     * - **residential** flag on the normalized address is `false`.
+     * - That **warning** messages are provided.
+     * - There are no **error** messages.
+     */
+    public function testNormalizeAddressWithWarning()
+    {
+        $validation = self::$shipengine->validateAddress(self::$validate_with_warning);
+
+        $this->addressObjectAssertions($validation);
+        $this->assertTrue($validation->valid);
+        $this->assertIsArray($validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(self::$validate_with_warning->street[0], $validation->normalized_address['street'][0]);
+        $this->assertEquals(
+            self::$validate_with_warning->city_locality,
+            $validation->normalized_address['city_locality']
+        );
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', self::$validate_with_warning->postal_code);
+        $this->assertEquals(
+            self::$validate_with_warning->postal_code,
+            $validation->normalized_address['postal_code']
+        );
+        $this->assertEquals(
+            self::$validate_with_warning->country_code,
+            $validation->normalized_address['country_code']
+        );
+        $this->assertFalse($validation->normalized_address['residential']);
+        $this->assertEmpty($validation->errors);
+        $this->assertNotEmpty($validation->warnings);
+        $this->assertIsString($validation->warnings[0]);
+        $this->assertEquals(
+            <<<'EOT'
+This address has been verified down to the house/building level (highest possible accuracy with the provided data)
+EOT
+            ,
+            $validation->warnings[0]
+        );
+    }
+
     public function addressObjectAssertions($object)
     {
         $this->assertInstanceOf(AddressValidateResult::class, $object);
