@@ -794,8 +794,8 @@ EOT
             $this->assertNotEmpty($error['request_id']);
             $this->assertStringStartsWith('req_', $error['request_id']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            $this->assertEquals('system', $error['type']);
-            $this->assertEquals('unspecified', $error['error_code']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
             $this->assertEquals(
                 "Unable to connect to the database",
                 $error['message']
@@ -1412,6 +1412,25 @@ EOT
             $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
             $this->assertEquals(
                 "Invalid address. USA is not a valid country code.",
+                $error['message']
+            );
+        }
+    }
+
+    public function testNormalizeAddressWithServerSideError()
+    {
+        try {
+            self::$shipengine->validateAddress(self::$get_rpc_server_error);
+        } catch (SystemException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(SystemException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
+            $this->assertEquals(
+                "Unable to connect to the database",
                 $error['message']
             );
         }
