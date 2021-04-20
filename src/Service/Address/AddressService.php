@@ -86,7 +86,7 @@ final class AddressService
             ErrorSource::SHIPENGINE,
             ErrorType::SYSTEM,
             ErrorCode::INVALID_ADDRESS,
-            null,
+            null
         );
     }
 }

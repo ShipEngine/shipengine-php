@@ -1041,7 +1041,7 @@ EOT
     {
         $validation = self::$shipengine->validateAddress(self::$good_address);
 
-        $this->addressObjectAssertions($validation);
+        $this->addressValidateResultAssertions($validation);
         $this->assertTrue($validation->valid);
         $this->assertEquals(
             strtoupper(self::$good_address->street[0]),
@@ -1070,7 +1070,7 @@ EOT
     {
         $validation = self::$shipengine->validateAddress(self::$canada_address);
 
-        $this->addressObjectAssertions($validation);
+        $this->addressValidateResultAssertions($validation);
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->normalized_address);
         $this->assertNotEmpty($validation->normalized_address);
@@ -1141,7 +1141,7 @@ EOT
     {
         $validation = self::$shipengine->validateAddress(self::$validate_with_warning);
 
-        $this->addressObjectAssertions($validation);
+        $this->addressValidateResultAssertions($validation);
         $this->assertTrue($validation->valid);
         $this->assertIsArray($validation->normalized_address);
         $this->assertNotEmpty($validation->normalized_address);
@@ -1192,16 +1192,6 @@ EOT
         $this->assertIsArray($validation->errors);
         $this->assertIsString($validation->errors[0]);
         $this->assertEmpty($validation->warnings);
-    }
-
-    public function addressObjectAssertions($object)
-    {
-        $this->assertInstanceOf(AddressValidateResult::class, $object);
-        $this->assertObjectHasAttribute('valid', $object);
-        $this->assertObjectHasAttribute('normalized_address', $object);
-        $this->assertObjectHasAttribute('info', $object);
-        $this->assertObjectHasAttribute('warnings', $object);
-        $this->assertObjectHasAttribute('errors', $object);
     }
 
     /**
@@ -1439,5 +1429,28 @@ EOT
     public function testJsonSerialize()
     {
         $this->assertIsArray(self::$shipengine->validateAddress(self::$good_address, null)->jsonSerialize());
+    }
+
+    public function addressObjectAssertions($object)
+    {
+        $this->assertInstanceOf(Address::class, $object);
+        $this->assertObjectHasAttribute('street', $object);
+        $this->assertObjectHasAttribute('city_locality', $object);
+        $this->assertObjectHasAttribute('state_province', $object);
+        $this->assertObjectHasAttribute('postal_code', $object);
+        $this->assertObjectHasAttribute('country_code', $object);
+        $this->assertObjectHasAttribute('name', $object);
+        $this->assertObjectHasAttribute('phone', $object);
+        $this->assertObjectHasAttribute('company', $object);
+    }
+
+    public function addressValidateResultAssertions($object)
+    {
+        $this->assertInstanceOf(AddressValidateResult::class, $object);
+        $this->assertObjectHasAttribute('valid', $object);
+        $this->assertObjectHasAttribute('normalized_address', $object);
+        $this->assertObjectHasAttribute('info', $object);
+        $this->assertObjectHasAttribute('warnings', $object);
+        $this->assertObjectHasAttribute('errors', $object);
     }
 }
