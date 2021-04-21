@@ -157,19 +157,9 @@ final class Assert
         }
     }
 
-    public function doesResponseHaveError(array $parsed_response, int $status_code)
+    public function doesResponseHave500Error(array $parsed_response, int $status_code)
     {
-        if (array_key_exists('error', $parsed_response)) {
-            $error = $parsed_response['error'];
-            throw new SystemException(
-                $error['message'],
-                $parsed_response['id'],
-                $error['data']['source'],
-                $error['data']['type'],
-                $error['data']['code'],
-                $error['data']['url'] ?? null
-            );
-        } elseif ($status_code === 500) {
+        if ($status_code === 500) {
             $error = $parsed_response['error'];
             throw new SystemException(
                 $error['message'],

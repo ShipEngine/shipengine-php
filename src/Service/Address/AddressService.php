@@ -3,6 +3,7 @@
 namespace ShipEngine\Service\Address;
 
 use Psr\Http\Client\ClientExceptionInterface;
+use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
@@ -62,7 +63,6 @@ final class AddressService
         );
 
         $address = $response['address'];
-
         if ($response['valid'] === true &&
             isset($response['address']) &&
             !array_key_exists($response['errors'], $response)
@@ -80,13 +80,6 @@ final class AddressService
             );
         }
 
-        throw new ShipEngineException(
-            'The address could not be normalized.',
-            null, // TODO: confirm with James if we need to propagate the request_id to the system.
-            ErrorSource::SHIPENGINE,
-            ErrorType::SYSTEM,
-            ErrorCode::INVALID_ADDRESS,
-            null
-        );
+        return $response;
     }
 }

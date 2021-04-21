@@ -132,7 +132,7 @@ final class ShipEngineClient
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
         $request_sent_event = new RequestSentEvent(
-            "Calling the ShipEngine {$method} API at {$base_uri}",
+            "Calling the ShipEngine $method API at $base_uri",
             $body['id'],
             $base_uri,
             $request_headers,
@@ -186,7 +186,7 @@ final class ShipEngineClient
         );
         $dispatcher->dispatch($response_received_event, $response_received_event::RESPONSE_RECEIVED);
 
-        $assert->doesResponseHaveError($parsed_response, $status_code);
+        $assert->doesResponseHave500Error($parsed_response, $status_code);
 
         return $this->handleResponse($parsed_response);
     }

@@ -4,6 +4,7 @@ namespace Service\Address;
 
 use DateInterval;
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
@@ -1410,17 +1411,24 @@ EOT
     public function testNormalizeAddressWithServerSideError()
     {
         try {
-            self::$shipengine->validateAddress(self::$get_rpc_server_error);
-        } catch (SystemException $e) {
+            $get_invalid_address_error = new Address(
+                array('4 Jersey St', 'invalid-address-error'),
+                'Boston',
+                'MA',
+                '02215',
+                'US'
+            );
+            self::$shipengine->validateAddress($get_invalid_address_error);
+        } catch (BusinessRuleException $e) {
             $error = $e->jsonSerialize();
-            $this->assertInstanceOf(SystemException::class, $e);
+            $this->assertInstanceOf(BusinessRuleException::class, $e);
             $this->assertNotEmpty($error['request_id']);
             $this->assertStringStartsWith('req_', $error['request_id']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
-            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
+            $this->assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
             $this->assertEquals(
-                "Unable to connect to the database",
+                "Could not validate the address provided.",
                 $error['message']
             );
         }
