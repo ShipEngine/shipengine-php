@@ -1412,23 +1412,50 @@ EOT
     {
         try {
             $get_invalid_address_error = new Address(
-                array('4 Jersey St', 'invalid-address-error'),
+                array('4 Jersey St', 'rpc-server-error'),
                 'Boston',
                 'MA',
                 '02215',
                 'US'
             );
             self::$shipengine->validateAddress($get_invalid_address_error);
+        } catch (SystemException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(SystemException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
+            $this->assertEquals(
+                "Unable to connect to the database",
+                $error['message']
+            );
+        }
+    }
+
+    public function testNormalizeAddressWithErrorMessage()
+    {
+        try {
+            $validate_with_error = new Address(
+                array('4 Jersey St', 'validate-with-error'),
+                'Boston',
+                'MA',
+                '02215',
+                'US'
+            );
+            self::$shipengine->normalizeAddress($validate_with_error);
         } catch (BusinessRuleException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(BusinessRuleException::class, $e);
-            $this->assertNotEmpty($error['request_id']);
-            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertNull($error['request_id']); // TODO: checking null for now - change after review
+//            $this->assertNotEmpty($error['request_id']);
+//            $this->assertStringStartsWith('req_', $error['request_id']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             $this->assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
             $this->assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
             $this->assertEquals(
-                "Could not validate the address provided.",
+                "Invalid address - The address provided could not be normalized.",
                 $error['message']
             );
         }
