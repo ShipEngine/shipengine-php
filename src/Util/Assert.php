@@ -2,10 +2,20 @@
 
 namespace ShipEngine\Util;
 
+use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
+use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressValidateResult;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 
+/**
+ * Class Assert
+ * @package ShipEngine\Util
+ */
 final class Assert
 {
     /**
@@ -131,6 +141,9 @@ final class Assert
         }
     }
 
+    /**
+     * @param array $config
+     */
     public function isApiKeyValid(array $config): void
     {
         if (isset($config['api_key']) === false || $config['api_key'] === '') {
@@ -144,6 +157,9 @@ final class Assert
         }
     }
 
+    /**
+     * @param \DateInterval $timeout
+     */
     public function isTimeoutValid(\DateInterval $timeout): void
     {
         if ($timeout->invert === 1 || $timeout->s === 0) {
@@ -157,6 +173,10 @@ final class Assert
         }
     }
 
+    /**
+     * @param array $parsed_response
+     * @param int $status_code
+     */
     public function doesResponseHave500Error(array $parsed_response, int $status_code)
     {
         if ($status_code === 500) {
@@ -168,6 +188,42 @@ final class Assert
                 $error['data']['type'],
                 $error['data']['code'],
                 $error['data']['url'] ?? null
+            );
+        }
+    }
+
+    /**
+     * @param AddressValidateResult $response
+     * @param string|null $request_id
+     * @return mixed
+     */
+    public function doesNormalizedAddressHaveErrors(AddressValidateResult $response, string $request_id = null)
+    {
+        if (count($response->errors) > 1) {
+            throw new BusinessRuleException(
+                "Invalid address.\n" . implode("\n", $response->errors),
+                $request_id,  // TODO: confirm on how to get the request_id here.
+                ErrorSource::SHIPENGINE,
+                ErrorType::BUSINESS_RULES,
+                ErrorCode::INVALID_ADDRESS,
+                null
+            );
+        } elseif ($response->valid === true &&
+            isset($response->normalized_address) &&
+            count($response->errors) === 0) {
+            $serializer = new ShipEngineSerializer();
+            return $serializer->serializeDataToType(
+                $response->normalized_address,
+                Address::class
+            );
+        } else {
+            throw new BusinessRuleException(
+                'Invalid address - The address provided could not be normalized.',
+                $request_id,
+                ErrorSource::SHIPENGINE,
+                ErrorType::BUSINESS_RULES,
+                ErrorCode::INVALID_ADDRESS,
+                null
             );
         }
     }

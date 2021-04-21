@@ -9,10 +9,12 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngineClient;
+use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 use ShipEngine\Util\Constants\RPCMethods;
+use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Validate a single address or multiple addresses.
@@ -48,6 +50,8 @@ final class AddressService
     }
 
     /**
+     * Normalize a given address into a standardized format.
+     *
      * @param Address $address
      * @param ShipEngineConfig $config
      * @return Address
@@ -55,31 +59,8 @@ final class AddressService
      */
     public function normalize(Address $address, ShipEngineConfig $config): Address
     {
-        $client = new ShipEngineClient();
-        $response = $client->request(
-            RPCMethods::ADDRESS_VALIDATE,
-            $address->jsonSerialize(),
-            $config
-        );
-
-        $address = $response['address'];
-        if ($response['valid'] === true &&
-            isset($response['address']) &&
-            !array_key_exists($response['errors'], $response)
-        ) {
-            return new Address(
-                $address['street'],
-                $address['city_locality'],
-                $address['state_province'],
-                $address['postal_code'],
-                $address['country_code'],
-                $address['residential'],
-                $address['name'],
-                $address['phone'],
-                $address['company']
-            );
-        }
-
-        return $response;
+        $assert = new Assert();
+        $response = $this->validate($address, $config);
+        return $assert->doesNormalizedAddressHaveErrors($response);
     }
 }
