@@ -1461,6 +1461,33 @@ EOT
         }
     }
 
+    public function testNormalizeAddressWithMultipleErrorMessage()
+    {
+        try {
+            $validate_with_error = new Address(
+                array('4 Jersey St', 'multiple-error-messages'),
+                'Boston',
+                'MA',
+                '02215',
+                'US'
+            );
+            self::$shipengine->normalizeAddress($validate_with_error);
+        } catch (BusinessRuleException $e) {
+            $error = $e->jsonSerialize();
+            $this->assertInstanceOf(BusinessRuleException::class, $e);
+            $this->assertNull($error['request_id']); // TODO: checking null for now - change after review
+//            $this->assertNotEmpty($error['request_id']);
+//            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
+            $this->assertEquals(
+                "Invalid address.\nInvalid City, State, or Zip\nInvalid postal code",
+                $error['message']
+            );
+        }
+    }
+
     public function testJsonSerialize()
     {
         $this->assertIsArray(self::$shipengine->validateAddress(self::$good_address, null)->jsonSerialize());
