@@ -194,16 +194,15 @@ final class Assert
 
     /**
      * @param AddressValidateResult $response
-     * @param string|null $request_id
      * @return mixed
      */
     // TODO: refactor to accept $result instead of $response |
-    public function doesNormalizedAddressHaveErrors(AddressValidateResult $response, string $request_id = null)
+    public function doesNormalizedAddressHaveErrors(AddressValidateResult $response)
     {
         if (count($response->errors) > 1) {
             throw new BusinessRuleException(
                 "Invalid address.\n" . implode("\n", $response->errors),
-                $request_id,  // TODO: confirm on how to get the request_id here.
+                $response->request_id,
                 ErrorSource::SHIPENGINE,
                 ErrorType::BUSINESS_RULES,
                 ErrorCode::INVALID_ADDRESS,
@@ -212,7 +211,7 @@ final class Assert
         } elseif (count($response->errors) === 1) {
             throw new BusinessRuleException(
                 "Invalid address. " . $response->errors[0],
-                $request_id,  // TODO: confirm on how to get the request_id here.
+                $response->request_id,
                 ErrorSource::SHIPENGINE,
                 ErrorType::BUSINESS_RULES,
                 ErrorCode::INVALID_ADDRESS,
@@ -221,7 +220,7 @@ final class Assert
         } elseif (!$response->valid) {
             throw new BusinessRuleException(
                 'Invalid address - The address provided could not be normalized.',
-                $request_id,
+                $response->request_id,
                 ErrorSource::SHIPENGINE,
                 ErrorType::BUSINESS_RULES,
                 ErrorCode::INVALID_ADDRESS,

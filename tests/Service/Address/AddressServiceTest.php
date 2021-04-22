@@ -1455,9 +1455,8 @@ EOT,
         } catch (BusinessRuleException $e) {
             $error = $e->jsonSerialize();
             self::assertInstanceOf(BusinessRuleException::class, $e);
-            self::assertNull($error['request_id']); // TODO: checking null for now - change after review
-            //            self::assertNotEmpty($error['request_id']);
-            //            self::assertStringStartsWith('req_', $error['request_id']);
+            self::assertNotEmpty($error['request_id']);
+            self::assertStringStartsWith('req_', $error['request_id']);
             self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             self::assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
             self::assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
@@ -1482,9 +1481,8 @@ EOT,
         } catch (BusinessRuleException $e) {
             $error = $e->jsonSerialize();
             self::assertInstanceOf(BusinessRuleException::class, $e);
-            self::assertNull($error['request_id']); // TODO: checking null for now - change after review
-            //            self::assertNotEmpty($error['request_id']);
-            //            self::assertStringStartsWith('req_', $error['request_id']);
+            self::assertNotEmpty($error['request_id']);
+            self::assertStringStartsWith('req_', $error['request_id']);
             self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
             self::assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
             self::assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
