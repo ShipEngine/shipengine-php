@@ -30,7 +30,7 @@ final class AddressTest extends TestCase
         self::$initial_address_validate_params = json_encode(array(
             'street' =>
                 array(
-                    0 => 'validate-batch',
+                    0 => 'validate-residential-address',
                 ),
             'city_locality' => 'Boston',
             'state_province' => 'MA',

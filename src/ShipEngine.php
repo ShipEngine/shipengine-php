@@ -27,14 +27,6 @@ final class ShipEngine
     private AddressService $address_service;
 
     /**
-     * Instantiates the ShipEngine API client used for all HTTP Requests, unless
-     * a custom client has been passed in using configuration options.
-     *
-     * @var ShipEngineClient
-     */
-    private ShipEngineClient $shipengine_client;
-
-    /**
      * Global configuration for the ShipEngine API client, such as timeouts,
      * retries, page size, etc. This configuration applies to all method calls,
      * unless specifically overridden when calling a method.
@@ -69,7 +61,7 @@ final class ShipEngine
      * Validate an address in nearly any country in the world.
      *
      * @param Address $address The address to validate. This can even be an incomplete or improperly formatted address.
-     * @param array|null $config Optional configuration overrides for this method call {api_key:string,
+     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      * @return AddressValidateResult
      */
@@ -85,7 +77,7 @@ final class ShipEngine
      * Normalize a given address into a standardized format used by carriers.
      *
      * @param Address $address
-     * @param array|null $config
+     * @param array|ShipEngineConfig|null $config
      * @return Address
      * @throws ClientExceptionInterface
      */

@@ -105,6 +105,7 @@ final class Address implements \JsonSerializable
      * @param string|null $phone
      * @param string|null $company
      */
+    // TODO: refactor to accept an array instead of individual : POPO
     public function __construct(
         array $street,
         ?string $city_locality,

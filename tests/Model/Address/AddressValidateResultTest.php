@@ -17,9 +17,9 @@ final class AddressValidateResultTest extends TestCase
     private static ShipEngineSerializer $serializer;
 
     /**
-     * @var string
+     * @var array
      */
-    private static string $successful_address_validate_rpc_response;
+    private static array $successful_address_validate_rpc_response;
 
     /**
      * @var AddressValidateResult|mixed
@@ -32,7 +32,7 @@ final class AddressValidateResultTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$serializer = new ShipEngineSerializer();
-        self::$successful_address_validate_rpc_response = json_encode(array(
+        self::$successful_address_validate_rpc_response = array(
             'valid' => true,
             'address' =>
                 array(
@@ -40,30 +40,32 @@ final class AddressValidateResultTest extends TestCase
                         array(
                             0 => 'in nostrud consequat nisi',
                         ),
-                    'country_code' => 'BK',
+                    'city_locality' => 'alpine',
+                    'state_province' => 'TX',
                     'postal_code' => 'ullamco culpa',
-                    'city_locality' => 'aliqua',
+                    'country_code' => 'BK',
                     'residential' => false,
                 ),
-            'info' =>
-                array(
-                    0 => 'Duis',
-                    1 => 'voluptate sed sunt',
-                    2 => 'nisi irure amet',
-                    3 => 'dolore aute',
-                    4 => 'exercitation esse aliquip aute est',
-                ),
-            'warnings' => array(),
-            'errors' =>
-                array(
-                    0 => 'aute ea nulla',
-                    1 => 'occaecat consequat consectetur in esse',
-                    2 => 'aliqua sed',
-                )
-        ), JSON_PRETTY_PRINT);
-        self::$successful_address_validate_result = self::$serializer->deserializeJsonToType(
-            self::$successful_address_validate_rpc_response,
-            AddressValidateResult::class
+            'messages' => array(
+                'info' =>
+                    array(
+                        0 => 'Duis',
+                        1 => 'voluptate sed sunt',
+                        2 => 'nisi irure amet',
+                        3 => 'dolore aute',
+                        4 => 'exercitation esse aliquip aute est',
+                    ),
+                'warnings' => array(),
+                'errors' =>
+                    array(
+                        0 => 'aute ea nulla',
+                        1 => 'occaecat consequat consectetur in esse',
+                        2 => 'aliqua sed',
+                    )
+            )
+        );
+        self::$successful_address_validate_result = new AddressValidateResult(
+            self::$successful_address_validate_rpc_response
         );
     }
 

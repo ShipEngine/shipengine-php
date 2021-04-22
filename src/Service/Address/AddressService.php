@@ -3,18 +3,12 @@
 namespace ShipEngine\Service\Address;
 
 use Psr\Http\Client\ClientExceptionInterface;
-use ShipEngine\Message\BusinessRuleException;
-use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\ShipEngineClient;
 use ShipEngine\Util\Assert;
-use ShipEngine\Util\Constants\ErrorCode;
-use ShipEngine\Util\Constants\ErrorSource;
-use ShipEngine\Util\Constants\ErrorType;
 use ShipEngine\Util\Constants\RPCMethods;
-use ShipEngine\Util\ShipEngineSerializer;
 
 /**
  * Validate a single address or multiple addresses.
@@ -40,13 +34,7 @@ final class AddressService
             $config
         );
 
-        return new AddressValidateResult(
-            $response['valid'],
-            $response['address'],
-            $response['messages']['info'],
-            $response['messages']['warnings'],
-            $response['messages']['errors']
-        );
+        return new AddressValidateResult($response);
     }
 
     /**
@@ -55,12 +43,13 @@ final class AddressService
      * @param Address $address
      * @param ShipEngineConfig $config
      * @return Address
-     * @throws ShipEngineException|ClientExceptionInterface
+     * @throws ClientExceptionInterface
      */
     public function normalize(Address $address, ShipEngineConfig $config): Address
     {
         $assert = new Assert();
         $response = $this->validate($address, $config);
-        return $assert->doesNormalizedAddressHaveErrors($response);
+        $assert->doesNormalizedAddressHaveErrors($response);
+        return $response->normalized_address;
     }
 }

@@ -8,9 +8,10 @@ use ShipEngine\Util;
  * `AddressValidateResult` Type to be returned by *AddressService*.
  *
  * @package ShipEngine\Model\Address
- * @property bool $valid
- * @property array $messages
- * @property array|null $normalized_address
+ * @property array $result_array
+// * @property bool $valid
+// * @property array $messages
+// * @property Address|null $normalized_address
  */
 final class AddressValidateResult implements \JsonSerializable
 {
@@ -22,9 +23,9 @@ final class AddressValidateResult implements \JsonSerializable
     public bool $valid;
 
     /**
-     * @var array|null
+     * @var Address|null
      */
-    public ?array $normalized_address;
+    public ?Address $normalized_address;
 
     public array $info;
 
@@ -41,24 +42,31 @@ final class AddressValidateResult implements \JsonSerializable
     /**
      * AddressValidateResult Type constructor.
      *
-     * @param bool $valid
-     * @param array|null $normalized_address
-     * @param array $info
-     * @param array $warnings
-     * @param array $errors
+     * @param array $result_array
      */
+    // TODO: 1.) refactor to accept POPO - and add request_id and new up Address() on $this->normalized_address
     public function __construct(
-        bool $valid,
-        ?array $normalized_address = null,
-        array $info = array(),
-        array $warnings = array(),
-        array $errors = array()
+        array $result_array // FIXME: 2.) now accepting a POPO just need to document it in the docstring
     ) {
-        $this->valid = $valid;
-        $this->normalized_address = $normalized_address;
-        $this->info = $info;
-        $this->warnings = $warnings;
-        $this->errors = $errors;
+        $this->valid = $result_array['valid'];
+
+        isset($result_array['address']) ?
+            $this->normalized_address = new Address(
+                $result_array['address']['street'],
+                $result_array['address']['city_locality'],
+                $result_array['address']['state_province'],
+                $result_array['address']['postal_code'],
+                $result_array['address']['country_code'],
+                $result_array['address']['residential'],
+                $result_array['address']['name'] ?? '',
+                $result_array['address']['phone'] ?? '',
+                $result_array['address']['company_name'] ?? '',
+            ) : $this->normalized_address = null;
+
+
+        $this->info = $result_array['messages']['info'] ?? array();
+        $this->warnings = $result_array['messages']['warnings'] ?? array();
+        $this->errors = $result_array['messages']['errors'] ?? array();
     }
 
     /**

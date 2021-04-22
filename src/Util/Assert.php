@@ -197,6 +197,7 @@ final class Assert
      * @param string|null $request_id
      * @return mixed
      */
+    // TODO: refactor to accept $result instead of $response |
     public function doesNormalizedAddressHaveErrors(AddressValidateResult $response, string $request_id = null)
     {
         if (count($response->errors) > 1) {
@@ -208,15 +209,16 @@ final class Assert
                 ErrorCode::INVALID_ADDRESS,
                 null
             );
-        } elseif ($response->valid === true &&
-            isset($response->normalized_address) &&
-            count($response->errors) === 0) {
-            $serializer = new ShipEngineSerializer();
-            return $serializer->serializeDataToType(
-                $response->normalized_address,
-                Address::class
+        } elseif (count($response->errors) === 1) {
+            throw new BusinessRuleException(
+                "Invalid address. " . $response->errors[0],
+                $request_id,  // TODO: confirm on how to get the request_id here.
+                ErrorSource::SHIPENGINE,
+                ErrorType::BUSINESS_RULES,
+                ErrorCode::INVALID_ADDRESS,
+                null
             );
-        } else {
+        } elseif (!$response->valid) {
             throw new BusinessRuleException(
                 'Invalid address - The address provided could not be normalized.',
                 $request_id,
