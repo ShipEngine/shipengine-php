@@ -65,7 +65,7 @@ final class ShipEngine
      * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      * @return AddressValidateResult
      */
-    public function validateAddress(Address $address, array $config = null): AddressValidateResult
+    public function validateAddress(Address $address, $config = null): AddressValidateResult
     {
         $config = $this->config->merge($config);
 
@@ -81,7 +81,7 @@ final class ShipEngine
      * @return Address
      * @throws ClientExceptionInterface
      */
-    public function normalizeAddress(Address $address, array $config = null): Address
+    public function normalizeAddress(Address $address, $config = null): Address
     {
         $config = $this->config->merge($config);
 
