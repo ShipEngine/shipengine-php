@@ -12,11 +12,6 @@ use ShipEngine\Util\ShipEngineSerializer;
 final class AddressValidateResultTest extends TestCase
 {
     /**
-     * @var ShipEngineSerializer
-     */
-    private static ShipEngineSerializer $serializer;
-
-    /**
      * @var array
      */
     private static array $successful_address_validate_rpc_response;
@@ -31,38 +26,45 @@ final class AddressValidateResultTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$serializer = new ShipEngineSerializer();
         self::$successful_address_validate_rpc_response = array(
-            'valid' => true,
-            'address' =>
+            'jsonrpc' => '2.0',
+            'id' => 'req_4aPGmN8gkcWkK6NRa7c5Lo',
+            'result' =>
                 array(
-                    'street' =>
+                    'valid' => true,
+                    'address' =>
                         array(
-                            0 => 'in nostrud consequat nisi',
+                            'street' =>
+                                array(
+                                    0 => '4 JERSEY ST',
+                                ),
+                            'city_locality' => 'BOSTON',
+                            'state_province' => 'MA',
+                            'postal_code' => '02215',
+                            'country_code' => 'US',
+                            'residential' => true,
                         ),
-                    'city_locality' => 'alpine',
-                    'state_province' => 'TX',
-                    'postal_code' => 'ullamco culpa',
-                    'country_code' => 'BK',
-                    'residential' => false,
+                    'messages' =>
+                        array(
+                            'info' =>
+                                array(
+                                    0 => 'Duis',
+                                    1 => 'voluptate sed sunt',
+                                    2 => 'nisi irure amet',
+                                    3 => 'dolore aute',
+                                    4 => 'exercitation esse aliquip aute est',
+                                ),
+                            'errors' =>
+                                array(
+                                    0 => 'aute ea nulla',
+                                    1 => 'occaecat consequat consectetur in esse',
+                                    2 => 'aliqua sed',
+                                ),
+                            'warnings' =>
+                                array(
+                                ),
+                        ),
                 ),
-            'messages' => array(
-                'info' =>
-                    array(
-                        0 => 'Duis',
-                        1 => 'voluptate sed sunt',
-                        2 => 'nisi irure amet',
-                        3 => 'dolore aute',
-                        4 => 'exercitation esse aliquip aute est',
-                    ),
-                'warnings' => array(),
-                'errors' =>
-                    array(
-                        0 => 'aute ea nulla',
-                        1 => 'occaecat consequat consectetur in esse',
-                        2 => 'aliqua sed',
-                    )
-            )
         );
         self::$successful_address_validate_result = new AddressValidateResult(
             self::$successful_address_validate_rpc_response

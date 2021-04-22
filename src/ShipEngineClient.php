@@ -198,7 +198,7 @@ final class ShipEngineClient
     private function handleResponse(array $response)
     {
         if (isset($response['result']) === true) {
-            return $response['result'];
+            return $response;
         }
 
         $error = $response['error'];

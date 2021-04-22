@@ -33,6 +33,8 @@ final class AddressValidateResult implements \JsonSerializable
 
     public array $errors;
 
+    public ?string $request_id;
+
 
     /**
      * @var array
@@ -40,33 +42,41 @@ final class AddressValidateResult implements \JsonSerializable
     public array $messages;
 
     /**
-     * AddressValidateResult Type constructor.
+     * AddressValidateResult Type constructor. Takes in a `POPO` that contains
+     * the result object from the `JSON-RPC` response we get back.
      *
      * @param array $result_array
      */
     // TODO: 1.) refactor to accept POPO - and add request_id and new up Address() on $this->normalized_address
     public function __construct(
-        array $result_array // FIXME: 2.) now accepting a POPO just need to document it in the docstring
+        array $result_array
     ) {
-        $this->valid = $result_array['valid'];
+        $this->valid = $result_array['result']['valid'];
 
-        isset($result_array['address']) ?
+        if (isset($result_array['result']['address'])) {
+            $address = $result_array['result']['address'];
             $this->normalized_address = new Address(
-                $result_array['address']['street'],
-                $result_array['address']['city_locality'],
-                $result_array['address']['state_province'],
-                $result_array['address']['postal_code'],
-                $result_array['address']['country_code'],
-                $result_array['address']['residential'],
-                $result_array['address']['name'] ?? '',
-                $result_array['address']['phone'] ?? '',
-                $result_array['address']['company_name'] ?? '',
-            ) : $this->normalized_address = null;
+                $address['street'],
+                $address['city_locality'],
+                $address['state_province'],
+                $address['postal_code'],
+                $address['country_code'],
+                $address['residential'],
+                $address['name'] ?? '',
+                $address['phone'] ?? '',
+                $address['company_name'] ?? '',
+            );
+        } else {
+            $this->normalized_address = null;
+        }
 
+        isset($result_array['id']) ?
+            $this->request_id = $result_array['id'] :
+            $this->request_id = null;
 
-        $this->info = $result_array['messages']['info'] ?? array();
-        $this->warnings = $result_array['messages']['warnings'] ?? array();
-        $this->errors = $result_array['messages']['errors'] ?? array();
+        $this->info = $result_array['result']['messages']['info'] ?? array();
+        $this->warnings = $result_array['result']['messages']['warnings'] ?? array();
+        $this->errors = $result_array['result']['messages']['errors'] ?? array();
     }
 
     /**
