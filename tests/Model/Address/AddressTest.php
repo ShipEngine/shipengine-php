@@ -20,26 +20,21 @@ use ShipEngine\Util\ShipEngineSerializer;
  */
 final class AddressTest extends TestCase
 {
-    private static ShipEngineSerializer $serializer;
-    private static string $initial_address_validate_params;
     private static Address $successful_address_validate_params;
 
     public static function setUpBeforeClass(): void
     {
-        self::$serializer = new ShipEngineSerializer();
-        self::$initial_address_validate_params = json_encode(array(
-            'street' =>
-                array(
-                    0 => 'validate-residential-address',
+        self::$successful_address_validate_params = new Address(
+            array(
+                'street' => array(
+                    '4 Jersey St',
+                    'validate-residential-address',
                 ),
-            'city_locality' => 'Boston',
-            'state_province' => 'MA',
-            'postal_code' => '02215',
-            'country_code' => 'US',
-        ));
-        self::$successful_address_validate_params = self::$serializer->deserializeJsonToType(
-            self::$initial_address_validate_params,
-            Address::class
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
     }
 
@@ -69,11 +64,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array(),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array(),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -104,11 +101,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -129,11 +128,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                '',
-                '',
-                '',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => '',
+                    'state_province' => '',
+                    'postal_code' => '',
+                    'country_code' => 'US',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -154,11 +155,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                '',
-                'MA',
-                '',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => '',
+                    'state_province' => 'MA',
+                    'postal_code' => '',
+                    'country_code' => 'US',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -190,11 +193,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                '',
-                '',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => '',
+                    'postal_code' => '',
+                    'country_code' => 'US',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -225,11 +230,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '02215',
-                '',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => '',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -261,11 +268,13 @@ final class AddressTest extends TestCase
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '02215',
-                'USA',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'USA',
+                )
             );
             $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {

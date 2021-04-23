@@ -66,14 +66,15 @@ final class AddressServiceTest extends TestCase
     public function testReturnType(): void
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->validateAddress($good_address);
-
         self::assertInstanceOf(AddressValidateResult::class, $validation);
     }
 
@@ -89,11 +90,13 @@ final class AddressServiceTest extends TestCase
     public function testValidResidentialAddress()
     {
         $valid_residential_address = new Address(
-            array('4 Jersey St', 'validate-residential-address'),
-            'Boston',
-            'MA',
-            '02215',
-            'US'
+            array(
+                'street' => array('4 Jersey St', 'validate-residential-address'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US'
+            )
         );
         $validation = self::$shipengine->validateAddress($valid_residential_address);
 
@@ -137,11 +140,13 @@ final class AddressServiceTest extends TestCase
     public function testValidCommercialAddress()
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
@@ -185,11 +190,13 @@ final class AddressServiceTest extends TestCase
     public function testAddressUnknownType()
     {
         $unknown_address_type = new Address(
-            array('4 Jersey St', 'validate-unknown-address'),
-            'Boston',
-            'MA',
-            '02215',
-            'US'
+            array(
+                'street' => array('4 Jersey St', 'validate-unknown-address'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US'
+            )
         );
         $validation = self::$shipengine->validateAddress($unknown_address_type);
 
@@ -235,14 +242,16 @@ final class AddressServiceTest extends TestCase
     {
         $multi_line_address = new Address(
             array(
-                '4 Jersey St',
-                'ste 200',
-                'multi-line-address'
-            ),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+                'street' => array(
+                    '4 Jersey St',
+                    'ste 200',
+                    'multi-line-address'
+                ),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->validateAddress($multi_line_address);
 
@@ -290,11 +299,13 @@ final class AddressServiceTest extends TestCase
     public function testNumericPostalCode()
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
@@ -330,11 +341,13 @@ final class AddressServiceTest extends TestCase
     public function testAlphaPostalCode()
     {
         $canada_address = new Address(
-            array('170 Princes\' Blvd', 'validate-canadian-address'),
-            'Toronto',
-            'ON',
-            'M6K 3C3',
-            'CA',
+            array(
+                'street' => array('170 Princes\' Blvd', 'validate-canadian-address'),
+                'city_locality' => 'Toronto',
+                'state_province' => 'ON',
+                'postal_code' => 'M6K 3C3',
+                'country_code' => 'CA',
+            )
         );
         $validation = self::$shipengine->validateAddress($canada_address);
 
@@ -368,13 +381,15 @@ final class AddressServiceTest extends TestCase
     {
         $non_latin_chars_address = new Address(
             array(
-                '上鳥羽角田町６８',
-                'validate-with-non-latin-chars'
-            ),
-            '南区',
-            '京都',
-            '601-8104',
-            'JP'
+                'street' => array(
+                    '上鳥羽角田町６８',
+                    'validate-with-non-latin-chars'
+                ),
+                'city_locality' => '南区',
+                'state_province' => '京都',
+                'postal_code' => '601-8104',
+                'country_code' => 'JP'
+            )
         );
         $validation = self::$shipengine->validateAddress($non_latin_chars_address);
 
@@ -416,11 +431,13 @@ final class AddressServiceTest extends TestCase
     public function testValidateWithError()
     {
         $validate_with_error = new Address(
-            array('124 Conch St', 'validate-with-error'),
-            'Bikini Bottom',
-            'Pacific Ocean',
-            '4A6 G67',
-            'US'
+            array(
+                'street' => array('124 Conch St', 'validate-with-error'),
+                'city_locality' => 'Bikini Bottom',
+                'state_province' => 'Pacific Ocean',
+                'postal_code' => '4A6 G67',
+                'country_code' => 'US'
+            )
         );
         $validation = self::$shipengine->validateAddress($validate_with_error);
 
@@ -445,11 +462,13 @@ final class AddressServiceTest extends TestCase
     public function testValidateWithWarning()
     {
         $validate_with_warning = new Address(
-            array('170 Princes\' Blvd', 'validate-with-warning'),
-            'Toronto',
-            'ON',
-            'M6K 3C3',
-            'CA',
+            array(
+                'street' => array('170 Princes\' Blvd', 'validate-with-warning'),
+                'city_locality' => 'Toronto',
+                'state_province' => 'ON',
+                'postal_code' => 'M6K 3C3',
+                'country_code' => 'CA',
+            )
         );
         $validation = self::$shipengine->validateAddress($validate_with_warning);
 
@@ -496,11 +515,13 @@ EOT,
     {
         try {
             new Address(
-                array(),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array(),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -531,11 +552,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -567,11 +590,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                '',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => '',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -603,11 +628,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                '',
-                '',
-                '',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => '',
+                    'state_province' => '',
+                    'postal_code' => '',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -639,11 +666,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -674,11 +703,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '02215',
-                '',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => '',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -710,11 +741,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '02215',
-                'USA',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'USA',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -735,11 +768,13 @@ EOT,
     {
         try {
             $get_rpc_server_error = new Address(
-                array('4 Jersey St', 'ste 200', 'rpc-server-error'),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'ste 200', 'rpc-server-error'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::$shipengine->validateAddress($get_rpc_server_error);
         } catch (SystemException $e) {
@@ -760,11 +795,13 @@ EOT,
     public function testNoNameCompanyPhone()
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
@@ -799,18 +836,20 @@ EOT,
     {
         $address = new Address(
             array(
-                '4 Jersey St',
-                'ste 200',
-                'validate-with-personal-info'
-            ),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
-            false,
-            'Bruce Wayne',
-            '1234567891',
-            'ShipEngine'
+                'street' => array(
+                    '4 Jersey St',
+                    'ste 200',
+                    'validate-with-personal-info'
+                ),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+                'residential' => false,
+                'name' => 'Bruce Wayne',
+                'phone' => '1234567891',
+                'company_name' => 'ShipEngine'
+            )
         );
         $validation = self::$shipengine->validateAddress($address);
 
@@ -833,11 +872,13 @@ EOT,
     public function testNormalizeAddressReturnType()
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         self::assertInstanceOf(Address::class, self::$shipengine->normalizeAddress($good_address));
     }
@@ -853,11 +894,13 @@ EOT,
     public function testNormalizeValidResidentialAddress()
     {
         $valid_residential_address = new Address(
-            array('4 Jersey St', 'validate-residential-address'),
-            'Boston',
-            'MA',
-            '02215',
-            'US'
+            array(
+                'street' => array('4 Jersey St', 'validate-residential-address'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US'
+            )
         );
         $validation = self::$shipengine->normalizeAddress($valid_residential_address);
 
@@ -897,11 +940,13 @@ EOT,
     public function testNormalizeValidCommercialAddress()
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->normalizeAddress($good_address);
 
@@ -941,11 +986,13 @@ EOT,
     public function testNormalizeValidAddressUnknownType()
     {
         $unknown_address_type = new Address(
-            array('4 Jersey St', 'validate-unknown-address'),
-            'Boston',
-            'MA',
-            '02215',
-            'US'
+            array(
+                'street' => array('4 Jersey St', 'validate-unknown-address'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US'
+            )
         );
         $validation = self::$shipengine->normalizeAddress($unknown_address_type);
 
@@ -988,14 +1035,16 @@ EOT,
     {
         $multi_line_address = new Address(
             array(
-                '4 Jersey St',
-                'ste 200',
-                'multi-line-address'
-            ),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+                'street' => array(
+                    '4 Jersey St',
+                    'ste 200',
+                    'multi-line-address'
+                ),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->normalizeAddress($multi_line_address);
 
@@ -1040,11 +1089,13 @@ EOT,
     public function testNormalizeAddressWithNumericPostalCode(): void
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
@@ -1076,11 +1127,13 @@ EOT,
     public function testNormalizeAddressWithAlphaPostalCode(): void
     {
         $canada_address = new Address(
-            array('170 Princes\' Blvd', 'validate-canadian-address'),
-            'Toronto',
-            'ON',
-            'M6K 3C3',
-            'CA',
+            array(
+                'street' => array('170 Princes\' Blvd', 'validate-canadian-address'),
+                'city_locality' => 'Toronto',
+                'state_province' => 'ON',
+                'postal_code' => 'M6K 3C3',
+                'country_code' => 'CA',
+            )
         );
         $validation = self::$shipengine->validateAddress($canada_address);
 
@@ -1112,13 +1165,15 @@ EOT,
     {
         $non_latin_chars_address = new Address(
             array(
-                '上鳥羽角田町６８',
-                'validate-with-non-latin-chars'
-            ),
-            '南区',
-            '京都',
-            '601-8104',
-            'JP'
+                'street' => array(
+                    '上鳥羽角田町６８',
+                    'validate-with-non-latin-chars'
+                ),
+                'city_locality' => '南区',
+                'state_province' => '京都',
+                'postal_code' => '601-8104',
+                'country_code' => 'JP'
+            )
         );
         $validation = self::$shipengine->validateAddress($non_latin_chars_address);
 
@@ -1164,11 +1219,13 @@ EOT,
     public function testNormalizeAddressWithWarning()
     {
         $validate_with_warning = new Address(
-            array('170 Princes\' Blvd', 'validate-with-warning'),
-            'Toronto',
-            'ON',
-            'M6K 3C3',
-            'CA',
+            array(
+                'street' => array('170 Princes\' Blvd', 'validate-with-warning'),
+                'city_locality' => 'Toronto',
+                'state_province' => 'ON',
+                'postal_code' => 'M6K 3C3',
+                'country_code' => 'CA',
+            )
         );
         $validation = self::$shipengine->validateAddress($validate_with_warning);
 
@@ -1216,11 +1273,13 @@ EOT,
     {
         try {
             new Address(
-                array(),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array(),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -1251,11 +1310,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
-                'Boston',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor', 'Clubhouse Level'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -1287,11 +1348,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                '',
-                '',
-                '',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => '',
+                    'state_province' => '',
+                    'postal_code' => '',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -1323,11 +1386,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                '',
-                'MA',
-                '02215',
-                'US',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => '',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -1358,11 +1423,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '02215',
-                '',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => '',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -1394,11 +1461,13 @@ EOT,
     {
         try {
             new Address(
-                array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'Boston',
-                'MA',
-                '02215',
-                'USA',
+                array(
+                    'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'USA',
+                )
             );
             self::expectException(ValidationException::class);
         } catch (ValidationException $e) {
@@ -1419,11 +1488,13 @@ EOT,
     {
         try {
             $get_invalid_address_error = new Address(
-                array('4 Jersey St', 'rpc-server-error'),
-                'Boston',
-                'MA',
-                '02215',
-                'US'
+                array(
+                    'street' => array('4 Jersey St', 'rpc-server-error'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US'
+                )
             );
             self::$shipengine->validateAddress($get_invalid_address_error);
         } catch (SystemException $e) {
@@ -1445,11 +1516,13 @@ EOT,
     {
         try {
             $validate_with_error = new Address(
-                array('4 Jersey St', 'validate-with-error'),
-                'Boston',
-                'MA',
-                '02215',
-                'US'
+                array(
+                    'street' => array('4 Jersey St', 'validate-with-error'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US'
+                )
             );
             self::$shipengine->normalizeAddress($validate_with_error);
         } catch (BusinessRuleException $e) {
@@ -1471,11 +1544,13 @@ EOT,
     {
         try {
             $validate_with_error = new Address(
-                array('4 Jersey St', 'multiple-error-messages'),
-                'Boston',
-                'MA',
-                '02215',
-                'US'
+                array(
+                    'street' => array('4 Jersey St', 'multiple-error-messages'),
+                    'city_locality' => 'Boston',
+                    'state_province' => 'MA',
+                    'postal_code' => '02215',
+                    'country_code' => 'US'
+                )
             );
             self::$shipengine->normalizeAddress($validate_with_error);
         } catch (BusinessRuleException $e) {
@@ -1496,11 +1571,13 @@ EOT,
     public function testJsonSerialize(): void
     {
         $good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
         self::assertIsArray(self::$shipengine->validateAddress($good_address)->jsonSerialize());
     }

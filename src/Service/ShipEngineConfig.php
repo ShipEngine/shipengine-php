@@ -3,9 +3,7 @@
 namespace ShipEngine\Service;
 
 use DateInterval;
-use Http\Client\HttpClient;
 use ShipEngine\Message\Events\ShipEngineEventListener;
-use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util;
 use ShipEngine\Util\Assert;
@@ -68,11 +66,10 @@ final class ShipEngineConfig
             );
         }
 
-        // TODO: debug to ensure this is working properly to set the default listener.
-        $shipengine_event_listener = new ShipEngineEventListener();
+        // TODO: EVENT LISTENER - debug to ensure this is working properly to set the default listener.
         isset($config['event_listener']) ?
             $this->event_listener = $config['event_listener'] :
-            $this->event_listener = $shipengine_event_listener;
+            $this->event_listener =  new ShipEngineEventListener();
 
         $this->base_url = $config['base_url'] ?? self::DEFAULT_BASE_URI;
         $this->page_size = $config['page_size'] ?? self::DEFAULT_PAGE_SIZE;

@@ -28,13 +28,13 @@ final class AddressService
     public function validate(Address $address, ShipEngineConfig $config): AddressValidateResult
     {
         $client = new ShipEngineClient();
-        $response = $client->request(
+        $api_response = $client->request(
             RPCMethods::ADDRESS_VALIDATE,
             $address->jsonSerialize(),
             $config
         );
 
-        return new AddressValidateResult($response);
+        return new AddressValidateResult($api_response);
     }
 
     /**
@@ -48,8 +48,8 @@ final class AddressService
     public function normalize(Address $address, ShipEngineConfig $config): Address
     {
         $assert = new Assert();
-        $response = $this->validate($address, $config);
-        $assert->doesNormalizedAddressHaveErrors($response);
-        return $response->normalized_address;
+        $validation_result = $this->validate($address, $config);
+        $assert->doesNormalizedAddressHaveErrors($validation_result);
+        return $validation_result->normalized_address;
     }
 }

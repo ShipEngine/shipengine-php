@@ -28,7 +28,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 /**
  * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
  *
- * @pacakge ShipEngine
+ * @package ShipEngine
  */
 final class ShipEngineClient
 {
@@ -110,7 +110,7 @@ final class ShipEngineClient
         ShipEngineConfig $config
     ) {
         $assert = new Assert();
-        $base_uri = getenv('CLIENT_BASE_URI') ?? $config->base_url;
+        $base_uri = !getenv('CLIENT_BASE_URI') ? $config->base_url : getenv('CLIENT_BASE_URI');
         $dispatcher = new EventDispatcher();
         $shipengine_event_listener = $config->event_listener;
         $request_headers = array(
