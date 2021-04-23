@@ -27,14 +27,6 @@ final class ShipEngine
     private AddressService $address_service;
 
     /**
-     * Instantiates the ShipEngine API client used for all HTTP Requests, unless
-     * a custom client has been passed in using configuration options.
-     *
-     * @var ShipEngineClient
-     */
-    private ShipEngineClient $shipengine_client;
-
-    /**
      * Global configuration for the ShipEngine API client, such as timeouts,
      * retries, page size, etc. This configuration applies to all method calls,
      * unless specifically overridden when calling a method.
@@ -65,20 +57,34 @@ final class ShipEngine
         $this->address_service = new AddressService();
     }
 
-    // TODO: change return object from DTO -> a return type.
-
     /**
-     * Validate an address sin nearly any country in the world.
+     * Validate an address in nearly any country in the world.
      *
      * @param Address $address The address to validate. This can even be an incomplete or improperly formatted address.
-     * @param array|null $config Optional configuration overrides for this method call {api_key:string,
+     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      * @return AddressValidateResult
      */
-    public function validateAddress(Address $address, array $config = null): AddressValidateResult
+    public function validateAddress(Address $address, $config = null): AddressValidateResult
     {
         $config = $this->config->merge($config);
 
         return $this->address_service->validate($address, $config);
+    }
+
+
+    /**
+     * Normalize a given address into a standardized format used by carriers.
+     *
+     * @param Address $address
+     * @param array|ShipEngineConfig|null $config
+     * @return Address
+     * @throws ClientExceptionInterface
+     */
+    public function normalizeAddress(Address $address, $config = null): Address
+    {
+        $config = $this->config->merge($config);
+
+        return $this->address_service->normalize($address, $config);
     }
 }

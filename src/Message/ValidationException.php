@@ -4,7 +4,7 @@ namespace ShipEngine\Message;
 
 /**
  * Class ValidationException - ValidationException - an exception thrown by the ShipEngine SDK when a given value
- * does not meet our requirements.
+ * does not meet our requirements to communicate with ShipEngine API properly.
  *
  * Is throwable.
  * @package ShipEngine\Message

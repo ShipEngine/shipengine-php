@@ -12,68 +12,62 @@ use PHPUnit\Framework\TestCase;
  * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\Util\ShipEngineSerializer
  * @covers \ShipEngine\Model\Address\Address
- * @backupStaticAttributes enabled
  * @package Util
  */
 final class ShipEngineSerializerTest extends TestCase
 {
-    private static ShipEngineSerializer $serializer;
-
-    public static function setUpBeforeClass(): void
-    {
-        self::$serializer = new ShipEngineSerializer();
-    }
-
     public function testSerializeDataToJson(): void
     {
+        $serializer = new ShipEngineSerializer();
         $arr = array(
-            array('4 Jersey St', 'Ste 200', '2nd Floor'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+            'city_locality' => 'Boston',
+            'state_province' => 'MA',
+            'postal_code' => '02215',
+            'country_code' => 'US',
         );
 
-        $json = self::$serializer->serializeDataToJson($arr);
+        $json = $serializer->serializeDataToJson($arr);
         $this->assertJson($json);
     }
 
     public function testDeserializeJsonToType()
     {
-        $json_string = '{
-            "name":"kasey",
-            "phone":"1234567891",
-            "street":[
-                "124 Conch St",
-                "validate-with-error"
-            ],
-            "city_locality":"Bikini Bottom",
-            "state_province":"Pacific Ocean",
-            "postal_code":"4A6 G67",
-            "country_code":"US",
-            "residential":null
-            }';
+        $serializer = new ShipEngineSerializer();
+        $json_string = '{"address": {
+			"street": [
+				"4 Jersey St",
+				"multiple-error-messages"
+			],
+			"city_locality": "Boston",
+			"state_province": "MA",
+			"postal_code": "02215",
+			"country_code": "US"
+		}}';
 
 
         $this->assertInstanceOf(
             Address::class,
-            self::$serializer->deserializeJsonToType($json_string, Address::class)
+            $serializer->deserializeJsonToType($json_string, Address::class)
         );
     }
 
     public function testSerializeDataToType()
     {
-        $address = (object)array(
-            'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
-            'city_locality' => 'Boston',
-            'state_province' => 'MA',
-            'postal_code' => '02215',
-            'country_code' => 'US'
+        $serializer = new ShipEngineSerializer();
+        $address = array(
+            'address' => array(
+                'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US'
+            )
         );
 
         $this->assertInstanceOf(
             Address::class,
-            self::$serializer->serializeDataToType($address, Address::class)
+            $serializer->serializeDataToType($address, Address::class)
         );
     }
 

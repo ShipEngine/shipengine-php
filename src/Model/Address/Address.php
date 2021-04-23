@@ -95,59 +95,42 @@ final class Address implements \JsonSerializable
      * Address Type constructor. This object is used in the AddressService
      * methods as the $params object that gets passed in.
      *
-     * @param array $street
-     * @param string|null $city_locality
-     * @param string|null $state_province
-     * @param string|null $postal_code
-     * @param string $country_code
-     * @param bool|null $residential
-     * @param string|null $name
-     * @param string|null $phone
-     * @param string|null $company
+     * @param array $address
      */
-    public function __construct(
-        array $street,
-        ?string $city_locality,
-        ?string $state_province,
-        ?string $postal_code,
-        string $country_code,
-        ?bool $residential = null,
-        ?string $name = '',
-        ?string $phone = '',
-        ?string $company = ''
-    ) {
-        $this->validateInput($street, $city_locality, $state_province, $postal_code, $country_code);
+    public function __construct(array $address)
+    {
+        $this->validateInput($address);
 
-        $this->residential = $residential;
-        $this->name = $name;
-        $this->phone = $phone;
-        $this->company = $company;
+        $this->residential = $address['residential'] ?? null;
+        $this->name = $address['name'] ?? '';
+        $this->phone = $address['phone'] ?? '';
+        $this->company = $address['company_name'] ?? '';
     }
 
-    public function validateInput(
-        array $street,
-        ?string $city_locality,
-        ?string $state_province,
-        ?string $postal_code,
-        string $country_code
-    ): void {
+    /**
+     * Assertions to validate that the address array items are  in the type/format we need them to be.
+     *
+     * @param array $address
+     */
+    public function validateInput(array $address): void
+    {
         $assert = new Assert();
 
-        $assert->isStreetSet($street);
-        $assert->tooManyAddressLines($street);
-        $this->street = $street;
+        $assert->isStreetSet($address['street']);
+        $assert->tooManyAddressLines($address['street']);
+        $this->street = $address['street'];
 
-        $assert->isCityValid($city_locality);
-        $this->city_locality = $city_locality;
+        $assert->isCityValid($address['city_locality']);
+        $this->city_locality = $address['city_locality'];
 
-        $assert->isStateValid($state_province);
-        $this->state_province = $state_province;
+        $assert->isStateValid($address['state_province']);
+        $this->state_province = $address['state_province'];
 
-        $assert->isPostalCodeValid($postal_code);
-        $this->postal_code = $postal_code;
+        $assert->isPostalCodeValid($address['postal_code']);
+        $this->postal_code = $address['postal_code'];
 
-        $assert->isCountryCodeValid($country_code);
-        $this->country_code = $country_code;
+        $assert->isCountryCodeValid($address['country_code']);
+        $this->country_code = $address['country_code'];
     }
 
     /**

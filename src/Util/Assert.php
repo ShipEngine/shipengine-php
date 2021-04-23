@@ -2,14 +2,24 @@
 
 namespace ShipEngine\Util;
 
+use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
+use ShipEngine\Model\Address\Address;
+use ShipEngine\Model\Address\AddressValidateResult;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 
+/**
+ * Class Assert
+ * @package ShipEngine\Util
+ */
 final class Assert
 {
     /**
-     * Checks if street array is not empty.
+     * Asserts that street array is not empty.
      *
      * @param array $street
      */
@@ -48,7 +58,7 @@ final class Assert
     }
 
     /**
-     * Checks if city in not an empty string and is valid characters.
+     * Asserts that city in not an empty string and is valid characters.
      *
      * @param string $city_locality
      * @throws ValidationException
@@ -67,7 +77,7 @@ final class Assert
     }
 
     /**
-     * Checks if state is 2 capitalized letters and that it is not an empty string.
+     * Asserts that state is 2 capitalized letters and that it is not an empty string.
      *
      * @param string $state_province
      * @throws ValidationException
@@ -86,7 +96,7 @@ final class Assert
     }
 
     /**
-     * Checks if the postal code contains to allowed characters and is not an empty string.
+     * Asserts that the postal code contains to allowed characters and is not an empty string.
      *
      * @param string $postal_code
      * @throws ValidationException
@@ -131,6 +141,11 @@ final class Assert
         }
     }
 
+    /**
+     * Asserts that the API Key provided is a valid string and is provided.
+     *
+     * @param array $config
+     */
     public function isApiKeyValid(array $config): void
     {
         if (isset($config['api_key']) === false || $config['api_key'] === '') {
@@ -144,6 +159,11 @@ final class Assert
         }
     }
 
+    /**
+     * Asserts that the timeout value is valid.
+     *
+     * @param \DateInterval $timeout
+     */
     public function isTimeoutValid(\DateInterval $timeout): void
     {
         if ($timeout->invert === 1 || $timeout->s === 0) {
@@ -157,9 +177,15 @@ final class Assert
         }
     }
 
-    public function doesResponseHaveError(array $parsed_response, int $status_code)
+    /**
+     * Asserts that the status code is 500, and if it is a `SystemException` is thrown.
+     *
+     * @param array $parsed_response
+     * @param int $status_code
+     */
+    public function doesResponseHave500Error(array $parsed_response, int $status_code)
     {
-        if (array_key_exists('error', $parsed_response)) {
+        if ($status_code === 500) {
             $error = $parsed_response['error'];
             throw new SystemException(
                 $error['message'],
@@ -169,15 +195,44 @@ final class Assert
                 $error['data']['code'],
                 $error['data']['url'] ?? null
             );
-        } elseif ($status_code === 500) {
-            $error = $parsed_response['error'];
-            throw new SystemException(
-                $error['message'],
-                $parsed_response['id'],
-                $error['data']['source'],
-                $error['data']['type'],
-                $error['data']['code'],
-                $error['data']['url'] ?? null
+        }
+    }
+
+    /**
+     * Assertions to check if the returned normalized address has any errors. If errors
+     * are present an exception is thrown.
+     *
+     * @param AddressValidateResult $validation_result
+     * @return mixed
+     */
+    public function doesNormalizedAddressHaveErrors(AddressValidateResult $validation_result)
+    {
+        if (count($validation_result->errors) > 1) {
+            throw new BusinessRuleException(
+                "Invalid address.\n" . implode("\n", $validation_result->errors),
+                $validation_result->request_id,
+                ErrorSource::SHIPENGINE,
+                ErrorType::BUSINESS_RULES,
+                ErrorCode::INVALID_ADDRESS,
+                null
+            );
+        } elseif (count($validation_result->errors) === 1) {
+            throw new BusinessRuleException(
+                "Invalid address. " . $validation_result->errors[0],
+                $validation_result->request_id,
+                ErrorSource::SHIPENGINE,
+                ErrorType::BUSINESS_RULES,
+                ErrorCode::INVALID_ADDRESS,
+                null
+            );
+        } elseif (!$validation_result->valid) {
+            throw new BusinessRuleException(
+                'Invalid address - The address provided could not be normalized.',
+                $validation_result->request_id,
+                ErrorSource::SHIPENGINE,
+                ErrorType::BUSINESS_RULES,
+                ErrorCode::INVALID_ADDRESS,
+                null
             );
         }
     }

@@ -51,11 +51,13 @@ final class ShipEngineConfigTest extends TestCase
             )
         );
         self::$good_address = new Address(
-            array('4 Jersey St', 'ste 200'),
-            'Boston',
-            'MA',
-            '02215',
-            'US',
+            array(
+                'street' => array('4 Jersey St', 'ste 200'),
+                'city_locality' => 'Boston',
+                'state_province' => 'MA',
+                'postal_code' => '02215',
+                'country_code' => 'US',
+            )
         );
     }
 

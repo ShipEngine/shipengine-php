@@ -5,81 +5,124 @@ namespace ShipEngine\Model\Address;
 use ShipEngine\Util;
 
 /**
- * `AddressValidateResult` Type to be returned by *AddressService*.
+ * `AddressValidateResult` Type to be returned by *AddressService*. This is the result of
+ * validating a given address, whether it's valid or not.
  *
  * @package ShipEngine\Model\Address
  * @property bool $valid
- * @property array $messages
- * @property array|null $address
+ * @property Address|null $normalized_address
+ * @property array $info
+ * @property array $warnings
+ * @property array $errors
+ * @property string|null $request_id
  */
 final class AddressValidateResult implements \JsonSerializable
 {
     use Util\Getters;
 
     /**
+     * Indicates whether the address is valid
+     *
      * @var bool
      */
-    private bool $valid;
+    public bool $valid;
 
     /**
-     * @var array|null
+     * The normalized form of the address. This will only be populated if the
+     * address was valid (i.e. `$valid` is `true`).
+     *
+     * Addresses are normalized according to the normalization rules of the
+     * country they're in.
+     *
+     * @var Address|null
      */
-    private ?array $address;
+    public ?Address $normalized_address;
 
     /**
+     * An array of informational messages about the address validation, such as minor corrections.
+     *
      * @var array
      */
-    private array $messages;
+    public array $info;
 
     /**
-     * AddressValidateResult Type constructor.
+     * Warning messages about the address validation, such as major changes that
+     * were made to the normalized address.
      *
-     * @param bool $valid
-     * @param array $messages
-     * @param array|null $address
+     * @var array
      */
-    public function __construct(
-        bool $valid,
-        array $messages,
-        ?array $address = null
-    ) {
-        $this->valid = $valid;
-        $this->messages = $messages;
-        $this->address = $address;
-    } // TODO: refactor this to match JS
+    public array $warnings;
+
+    /**
+     * Error messages about the address validation, such as invalid fields that
+     * prevent the address from being fully validated.
+     *
+     * @var array
+     */
+    public array $errors;
+
+    /**
+     * The unique ID that is associated with the current request to ShipEngine API
+     * for address validation.
+     *
+     * @var string|null
+     */
+    public ?string $request_id;
+
+    /**
+     * AddressValidateResult Type constructor. Takes in a `POPO` (Plain Old PHP Object) that is
+     * the response object from the `JSON-RPC` response we get back.
+     *
+     * @param array $api_response
+     */
+    public function __construct(array $api_response)
+    {
+        $result = $api_response['result'];
+        $messages = $result['messages'];
+
+        $this->valid = $result['valid'];
+
+        if (isset($result['address'])) {
+            $address = $result['address'];
+            $this->normalized_address = new Address($address);
+        } else {
+            $this->normalized_address = null;
+        }
+
+        isset($api_response['id']) ?
+            $this->request_id = $api_response['id'] :
+            $this->request_id = null;
+
+        $this->info = $messages['info'] ?? array();
+        $this->warnings = $messages['warnings'] ?? array();
+        $this->errors = $messages['errors'] ?? array();
+    }
 
     /**
      * Return a JsonSerialized string representation of the `AddressValidateResult` Type.
      *
      * <code>
      * {
-     *  "valid": true,
-     *  "address": {
-     *  "name": "ShipEngine",
-     *  "phone": "1234567891",
-     *  "company_name": "ShipEngine",
-     *  "street": [
-     *      "in nostrud consequat nisi"
-     *  ],
-     *  "country_code": "BK",
-     *  "postal_code": "ullamco culpa",
-     *  "city_locality": "aliqua",
-     *  "residential": false
+     * "valid": true,
+     * "normalized_address": {
+     * "address": {
+     * "name": "BRUCE WAYNE",
+     * "phone": "1234567891",
+     * "company_name": "SHIPENGINE",
+     * "street": [
+     * "4 JERSEY ST"
+     * ],
+     * "city_locality": "BOSTON",
+     * "state_province": "MA",
+     * "postal_code": "02215",
+     * "country_code": "US",
+     * "residential": false
+     * }
      * },
-     *  "messages": {
-     *      "errors": [
-     *          "aute ea nulla",
-     *          "occaecat consequat consectetur in esse",
-     *          "aliqua sed"
-     *      ],
-     *      "info": [
-     *          "Duis",
-     *          "voluptate sed sunt",
-     *          "nisi irure amet",
-     *          "dolore aute",
-     *          "exercitation esse aliquip aute est"
-     *      ]
-     *  }
+     * "info": [],
+     * "warnings": [],
+     * "errors": [],
+     * "request_id": "req_9yvuxhYGymTzNorcM16gwT"
      * }
      * <code>
      */
@@ -87,8 +130,11 @@ final class AddressValidateResult implements \JsonSerializable
     {
         return [
             'valid' => $this->valid,
-            'address' => $this->address,
-            'messages' => $this->messages
+            'normalized_address' => $this->normalized_address,
+            'info' => $this->info,
+            'warnings' => $this->warnings,
+            'errors' => $this->errors,
+            'request_id' => $this->request_id,
         ];
     }
 }

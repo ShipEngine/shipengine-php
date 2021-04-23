@@ -28,7 +28,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 /**
  * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
  *
- * @pacakge ShipEngine
+ * @package ShipEngine
  */
 final class ShipEngineClient
 {
@@ -110,7 +110,7 @@ final class ShipEngineClient
         ShipEngineConfig $config
     ) {
         $assert = new Assert();
-        $base_uri = getenv('CLIENT_BASE_URI') ?? $config->base_url;
+        $base_uri = !getenv('CLIENT_BASE_URI') ? $config->base_url : getenv('CLIENT_BASE_URI');
         $dispatcher = new EventDispatcher();
         $shipengine_event_listener = $config->event_listener;
         $request_headers = array(
@@ -132,7 +132,7 @@ final class ShipEngineClient
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
         $request_sent_event = new RequestSentEvent(
-            "Calling the ShipEngine {$method} API at {$base_uri}",
+            "Calling the ShipEngine $method API at $base_uri",
             $body['id'],
             $base_uri,
             $request_headers,
@@ -186,7 +186,7 @@ final class ShipEngineClient
         );
         $dispatcher->dispatch($response_received_event, $response_received_event::RESPONSE_RECEIVED);
 
-        $assert->doesResponseHaveError($parsed_response, $status_code);
+        $assert->doesResponseHave500Error($parsed_response, $status_code);
 
         return $this->handleResponse($parsed_response);
     }
@@ -198,7 +198,7 @@ final class ShipEngineClient
     private function handleResponse(array $response)
     {
         if (isset($response['result']) === true) {
-            return $response['result'];
+            return $response;
         }
 
         $error = $response['error'];
