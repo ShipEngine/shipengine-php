@@ -1,9 +1,9 @@
-Address Validation Documentation
-================================
+Normalize Address Documentation
+===============================
 
 There are two ways to validate an address using this SDK.
 
-- Single Address Validation - [validateAddress(Address $address, $config)]((./docs/addressValidateExample.md))
+- Single Address Validation - [validateAddress(Address $address, $config)](./addressValidateExample.md)
 - Normalize an Address - `normalizeAddress(Address $address, $config)`
 
 `normalizeAddress(Address $address, $config)` - Normalize a given address.

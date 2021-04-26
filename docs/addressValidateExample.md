@@ -4,7 +4,7 @@ Address Validation Documentation
 There are two ways to validate an address using this SDK.
 
 - Single Address Validation - `validateAddress(Address $address, $config)`
-- Normalize an Address - [normalizeAddress(Address $address, $config)](./docs/normalizeAddressExample.md)
+- Normalize an Address - [normalizeAddress(Address $address, $config)](./normalizeAddressExample.md)
 
 `validateAddress(Address $address, $config)` - Validate a single address.
 =========================================================================
