@@ -24,6 +24,11 @@ composer require shipengine/shipengine
 
 > The following example assumes that you have already set the `SHIPENGIEN_API_KEY` using `putenv()`.
 
+`Examples`
+----------
+- [Validate an Address](./docs/addressValidateExample.md)
+- [Normalize an Address](./docs/normalizeAddressExample.md)
+
 Instantiate ShipEngine Class
 ------------------------------
 ```php
@@ -55,11 +60,6 @@ $config = array(
 
 $shipengine = new ShipEngine($config);
 ```
-
-`Examples`
-----------
-- [Validate an Address](./docs/addressValidateExample.md)
-- [Normalize an Address](./docs/normalizeAddressExample.md)
 
 Testing
 -------
