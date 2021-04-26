@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util;
+namespace ShipEngine\Message;
 
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Util\Constants\ErrorCode;

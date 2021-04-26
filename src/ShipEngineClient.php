@@ -22,6 +22,7 @@ use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
+use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\VersionInfo;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -47,6 +48,32 @@ final class ShipEngineClient
             'method' => $method,
             'params' => $params
         ]);
+    }
+
+    /**
+     * Create and send an HTTP GET request.
+     *
+     * Use an absolute path to override the base path of the client, or a
+     * relative path to append to the base path of the client. The URL can
+     * contain the query string as well.
+     *
+     * @param string $uri
+     * @param ShipEngineConfig $config
+     * @return mixed
+     * @throws GuzzleException
+     */
+    public function getRequest(string $uri, ShipEngineConfig $config)
+    {
+        $client = new Client([
+            'base_uri' => Endpoints::SHIPENGINE_RPC_URL,
+            'headers' => array(
+                'Api-Key' => $config->api_key,
+                'User-Agent' => $this->deriveUserAgent(),
+                'Content-Type' => 'application/json'
+            )
+        ]);
+        $api_response = $client->get($uri);
+        return json_decode($api_response->getBody()->getContents(), true);
     }
 
     /**
@@ -168,7 +195,6 @@ final class ShipEngineClient
         $response_body = (string)$response->getBody();
         $parsed_response = json_decode($response_body, true);
         $status_code = $response->getStatusCode();
-//        $reason_phrase = $response->getReasonPhrase();
 
         $response_received_event = new ResponseReceivedEvent(
             "Response Received",
@@ -190,6 +216,7 @@ final class ShipEngineClient
 
         return $this->handleResponse($parsed_response);
     }
+
 
     /**
      * @param array $response

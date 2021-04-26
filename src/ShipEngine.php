@@ -6,6 +6,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\Address\AddressService;
+use ShipEngine\Service\Carriers\CarrierAccountService;
 use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util;
 use ShipEngine\Util\ShipEngineLogger;
@@ -86,5 +87,18 @@ final class ShipEngine
         $config = $this->config->merge($config);
 
         return $this->address_service->normalize($address, $config);
+    }
+
+    /**
+     * Get all carrier accounts for a given ShipEngine Account.
+     *
+     * @param array $config
+     * @return mixed
+     */
+    public function getCarrierAccounts($config = null)
+    {
+        $config = $this->config->merge($config);
+        $account_getter = new CarrierAccountService();
+        return $account_getter->fetchCarrierAccounts($config);
     }
 }

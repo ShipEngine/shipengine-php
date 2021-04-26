@@ -2,11 +2,12 @@
 
 namespace Service;
 
+use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Service\ShipEngineConfig;
-use PHPUnit\Framework\TestCase;
 use ShipEngine\ShipEngine;
+use ShipEngine\Util\Constants\Endpoints;
 
 /**
  * @covers \ShipEngine\Util\Assert
@@ -29,7 +30,7 @@ final class ShipEngineConfigTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$test_url = 'https://simengine.herokuapp.com';
+        self::$test_url = Endpoints::TEST_RPC_URL;
         self::$config = new ShipEngineConfig(
             array(
                 'api_key' => 'baz',
