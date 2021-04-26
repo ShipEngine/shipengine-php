@@ -58,7 +58,7 @@ $shipengine = new ShipEngine($config);
 
 `Examples`
 ----------
-- [Address Validation](./docs/addressValidateExamples.md)
+- [Address Validation](./docs/addressValidateExample.md)
 
 `Track a Package`
 -----------------
