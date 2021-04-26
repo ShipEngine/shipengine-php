@@ -54,8 +54,7 @@ $config = array(
     'api_key' => 'baz',
     'page_size' => 75,
     'retries' => 3,
-    'timeout' => 15000,
-    'client' => null  // Specify null to use the default ShipEngine client.
+    'timeout' => \DateInterval('PT15000S')
 );
 
 $shipengine = new ShipEngine($config);
@@ -73,11 +72,6 @@ composer phpunit
 _phpcs_
 ```bash
 composer phpcs
-```
-
-To stop hoverfly (after you are done testing):
-```bash
-hoverctl stop
 ```
 
 Lint
