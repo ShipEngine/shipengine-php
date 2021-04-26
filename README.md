@@ -63,18 +63,7 @@ $shipengine = new ShipEngine($config);
 
 Testing
 -------
-
-- You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
-```bash
-hoverfly -webserver -response-body-files-path simengine > /dev/null &
-```
-
 - You can now run all tests using [PHPUnit](https://phpunit.de/):
-```bash
-./vendor/bin/phpunit
-```
-OR using our `composer scripts`:
-
 _phpunit_
 ```bash
 composer phpunit
@@ -93,10 +82,6 @@ hoverctl stop
 
 Lint
 ----
-```bash
-./vendor/bin/phpstan analyse src --level 5
-```
-
 _phpstan_ using our `composer script`:
 ```bash
 compser phpstan
@@ -105,7 +90,7 @@ compser phpstan
 Generate Documentation
 ----------------------
 ```bash
-./vendor/bin/phpdoc -d src -t doc
+composer gen:docs
 ```
 
 Local Development
