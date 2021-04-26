@@ -58,49 +58,11 @@ $shipengine = new ShipEngine($config);
 
 `Examples`
 ----------
-- [Address Validation](./docs/addressValidateExample.md)
+- [Validate an Address](./docs/addressValidateExample.md)
+- [Normalize an Address](./docs/normalizeAddressExample.md)
 
-`Track a Package`
------------------
-```php
-<?php declare(strict_types=1);
-
-require __DIR__ . '/vendor/autoload.php';
-
-use ShipEngine\ShipEngine;
-
-$api_key = 'SHIPENGINE_API_KEY';
-
-$shipengine = new ShipEngine($api_key);
-
-$tracking_data = $shipengine->trackPackage('ups', 'abc123');
-
-print_r($tracking_data);
-```
-
-- To increase the flexibility of the ShipEngine library we use [HTTPlug](http://httplug.io).
-If you don't already have a [php-http](http://docs.php-http.org/en/latest/) compliant HTTP Client in your project, you'll need to [install one](http://docs.php-http.org/en/latest/httplug/users.html).
-ShipEngine will automatically discover it.
-But, you can also pass in a configured client manually.
-
-Pass the ShipEngine Class a custom client
------------------------------------------
-```php
-<?php declare(strict_types=1);
-
-require __DIR__ . '/vendor/autoload.php';
-
-use ShipEngine\ShipEngine;
-use Symfony\Component\HttpClient\HttplugClient;
-
-$api_key = getenv('SHIPENGINE_API_KEY');
-$http = new HttplugClient();
-
-$shipengine = new ShipEngine($api_key, $http);
-```
-
-Test
-----
+Testing
+-------
 
 - You must have [hoverfly](https://hoverfly.io/) running in order to run tests:
 ```bash
