@@ -29,7 +29,7 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\AddressValidateResult
  * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\Service\ShipEngineConfig
+ * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Util\ShipEngineSerializer
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\Message\ValidationException
@@ -52,7 +52,6 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com/jsonrpc');
         self::$shipengine = new ShipEngine(array(
             'api_key' => 'baz',
             'base_url' => Endpoints::TEST_RPC_URL,
