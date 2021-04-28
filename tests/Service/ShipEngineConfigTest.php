@@ -5,18 +5,18 @@ namespace Service;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
-use ShipEngine\Service\ShipEngineConfig;
+use ShipEngine\ShipEngineConfig;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
 
 /**
  * @covers \ShipEngine\Util\Assert
- * @covers \ShipEngine\Service\ShipEngineConfig
+ * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Message\ShipEngineException
  * @covers \ShipEngine\Message\ValidationException
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\Service\ShipEngineConfig
+ * @covers \ShipEngine\ShipEngineConfig
  */
 final class ShipEngineConfigTest extends TestCase
 {
