@@ -11,14 +11,12 @@ use ShipEngine\Util;
  */
 final class RequestSentEvent extends ShipEngineEvent
 {
-    use Util\Getters;
-
     /**
      * The event name for the RequestSentEvent.
      *
      * @const REQUEST_SENT
      */
-    const REQUEST_SENT = 'request_sent';
+    public const REQUEST_SENT = 'request_sent';
 
     /**
      * The request_id that corresponds to the request that was sent when this event is emitted.

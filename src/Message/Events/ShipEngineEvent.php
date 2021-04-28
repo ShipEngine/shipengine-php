@@ -11,8 +11,6 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ShipEngineEvent extends Event
 {
-    use Util\Getters;
-
     /**
      * The timestamp of when the event was emitted.
      *

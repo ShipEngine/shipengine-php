@@ -11,14 +11,12 @@ use ShipEngine\Util;
  */
 final class ResponseReceivedEvent extends ShipEngineEvent
 {
-    use Util\Getters;
-
     /**
      * The event name for the ResponseReceivedEvent.
      *
      * @const RESPONSE_RECEIVED
      */
-    const RESPONSE_RECEIVED = 'response_received';
+    public const RESPONSE_RECEIVED = 'response_received';
 
     /**
      * The request_id that corresponds to the request that was sent when this event is emitted.
