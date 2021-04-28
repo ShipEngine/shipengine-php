@@ -12,19 +12,19 @@ final class Carriers
      *
      * @link https://www.fedex.com/en-us/home.html
      */
-    const FEDEX = 'fedex';
+    public const FEDEX = 'fedex';
 
     /**
      * UPS - United Parcel Service
      *
      * @link https://www.ups.com/us/en/about/sites.page
      */
-    const UPS = 'ups';
+    public const UPS = 'ups';
 
     /**
      * USPS - United State Postal Service
      *
      * @link https://www.stamps.com/
      */
-    const USPS = 'stamps_com';  // TODO: confirm the above link with James
+    public const USPS = 'stamps_com';  // TODO: confirm the above link with James
 }
