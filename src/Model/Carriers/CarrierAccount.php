@@ -2,12 +2,10 @@
 
 namespace ShipEngine\Model\Carriers;
 
-use ShipEngine\Util;
-use ShipEngine\Util\Constants\Carriers;
-use ShipEngine\Service\Carriers\FedEx;
-use ShipEngine\Service\Carriers\UPS;
-use ShipEngine\Service\Carriers\USPS;
 use ShipEngine\Message\InvalidFieldValueException;
+use ShipEngine\Util;
+use ShipEngine\Util\Constants\CarrierNames;
+use ShipEngine\Util\Constants\Carriers;
 
 /**
  * Class CarrierAccount - This class represents a given Carrier Account e.g. FedEx, UPS, USPS.
@@ -21,9 +19,9 @@ final class CarrierAccount implements \JsonSerializable
     /**
      * An immutable object that will represent a carrier account.
      *
-     * @var object
+     * @var Carrier
      */
-    private object $carrier_account;
+    private Carrier $carrier_account;
 
     /**
      * The unique ID that is associated with the current request to ShipEngine API
@@ -71,19 +69,31 @@ final class CarrierAccount implements \JsonSerializable
     {
         if (array_key_exists('carrier_account', $account_information)) {
             $carrier_account = $account_information['carrier_account'];
-            if ($carrier_account === Carriers::FEDEX) {
-                $this->carrier_account = new FedEx();
-            } elseif ($carrier_account === Carriers::UPS) {
-                $this->carrier_account = new UPS();
-            } elseif ($carrier_account === Carriers::USPS) {
-                $this->carrier_account = new USPS();
-            } else {
-                $field_value = $carrier_account->carrier_name ?? $carrier_account;
-                throw new InvalidFieldValueException(
-                    'carrier_account',
-                    "Carrier [$field_value] is currently not supported.",  //TODO: temporary generic error message
-                    $field_value
-                );
+            switch ($carrier_account) {
+                case Carriers::FEDEX:
+                    $this->carrier_account = new Carrier(
+                        CarrierNames::FEDEX,
+                        Carriers::FEDEX
+                    );
+                    break;
+                case Carriers::UPS:
+                    $this->carrier_account = new Carrier(
+                        CarrierNames::UPS,
+                        Carriers::UPS
+                    );
+                    break;
+                case Carriers::USPS:
+                    $this->carrier_account = new Carrier(
+                        CarrierNames::USPS,
+                        Carriers::USPS
+                    );
+                    break;
+                default:
+                    throw new InvalidFieldValueException(
+                        'carrier_account',
+                        "Carrier [$carrier_account] is currently not supported.",
+                        $carrier_account
+                    );
             }
         }
     }

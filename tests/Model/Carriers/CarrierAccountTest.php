@@ -2,19 +2,16 @@
 
 namespace Model\Carriers;
 
-use ShipEngine\Message\InvalidFieldValueException;
-use ShipEngine\Message\ShipEngineException;
-use ShipEngine\Model\Carriers\CarrierAccount;
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Service\Carriers\FedEx;
-use ShipEngine\Service\Carriers\UPS;
-use ShipEngine\Service\Carriers\USPS;
+use ShipEngine\Message\InvalidFieldValueException;
+use ShipEngine\Model\Carriers\Carrier;
+use ShipEngine\Model\Carriers\CarrierAccount;
 
 /**
  * @covers \ShipEngine\Model\Carriers\CarrierAccount
  * @covers \ShipEngine\Message\InvalidFieldValueException
  * @covers \ShipEngine\Message\ShipEngineException
- * @covers \ShipEngine\Service\Carriers\UPS
+ * @covers \ShipEngine\Model\Carriers\Carrier
  */
 final class CarrierAccountTest extends TestCase
 {
@@ -68,13 +65,13 @@ final class CarrierAccountTest extends TestCase
         $carrier_accounts = $account_iterator($accounts);
 
         $this->assertInstanceOf(CarrierAccount::class, $carrier_accounts[0]);
-        $this->assertInstanceOf(FedEx::class, $carrier_accounts[0]->carrier_account);
+        $this->assertInstanceOf(Carrier::class, $carrier_accounts[0]->carrier_account);
 
         $this->assertInstanceOf(CarrierAccount::class, $carrier_accounts[1]);
-        $this->assertInstanceOf(UPS::class, $carrier_accounts[1]->carrier_account);
+        $this->assertInstanceOf(Carrier::class, $carrier_accounts[1]->carrier_account);
 
         $this->assertInstanceOf(CarrierAccount::class, $carrier_accounts[2]);
-        $this->assertInstanceOf(USPS::class, $carrier_accounts[2]->carrier_account);
+        $this->assertInstanceOf(Carrier::class, $carrier_accounts[2]->carrier_account);
     }
 
     public function testInvalidCarrierAccountValue(): void

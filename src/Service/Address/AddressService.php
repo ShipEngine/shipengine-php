@@ -5,8 +5,8 @@ namespace ShipEngine\Service\Address;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
-use ShipEngine\ShipEngineConfig;
 use ShipEngine\ShipEngineClient;
+use ShipEngine\ShipEngineConfig;
 use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\RPCMethods;
 

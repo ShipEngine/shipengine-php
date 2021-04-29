@@ -2,8 +2,8 @@
 
 namespace ShipEngine\Service\Carriers;
 
-use ShipEngine\ShipEngineClient;
 use ShipEngine\Model\Carriers\CarrierAccount;
+use ShipEngine\ShipEngineClient;
 use ShipEngine\ShipEngineConfig;
 
 /**
