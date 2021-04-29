@@ -52,13 +52,15 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::$shipengine = new ShipEngine(array(
-            'api_key' => 'baz',
-            'base_url' => Endpoints::TEST_RPC_URL,
-            'page_size' => 75,
-            'retries' => 1,
-            'timeout' => new DateInterval('PT15000S')
-        ));
+        self::$shipengine = new ShipEngine(
+            array(
+                'api_key' => 'baz',
+                'base_url' => Endpoints::TEST_RPC_URL,
+                'page_size' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15000S')
+            )
+        );
     }
 
     /**

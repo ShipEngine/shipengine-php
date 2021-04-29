@@ -12,10 +12,10 @@ repos:
       - id: php-unit
       - id: php-cs
         files: \.(php)$
-        args: [--standard=PSR2 src]
+        args: [ --standard=PSR2 src ]
       - id: php-stan
         files: \.(php)$
-        args: [analyse src --level 5]
+        args: [ analyse src --level 5 ]
       - id: php-cs-fixer
         files: \.(php)$
-        args: [-vv --config=.php_cs.dist]
+        args: [ -vv --config=.php_cs.dist ]

@@ -3,14 +3,14 @@
 namespace ShipEngine\Service\Carriers;
 
 use ShipEngine\Util;
-use ShipEngine\Service\Carriers\Carriers;
+use ShipEngine\Util\Constants\Carriers;
 
 /**
  * Class UPS - Immutable carrier object representing UPS (United Parcel Service).
  *
  * @package ShipEngine\Service\Carriers
  */
-final class UPS
+final class UPS implements \JsonSerializable
 {
     use Util\Getters;
 
@@ -27,4 +27,22 @@ final class UPS
      * @var string
      */
     private string $carrier_code = Carriers::UPS;
+
+    /**
+     * {
+     *  "carrier_name": "United Parcel Service",
+     *  "carrier_code": "ups"
+     * }
+     *
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'carrier_name' => $this->carrier_name,
+            'carrier_code' => $this->carrier_code
+        ];
+    }
 }

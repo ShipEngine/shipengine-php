@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Service;
+namespace ShipEngine;
 
 use DateInterval;
 use ShipEngine\Message\Events\ShipEngineEventListener;

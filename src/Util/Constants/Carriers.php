@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Service\Carriers;
+namespace ShipEngine\Util\Constants;
 
 /**
  * Carriers that are supported by ShipEngine API.

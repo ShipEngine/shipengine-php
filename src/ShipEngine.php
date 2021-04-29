@@ -7,7 +7,6 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Service\Address\AddressService;
 use ShipEngine\Service\Carriers\CarrierAccountService;
-use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util;
 use ShipEngine\Util\ShipEngineLogger;
 

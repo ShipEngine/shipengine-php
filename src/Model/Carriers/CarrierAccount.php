@@ -3,7 +3,7 @@
 namespace ShipEngine\Model\Carriers;
 
 use ShipEngine\Util;
-use ShipEngine\Service\Carriers\Carriers;
+use ShipEngine\Util\Constants\Carriers;
 use ShipEngine\Service\Carriers\FedEx;
 use ShipEngine\Service\Carriers\UPS;
 use ShipEngine\Service\Carriers\USPS;
@@ -14,7 +14,7 @@ use ShipEngine\Message\InvalidFieldValueException;
  *
  * @package ShipEngine\Model\Carriers
  */
-final class CarrierAccount
+final class CarrierAccount implements \JsonSerializable
 {
     use Util\Getters;
 
@@ -78,12 +78,38 @@ final class CarrierAccount
             } elseif ($carrier_account === Carriers::USPS) {
                 $this->carrier_account = new USPS();
             } else {
+                $field_value = $carrier_account->carrier_name ?? $carrier_account;
                 throw new InvalidFieldValueException(
                     'carrier_account',
-                    'Carrier currently not supported.',  //TODO: temporary generic error message
-                    $carrier_account
+                    "Carrier [$field_value] is currently not supported.",  //TODO: temporary generic error message
+                    $field_value
                 );
             }
         }
+    }
+
+    /**
+     * {
+     *  "carrier_account": {
+     *      "carrier_name": "FedEx",
+     *      "carrier_code": "fedex"
+     * },
+     *  "request_id": "car_a09a8jsfd09wjzxcs9dfyha",
+     *  "account_number": "SDF987",
+     *  "account_name": "ShipEngine FedEx Account"
+     * }
+     *
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'carrier_account' => $this->carrier_account,
+            'request_id' => $this->request_id,
+            'account_number' => $this->account_number,
+            'account_name' => $this->account_name,
+        ];
     }
 }

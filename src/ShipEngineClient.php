@@ -17,12 +17,11 @@ use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
-use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util\Assert;
+use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
-use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\VersionInfo;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -65,7 +64,7 @@ final class ShipEngineClient
     public function getRequest(string $uri, ShipEngineConfig $config)
     {
         $client = new Client([
-            'base_uri' => Endpoints::SHIPENGINE_RPC_URL,
+            'base_uri' => $config->base_url ?? Endpoints::SHIPENGINE_RPC_URL,
             'headers' => array(
                 'Api-Key' => $config->api_key,
                 'User-Agent' => $this->deriveUserAgent(),
