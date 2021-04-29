@@ -50,41 +50,15 @@ final class ShipEngineClient
     }
 
     /**
-     * Create and send an HTTP GET request.
-     *
-     * Use an absolute path to override the base path of the client, or a
-     * relative path to append to the base path of the client. The URL can
-     * contain the query string as well.
-     *
-     * @param string $uri
-     * @param ShipEngineConfig $config
-     * @return mixed
-     * @throws GuzzleException
-     */
-    public function getRequest(string $uri, ShipEngineConfig $config)
-    {
-        $client = new Client([
-            'base_uri' => $config->base_url ?? Endpoints::SHIPENGINE_RPC_URL,
-            'headers' => array(
-                'Api-Key' => $config->api_key,
-                'User-Agent' => $this->deriveUserAgent(),
-                'Content-Type' => 'application/json'
-            )
-        ]);
-        $api_response = $client->get($uri);
-        return json_decode($api_response->getBody()->getContents(), true);
-    }
-
-    /**
      * Create and send a `JSON-RPC 2.0` request over HTTP messages.
      *
-     * @param string $method Name of an RPC method.
-     * @param array $params Data that a remote procedure will make use of.
-     * @param ShipEngineConfig $config
-     * @return mixed
+     * @param string $method The RPC method to be used in the request.
+     * @param ShipEngineConfig $config A ShipEngineConfig object.
+     * @param array $params An array of params to be sent in the JSON-RPC request.
+     * @return array|mixed
      * @throws ClientExceptionInterface
      */
-    public function request(string $method, array $params, ShipEngineConfig $config)
+    public function request(string $method, ShipEngineConfig $config, array $params = array())
     {
         return $this->sendRPCRequest($method, $params, $config);
     }
