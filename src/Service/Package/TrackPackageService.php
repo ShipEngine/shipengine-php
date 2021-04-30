@@ -59,7 +59,8 @@ final class TrackPackageService
             );
             return new TrackPackageResult($api_response);
 
-        // Checking if user wants to track by tracking_number and carrier_code (verify that $arg1 and $arg2 is not null)
+        // Checking if user wants to track by tracking_number and carrier_code (verify that $arg1 is not null
+            // and is an instance of TrackingQuery)
         } elseif (($arg1 !== null && $arg2 === null && $arg3 === null) && $arg1 instanceof TrackingQuery) {
             $api_response = $client->request(
                 RPCMethods::TRACK_PACKAGE,
@@ -67,6 +68,9 @@ final class TrackPackageService
                 $arg1->jsonSerialize()
             );
             return new TrackPackageResult($api_response);
+
+        // Checking if user wants to track by tracking_number and carrier_code (verify that $arg3 is not null
+            // and is an instance of Package)
         } elseif (($arg1 === null && $arg2 === null && $arg3 !== null) && $arg3 instanceof Package) {
             $api_response = $client->request(
                 RPCMethods::TRACK_PACKAGE,
