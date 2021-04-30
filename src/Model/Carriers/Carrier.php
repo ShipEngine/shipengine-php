@@ -18,41 +18,41 @@ final class Carrier implements \JsonSerializable
      *
      * @var string
      */
-    private string $carrier_name;
+    private string $name;
 
     /**
-     * The actual **carrier_code** that ShipEngine API uses: `fedex`
+     * The actual **code** that ShipEngine API uses: `fedex`
      *
      * @var string
      */
-    private string $carrier_code;
+    private string $code;
 
     /**
      * Carrier constructor.
      *
-     * @param string $carrier_name
-     * @param string $carrier_code
+     * @param string $name
+     * @param string $code
      */
-    public function __construct(string $carrier_name, string $carrier_code)
+    public function __construct(string $name, string $code)
     {
-        $this->carrier_name = $carrier_name;
-        $this->carrier_code = $carrier_code;
+        $this->name = $name;
+        $this->code = $code;
 //        The below is for use in case we use a POPO here instead of args
-//        $this->carrier_name = $carrier_info['carrier_name'];
-//        $this->carrier_code = $carrier_info['carrier_code'];
+//        $this->name = $carrier_info['name'];
+//        $this->code = $carrier_info['code'];
     }
 
     /**
      * {
-     *  "carrier_name": "FedEx",
-     *  "carrier_code": "fedex"
+     *  "name": "FedEx",
+     *  "code": "fedex"
      * }
      */
     public function jsonSerialize()
     {
         return [
-            'carrier_name' => $this->carrier_name,
-            'carrier_code' => $this->carrier_code
+            'name' => $this->name,
+            'code' => $this->code
         ];
     }
 }

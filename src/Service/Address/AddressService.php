@@ -13,12 +13,26 @@ use ShipEngine\Util\Constants\RPCMethods;
 /**
  * Validate a single address or multiple addresses.
  *
+ * <br>
+ * **Usage**:
+ * ```php
+ * $address_service = new AddressService();
+ * $address_service->validate(args);
+ * $address_service->normalize(args);
+ * ```
  * @package ShipEngine\Service\Address
  */
 final class AddressService
 {
     /**
      * Validate a single address via the `address/validate` remote procedure.
+     *
+     * <br>
+     * **Usage**:
+     * ```php
+     * $address_service = new AddressService();
+     * $address_service->validate(Address, ShipEngineConfig);
+     * ```
      *
      * @param Address $address
      * @param ShipEngineConfig $config
@@ -30,8 +44,8 @@ final class AddressService
         $client = new ShipEngineClient();
         $api_response = $client->request(
             RPCMethods::ADDRESS_VALIDATE,
-            $address->jsonSerialize(),
-            $config
+            $config,
+            $address->jsonSerialize()
         );
 
         return new AddressValidateResult($api_response);
@@ -39,6 +53,13 @@ final class AddressService
 
     /**
      * Normalize a given address into a standardized format.
+     *
+     * <br>
+     * **Usage**:
+     * ```php
+     * $address_service = new AddressService();
+     * $address_service->normalize(Address, ShipEngineConfig);
+     * ```
      *
      * @param Address $address
      * @param ShipEngineConfig $config

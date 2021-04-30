@@ -18,7 +18,6 @@ use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util\Assert;
-use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
@@ -36,17 +35,25 @@ final class ShipEngineClient
      * Wrap request per `JSON-RPC 2.0` spec.
      *
      * @param string $method
-     * @param array $params
+     * @param array|null $params
      * @return array
      */
-    private function wrapRequest(string $method, array $params): array
+    private function wrapRequest(string $method, ?array $params): array
     {
-        return array_filter([
-            'id' => 'req_' . UuidBase58::id(),
-            'jsonrpc' => '2.0',
-            'method' => $method,
-            'params' => $params
-        ]);
+        if ($params === null) {
+            return array_filter([
+                'id' => 'req_' . UuidBase58::id(),
+                'jsonrpc' => '2.0',
+                'method' => $method
+            ]);
+        } else {
+            return array_filter([
+                'id' => 'req_' . UuidBase58::id(),
+                'jsonrpc' => '2.0',
+                'method' => $method,
+                'params' => $params
+            ]);
+        }
     }
 
     /**
@@ -54,11 +61,11 @@ final class ShipEngineClient
      *
      * @param string $method The RPC method to be used in the request.
      * @param ShipEngineConfig $config A ShipEngineConfig object.
-     * @param array $params An array of params to be sent in the JSON-RPC request.
+     * @param array|null $params An array of params to be sent in the JSON-RPC request.
      * @return array|mixed
      * @throws ClientExceptionInterface
      */
-    public function request(string $method, ShipEngineConfig $config, array $params = array())
+    public function request(string $method, ShipEngineConfig $config, array $params = null)
     {
         return $this->sendRPCRequest($method, $params, $config);
     }

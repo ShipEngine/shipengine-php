@@ -25,7 +25,7 @@ final class CarrierAccountTest extends TestCase
                 'carrier_account' => 'fedex',
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
-                'account_name' => 'ShipEngine FedEx Account',
+                'name' => 'ShipEngine FedEx Account',
             )
         );
         $this->assertInstanceOf(CarrierAccount::class, $carrier_account);
@@ -38,19 +38,19 @@ final class CarrierAccountTest extends TestCase
                 'carrier_account' => 'fedex',
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
-                'account_name' => 'ShipEngine FedEx Account',
+                'name' => 'ShipEngine FedEx Account',
             ),
             array(
                 'carrier_account' => 'ups',
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
-                'account_name' => 'ShipEngine UPS Account',
+                'name' => 'ShipEngine UPS Account',
             ),
             array(
                 'carrier_account' => 'stamps_com',
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
-                'account_name' => 'ShipEngine USPS Account',
+                'name' => 'ShipEngine USPS Account',
             )
         );
 
@@ -80,7 +80,7 @@ final class CarrierAccountTest extends TestCase
             'carrier_account' => 'canada_post',
             'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'account_number' => 'SDF987',
-            'account_name' => 'Canada Post',
+            'name' => 'Canada Post',
         );
         $account = $invalid_carrier_account['carrier_account'];
         $field_value = key($invalid_carrier_account);
@@ -103,7 +103,7 @@ final class CarrierAccountTest extends TestCase
             'carrier_account' => 'ups',
             'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'account_number' => 'SDF987',
-            'account_name' => 'ShipEngine UPS Account',
+            'name' => 'ShipEngine UPS Account',
         );
         $ups_carrier_account = new CarrierAccount($ups_account_info);
         $json_serialize = $ups_carrier_account->jsonSerialize();

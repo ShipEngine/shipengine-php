@@ -35,7 +35,7 @@ final class ShipEngineClientTest extends TestCase
      * @param $method_name The name of the protected/private method on the object you wish to access.
      * @param array $args An array of arguments you wish to pass into the target method.
      * @return mixed Returns the result or output of the protected/private method that is being accessed.
-     * @throws ReflectionException In the even that the Reflection fails this exception is thrown.
+     * @throws \ReflectionException In the even that the Reflection fails this exception is thrown.
      */
     protected static function callMethod($obj, $method_name, array $args)
     {
@@ -83,20 +83,6 @@ final class ShipEngineClientTest extends TestCase
         $this->assertArrayHasKey('state_province', $params);
         $this->assertArrayHasKey('postal_code', $params);
         $this->assertArrayHasKey('country_code', $params);
-    }
-
-    /**
-     * Tests the `getRequest` method on the ShipEngineClient.
-     */
-    public function testGetRequest()
-    {
-        $config = new ShipEngineConfig([
-            'api_key' => 'baz',
-            'base_url' => 'https://httpbin.org'
-        ]);
-        $get_request = self::$shipengine_client->getRequest('/uuid', $config);
-        $this->assertNotNull($get_request);
-        $this->assertIsArray($get_request);
     }
 
 //    /**

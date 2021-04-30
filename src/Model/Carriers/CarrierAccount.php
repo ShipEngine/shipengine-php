@@ -24,12 +24,11 @@ final class CarrierAccount implements \JsonSerializable
     private Carrier $carrier_account;
 
     /**
-     * The unique ID that is associated with the current request to ShipEngine API
-     * for address validation.
+     * The unique ID that is associated with the current carrier account.
      *
      * @var string
      */
-    private string $request_id;
+    private string $account_id;
 
     /**
      * The account number of the current carrier account.
@@ -43,20 +42,20 @@ final class CarrierAccount implements \JsonSerializable
      *
      * @var string
      */
-    private string $account_name;
+    private string $name;
 
     /**
      * CarrierAccount constructor. This class contains account information such as
-     * the carrier/provider, request_id, account number, and account name.
+     * the carrier/provider, account_id, account number, and account name.
      *
      * @param array $account_information
      */
     public function __construct(array $account_information)
     {
         $this->setCarrierAccount($account_information);
-        $this->request_id = $account_information['id'];
+        $this->account_id = $account_information['id'];
         $this->account_number = $account_information['account_number'];
-        $this->account_name = $account_information['account_name'];
+        $this->name = $account_information['name'];
     }
 
     /**
@@ -68,8 +67,8 @@ final class CarrierAccount implements \JsonSerializable
     private function setCarrierAccount(array $account_information)
     {
         if (array_key_exists('carrier_account', $account_information)) {
-            $carrier_account = $account_information['carrier_account'];
-            switch ($carrier_account) {
+            $account = $account_information['carrier_account'];
+            switch ($account) {
                 case Carriers::FEDEX:
                     $this->carrier_account = new Carrier(
                         CarrierNames::FEDEX,
@@ -91,8 +90,8 @@ final class CarrierAccount implements \JsonSerializable
                 default:
                     throw new InvalidFieldValueException(
                         'carrier_account',
-                        "Carrier [$carrier_account] is currently not supported.",
-                        $carrier_account
+                        "Carrier [$account] is currently not supported.",
+                        $account
                     );
             }
         }
@@ -104,9 +103,9 @@ final class CarrierAccount implements \JsonSerializable
      *      "carrier_name": "FedEx",
      *      "carrier_code": "fedex"
      * },
-     *  "request_id": "car_a09a8jsfd09wjzxcs9dfyha",
+     *  "account_id": "car_a09a8jsfd09wjzxcs9dfyha",
      *  "account_number": "SDF987",
-     *  "account_name": "ShipEngine FedEx Account"
+     *  "name": "ShipEngine FedEx Account"
      * }
      *
      * Specify data which should be serialized to JSON
@@ -117,9 +116,9 @@ final class CarrierAccount implements \JsonSerializable
     {
         return [
             'carrier_account' => $this->carrier_account,
-            'request_id' => $this->request_id,
+            'account_id' => $this->account_id,
             'account_number' => $this->account_number,
-            'account_name' => $this->account_name,
+            'name' => $this->name,
         ];
     }
 }
