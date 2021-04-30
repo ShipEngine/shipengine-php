@@ -3,6 +3,7 @@
 namespace ShipEngine\Service\Package;
 
 use Psr\Http\Client\ClientExceptionInterface;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Package\Package;
 use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
@@ -78,7 +79,8 @@ final class TrackPackageService
                 $arg3->jsonSerialize()
             );
             return new TrackPackageResult($api_response);
+        } else { //TODO: check if this is best way to manage this if block.
+            throw new ShipEngineException('Could not track package with the arguments provided.');
         }
-        return new TrackPackageResult(array());
     }
 }
