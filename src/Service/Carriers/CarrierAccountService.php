@@ -42,7 +42,7 @@ final class CarrierAccountService
         );
 
         $accounts = $api_response['result']['carrier_accounts'];
-        $this->accounts = array();  //TODO: debug to make sure this does not cause a race-condition.
+        $this->accounts = array();
         foreach ($accounts as $account) {
             $carrier_account = new CarrierAccount($account);
             array_push($this->accounts, $carrier_account);
