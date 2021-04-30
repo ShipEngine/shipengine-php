@@ -14,8 +14,6 @@ final class ShipEngineTest extends TestCase
 {
     private static ShipEngine $shipengine;
 
-    private static Address $good_address;
-
     public static function setUpBeforeClass(): void
     {
         self::$shipengine = new ShipEngine(
@@ -26,15 +24,6 @@ final class ShipEngineTest extends TestCase
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
-            )
-        );
-        self::$good_address = new Address(
-            array(
-                'street' => array('4 Jersey St', 'ste 200'),
-                'city_locality' => 'Boston',
-                'state_province' => 'MA',
-                'postal_code' => '02215',
-                'country_code' => 'US',
             )
         );
     }

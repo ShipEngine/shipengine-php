@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Util;
+namespace ShipEngine\Message;
 
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Util\Constants\ErrorCode;
@@ -38,7 +38,7 @@ final class InvalidFieldValueException extends ShipEngineException
             null,
             null,
             ErrorType::VALIDATION,
-            ErrorCode::FIELD_VALUE_REQUIRED,
+            ErrorCode::INVALID_FIELD_VALUE,
             null
         );
         $this->field_name = $field_name;

@@ -125,6 +125,10 @@ final class AddressValidateResult implements \JsonSerializable
      * "request_id": "req_9yvuxhYGymTzNorcM16gwT"
      * }
      * <code>
+     *
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>
      */
     public function jsonSerialize()
     {

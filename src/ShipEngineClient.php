@@ -17,7 +17,6 @@ use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
-use ShipEngine\Service\ShipEngineConfig;
 use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
@@ -36,29 +35,37 @@ final class ShipEngineClient
      * Wrap request per `JSON-RPC 2.0` spec.
      *
      * @param string $method
-     * @param array $params
+     * @param array|null $params
      * @return array
      */
-    private function wrapRequest(string $method, array $params): array
+    private function wrapRequest(string $method, ?array $params): array
     {
-        return array_filter([
-            'id' => 'req_' . UuidBase58::id(),
-            'jsonrpc' => '2.0',
-            'method' => $method,
-            'params' => $params
-        ]);
+        if ($params === null) {
+            return array_filter([
+                'id' => 'req_' . UuidBase58::id(),
+                'jsonrpc' => '2.0',
+                'method' => $method
+            ]);
+        } else {
+            return array_filter([
+                'id' => 'req_' . UuidBase58::id(),
+                'jsonrpc' => '2.0',
+                'method' => $method,
+                'params' => $params
+            ]);
+        }
     }
 
     /**
      * Create and send a `JSON-RPC 2.0` request over HTTP messages.
      *
-     * @param string $method Name of an RPC method.
-     * @param array $params Data that a remote procedure will make use of.
-     * @param ShipEngineConfig $config
-     * @return mixed
+     * @param string $method The RPC method to be used in the request.
+     * @param ShipEngineConfig $config A ShipEngineConfig object.
+     * @param array|null $params An array of params to be sent in the JSON-RPC request.
+     * @return array|mixed
      * @throws ClientExceptionInterface
      */
-    public function request(string $method, array $params, ShipEngineConfig $config)
+    public function request(string $method, ShipEngineConfig $config, array $params = null)
     {
         return $this->sendRPCRequest($method, $params, $config);
     }
@@ -168,7 +175,6 @@ final class ShipEngineClient
         $response_body = (string)$response->getBody();
         $parsed_response = json_decode($response_body, true);
         $status_code = $response->getStatusCode();
-//        $reason_phrase = $response->getReasonPhrase();
 
         $response_received_event = new ResponseReceivedEvent(
             "Response Received",
@@ -190,6 +196,7 @@ final class ShipEngineClient
 
         return $this->handleResponse($parsed_response);
     }
+
 
     /**
      * @param array $response

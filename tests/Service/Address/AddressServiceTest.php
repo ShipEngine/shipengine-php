@@ -12,6 +12,7 @@ use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngine;
+use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
@@ -28,7 +29,7 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\Model\Address\Address
  * @covers \ShipEngine\Model\Address\AddressValidateResult
  * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\Service\ShipEngineConfig
+ * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Util\ShipEngineSerializer
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\Message\ValidationException
@@ -51,13 +52,15 @@ final class AddressServiceTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        putenv('CLIENT_BASE_URI=https://simengine.herokuapp.com/jsonrpc');
-        self::$shipengine = new ShipEngine(array(
-            'api_key' => 'baz',
-            'page_size' => 75,
-            'retries' => 1,
-            'timeout' => new DateInterval('PT15000S')
-        ));
+        self::$shipengine = new ShipEngine(
+            array(
+                'api_key' => 'baz',
+                'base_url' => Endpoints::TEST_RPC_URL,
+                'page_size' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15000S')
+            )
+        );
     }
 
     /**

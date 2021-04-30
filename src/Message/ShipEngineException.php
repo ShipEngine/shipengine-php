@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace ShipEngine\Message;
 
@@ -88,10 +86,10 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
         parent::__construct($message);
 
         $this->request_id = $request_id;
-        $this->source = isset($source) ? $source : 'shipengine';
+        $this->source = $source ?? 'shipengine';
         $this->type = $type;
         $this->error_code = $error_code;
-        $this->url = isset($url) ? $url : 'https://www.shipengine.com/docs/errors/codes/';
+        $this->url = $url ?? 'https://www.shipengine.com/docs/errors/codes/';
     }
 
     /**
