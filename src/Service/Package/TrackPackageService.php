@@ -50,8 +50,7 @@ final class TrackPackageService
     ): TrackPackageResult {
         $client = new ShipEngineClient();
 
-        // Checking if user wants to track by package_id (verify that $arg2 is not null and is instance
-        // of TrackingQuery - which has tracking_number and carrier_code as properties.
+        // Checking if user wants to track by package_id (verify that $arg2 is not null)
         if ($arg1 === null && $arg2 !== null && $arg3 === null) {
             $api_response = $client->request(
                 RPCMethods::TRACK_PACKAGE,
