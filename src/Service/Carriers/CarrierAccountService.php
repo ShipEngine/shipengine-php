@@ -22,7 +22,6 @@ final class CarrierAccountService
      */
     public array $accounts;
 
-    // TODO: implement 'caching' to store carrier accounts. - in TrackPackageService
     /**
      * Get all carrier accounts for a given ShipEngine account.
      *
@@ -33,6 +32,11 @@ final class CarrierAccountService
     public function fetchCarrierAccounts(ShipEngineConfig $config): array
     {
         $client = new ShipEngineClient();
+
+        if (count($this->accounts) > 0) {
+            return $this->accounts;
+        }
+
         $api_response = $client->request(
             RPCMethods::LIST_CARRIER_ACCOUNTS,
             $config
