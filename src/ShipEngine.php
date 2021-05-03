@@ -115,22 +115,16 @@ final class ShipEngine
      * Track a package by `tracking_number` and `carrier_code` via the **TrackingQuery** object, by using just the
      * **package_id**, or by using a **Package** object.
      *
-     * @param TrackingQuery|null $tracking_data
-     * @param string|null $package_id
-     * @param Package|null $package
+     * @param string|TrackingQuery $tracking_data
      * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      * @return Model\Package\TrackPackageResult
      * @throws ClientExceptionInterface
      */
-    public function trackPackage(
-        ?TrackingQuery $tracking_data = null,
-        ?string $package_id = null,
-        ?Package $package = null,
-        $config = null
-    ): TrackPackageResult {
+    public function trackPackage($tracking_data, $config = null): TrackPackageResult
+    {
         $config = $this->config->merge($config);
 
-        return $this->tracking_service->track($config, $tracking_data, $package_id, $package);
+        return $this->tracking_service->track($config, $tracking_data);
     }
 }
