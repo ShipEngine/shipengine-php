@@ -78,7 +78,7 @@ final class AddressServiceTest extends TestCase
             )
         );
         $validation = self::$shipengine->validateAddress($good_address);
-        self::assertInstanceOf(AddressValidateResult::class, $validation);
+        $this->assertInstanceOf(AddressValidateResult::class, $validation);
     }
 
     /**
@@ -103,32 +103,32 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($valid_residential_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             strtoupper($valid_residential_address->street[0]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($valid_residential_address->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $valid_residential_address->state_province,
             $validation->normalized_address->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $valid_residential_address->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $valid_residential_address->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertTrue($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertTrue($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -153,32 +153,32 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             strtoupper($good_address->street[0]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($good_address->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $good_address->state_province,
             $validation->normalized_address->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $good_address->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $good_address->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -203,32 +203,32 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($unknown_address_type);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             strtoupper($unknown_address_type->street[0]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($unknown_address_type->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $unknown_address_type->state_province,
             $validation->normalized_address->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $unknown_address_type->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $unknown_address_type->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertNull($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertNull($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -258,35 +258,35 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($multi_line_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertArrayHasKey(0, $validation->normalized_address->street);
-        self::assertArrayHasKey(1, $validation->normalized_address->street);
-        self::assertArrayNotHasKey(3, $validation->normalized_address->street);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertArrayHasKey(0, $validation->normalized_address->street);
+        $this->assertArrayHasKey(1, $validation->normalized_address->street);
+        $this->assertArrayNotHasKey(3, $validation->normalized_address->street);
+        $this->assertEquals(
             strtoupper($multi_line_address->street[0] . ' ' . $multi_line_address->street[1]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($multi_line_address->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $multi_line_address->state_province,
             $validation->normalized_address->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $multi_line_address->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $multi_line_address->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -312,23 +312,23 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             strtoupper($good_address->street[0]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($good_address->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertIsNumeric($good_address->postal_code);
-        self::assertEquals($good_address->postal_code, $validation->normalized_address->postal_code);
-        self::assertEquals($good_address->country_code, $validation->normalized_address->country_code);
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertIsNumeric($good_address->postal_code);
+        $this->assertEquals($good_address->postal_code, $validation->normalized_address->postal_code);
+        $this->assertEquals($good_address->country_code, $validation->normalized_address->country_code);
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -354,20 +354,20 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($canada_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals($canada_address->street[0], $validation->normalized_address->street[0]);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals($canada_address->street[0], $validation->normalized_address->street[0]);
+        $this->assertEquals(
             $canada_address->city_locality,
             $validation->normalized_address->city_locality
         );
-        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $canada_address->postal_code);
-        self::assertEquals($canada_address->postal_code, $validation->normalized_address->postal_code);
-        self::assertEquals($canada_address->country_code, $validation->normalized_address->country_code);
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $canada_address->postal_code);
+        $this->assertEquals($canada_address->postal_code, $validation->normalized_address->postal_code);
+        $this->assertEquals($canada_address->country_code, $validation->normalized_address->country_code);
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -396,30 +396,30 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($non_latin_chars_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals('68 Kamitobatsunodacho', $validation->normalized_address->street[0]);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals('68 Kamitobatsunodacho', $validation->normalized_address->street[0]);
+        $this->assertEquals(
             'Kyoto-Shi Minami-Ku',
             $validation->normalized_address->city_locality
         );
-        self::assertEquals('Kyoto', $validation->normalized_address->state_province);
-        self::assertMatchesRegularExpression(
+        $this->assertEquals('Kyoto', $validation->normalized_address->state_province);
+        $this->assertMatchesRegularExpression(
             '/^[a-zA-Z0-9-]*$/',
             $non_latin_chars_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $non_latin_chars_address->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $non_latin_chars_address->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertEmpty($validation->warnings);
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -444,12 +444,12 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($validate_with_error);
 
-        self::assertFalse($validation->valid);
-        self::assertNull($validation->normalized_address);
-        self::assertNotEmpty($validation->errors);
-        self::assertIsArray($validation->errors);
-        self::assertIsString($validation->errors[0]);
-        self::assertEmpty($validation->warnings);
+        $this->assertFalse($validation->valid);
+        $this->assertNull($validation->normalized_address);
+        $this->assertNotEmpty($validation->errors);
+        $this->assertIsArray($validation->errors);
+        $this->assertIsString($validation->errors[0]);
+        $this->assertEmpty($validation->warnings);
     }
 
     /**
@@ -475,28 +475,28 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($validate_with_warning);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals($validate_with_warning->street[0], $validation->normalized_address->street[0]);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals($validate_with_warning->street[0], $validation->normalized_address->street[0]);
+        $this->assertEquals(
             $validate_with_warning->city_locality,
             $validation->normalized_address->city_locality
         );
-        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $validate_with_warning->postal_code);
-        self::assertEquals(
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $validate_with_warning->postal_code);
+        $this->assertEquals(
             $validate_with_warning->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $validate_with_warning->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertNotEmpty($validation->warnings);
-        self::assertIsString($validation->warnings[0]);
-        self::assertEquals(
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertNotEmpty($validation->warnings);
+        $this->assertIsString($validation->warnings[0]);
+        $this->assertEquals(
             <<<'EOT'
 This address has been verified down to the house/building level (highest possible accuracy with the provided data)
 EOT,
@@ -526,15 +526,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. At least one address line is required.',
                 $error['message']
             );
@@ -563,15 +563,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
                 $error['message']
             );
@@ -601,15 +601,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
             );
@@ -639,15 +639,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
             );
@@ -677,15 +677,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
             );
@@ -714,15 +714,15 @@ EOT,
                     'country_code' => '',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. The country must be specified.',
                 $error['message']
             );
@@ -752,15 +752,15 @@ EOT,
                     'country_code' => 'USA',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
                 "Invalid address. USA is not a valid country code.",
                 $error['message']
             );
@@ -782,13 +782,13 @@ EOT,
             self::$shipengine->validateAddress($get_rpc_server_error);
         } catch (SystemException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(SystemException::class, $e);
-            self::assertNotEmpty($error['request_id']);
-            self::assertStringStartsWith('req_', $error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::SYSTEM, $error['type']);
-            self::assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(SystemException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
+            $this->assertEquals(
                 "Unable to connect to the database",
                 $error['message']
             );
@@ -808,28 +808,28 @@ EOT,
         );
         $validation = self::$shipengine->validateAddress($good_address);
 
-        self::assertTrue($validation->valid);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             strtoupper($good_address->street[0]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($good_address->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertEquals($good_address->state_province, $validation->normalized_address->state_province);
-        self::assertEquals($good_address->postal_code, $validation->normalized_address->postal_code);
-        self::assertEquals($good_address->country_code, $validation->normalized_address->country_code);
-        //        self::assertFalse(
+        $this->assertEquals($good_address->state_province, $validation->normalized_address->state_province);
+        $this->assertEquals($good_address->postal_code, $validation->normalized_address->postal_code);
+        $this->assertEquals($good_address->country_code, $validation->normalized_address->country_code);
+        //        $this->assertFalse(
         //array_key_exists($validation->normalized_address->name,
         // $validation->normalized_address)
         //);
-        //        self::assertFalse(
+        //        $this->assertFalse(
         //array_key_exists($validation->normalized_address->phone,
         // $validation->normalized_address)
         //);
-        //        self::assertFalse(
+        //        $this->assertFalse(
         //array_key_exists($validation->normalized_address['company'],
         // $validation->normalized_address)
         //);
@@ -856,19 +856,19 @@ EOT,
         );
         $validation = self::$shipengine->validateAddress($address);
 
-        self::assertTrue($validation->valid);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             strtoupper($address->name),
             $validation->normalized_address->name
         );
-        self::assertEquals($address->phone, $validation->normalized_address->phone);
-        self::assertEquals(
+        $this->assertEquals($address->phone, $validation->normalized_address->phone);
+        $this->assertEquals(
             strtoupper($address->company),
             $validation->normalized_address->company
         );
-        self::assertEmpty($validation->warnings);
-        self::assertEmpty($validation->errors);
+        $this->assertEmpty($validation->warnings);
+        $this->assertEmpty($validation->errors);
     }
 
     // Normalize Address Tests
@@ -883,7 +883,7 @@ EOT,
                 'country_code' => 'US',
             )
         );
-        self::assertInstanceOf(Address::class, self::$shipengine->normalizeAddress($good_address));
+        $this->assertInstanceOf(Address::class, self::$shipengine->normalizeAddress($good_address));
     }
 
     /**
@@ -908,25 +908,25 @@ EOT,
         $validation = self::$shipengine->normalizeAddress($valid_residential_address);
 
         $this->addressObjectAssertions($validation);
-        self::assertNotNull($validation);
-        self::assertTrue($validation->residential);
-        self::assertEquals(
+        $this->assertNotNull($validation);
+        $this->assertTrue($validation->residential);
+        $this->assertEquals(
             strtoupper($valid_residential_address->street[0]),
             $validation->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($valid_residential_address->city_locality),
             $validation->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $valid_residential_address->state_province,
             $validation->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $valid_residential_address->postal_code,
             $validation->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $valid_residential_address->country_code,
             $validation->country_code
         );
@@ -954,25 +954,25 @@ EOT,
         $validation = self::$shipengine->normalizeAddress($good_address);
 
         $this->addressObjectAssertions($validation);
-        self::assertNotNull($validation);
-        self::assertFalse($validation->residential);
-        self::assertEquals(
+        $this->assertNotNull($validation);
+        $this->assertFalse($validation->residential);
+        $this->assertEquals(
             strtoupper($good_address->street[0]),
             $validation->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($good_address->city_locality),
             $validation->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $good_address->state_province,
             $validation->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $good_address->postal_code,
             $validation->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $good_address->country_code,
             $validation->country_code
         );
@@ -1000,25 +1000,25 @@ EOT,
         $validation = self::$shipengine->normalizeAddress($unknown_address_type);
 
         $this->addressObjectAssertions($validation);
-        self::assertNotNull($validation);
-        self::assertNull($validation->residential);
-        self::assertEquals(
+        $this->assertNotNull($validation);
+        $this->assertNull($validation->residential);
+        $this->assertEquals(
             strtoupper($unknown_address_type->street[0]),
             $validation->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($unknown_address_type->city_locality),
             $validation->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $unknown_address_type->state_province,
             $validation->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $unknown_address_type->postal_code,
             $validation->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $unknown_address_type->country_code,
             $validation->country_code
         );
@@ -1052,30 +1052,30 @@ EOT,
         $validation = self::$shipengine->normalizeAddress($multi_line_address);
 
         $this->addressObjectAssertions($validation);
-        self::assertArrayHasKey(0, $validation->street);
-        self::assertArrayHasKey(1, $validation->street);
-        self::assertArrayNotHasKey(3, $validation->street);
-        self::assertEquals(
+        $this->assertArrayHasKey(0, $validation->street);
+        $this->assertArrayHasKey(1, $validation->street);
+        $this->assertArrayNotHasKey(3, $validation->street);
+        $this->assertEquals(
             strtoupper($multi_line_address->street[0] . ' ' . $multi_line_address->street[1]),
             $validation->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($multi_line_address->city_locality),
             $validation->city_locality
         );
-        self::assertEquals(
+        $this->assertEquals(
             $multi_line_address->state_province,
             $validation->state_province
         );
-        self::assertEquals(
+        $this->assertEquals(
             $multi_line_address->postal_code,
             $validation->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $multi_line_address->country_code,
             $validation->country_code
         );
-        self::assertFalse($validation->residential);
+        $this->assertFalse($validation->residential);
     }
 
     /**
@@ -1103,19 +1103,19 @@ EOT,
         $validation = self::$shipengine->validateAddress($good_address);
 
         $this->addressValidateResultAssertions($validation);
-        self::assertTrue($validation->valid);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertEquals(
             strtoupper($good_address->street[0]),
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             strtoupper($good_address->city_locality),
             $validation->normalized_address->city_locality
         );
-        self::assertIsNumeric($good_address->postal_code);
-        self::assertEquals($good_address->postal_code, $validation->normalized_address->postal_code);
-        self::assertEquals($good_address->country_code, $validation->normalized_address->country_code);
-        self::assertFalse($validation->normalized_address->residential);
+        $this->assertIsNumeric($good_address->postal_code);
+        $this->assertEquals($good_address->postal_code, $validation->normalized_address->postal_code);
+        $this->assertEquals($good_address->country_code, $validation->normalized_address->country_code);
+        $this->assertFalse($validation->normalized_address->residential);
     }
 
     /**
@@ -1141,18 +1141,18 @@ EOT,
         $validation = self::$shipengine->validateAddress($canada_address);
 
         $this->addressValidateResultAssertions($validation);
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals($canada_address->street[0], $validation->normalized_address->street[0]);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals($canada_address->street[0], $validation->normalized_address->street[0]);
+        $this->assertEquals(
             $canada_address->city_locality,
             $validation->normalized_address->city_locality
         );
-        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $canada_address->postal_code);
-        self::assertEquals($canada_address->postal_code, $validation->normalized_address->postal_code);
-        self::assertEquals($canada_address->country_code, $validation->normalized_address->country_code);
-        self::assertFalse($validation->normalized_address->residential);
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $canada_address->postal_code);
+        $this->assertEquals($canada_address->postal_code, $validation->normalized_address->postal_code);
+        $this->assertEquals($canada_address->country_code, $validation->normalized_address->country_code);
+        $this->assertFalse($validation->normalized_address->residential);
     }
 
     /**
@@ -1180,33 +1180,33 @@ EOT,
         );
         $validation = self::$shipengine->validateAddress($non_latin_chars_address);
 
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals(
             '68 Kamitobatsunodacho',
             $validation->normalized_address->street[0]
         );
-        self::assertEquals(
+        $this->assertEquals(
             'Kyoto-Shi Minami-Ku',
             $validation->normalized_address->city_locality
         );
 
-        self::assertEquals('Kyoto', $validation->normalized_address->state_province);
-        self::assertMatchesRegularExpression(
+        $this->assertEquals('Kyoto', $validation->normalized_address->state_province);
+        $this->assertMatchesRegularExpression(
             '/^[a-zA-Z0-9-]*$/',
             $non_latin_chars_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $non_latin_chars_address->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $non_latin_chars_address->country_code,
             $validation->normalized_address->country_code
         );
 
-        self::assertFalse($validation->normalized_address->residential);
+        $this->assertFalse($validation->normalized_address->residential);
     }
 
     /**
@@ -1233,28 +1233,28 @@ EOT,
         $validation = self::$shipengine->validateAddress($validate_with_warning);
 
         $this->addressValidateResultAssertions($validation);
-        self::assertTrue($validation->valid);
-        self::assertInstanceOf(Address::class, $validation->normalized_address);
-        self::assertNotEmpty($validation->normalized_address);
-        self::assertEquals($validate_with_warning->street[0], $validation->normalized_address->street[0]);
-        self::assertEquals(
+        $this->assertTrue($validation->valid);
+        $this->assertInstanceOf(Address::class, $validation->normalized_address);
+        $this->assertNotEmpty($validation->normalized_address);
+        $this->assertEquals($validate_with_warning->street[0], $validation->normalized_address->street[0]);
+        $this->assertEquals(
             $validate_with_warning->city_locality,
             $validation->normalized_address->city_locality
         );
-        self::assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $validate_with_warning->postal_code);
-        self::assertEquals(
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $validate_with_warning->postal_code);
+        $this->assertEquals(
             $validate_with_warning->postal_code,
             $validation->normalized_address->postal_code
         );
-        self::assertEquals(
+        $this->assertEquals(
             $validate_with_warning->country_code,
             $validation->normalized_address->country_code
         );
-        self::assertFalse($validation->normalized_address->residential);
-        self::assertEmpty($validation->errors);
-        self::assertNotEmpty($validation->warnings);
-        self::assertIsString($validation->warnings[0]);
-        self::assertEquals(
+        $this->assertFalse($validation->normalized_address->residential);
+        $this->assertEmpty($validation->errors);
+        $this->assertNotEmpty($validation->warnings);
+        $this->assertIsString($validation->warnings[0]);
+        $this->assertEquals(
             <<<'EOT'
 This address has been verified down to the house/building level (highest possible accuracy with the provided data)
 EOT,
@@ -1284,15 +1284,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. At least one address line is required.',
                 $error['message']
             );
@@ -1321,15 +1321,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. No more than 3 street lines are allowed.',
                 $error['message']
             );
@@ -1359,15 +1359,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
             );
@@ -1397,15 +1397,15 @@ EOT,
                     'country_code' => 'US',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 $error['message']
             );
@@ -1434,15 +1434,15 @@ EOT,
                     'country_code' => '',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
                 'Invalid address. The country must be specified.',
                 $error['message']
             );
@@ -1472,15 +1472,15 @@ EOT,
                     'country_code' => 'USA',
                 )
             );
-            self::expectException(ValidationException::class);
+            $this->expectException(ValidationException::class);
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(ValidationException::class, $e);
-            self::assertNull($error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::VALIDATION, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(ValidationException::class, $e);
+            $this->assertNull($error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_FIELD_VALUE, $error['error_code']);
+            $this->assertEquals(
                 "Invalid address. USA is not a valid country code.",
                 $error['message']
             );
@@ -1502,13 +1502,13 @@ EOT,
             self::$shipengine->validateAddress($get_invalid_address_error);
         } catch (SystemException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(SystemException::class, $e);
-            self::assertNotEmpty($error['request_id']);
-            self::assertStringStartsWith('req_', $error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::SYSTEM, $error['type']);
-            self::assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(SystemException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['error_code']);
+            $this->assertEquals(
                 "Unable to connect to the database",
                 $error['message']
             );
@@ -1530,13 +1530,13 @@ EOT,
             self::$shipengine->normalizeAddress($validate_with_error);
         } catch (BusinessRuleException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(BusinessRuleException::class, $e);
-            self::assertNotEmpty($error['request_id']);
-            self::assertStringStartsWith('req_', $error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(BusinessRuleException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
+            $this->assertEquals(
                 "Invalid address. Invalid City, State, or Zip",
                 $error['message']
             );
@@ -1558,13 +1558,13 @@ EOT,
             self::$shipengine->normalizeAddress($validate_with_error);
         } catch (BusinessRuleException $e) {
             $error = $e->jsonSerialize();
-            self::assertInstanceOf(BusinessRuleException::class, $e);
-            self::assertNotEmpty($error['request_id']);
-            self::assertStringStartsWith('req_', $error['request_id']);
-            self::assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            self::assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
-            self::assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
-            self::assertEquals(
+            $this->assertInstanceOf(BusinessRuleException::class, $e);
+            $this->assertNotEmpty($error['request_id']);
+            $this->assertStringStartsWith('req_', $error['request_id']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_ADDRESS, $error['error_code']);
+            $this->assertEquals(
                 "Invalid address.\nInvalid City, State, or Zip\nInvalid postal code",
                 $error['message']
             );
@@ -1582,29 +1582,29 @@ EOT,
                 'country_code' => 'US',
             )
         );
-        self::assertIsArray(self::$shipengine->validateAddress($good_address)->jsonSerialize());
+        $this->assertIsArray(self::$shipengine->validateAddress($good_address)->jsonSerialize());
     }
 
     public function addressObjectAssertions($object)
     {
-        self::assertInstanceOf(Address::class, $object);
-        self::assertObjectHasAttribute('street', $object);
-        self::assertObjectHasAttribute('city_locality', $object);
-        self::assertObjectHasAttribute('state_province', $object);
-        self::assertObjectHasAttribute('postal_code', $object);
-        self::assertObjectHasAttribute('country_code', $object);
-        self::assertObjectHasAttribute('name', $object);
-        self::assertObjectHasAttribute('phone', $object);
-        self::assertObjectHasAttribute('company', $object);
+        $this->assertInstanceOf(Address::class, $object);
+        $this->assertObjectHasAttribute('street', $object);
+        $this->assertObjectHasAttribute('city_locality', $object);
+        $this->assertObjectHasAttribute('state_province', $object);
+        $this->assertObjectHasAttribute('postal_code', $object);
+        $this->assertObjectHasAttribute('country_code', $object);
+        $this->assertObjectHasAttribute('name', $object);
+        $this->assertObjectHasAttribute('phone', $object);
+        $this->assertObjectHasAttribute('company', $object);
     }
 
     public function addressValidateResultAssertions($object): void
     {
-        self::assertInstanceOf(AddressValidateResult::class, $object);
-        self::assertObjectHasAttribute('valid', $object);
-        self::assertObjectHasAttribute('normalized_address', $object);
-        self::assertObjectHasAttribute('info', $object);
-        self::assertObjectHasAttribute('warnings', $object);
-        self::assertObjectHasAttribute('errors', $object);
+        $this->assertInstanceOf(AddressValidateResult::class, $object);
+        $this->assertObjectHasAttribute('valid', $object);
+        $this->assertObjectHasAttribute('normalized_address', $object);
+        $this->assertObjectHasAttribute('info', $object);
+        $this->assertObjectHasAttribute('warnings', $object);
+        $this->assertObjectHasAttribute('errors', $object);
     }
 }
