@@ -69,7 +69,7 @@ final class TrackPackageResult implements \JsonSerializable
         $errors = array();
         foreach ($this->events as $event) {
             if ($event['status'] === 'EXCEPTION') {
-                array_push($errors, $event);
+                $errors[] = $event;
             }
         }
         return $errors;

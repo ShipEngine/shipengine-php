@@ -45,7 +45,7 @@ final class CarrierAccountService
         $this->accounts = array();
         foreach ($accounts as $account) {
             $carrier_account = new CarrierAccount($account);
-            array_push($this->accounts, $carrier_account);
+            $this->accounts[] = $carrier_account;
         }
 
         return $this->accounts;
