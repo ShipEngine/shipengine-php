@@ -63,7 +63,7 @@ final class TrackingEvent implements \JsonSerializable
     private ?string $signer;
 
     /**
-     * The location details of where the current tracking event occured.
+     * The location details of where the current tracking event occurred.
      *
      * @var Location|null
      */

@@ -6,7 +6,6 @@ use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
-use ShipEngine\Model\Carriers\CarrierAccount;
 use ShipEngine\Model\Package\Package;
 use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
