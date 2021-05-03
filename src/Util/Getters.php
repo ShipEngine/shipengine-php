@@ -13,6 +13,6 @@ trait Getters
             return $this->$property;
         }
 
-        throw new \RuntimeException($property . ' does not exist.');
+        throw new \RuntimeException("Retrieving the field/member $property is not valid for this entity.");
     }
 }
