@@ -58,7 +58,7 @@ final class CarrierAccountTest extends TestCase
             $arr = [];
             foreach ($carrier_accounts as $account) {
                 $acct = new CarrierAccount($account);
-                array_push($arr, $acct);
+                $arr[] = $acct;
             }
             return $arr;
         };

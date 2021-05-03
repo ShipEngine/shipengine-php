@@ -60,7 +60,7 @@ final class AddressTest extends TestCase
      * - **error_code** os `field_value_required`.
      * - **message** is "Invalid address. At least one address line is required.".
      */
-    public function testNoAddressLinesValidationError()
+    public function testNoAddressLinesValidationError(): void
     {
         try {
             new Address(
@@ -97,7 +97,7 @@ final class AddressTest extends TestCase
      * - **error_code** os `field_value_required`.
      * - **message** is "Invalid address. No more than 3 street lines are allowed.".
      */
-    public function testTooManyAddressLinesValidationError()
+    public function testTooManyAddressLinesValidationError(): void
     {
         try {
             new Address(
@@ -124,7 +124,7 @@ final class AddressTest extends TestCase
         }
     }
 
-    public function testMissingCityStateAndPostalCode()
+    public function testMissingCityStateAndPostalCode(): void
     {
         try {
             new Address(
@@ -151,7 +151,7 @@ final class AddressTest extends TestCase
         }
     }
 
-    public function testMissingCityAndPostalCode()
+    public function testMissingCityAndPostalCode(): void
     {
         try {
             new Address(
@@ -189,7 +189,7 @@ final class AddressTest extends TestCase
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testMissingStateAndPostalCode()
+    public function testMissingStateAndPostalCode(): void
     {
         try {
             new Address(
@@ -226,7 +226,7 @@ final class AddressTest extends TestCase
      * - **error_code** os `invalid_field_value`.
      * - **message** is "Invalid address. The country must be specified.".
      */
-    public function testMissingCountryCode()
+    public function testMissingCountryCode(): void
     {
         try {
             new Address(
@@ -264,7 +264,7 @@ final class AddressTest extends TestCase
      * - **message** is "Invalid address. XX is not a valid country code."
      * (where XX is the value that was specified).
      */
-    public function testInvalidCountryCode()
+    public function testInvalidCountryCode(): void
     {
         try {
             new Address(

@@ -2,7 +2,9 @@
 
 namespace Model\Address;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Util\ShipEngineSerializer;
 
@@ -73,8 +75,8 @@ final class AddressValidateResultTest extends TestCase
 
     /**
      * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
     public function testConstructSuccessResponse(): void
     {
@@ -82,8 +84,8 @@ final class AddressValidateResultTest extends TestCase
     }
 
     /**
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
     public function testJsonSerialize(): void
     {
