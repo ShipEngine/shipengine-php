@@ -2,6 +2,7 @@
 
 namespace ShipEngine\Util;
 
+use DateInterval;
 use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
@@ -23,7 +24,7 @@ final class Assert
      *
      * @param array $street
      */
-    public function isStreetSet(array $street)
+    public function isStreetSet(array $street): void
     {
         if (empty($street)) {
             throw new ValidationException(
@@ -44,7 +45,7 @@ final class Assert
      * @param array $street
      * @throws ValidationException
      */
-    public function tooManyAddressLines(array $street)
+    public function tooManyAddressLines(array $street): void
     {
         if (count($street) > 3) {
             throw new ValidationException(
@@ -63,7 +64,7 @@ final class Assert
      * @param string $city_locality
      * @throws ValidationException
      */
-    public function isCityValid(string $city_locality)
+    public function isCityValid(string $city_locality): void
     {
         if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $city_locality) === false || $city_locality === '') {
             throw new ValidationException(
@@ -82,7 +83,7 @@ final class Assert
      * @param string $state_province
      * @throws ValidationException
      */
-    public function isStateValid(string $state_province)
+    public function isStateValid(string $state_province): void
     {
         if (preg_match('/^[A-Z\W]{2}$/', $state_province) === false || $state_province === '') {
             throw new ValidationException(
@@ -101,9 +102,9 @@ final class Assert
      * @param string $postal_code
      * @throws ValidationException
      */
-    public function isPostalCodeValid(string $postal_code)
+    public function isPostalCodeValid(string $postal_code): void
     {
-        if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postal_code) === false || $postal_code == '') {
+        if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postal_code) === false || $postal_code === '') {
             throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
@@ -120,9 +121,9 @@ final class Assert
      * @param string $country_code
      * @throws ValidationException
      */
-    public function isCountryCodeValid(string $country_code)
+    public function isCountryCodeValid(string $country_code): void
     {
-        if ($country_code == '') {
+        if ($country_code === '') {
             throw new ValidationException(
                 "Invalid address. The country must be specified.",
                 null,
@@ -132,7 +133,7 @@ final class Assert
             );
         } elseif (!preg_match('/^[A-Z]{2}$/', $country_code)) {
             throw new ValidationException(
-                "Invalid address. {$country_code} is not a valid country code.",
+                "Invalid address. $country_code is not a valid country code.",
                 null,
                 'shipengine',
                 'validation',
@@ -162,9 +163,9 @@ final class Assert
     /**
      * Asserts that the timeout value is valid.
      *
-     * @param \DateInterval $timeout
+     * @param DateInterval $timeout
      */
-    public function isTimeoutValid(\DateInterval $timeout): void
+    public function isTimeoutValid(DateInterval $timeout): void
     {
         if ($timeout->invert === 1 || $timeout->s === 0) {
             throw new ValidationException(
@@ -183,7 +184,7 @@ final class Assert
      * @param array $parsed_response
      * @param int $status_code
      */
-    public function doesResponseHave500Error(array $parsed_response, int $status_code)
+    public function doesResponseHave500Error(array $parsed_response, int $status_code): void
     {
         if ($status_code === 500) {
             $error = $parsed_response['error'];
@@ -203,9 +204,8 @@ final class Assert
      * are present an exception is thrown.
      *
      * @param AddressValidateResult $validation_result
-     * @return mixed
      */
-    public function doesNormalizedAddressHaveErrors(AddressValidateResult $validation_result)
+    public function doesNormalizedAddressHaveErrors(AddressValidateResult $validation_result): void
     {
         if (count($validation_result->errors) > 1) {
             throw new BusinessRuleException(
