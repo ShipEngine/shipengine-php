@@ -90,32 +90,4 @@ final class ShipEngineClientTest extends TestCase
         $this->assertArrayHasKey('jsonrpc', $wrap_request);
         $this->assertArrayHasKey('method', $wrap_request);
     }
-
-//    /**
-//     *
-//     */
-//    public function testRequest()
-//    {
-//
-//    }
-//
-//    public function testSendRPCRequest()
-//    {
-//
-//    }
-//
-//    public function testSendRequest()
-//    {
-//
-//    }
-//
-//    public function testHandleResponse()
-//    {
-//
-//    }
-//
-//    public function testDeriveUserAgent()
-//    {
-//
-//    }
 }
