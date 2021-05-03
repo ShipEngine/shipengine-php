@@ -3,7 +3,6 @@
 namespace ShipEngine\Model\Address;
 
 use ShipEngine\Message\ValidationException;
-use ShipEngine\Util;
 use ShipEngine\Util\Assert;
 
 /**
@@ -24,36 +23,34 @@ use ShipEngine\Util\Assert;
  */
 final class Address implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * The street address. If the street address is multiple lines, then pass an
      * array of lines (up to 3).
      *
      * @var array
      */
-    private array $street;
+    public array $street;
 
     /**
      * The city or locality.
      *
      * @var string|null
      */
-    private ?string $city_locality;
+    public ?string $city_locality;
 
     /**
      * The state or province.
      *
      * @var string|null
      */
-    private ?string $state_province;
+    public ?string $state_province;
 
     /**
      * The postal code or zip code.
      *
      * @var string|null
      */
-    private ?string $postal_code;
+    public ?string $postal_code;
 
     /**
      * The ISO 3166 country code
@@ -61,35 +58,35 @@ final class Address implements \JsonSerializable
      * @link https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
      * @var string
      */
-    private string $country_code;
+    public string $country_code;
 
     /**
      * Indicates whether the address is residential or commercial, if known.
      *
      * @var bool|null
      */
-    private ?bool $residential;
+    public ?bool $residential;
 
     /**
      * The name of the sender or recipient at the address, if applicable.
      *
      * @var string|null
      */
-    private ?string $name;
+    public ?string $name;
 
     /**
      * The phone number associated with this address, if any.
      *
      * @var string|null
      */
-    private ?string $phone;
+    public ?string $phone;
 
     /**
      * The company name, if this is a business address.
      *
      * @var string|null
      */
-    private ?string $company;
+    public ?string $company;
 
     /**
      * Address Type constructor. This object is used in the AddressService

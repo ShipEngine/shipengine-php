@@ -7,7 +7,6 @@ use ShipEngine\Model\Carriers\CarrierAccount;
 use ShipEngine\ShipEngineClient;
 use ShipEngine\ShipEngineConfig;
 use ShipEngine\Util\Constants\RPCMethods;
-use ShipEngine\Util;
 
 /**
  * Class CarrierAccountService
@@ -16,14 +15,12 @@ use ShipEngine\Util;
  */
 final class CarrierAccountService
 {
-    use Util\Getters;
-
     /**
      * Cached list of carrier accounts if any are present.
      *
      * @var array
      */
-    private array $accounts;
+    public array $accounts;
 
     // TODO: implement 'caching' to store carrier accounts. - in TrackPackageService
     /**

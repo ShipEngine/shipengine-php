@@ -15,20 +15,20 @@ final class ErrorType
      * or a third-party account. See the the error source to determine which
      * account needs your attention.
      */
-    const ACCOUNT_STATUS = 'account_status';
+    public const ACCOUNT_STATUS = 'account_status';
 
     /**
      * A security error will occur if your API key is invalid or expired, or if
      * you attempt to perform an operation that is not permitted for your account.
      */
-    const SECURITY = 'security';
+    public const SECURITY = 'security';
 
     /**
      * Something is wrong with the input provided, such as missing a required field,
      * or an illegal value or combination of values. This error type always means
      * that some change needs to be made to the input before retrying.
      */
-    const VALIDATION = 'validation';
+    public const VALIDATION = 'validation';
 
     /**
      * There was a business rule violation. Business rules are requirements or
@@ -39,7 +39,7 @@ final class ErrorType
      * the problem or propose a solution, or you may need to contact the third-party
      * for assistance.
      */
-    const BUSINESS_RULES = 'business_rules';
+    public const BUSINESS_RULES = 'business_rules';
 
     /**
      * An unknown or unexpected error occurred in our system. Or an error occurred
@@ -47,5 +47,5 @@ final class ErrorType
      * persistent system errors, then please contact our support or check our API
      * status page to see if there's a known issue.
      */
-    const SYSTEM = 'system';
+    public const SYSTEM = 'system';
 }

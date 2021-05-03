@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Model\Package;
 
-use ShipEngine\Util;
-
 /**
  * Class TrackingQuery - This Type is used as an argument in the `TrackPackageService` methods.
  *
@@ -11,17 +9,15 @@ use ShipEngine\Util;
  */
 final class TrackingQuery implements \JsonSerializable
 {
-    use Util\Getters;
+    /**
+     * @var string|null
+     */
+    public ?string $carrier_code;
 
     /**
      * @var string|null
      */
-    private ?string $carrier_code;
-
-    /**
-     * @var string|null
-     */
-    private ?string $tracking_number;
+    public ?string $tracking_number;
 
     /**
      * TrackingQuery constructor.

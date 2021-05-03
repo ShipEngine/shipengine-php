@@ -14,28 +14,22 @@ final class ErrorSource
     /**
      * The error is from ShipEngine. If you have any questions or require support,
      * please contact us
-     *
-     * @const SHIPENGINE
      */
-    const SHIPENGINE = "shipengine";
+    public const SHIPENGINE = "shipengine";
 
     /**
      * The error came from a shipping carrier (such as UPS, FedEx, DHL, etc).
      * ShipEngine support may be able to help clarify the error for you, but if
      * the problem is with your carrier account, then you will need to contact
      * them directly.
-     *
-     * @const CARRIER
      */
-    const CARRIER = "carrier";
+    public const CARRIER = "carrier";
 
     /**
      * The error came from an order source (such as Shopify, Ebay, WalMart, etc).
      * ShipEngine support may be able to help clarify the error for you, but if
      * the problem is with your seller account, then you will need to contact
      * them directly.
-     *
-     * @const ORDER_SOURCE
      */
-    const ORDER_SOURCE = "order_source";
+    public const ORDER_SOURCE = "order_source";
 }

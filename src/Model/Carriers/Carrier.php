@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Model\Carriers;
 
-use ShipEngine\Util;
-
 /**
  * Class Carrier - Immutable carrier object.
  *
@@ -11,21 +9,19 @@ use ShipEngine\Util;
  */
 final class Carrier implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * The common carrier/provider name: `FedEx`
      *
      * @var string
      */
-    private string $name;
+    public string $name;
 
     /**
      * The actual **code** that ShipEngine API uses: `fedex`
      *
      * @var string
      */
-    private string $code;
+    public string $code;
 
     /**
      * Carrier constructor.

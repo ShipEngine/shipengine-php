@@ -2,29 +2,25 @@
 
 namespace ShipEngine\Model\Package;
 
-use ShipEngine\Util;
-
 /**
  * Class TrackPackageResult
  * @package ShipEngine\Model\Package
  */
 final class TrackPackageResult implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * The shipment object that is related to the tracking data and is returned from ShipEngine API.
      *
      * @var Shipment|null
      */
-    private ?Shipment $shipment;
+    public ?Shipment $shipment;
 
     /**
      * A Package object representing the package data associated with a given shipment/tracking number.
      *
      * @var Package|null
      */
-    private ?Package $package;
+    public ?Package $package;
 
     /**
      * A list of tracking events that have occurred on a given shipment/tracking number, up to the
@@ -32,7 +28,7 @@ final class TrackPackageResult implements \JsonSerializable
      *
      * @var array|null
      */
-    private ?array $events;
+    public ?array $events;
 
     /**
      * This is the latest event to have occurred in the `$events` array.

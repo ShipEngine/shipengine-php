@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Message;
 
-use ShipEngine\Util;
-
 /**
  * Error-level message - an error thrown by the ShipEngine SDK.
  * All other SDK errors inherit from this class.
@@ -19,8 +17,6 @@ use ShipEngine\Util;
  */
 class ShipEngineException extends \RuntimeException implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * If the error came from the ShipEngine server (as opposed to a client-side error)
      * then this is the unique ID of the HTTP request that returned the error.
@@ -28,7 +24,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      *
      * @var string|null
      */
-    private ?string $request_id;
+    public ?string $request_id;
 
     /**
      * A code that indicates the specific error that occurred, such as missing a
@@ -36,7 +32,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      *
      * @var string|null
      */
-    private ?string $error_code;
+    public ?string $error_code;
 
     /**
      * Indicates where the error originated. This lets you know whether you should
@@ -46,7 +42,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      * @link https://www.shipengine.com/docs/errors/codes/#error-source
      * @var string|null
      */
-    private ?string $source;
+    public ?string $source;
 
     /**
      * Indicates the type of error that occurred, such as a validation error, a
@@ -55,7 +51,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      * @link https://www.shipengine.com/docs/errors/codes/#error-type
      * @var string|null
      */
-    private ?string $type;
+    public ?string $type;
 
     /**
      * Some errors include a URL that you can visit to learn more about the error,
@@ -63,7 +59,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      *
      * @var string|null
      */
-    private ?string $url;
+    public ?string $url;
 
     /**
      * ShipEngineException constructor - Instantiates a client-side error or server-side error.

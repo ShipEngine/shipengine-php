@@ -2,7 +2,6 @@
 
 namespace ShipEngine\Model\Package;
 
-use ShipEngine\Util;
 use GuzzleHttp\Psr7\Uri;
 
 /**
@@ -12,28 +11,26 @@ use GuzzleHttp\Psr7\Uri;
  */
 final class Package implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * The unique ID that corresponds to the current package.
      *
      * @var string|null
      */
-    private ?string $package_id;
+    public ?string $package_id;
 
     /**
      * Weight of the given shipment.
      *
      * @var string|null
      */
-    private ?string $weight;
+    public ?string $weight;
 
     /**
      * Dimensions of the given shipment.
      *
      * @var array|null
      */
-    private ?array $dimensions;
+    public ?array $dimensions;
 
     /**
      * The tracking number of a given shipment. This number helps is obtaining tracking updates for a
@@ -41,14 +38,14 @@ final class Package implements \JsonSerializable
      *
      * @var string
      */
-    private string $tracking_number;
+    public string $tracking_number;
 
     /**
      * The tracking URL to the carrier site with tracking information on your shipment.
      *
      * @var Uri
      */
-    private Uri $tracking_url;
+    public Uri $tracking_url;
 
     /**
      * Package Class constructor. This is an object containing package information

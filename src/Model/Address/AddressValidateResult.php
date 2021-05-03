@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Model\Address;
 
-use ShipEngine\Util;
-
 /**
  * `AddressValidateResult` Type to be returned by *AddressService*. This is the result of
  * validating a given address, whether it's valid or not.
@@ -18,8 +16,6 @@ use ShipEngine\Util;
  */
 final class AddressValidateResult implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * Indicates whether the address is valid
      *

@@ -3,7 +3,6 @@
 namespace ShipEngine\Message\Events;
 
 use DateInterval;
-use ShipEngine\Util;
 
 /**
  * Class RequestSentEvent
@@ -23,35 +22,35 @@ final class RequestSentEvent extends ShipEngineEvent
      *
      * @var string
      */
-    private string $request_id;
+    public string $request_id;
 
     /**
      * This is the URL that the request was sent to.
      *
      * @var string
      */
-    private string $url;
+    public string $url;
 
     /**
      * An array of request headers that was sent on the request that triggered this event.
      *
      * @var array
      */
-    private array $headers;
+    public array $headers;
 
     /**
      * An associative array representation of the response body.
      *
      * @var array
      */
-    private array $body;
+    public array $body;
 
     /**
      * The current retry - this is used in the retry logic that the ShipEngineClient executes.
      *
      * @var int
      */
-    private int $retry;
+    public int $retry;
 
     /**
      * The timeout for requests in seconds.
@@ -59,7 +58,7 @@ final class RequestSentEvent extends ShipEngineEvent
      * @var DateInterval
      * @link https://www.php.net/manual/en/class.dateinterval.php
      */
-    private DateInterval $timeout;
+    public DateInterval $timeout;
 
     /**
      * RequestSentEvent constructor - this event is emitted when a request is sent from the

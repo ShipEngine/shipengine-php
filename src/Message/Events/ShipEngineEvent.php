@@ -3,7 +3,6 @@
 namespace ShipEngine\Message\Events;
 
 use DateTime;
-use ShipEngine\Util;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -23,14 +22,14 @@ class ShipEngineEvent extends Event
      *
      * @var string
      */
-    private string $type;
+    public string $type;
 
     /**
      * The event message to provide context to the underlying event.
      *
      * @var string
      */
-    private string $message;
+    public string $message;
 
     /**
      * Instantiates events - all other events inherit from this class.

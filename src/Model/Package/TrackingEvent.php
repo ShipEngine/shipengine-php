@@ -3,7 +3,6 @@
 namespace ShipEngine\Model\Package;
 
 use DateTime;
-use ShipEngine\Util;
 
 /**
  * Class TrackingEvent
@@ -11,63 +10,61 @@ use ShipEngine\Util;
  */
 final class TrackingEvent implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * The current date-time of the tracking event.
      *
      * @var DateTime
      */
-    private DateTime $date_time;
+    public DateTime $date_time;
 
     /**
      * The current date-time of the tracking event per the carrier records.
      *
      * @var DateTime
      */
-    private DateTime $carrier_date_time;
+    public DateTime $carrier_date_time;
 
     /**
      * The current status of the tracking event.
      *
      * @var string
      */
-    private string $status;
+    public string $status;
 
     /**
      * The carrier status description of the tracking event.
      *
      * @var string|null
      */
-    private ?string $description;
+    public ?string $description;
 
     /**
      * The carrier defined status code.
      *
      * @var string|null
      */
-    private ?string $carrier_status_code;
+    public ?string $carrier_status_code;
 
     /**
      * The carrier defined detail code.
      *
      * @var string|null
      */
-    private ?string $carrier_detail_code;
+    public ?string $carrier_detail_code;
 
     /**
      * The signer or person who singed the package if there is record of one.
      *
      * @var string|null
      */
-    private ?string $signer;
+    public ?string $signer;
 
     /**
      * The location details of where the current tracking event occurred.
      *
      * @var Location|null
      */
-    private ?Location $location;
+    public ?Location $location;
 
     /**
      * TrackingEvent constructor.

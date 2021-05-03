@@ -12,7 +12,6 @@ use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\Service\Address\AddressService;
 use ShipEngine\Service\Carriers\CarrierAccountService;
 use ShipEngine\Service\Package\TrackPackageService;
-use ShipEngine\Util;
 use ShipEngine\Util\ShipEngineLogger;
 
 /**
@@ -22,16 +21,14 @@ use ShipEngine\Util\ShipEngineLogger;
  */
 final class ShipEngine
 {
-    use Util\Getters;
-
     /**
      * A collection of methods to call the ShipEngine Address Validation Services.
      *
      * @var AddressService
      */
-    private AddressService $address_service;
+    public AddressService $address_service;
 
-    private TrackPackageService $tracking_service;
+    public TrackPackageService $tracking_service;
 
     /**
      * Global configuration for the ShipEngine API client, such as timeouts,
@@ -40,14 +37,14 @@ final class ShipEngine
      *
      * @var ShipEngineConfig
      */
-    private ShipEngineConfig $config;
+    public ShipEngineConfig $config;
 
     /**
      * ShipEngineLogger class.
      *
      * @var ShipEngineLogger
      */
-    private ShipEngineLogger $logger;
+    public ShipEngineLogger $logger;
 
     /**
      * Instantiates the ShipEngine class. The `api_key` you pass in can be either

@@ -5,18 +5,15 @@ namespace ShipEngine;
 use DateInterval;
 use ShipEngine\Message\Events\ShipEngineEventListener;
 use ShipEngine\Message\ValidationException;
-use ShipEngine\Util;
 use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\Endpoints;
 
 final class ShipEngineConfig
 {
-    use Util\Getters;
-
-    const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_RPC_URL;
-    const DEFAULT_PAGE_SIZE = 50;
-    const DEFAULT_RETRIES = 1;
-    const DEFAULT_TIMEOUT = 'PT5S';
+    public const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_RPC_URL;
+    public const DEFAULT_PAGE_SIZE = 50;
+    public const DEFAULT_RETRIES = 1;
+    public const DEFAULT_TIMEOUT = 'PT5S';
 
     public string $api_key;
     public string $base_url;

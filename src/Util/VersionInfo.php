@@ -10,21 +10,23 @@ namespace ShipEngine\Util;
 final class VersionInfo
 {
     /**
-     * @const MAJOR
+     * MAJOR version number
      */
-    const MAJOR = 0;
+    public const MAJOR = 0;
 
     /**
-     * @const MINOR
+     * MINOR version number
      */
-    const MINOR = 0;
+    public const MINOR = 0;
 
     /**
-     * @const PATCH
+     * PATCH version number
      */
-    const PATCH = 1;
+    public const PATCH = 1;
 
     /**
+     * Return the version as a string.
+     *
      * @return string
      */
     public static function string(): string

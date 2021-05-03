@@ -3,7 +3,6 @@
 namespace ShipEngine\Message\Events;
 
 use DateInterval;
-use ShipEngine\Util;
 
 /**
  * Class ResponseReceivedEvent
@@ -23,42 +22,42 @@ final class ResponseReceivedEvent extends ShipEngineEvent
      *
      * @var string
      */
-    private string $request_id;
+    public string $request_id;
 
     /**
      * This is the URL that the request was sent to.
      *
      * @var string
      */
-    private string $url;
+    public string $url;
 
     /**
      * The response status code.
      *
      * @var int
      */
-    private int $status_code;
+    public int $status_code;
 
     /**
      * An array of request headers that was sent on the request that triggered this event.
      *
      * @var array
      */
-    private array $headers;
+    public array $headers;
 
     /**
      * An associative array representation of the response body.
      *
      * @var array
      */
-    private array $body;
+    public array $body;
 
     /**
      * The current retry - this is used in the retry logic that the ShipEngineClient executes.
      *
      * @var int
      */
-    private int $retry;
+    public int $retry;
 
     /**
      * This is the elapsed time between the `RequestSentEvent` and the
@@ -67,7 +66,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent
      * @var DateInterval
      * @link https://www.php.net/manual/en/class.dateinterval.php
      */
-    private DateInterval $elapsed;
+    public DateInterval $elapsed;
 
     /**
      * ResponseReceivedEvent constructor - this event is emitted when a response

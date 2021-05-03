@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Model\Package;
 
-use ShipEngine\Util;
-
 /**
  * The location of a given tracking event.
  *
@@ -16,49 +14,47 @@ use ShipEngine\Util;
  */
 final class Location implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * The tracking event's city/locality.
      *
      * @var string|null
      */
-    private ?string $city_locality;
+    public ?string $city_locality;
 
     /**
      * The tracking event's state/province.
      *
      * @var string|null
      */
-    private ?string $state_province;
+    public ?string $state_province;
 
     /**
      * The tracking event's postal code.
      *
      * @var string|null
      */
-    private ?string $postal_code;
+    public ?string $postal_code;
 
     /**
      * The tracking event's country.
      *
      * @var string|null
      */
-    private ?string $country_code;
+    public ?string $country_code;
 
     /**
      * The tracking event's latitude.
      *
      * @var float|null
      */
-    private ?float $latitude;
+    public ?float $latitude;
 
     /**
      * The tracking event's longitude.
      *
      * @var float|null
      */
-    private ?float $longitude;
+    public ?float $longitude;
 
     /**
      * Location constructor. The location of where a given tracking event occurred.

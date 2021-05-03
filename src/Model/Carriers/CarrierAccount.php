@@ -3,7 +3,6 @@
 namespace ShipEngine\Model\Carriers;
 
 use ShipEngine\Message\InvalidFieldValueException;
-use ShipEngine\Util;
 use ShipEngine\Util\Constants\CarrierNames;
 use ShipEngine\Util\Constants\Carriers;
 
@@ -14,35 +13,33 @@ use ShipEngine\Util\Constants\Carriers;
  */
 final class CarrierAccount implements \JsonSerializable
 {
-    use Util\Getters;
-
     /**
      * An immutable object that will represent a carrier account.
      *
      * @var Carrier
      */
-    private Carrier $carrier_account;
+    public Carrier $carrier_account;
 
     /**
      * The unique ID that is associated with the current carrier account.
      *
      * @var string
      */
-    private string $account_id;
+    public string $account_id;
 
     /**
      * The account number of the current carrier account.
      *
      * @var string
      */
-    private string $account_number;
+    public string $account_number;
 
     /**
      * The account name of the current carrier account.
      *
      * @var string
      */
-    private string $name;
+    public string $name;
 
     /**
      * CarrierAccount constructor. This class contains account information such as

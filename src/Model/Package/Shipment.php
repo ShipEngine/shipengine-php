@@ -5,23 +5,20 @@ namespace ShipEngine\Model\Package;
 use DateTime;
 use ShipEngine\Model\Carriers\Carrier;
 use ShipEngine\Model\Carriers\CarrierAccount;
-use ShipEngine\Util;
 
 final class Shipment implements \JsonSerializable
 {
-    use Util\Getters;
+    public ?string $shipment_id;
 
-    private ?string $shipment_id;
+    public ?string $carrier_id;
 
-    private ?string $carrier_id;
+    public ?CarrierAccount $carrier_account;
 
-    private ?CarrierAccount $carrier_account;
+    public Carrier $carrier;
 
-    private Carrier $carrier;
+    public DateTime $estimated_delivery_date;
 
-    private DateTime $estimated_delivery_date;
-
-    private string $actual_delivery_date;
+    public string $actual_delivery_date;
 
     public function __construct(array $shipment)
     {

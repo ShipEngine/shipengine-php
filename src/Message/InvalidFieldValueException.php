@@ -2,7 +2,6 @@
 
 namespace ShipEngine\Message;
 
-use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorType;
 
