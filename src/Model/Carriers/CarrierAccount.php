@@ -63,32 +63,21 @@ final class CarrierAccount implements \JsonSerializable
      */
     private function setCarrierAccount(array $account_information)
     {
-        if (array_key_exists('carrier_account', $account_information)) {
-            $account = $account_information['carrier_account'];
-            switch ($account) {
+        if (array_key_exists('carrier_code', $account_information)) {
+            $carrier_code = $account_information['carrier_code'];
+            switch ($carrier_code) {
+                case Carriers::USPS:
+                case Carriers::UPS:
                 case Carriers::FEDEX:
                     $this->carrier_account = new Carrier(
-                        CarrierNames::FEDEX,
-                        Carriers::FEDEX
-                    );
-                    break;
-                case Carriers::UPS:
-                    $this->carrier_account = new Carrier(
-                        CarrierNames::UPS,
-                        Carriers::UPS
-                    );
-                    break;
-                case Carriers::USPS:
-                    $this->carrier_account = new Carrier(
-                        CarrierNames::USPS,
-                        Carriers::USPS
+                        $carrier_code
                     );
                     break;
                 default:
                     throw new InvalidFieldValueException(
                         'carrier_account',
-                        "Carrier [$account] is currently not supported.",
-                        $account
+                        "Carrier [$carrier_code] is currently not supported.",
+                        $carrier_code
                     );
             }
         }

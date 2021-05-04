@@ -4,7 +4,6 @@ namespace ShipEngine\Service\Package;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\ShipEngineException;
-use ShipEngine\Model\Package\Package;
 use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\ShipEngineClient;
@@ -36,9 +35,6 @@ final class TrackPackageService
      * - By package id: pass in a **string** that is the **package_id** of the shipment you wish to track.
      *
      * @param ShipEngineConfig $config ShipEngine configuration object.
-     * @param string|TrackingQuery $tracking_data Track by **package_id** by passing in a **string** | Track by
-     * **tacking_number** and **carrier_code** via the TrackingQuery Type.
-     * Use this to track a shipment by tracking number and carrier_code.
      * @return TrackPackageResult
      * @throws ClientExceptionInterface
      */

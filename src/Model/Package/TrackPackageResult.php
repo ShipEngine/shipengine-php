@@ -28,7 +28,7 @@ final class TrackPackageResult implements \JsonSerializable
      *
      * @var array|null
      */
-    public ?array $events;
+    public ?array $events = array();
 
     /**
      * This is the latest event to have occurred in the `$events` array.
@@ -79,9 +79,15 @@ final class TrackPackageResult implements \JsonSerializable
      */
     public function __construct(array $api_response)
     {
-        $this->shipment = $api_response['shipment'] ?? null;
-        $this->package = $api_response['package'] ?? null;
-        $this->events = $api_response['events'] ?? null;
+        $result = $api_response['result'];
+
+        $this->events = null ?? $result['events'];
+        foreach ($this->events as $event) {
+            $this->events[] = new TrackingEvent($event);
+        }
+
+        $this->shipment = null ?? new Shipment($result['shipment'], $this->getLatestEvent()->date_time);
+        $this->package = null ?? new Package($result['package']);
     }
 
     /**

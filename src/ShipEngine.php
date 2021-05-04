@@ -115,7 +115,6 @@ final class ShipEngine
      * Track a package by `tracking_number` and `carrier_code` via the **TrackingQuery** object, by using just the
      * **package_id**, or by using a **Package** object.
      *
-     * @param string|TrackingQuery $tracking_data
      * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * base_url:string, page_size:int, retries:int, timeout:int, client:HttpClient|null}
      * @return Model\Package\TrackPackageResult

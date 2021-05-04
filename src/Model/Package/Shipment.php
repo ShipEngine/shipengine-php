@@ -2,9 +2,9 @@
 
 namespace ShipEngine\Model\Package;
 
-use DateTime;
 use ShipEngine\Model\Carriers\Carrier;
 use ShipEngine\Model\Carriers\CarrierAccount;
+use ShipEngine\Util\IsoString;
 
 final class Shipment implements \JsonSerializable
 {
@@ -16,18 +16,20 @@ final class Shipment implements \JsonSerializable
 
     public Carrier $carrier;
 
-    public DateTime $estimated_delivery_date;
+    public IsoString $estimated_delivery_date;
 
-    public string $actual_delivery_date;
+    public IsoString $actual_delivery_date;
 
-    public function __construct(array $shipment)
+    public function __construct(array $shipment, IsoString $actual_delivery_date)
     {
-        $this->shipment_id = $shipment['shipment_id'] ?? null;
-        $this->carrier_id = $shipment['shipment_id'] ?? null;
-        $this->carrier_account = $shipment['carrier_account'] ?? null;
-        $this->carrier = $shipment['carrier'];
-        $this->estimated_delivery_date = $shipment['estimated_delivery'];
-        $this->actual_delivery_date = $shipment['actual_delivery_date'];
+        $this->shipment_id = null ?? $shipment['shipment_id'];
+        $this->carrier_id = null ?? $shipment['carrier_id'];
+        $this->carrier_account = isset($shipment['carrier_account']) ?
+            new CarrierAccount($shipment['carrier_account']) :
+            null;
+        $this->carrier = new Carrier($shipment['carrier_code']);
+        $this->estimated_delivery_date = new IsoString($shipment['estimated_delivery']);
+        $this->actual_delivery_date = $actual_delivery_date;
     }
 
     /**

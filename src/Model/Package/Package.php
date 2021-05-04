@@ -55,11 +55,11 @@ final class Package implements \JsonSerializable
      */
     public function __construct(array $package)
     {
-        $this->package_id = $pacakge['package_id'] ?? null;
-        $this->weight = $package['weight'] ?? null;
-        $this->dimensions = $package['dimensions'] ?? null;
+        $this->package_id = null ?? $package['package_id'];
+        $this->weight = null ?? $package['weight'];
+        $this->dimensions = null ?? $package['dimensions'];
+        $this->tracking_url = null ?? new Uri($package['tracking_url']);
         $this->tracking_number = $package['tracking_number'];
-        $this->tracking_url = $package['tracking_url'];
     }
 
     /**

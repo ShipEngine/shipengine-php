@@ -2,7 +2,7 @@
 
 namespace ShipEngine\Model\Package;
 
-use DateTime;
+use ShipEngine\Util\IsoString;
 
 /**
  * Class TrackingEvent
@@ -13,16 +13,16 @@ final class TrackingEvent implements \JsonSerializable
     /**
      * The current date-time of the tracking event.
      *
-     * @var DateTime
+     * @var IsoString
      */
-    public DateTime $date_time;
+    public IsoString $date_time;
 
     /**
      * The current date-time of the tracking event per the carrier records.
      *
-     * @var DateTime
+     * @var IsoString
      */
-    public DateTime $carrier_date_time;
+    public IsoString $carrier_date_time;
 
     /**
      * The current status of the tracking event.
@@ -73,14 +73,14 @@ final class TrackingEvent implements \JsonSerializable
      */
     public function __construct(array $events)
     {
-        $this->date_time = $events['date_time'];
-        $this->carrier_date_time = $events['carrier_date_time'];
+        $this->date_time = new IsoString($events['date_time']);
+        $this->carrier_date_time = new IsoString($events['carrier_date_time']);
         $this->status = $events['status'];
-        $this->description = $events['description'] ?? null;
-        $this->carrier_status_code = $events['carrier_status_code'] ?? null;
-        $this->carrier_detail_code = $events['carrier_detail_code'] ?? null;
-        $this->signer = $events['signer'] ?? null;
-        $this->location = $events['location'] ?? null;
+        $this->description = null ?? $events['description'];
+        $this->carrier_status_code = null ?? $events['carrier_status_code'];
+        $this->carrier_detail_code = null ?? $events['carrier_detail_code'];
+        $this->signer = null ?? $events['signer'];
+        $this->location = isset($events['location']) ? new Location($events['location']) : null;
     }
 
     /**

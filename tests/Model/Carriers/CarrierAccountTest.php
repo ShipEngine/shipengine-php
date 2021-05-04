@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\InvalidFieldValueException;
 use ShipEngine\Model\Carriers\Carrier;
 use ShipEngine\Model\Carriers\CarrierAccount;
+use ShipEngine\Util\Constants\Carriers;
 
 /**
  * @covers \ShipEngine\Model\Carriers\CarrierAccount
@@ -20,78 +21,78 @@ final class CarrierAccountTest extends TestCase
      */
     public function testCarrierAccountInstantiation(): void
     {
-        $carrier_account = new CarrierAccount(
+        $carrier_code = new CarrierAccount(
             array(
-                'carrier_account' => 'fedex',
+                'carrier_code' => Carriers::FEDEX,
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
                 'name' => 'ShipEngine FedEx Account',
             )
         );
-        $this->assertInstanceOf(CarrierAccount::class, $carrier_account);
+        $this->assertInstanceOf(CarrierAccount::class, $carrier_code);
     }
 
-    public function testEachSDKSupportedCarrier(): void
+    public function testEachSDKSupportedCarrier()
     {
         $accounts = array(
             array(
-                'carrier_account' => 'fedex',
+                'carrier_code' => Carriers::FEDEX,
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
                 'name' => 'ShipEngine FedEx Account',
             ),
             array(
-                'carrier_account' => 'ups',
+                'carrier_code' => Carriers::UPS,
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
                 'name' => 'ShipEngine UPS Account',
             ),
             array(
-                'carrier_account' => 'stamps_com',
+                'carrier_code' => Carriers::USPS,
                 'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'account_number' => 'SDF987',
                 'name' => 'ShipEngine USPS Account',
             )
         );
 
-        $account_iterator = function (array $carrier_accounts) {
+        $account_iterator = function (array $carrier_codes) {
             $arr = [];
-            foreach ($carrier_accounts as $account) {
+            foreach ($carrier_codes as $account) {
                 $acct = new CarrierAccount($account);
                 $arr[] = $acct;
             }
             return $arr;
         };
-        $carrier_accounts = $account_iterator($accounts);
+        $carrier_codes = $account_iterator($accounts);
 
-        $this->assertInstanceOf(CarrierAccount::class, $carrier_accounts[0]);
-        $this->assertInstanceOf(Carrier::class, $carrier_accounts[0]->carrier_account);
+//        print_r($carrier_codes);
+        $this->assertInstanceOf(CarrierAccount::class, $carrier_codes[0]);
+        $this->assertInstanceOf(Carrier::class, $carrier_codes[0]->carrier_account);
 
-        $this->assertInstanceOf(CarrierAccount::class, $carrier_accounts[1]);
-        $this->assertInstanceOf(Carrier::class, $carrier_accounts[1]->carrier_account);
+        $this->assertInstanceOf(CarrierAccount::class, $carrier_codes[1]);
+        $this->assertInstanceOf(Carrier::class, $carrier_codes[1]->carrier_account);
 
-        $this->assertInstanceOf(CarrierAccount::class, $carrier_accounts[2]);
-        $this->assertInstanceOf(Carrier::class, $carrier_accounts[2]->carrier_account);
+        $this->assertInstanceOf(CarrierAccount::class, $carrier_codes[2]);
+        $this->assertInstanceOf(Carrier::class, $carrier_codes[2]->carrier_account);
     }
 
     public function testInvalidCarrierAccountValue(): void
     {
-        $invalid_carrier_account = array(
-            'carrier_account' => 'canada_post',
+        $invalid_carrier_code = array(
+            'carrier_code' => 'canada_post',
             'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'account_number' => 'SDF987',
             'name' => 'Canada Post',
         );
-        $account = $invalid_carrier_account['carrier_account'];
-        $field_value = key($invalid_carrier_account);
+        $account = $invalid_carrier_code['carrier_code'];
         try {
-            new CarrierAccount($invalid_carrier_account);
+            new CarrierAccount($invalid_carrier_code);
         } catch (InvalidFieldValueException $err) {
             $this->assertInstanceOf(InvalidFieldValueException::class, $err);
             $this->assertEquals('carrier_account', $err->field_name);
             $this->assertEquals('invalid_field_value', $err->error_code);
             $this->assertEquals(
-                "$field_value - Carrier [$account] is currently not supported.",
+                "carrier_account - Carrier [$account] is currently not supported.",
                 $err->getMessage()
             );
         }
@@ -100,13 +101,13 @@ final class CarrierAccountTest extends TestCase
     public function testJsonSerialize(): void
     {
         $ups_account_info = array(
-            'carrier_account' => 'ups',
+            'carrier_code' => Carriers::UPS,
             'id' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'account_number' => 'SDF987',
             'name' => 'ShipEngine UPS Account',
         );
-        $ups_carrier_account = new CarrierAccount($ups_account_info);
-        $json_serialize = $ups_carrier_account->jsonSerialize();
+        $ups_carrier_code = new CarrierAccount($ups_account_info);
+        $json_serialize = $ups_carrier_code->jsonSerialize();
         $encoded_json = json_encode($json_serialize);
         $this->assertJson($encoded_json);
         $this->assertIsString($encoded_json);
