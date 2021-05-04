@@ -28,7 +28,7 @@ jobs:
           extensions: xdebug
           runner_github_workspace_path: ${{ github.workspace }}
       - run: composer install
-      - run: php-cs-fixer fix -vvv --config=.php_cs.dist
+      - run: php-cs-fixer fix -vvv --config=.php-cs-fixer.dist.php
       - run: phpcs --standard=PSR2 src
       - run: phpstan analyse src --level 5
       - run: phpunit

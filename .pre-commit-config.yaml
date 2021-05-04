@@ -18,4 +18,4 @@ repos:
         args: [ analyse src --level 5 ]
       - id: php-cs-fixer
         files: \.(php)$
-        args: [ -vv --config=.php_cs.dist ]
+        args: [ -vv --config=.php-cs-fixer.dist.php ]
