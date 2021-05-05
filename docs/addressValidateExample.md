@@ -135,7 +135,7 @@ the `jsonSerialize()` method. View the example below:
 
 $validated_address = $shipengine->validateAddress($address, ['retries' => 2]);
 
-print_r($validated_address->jsonSerialize());  // Return the Address Type as a JSON string.
+print_r(json_encode($validated_address));  // Return the AddressValidateResult Type as a JSON string.
 ```
 
 **Successful Address Validation Output:**: This is the `AddressValidateResult` Type serialized as JSON.
