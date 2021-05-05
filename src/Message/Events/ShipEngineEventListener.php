@@ -6,12 +6,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class ShipEngineEventListener
 {
-    public function onRequestSent(Event $event)
+    public function onRequestSent(RequestSentEvent $event)
     {
         return $event;
     }
 
-    public function onResponseReceived(Event $event)
+    public function onResponseReceived(ResponseReceivedEvent $event)
     {
         return $event;
     }

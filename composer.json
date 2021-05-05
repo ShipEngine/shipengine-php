@@ -53,7 +53,7 @@
     "phpunit": "./vendor/bin/phpunit --process-isolation",
     "phpstan": "./vendor/bin/phpstan analyse src --level 5",
     "phpcs": "./vendor/bin/phpcs --standard=PSR2 src",
-    "phpcs-fixer": "./vendor/bin/php-cs-fixer fix -vv --config=.php_cs.dist",
+    "phpcs-fixer": "./vendor/bin/php-cs-fixer fix -vv --config=.php-cs-fixer.dist.php",
     "gen:docs": "./vendor/bin/phpdoc -d src -t docs/shipengine-php-docs"
   },
   "minimum-stability": "dev",

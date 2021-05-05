@@ -115,3 +115,5 @@ docker-compose.yaml
 # Locals
 foo.php
 baz.php
+
+logs

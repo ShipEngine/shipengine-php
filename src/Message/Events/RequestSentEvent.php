@@ -97,14 +97,14 @@ final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializabl
     public function jsonSerialize()
     {
         return [
-            'request_id' => $this->request_id,
             'type' => $this->type,
             'message' => $this->message,
+            'request_id' => $this->request_id,
             'url' => $this->url,
             'headers' => $this->headers,
             'body' => $this->body,
             'retry' => $this->retry,
-            'timeout' => $this->timeout,
+            'timeout' => $this->timeout->s,
             'timestamp' => $this->timestamp
         ];
     }

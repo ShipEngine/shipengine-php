@@ -108,15 +108,15 @@ final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerial
     public function jsonSerialize()
     {
         return [
-            'request_id' => $this->request_id,
             'type' => $this->type,
             'message' => $this->message,
+            'request_id' => $this->request_id,
             'url' => $this->url,
             'status_code' => $this->status_code,
             'headers' => $this->headers,
             'body' => $this->body,
             'retry' => $this->retry,
-            'elapsed' => $this->elapsed,
+            'elapsed' => $this->elapsed->f,
             'timestamp' => $this->timestamp,
         ];
     }
