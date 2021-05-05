@@ -123,7 +123,8 @@ final class ShipEngineClient
         $request_headers = array(
             'Api-Key' => $config->api_key,
             'User-Agent' => $this->deriveUserAgent(),
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
         );
 
         $body = $this->wrapRequest($method, $params);

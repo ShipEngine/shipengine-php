@@ -90,7 +90,7 @@ final class AddressServiceTest extends TestCase
      * - **residential** flag on the normalized address is set to `true`.
      * - There are no **warnings** and **errors** messages.
      */
-    public function testValidResidentialAddress()
+    public function testValidResidentialAddress(): void
     {
         $valid_residential_address = new Address(
             array(
@@ -140,7 +140,7 @@ final class AddressServiceTest extends TestCase
      * - **residential** flag on the normalized address is set to `false`.
      * - There are no **warnings** and **errors** messages.
      */
-    public function testValidCommercialAddress()
+    public function testValidCommercialAddress(): void
     {
         $good_address = new Address(
             array(
@@ -190,7 +190,7 @@ final class AddressServiceTest extends TestCase
      * - **residential** flag on the normalized address is `unknown`.
      * - There are no **warnings** and **errors** messages.
      */
-    public function testAddressUnknownType()
+    public function testAddressUnknownType(): void
     {
         $unknown_address_type = new Address(
             array(
@@ -241,7 +241,7 @@ final class AddressServiceTest extends TestCase
      * - **residential** flag on the normalized address is `false`.
      * - There are no **warnings** and **errors** messages.
      */
-    public function testMultiLineAddress()
+    public function testMultiLineAddress(): void
     {
         $multi_line_address = new Address(
             array(
@@ -299,7 +299,7 @@ final class AddressServiceTest extends TestCase
      * - **residential** flag on the normalized address is `false`.
      * - There are no **warnings** and **errors** messages.
      */
-    public function testNumericPostalCode()
+    public function testNumericPostalCode(): void
     {
         $good_address = new Address(
             array(
@@ -341,7 +341,7 @@ final class AddressServiceTest extends TestCase
      * - **residential** flag on the normalized address is `false`.
      * - There are no **warnings** and **errors** messages.
      */
-    public function testAlphaPostalCode()
+    public function testAlphaPostalCode(): void
     {
         $canada_address = new Address(
             array(
@@ -431,7 +431,7 @@ final class AddressServiceTest extends TestCase
      * - That **error** messages are provided.
      * - There are no **warning** messages.
      */
-    public function testValidateWithError()
+    public function testValidateWithError(): void
     {
         $validate_with_error = new Address(
             array(
@@ -462,7 +462,7 @@ final class AddressServiceTest extends TestCase
      * - That **warning** messages are provided.
      * - There are no **error** messages.
      */
-    public function testValidateWithWarning()
+    public function testValidateWithWarning(): void
     {
         $validate_with_warning = new Address(
             array(
@@ -514,7 +514,7 @@ EOT,
      * - **code** os `field_value_required`.
      * - **message** is "Invalid address. At least one address line is required.".
      */
-    public function testNoAddressLinesValidationError()
+    public function testNoAddressLinesValidationError(): void
     {
         try {
             new Address(
@@ -551,7 +551,7 @@ EOT,
      * - **code** os `field_value_required`.
      * - **message** is "Invalid address. No more than 3 street lines are allowed.".
      */
-    public function testTooManyAddressLinesValidationError()
+    public function testTooManyAddressLinesValidationError(): void
     {
         try {
             new Address(
@@ -589,7 +589,7 @@ EOT,
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testMissingCity()
+    public function testMissingCity(): void
     {
         try {
             new Address(
@@ -627,7 +627,7 @@ EOT,
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testMissingStatePostalAndCity()
+    public function testMissingStatePostalAndCity(): void
     {
         try {
             new Address(
@@ -665,7 +665,7 @@ EOT,
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testMissingPostalCode()
+    public function testMissingPostalCode(): void
     {
         try {
             new Address(
@@ -702,7 +702,7 @@ EOT,
      * - **code** os `invalid_field_value`.
      * - **message** is "Invalid address. The country must be specified.".
      */
-    public function testMissingCountryCode()
+    public function testMissingCountryCode(): void
     {
         try {
             new Address(
@@ -740,7 +740,7 @@ EOT,
      * - **message** is "Invalid address. XX is not a valid country code."
      * (where XX is the value that was specified).
      */
-    public function testInvalidCountryCode()
+    public function testInvalidCountryCode(): void
     {
         try {
             new Address(
@@ -767,7 +767,7 @@ EOT,
         }
     }
 
-    public function testServerSideError()
+    public function testServerSideError(): void
     {
         try {
             $get_rpc_server_error = new Address(
@@ -795,7 +795,7 @@ EOT,
         }
     }
 
-    public function testNoNameCompanyPhone()
+    public function testNoNameCompanyPhone(): void
     {
         $good_address = new Address(
             array(
@@ -835,7 +835,7 @@ EOT,
         //);
     }
 
-    public function testWithNameCompanyPhone()
+    public function testWithNameCompanyPhone(): void
     {
         $address = new Address(
             array(
@@ -872,7 +872,7 @@ EOT,
     }
 
     // Normalize Address Tests
-    public function testNormalizeAddressReturnType()
+    public function testNormalizeAddressReturnType(): void
     {
         $good_address = new Address(
             array(
@@ -894,7 +894,7 @@ EOT,
      * - **address** is returned and matches the given address.
      * - **residential** flag on the normalized address is set to `true`.
      */
-    public function testNormalizeValidResidentialAddress()
+    public function testNormalizeValidResidentialAddress(): void
     {
         $valid_residential_address = new Address(
             array(
@@ -940,7 +940,7 @@ EOT,
      * - **address** is returned and matches the given address.
      * - **residential** flag on the normalized address is set to `true`.
      */
-    public function testNormalizeValidCommercialAddress()
+    public function testNormalizeValidCommercialAddress(): void
     {
         $good_address = new Address(
             array(
@@ -986,7 +986,7 @@ EOT,
      * - **address** is returned and matches the given address.
      * - **residential** flag on the normalized address is set to `null`.
      */
-    public function testNormalizeValidAddressUnknownType()
+    public function testNormalizeValidAddressUnknownType(): void
     {
         $unknown_address_type = new Address(
             array(
@@ -1034,7 +1034,7 @@ EOT,
      * - **address** is returned and matches the given address.
      * - **residential** flag on the normalized address is set to `false`.
      */
-    public function testNormalizeAddressWithMultiLineAddress()
+    public function testNormalizeAddressWithMultiLineAddress(): void
     {
         $multi_line_address = new Address(
             array(
@@ -1219,7 +1219,7 @@ EOT,
      * - That **warning** messages are provided.
      * - There are no **error** messages.
      */
-    public function testNormalizeAddressWithWarning()
+    public function testNormalizeAddressWithWarning(): void
     {
         $validate_with_warning = new Address(
             array(
@@ -1272,7 +1272,7 @@ EOT,
      * - **code** os `field_value_required`.
      * - **message** is "Invalid address. At least one address line is required.".
      */
-    public function testNormalizeAddressWithNoAddressLines()
+    public function testNormalizeAddressWithNoAddressLines(): void
     {
         try {
             new Address(
@@ -1309,7 +1309,7 @@ EOT,
      * - **code** os `field_value_required`.
      * - **message** is "Invalid address. No more than 3 street lines are allowed.".
      */
-    public function testNormalizeAddressWithTooManyAddressLines()
+    public function testNormalizeAddressWithTooManyAddressLines(): void
     {
         try {
             new Address(
@@ -1347,7 +1347,7 @@ EOT,
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testNormalizeAddressWithMissingStatePostalAndCity()
+    public function testNormalizeAddressWithMissingStatePostalAndCity(): void
     {
         try {
             new Address(
@@ -1385,7 +1385,7 @@ EOT,
      * - **message** is -
      * "Invalid address. Either the postal code or the city/locality and state/province must be specified.".
      */
-    public function testNormalizeAddressWithMissingCity()
+    public function testNormalizeAddressWithMissingCity(): void
     {
         try {
             new Address(
@@ -1422,7 +1422,7 @@ EOT,
      * - **code** os `invalid_field_value`.
      * - **message** is "Invalid address. The country must be specified.".
      */
-    public function testNormalizeAddressWithMissingCountryCode()
+    public function testNormalizeAddressWithMissingCountryCode(): void
     {
         try {
             new Address(
@@ -1460,7 +1460,7 @@ EOT,
      * - **message** is "Invalid address. XX is not a valid country code."
      * (where XX is the value that was specified).
      */
-    public function testNormalizeAddressWithInvalidCountryCode()
+    public function testNormalizeAddressWithInvalidCountryCode(): void
     {
         try {
             new Address(
@@ -1487,7 +1487,7 @@ EOT,
         }
     }
 
-    public function testNormalizeAddressWithServerSideError()
+    public function testNormalizeAddressWithServerSideError(): void
     {
         try {
             $get_invalid_address_error = new Address(
@@ -1515,7 +1515,7 @@ EOT,
         }
     }
 
-    public function testNormalizeAddressWithErrorMessage()
+    public function testNormalizeAddressWithErrorMessage(): void
     {
         try {
             $validate_with_error = new Address(

@@ -55,7 +55,7 @@ final class CarrierAccountTest extends TestCase
             )
         );
 
-        $account_iterator = function (array $carrier_codes) {
+        $account_iterator = static function (array $carrier_codes) {
             $arr = [];
             foreach ($carrier_codes as $account) {
                 $acct = new CarrierAccount($account);

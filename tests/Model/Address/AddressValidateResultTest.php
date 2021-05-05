@@ -19,7 +19,7 @@ final class AddressValidateResultTest extends TestCase
     private static array $successful_address_validate_rpc_response;
 
     /**
-     * @var AddressValidateResult|mixed
+     * @var AddressValidateResult
      */
     private static AddressValidateResult $successful_address_validate_result;
 
