@@ -65,7 +65,6 @@ final class CarrierAccountTest extends TestCase
         };
         $carrier_codes = $account_iterator($accounts);
 
-//        print_r($carrier_codes);
         $this->assertInstanceOf(CarrierAccount::class, $carrier_codes[0]);
         $this->assertInstanceOf(Carrier::class, $carrier_codes[0]->carrier_account);
 
