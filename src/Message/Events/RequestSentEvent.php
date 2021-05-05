@@ -8,7 +8,7 @@ use DateInterval;
  * Class RequestSentEvent
  * @package ShipEngine\Message\Events
  */
-final class RequestSentEvent extends ShipEngineEvent
+final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializable
 {
     /**
      * The event name for the RequestSentEvent.
@@ -88,5 +88,24 @@ final class RequestSentEvent extends ShipEngineEvent
         $this->body = $body;
         $this->retry = $retry;
         $this->timeout = $timeout;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'request_id' => $this->request_id,
+            'type' => $this->type,
+            'message' => $this->message,
+            'url' => $this->url,
+            'headers' => $this->headers,
+            'body' => $this->body,
+            'retry' => $this->retry,
+            'timeout' => $this->timeout,
+            'timestamp' => $this->timestamp
+        ];
     }
 }

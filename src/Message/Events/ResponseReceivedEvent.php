@@ -8,7 +8,7 @@ use DateInterval;
  * Class ResponseReceivedEvent
  * @package ShipEngine\Message\Events
  */
-final class ResponseReceivedEvent extends ShipEngineEvent
+final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerializable
 {
     /**
      * The event name for the ResponseReceivedEvent.
@@ -99,5 +99,25 @@ final class ResponseReceivedEvent extends ShipEngineEvent
         $this->body = $body;
         $this->retry = $retry;
         $this->elapsed = $elapsed;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'request_id' => $this->request_id,
+            'type' => $this->type,
+            'message' => $this->message,
+            'url' => $this->url,
+            'status_code' => $this->status_code,
+            'headers' => $this->headers,
+            'body' => $this->body,
+            'retry' => $this->retry,
+            'elapsed' => $this->elapsed,
+            'timestamp' => $this->timestamp,
+        ];
     }
 }
