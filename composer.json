@@ -33,6 +33,7 @@
   },
   "require-dev": {
     "guzzlehttp/psr7": "^1.7.0",
+    "mockery/mockery": "^1.4",
     "php-coveralls/php-coveralls": "^2.4",
     "php-http/guzzle7-adapter": "^0.1.1",
     "phpdocumentor/phpdocumentor": "^3.0.0",
