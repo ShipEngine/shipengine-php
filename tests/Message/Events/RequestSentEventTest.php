@@ -3,44 +3,58 @@
 namespace ShipEngine\Message\Events;
 
 use DateInterval;
-use \Mockery\Adapter\Phpunit\MockeryTestCase;
+use DateTime;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use ShipEngine\Message\Events\RequestSentEvent;
-use ShipEngine\Message\Events\ShipEngineEventListener;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
-use ShipEngine\Util\Constants\RPCMethods;
-use ShipEngine\ShipEngineConfig;
 
 /**
  * @covers \ShipEngine\Message\Events\RequestSentEvent
- * 
- * To run in isolation:
- *   ./vendor/bin/phpunit --process-isolation --filter RequestSentEventTest
- * 
- * This test should mimic:
- * https://github.com/ShipEngine/shipengine-js/blob/6363c722569436a69c4ffa7fe5f1c51e17c12e8d/test/specs/events.spec.js#L9-L37
- * 
  */
 final class RequestSentEventTest extends MockeryTestCase
 {
     public function testRequestSent(): void
-    {
-        // PHPUnit cannot mock final classes, so we'll use Mockery, which
-        // will create a "proxied partial test double."
-        // See: http://docs.mockery.io/en/latest/reference/final_methods_classes.html
-        $spy = \Mockery::spy('ShipEngineEventListener');
+    {  
+        $spy = \Mockery::spy('ShipEngineEventListener');      
+        $config_options = $this->stubConfig($spy);
+        $ship_engine = new ShipEngine($config_options);
+        $good_address = $this->stubAddress();
+    
+        $ship_engine->validateAddress($good_address);
         
-        $shipengine = new ShipEngine(
-            array(
-                'api_key' => 'baz',
-                'base_url' => Endpoints::TEST_RPC_URL,
-                'timeout' => new DateInterval('PT15000S'),
-                'event_listener' => $spy
-            )
-        );
+        $event_result = null;
+        $spy->shouldHaveReceived('onRequestSent')
+            ->withArgs(function ($event) use (&$event_result) {
+                $event_result = $event;
+                return true;
+            })
+            ->once();
 
-        $good_address = new Address(
+        $this->assertRequestEvent($event_result, $config_options);     
+    }
+
+    public function assertRequestEvent($event, $config_options) : void {
+        $this->assertInstanceOf(RequestSentEvent::class, $event);
+        $this->assertEqualsWithDelta($event->timestamp, new DateTime(), 5);
+        $this->assertEquals($event->type, RequestSentEvent::REQUEST_SENT);
+        $this->assertEquals($event->message, $this->expectedMessage($config_options));
+        $this->assertEquals($event->url, $config_options['base_url']);
+        $this->assertEquals($event->headers['Api-Key'], $config_options['api_key']);
+        $this->assertEquals($event->headers['Content-Type'], 'application/json');
+        $this->assertEquals($event->body['method'], 'address/validate');
+        $this->assertEquals($event->retry, 0);
+        $this->assertEquals($event->timeout, $config_options['timeout']);
+    }
+
+    private function expectedMessage($config_options) : string {
+        $url = $config_options['base_url'];
+        return "Calling the ShipEngine address/validate API at {$url}";
+    }
+
+    private function stubAddress() : Address {
+        return new Address(
             array(
                 'street' => array('11222 Washington Pl'),
                 'city_locality' => 'Culver City',
@@ -49,10 +63,14 @@ final class RequestSentEventTest extends MockeryTestCase
                 'country_code' => 'US',
             )
         );
-    
-        $shipengine->validateAddress($good_address);
+    }
 
-        $spy->shouldHaveReceived('onRequestSent')->once();
-        $spy->shouldNotReceive('arbitraryValue');
+    private function stubConfig($event_listener) : array {
+        return array(
+            'api_key' => 'baz',
+            'base_url' => Endpoints::TEST_RPC_URL,
+            'timeout' => new DateInterval('PT15000S'),
+            'event_listener' => $event_listener
+        );
     }
 }
