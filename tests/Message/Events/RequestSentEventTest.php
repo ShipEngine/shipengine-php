@@ -6,24 +6,36 @@ use DateInterval;
 use DateTime;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use ShipEngine\Message\Events\RequestSentEvent;
+use ShipEngine\Message\Events\ShipEngineEventListener;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
 
 /**
  * @covers \ShipEngine\Message\Events\RequestSentEvent
+ * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @covers \ShipEngine\Message\Events\ShipEngineEvent
+ * @covers \ShipEngine\Message\Events\ShipEngineEventListener
+ * @uses \ShipEngine\Model\Address\Address
+ * @uses \ShipEngine\Model\Address\AddressValidateResult
+ * @uses \ShipEngine\Service\Address\AddressService
+ * @uses \ShipEngine\ShipEngine
+ * @uses \ShipEngine\ShipEngineClient
+ * @uses \ShipEngine\ShipEngineConfig
+ * @uses \ShipEngine\Util\Assert
+ * @uses \ShipEngine\Util\VersionInfo
  */
 final class RequestSentEventTest extends MockeryTestCase
 {
     public function testRequestSent(): void
-    {  
-        $spy = \Mockery::spy('ShipEngineEventListener');      
+    {
+        $spy = \Mockery::spy('ShipEngineEventListener');
         $config_options = $this->stubConfig($spy);
         $ship_engine = new ShipEngine($config_options);
         $good_address = $this->stubAddress();
-    
+
         $ship_engine->validateAddress($good_address);
-        
+
         $event_result = null;
         $spy->shouldHaveReceived('onRequestSent')
             ->withArgs(function ($event) use (&$event_result) {
@@ -32,10 +44,11 @@ final class RequestSentEventTest extends MockeryTestCase
             })
             ->once();
 
-        $this->assertRequestEvent($event_result, $config_options);     
+        $this->assertRequestEvent($event_result, $config_options);
     }
 
-    public function assertRequestEvent($event, $config_options) : void {
+    public function assertRequestEvent($event, $config_options) : void
+    {
         $this->assertInstanceOf(RequestSentEvent::class, $event);
         $this->assertEqualsWithDelta($event->timestamp, new DateTime(), 5);
         $this->assertEquals($event->type, RequestSentEvent::REQUEST_SENT);
@@ -48,12 +61,14 @@ final class RequestSentEventTest extends MockeryTestCase
         $this->assertEquals($event->timeout, $config_options['timeout']);
     }
 
-    private function expectedMessage($config_options) : string {
+    private function expectedMessage($config_options) : string
+    {
         $url = $config_options['base_url'];
         return "Calling the ShipEngine address/validate API at {$url}";
     }
 
-    private function stubAddress() : Address {
+    private function stubAddress() : Address
+    {
         return new Address(
             array(
                 'street' => array('11222 Washington Pl'),
@@ -65,7 +80,8 @@ final class RequestSentEventTest extends MockeryTestCase
         );
     }
 
-    private function stubConfig($event_listener) : array {
+    private function stubConfig($event_listener) : array
+    {
         return array(
             'api_key' => 'baz',
             'base_url' => Endpoints::TEST_RPC_URL,
