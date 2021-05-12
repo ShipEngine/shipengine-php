@@ -4,8 +4,10 @@ namespace Service\Package;
 
 use DateInterval;
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
+use ShipEngine\Util\IsoString;
 
 /**
  * @covers \ShipEngine\ShipEngine
@@ -60,9 +62,35 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertNotNull($trackingResult->package->trackingNumber);
     }
 
-    public function testInitialScanTrackingEvent()
+    public function testInitialScanTrackingEvent(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedExAccepted');
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertArrayHasKey(0, $trackingResult->events);
+        $this->assertArrayNotHasKey(1, $trackingResult->events);
+        $this->assertCount(1, $trackingResult->events);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+    }
+    public function testOutForDeliveryTrackingEvent(): void
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedExAttempted');
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertArrayHasKey(0, $trackingResult->events);
+        $this->assertArrayHasKey(1, $trackingResult->events);
+        $this->assertCount(2, $trackingResult->events);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+    }
+
+    public function testDevliveredFirstTryTrackingEvent(): void
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedExDeLivered');
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEquals();
+    }
+
+    public function trackPackageAssertions(TrackPackageResult $trackingResult): void
+    {
         $carrierAccountCarrierCode = $trackingResult->shipment->carrierAccount->carrier->code;
         $carrierCode = $trackingResult->shipment->carrier->code;
         $estimatedDelivery = $trackingResult->shipment->estimatedDeliveryDate;
@@ -74,23 +102,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertIsString($carrierCode);
         $this->assertNotNull($estimatedDelivery);
         $this->assertNotEmpty($estimatedDelivery);
-        $this->assertArrayHasKey(0, $trackingResult->events);
-        $this->assertArrayNotHasKey(1, $trackingResult->events);
-        $this->assertEquals('accepted', $trackingResult->events[0]->status);
-    }
-    public function testOutForDeliveryTrackingEvent()
-    {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedExAttempted');
-//        print_r(json_encode($trackingResult, JSON_PRETTY_PRINT));
-        $carrierAccountCarrierCode = $trackingResult->shipment->carrierAccount->carrier->code;
-        $carrierCode = $trackingResult->shipment->carrier->code;
-        $estimatedDelivery = $trackingResult->shipment->estimatedDeliveryDate;
-        $trackingNumber = $trackingResult->package->trackingNumber;
-        $this->assertNotNull($carrierAccountCarrierCode);
-        $this->assertNotEmpty($carrierAccountCarrierCode);
-        $this->assertIsString($carrierAccountCarrierCode);
-        $this->assertNotNull($trackingNumber);
-        $this->assertNotEmpty($trackingNumber);
-        $this->assertIsString($trackingNumber);
+        $this->assertTrue($estimatedDelivery->hasTime());
+        $this->assertTrue($estimatedDelivery->hasTimezone());
     }
 }
