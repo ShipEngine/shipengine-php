@@ -90,16 +90,18 @@ final class AddressValidateResult implements \JsonSerializable
             $this->requestId = null;
 
         foreach ($messages as $message) {
-            switch ($message['type']) {
-                case 'error':
-                    $this->errors[] = $message;
-                    break;
-                case 'info':
-                    $this->info[] = $message;
-                    break;
-                case 'warning':
-                    $this->warnings[] = $message;
-                    break;
+            if (array_key_exists($message['type'], $message)) {
+                switch ($message['type']) {
+                    case 'error':
+                        $this->errors[] = $message;
+                        break;
+                    case 'info':
+                        $this->info[] = $message;
+                        break;
+                    case 'warning':
+                        $this->warnings[] = $message;
+                        break;
+                }
             }
         }
     }
