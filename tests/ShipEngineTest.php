@@ -18,9 +18,9 @@ final class ShipEngineTest extends TestCase
     {
         self::$shipengine = new ShipEngine(
             array(
-                'api_key' => 'baz',
-                'base_url' => 'https://api.shipengine.com',
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => 'https://api.shipengine.com',
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null

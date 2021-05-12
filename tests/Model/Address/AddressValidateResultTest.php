@@ -9,7 +9,7 @@ use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Util\ShipEngineSerializer;
 
 /**
- * @covers ShipEngine\Model\Address\AddressValidateResult
+ * @covers \ShipEngine\Model\Address\AddressValidateResult
  */
 final class AddressValidateResultTest extends TestCase
 {
@@ -33,18 +33,18 @@ final class AddressValidateResultTest extends TestCase
             'id' => 'req_4aPGmN8gkcWkK6NRa7c5Lo',
             'result' =>
                 array(
-                    'valid' => true,
+                    'isValid' => true,
                     'address' =>
                         array(
                             'street' =>
                                 array(
                                     0 => '4 JERSEY ST',
                                 ),
-                            'city_locality' => 'BOSTON',
-                            'state_province' => 'MA',
-                            'postal_code' => '02215',
-                            'country_code' => 'US',
-                            'residential' => true,
+                            'cityLocality' => 'BOSTON',
+                            'stateProvince' => 'MA',
+                            'postalCode' => '02215',
+                            'countryCode' => 'US',
+                            'isResidential' => true,
                         ),
                     'messages' =>
                         array(

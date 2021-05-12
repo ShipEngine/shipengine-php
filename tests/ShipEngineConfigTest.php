@@ -24,7 +24,7 @@ final class ShipEngineConfigTest extends TestCase
 
     private static ShipEngineConfig $config;
 
-    private static Address $good_address;
+    private static Address $goodAddress;
 
     private static string $test_url;
 
@@ -33,9 +33,9 @@ final class ShipEngineConfigTest extends TestCase
         self::$test_url = Endpoints::TEST_RPC_URL;
         self::$config = new ShipEngineConfig(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
@@ -43,21 +43,21 @@ final class ShipEngineConfigTest extends TestCase
         );
         self::$shipengine = new ShipEngine(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );
-        self::$good_address = new Address(
+        self::$goodAddress = new Address(
             array(
                 'street' => array('4 Jersey St', 'ste 200'),
-                'city_locality' => 'Boston',
-                'state_province' => 'MA',
-                'postal_code' => '02215',
-                'country_code' => 'US',
+                'cityLocality' => 'Boston',
+                'stateProvince' => 'MA',
+                'postalCode' => '02215',
+                'countryCode' => 'US',
             )
         );
     }
@@ -67,8 +67,8 @@ final class ShipEngineConfigTest extends TestCase
         try {
             new ShipEngineConfig(
                 array(
-                    'base_url' => self::$test_url,
-                    'page_size' => 75,
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
                     'retries' => 7,
                     'timeout' => new \DateInterval('PT15000S'),
                     'events' => null
@@ -77,10 +77,10 @@ final class ShipEngineConfigTest extends TestCase
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals('field_value_required', $error['errorCode']);
             $this->assertEquals(
                 'A ShipEngine API key must be specified.',
                 $error['message']
@@ -93,9 +93,9 @@ final class ShipEngineConfigTest extends TestCase
         try {
             new ShipEngineConfig(
                 array(
-                    'api_key' => '',
-                    'base_url' => self::$test_url,
-                    'page_size' => 75,
+                    'apiKey' => '',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
                     'retries' => 7,
                     'timeout' => new \DateInterval('PT15000S'),
                     'events' => null
@@ -104,10 +104,10 @@ final class ShipEngineConfigTest extends TestCase
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals('field_value_required', $error['errorCode']);
             $this->assertEquals(
                 'A ShipEngine API key must be specified.',
                 $error['message']
@@ -120,9 +120,9 @@ final class ShipEngineConfigTest extends TestCase
         try {
             new ShipEngineConfig(
                 array(
-                    'api_key' => 'baz',
-                    'base_url' => self::$test_url,
-                    'page_size' => 75,
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
                     'retries' => -7,
                     'timeout' => new \DateInterval('PT15000S'),
                     'events' => null
@@ -131,10 +131,10 @@ final class ShipEngineConfigTest extends TestCase
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals('invalid_field_value', $error['errorCode']);
             $this->assertEquals(
                 'Retries must be zero or greater.',
                 $error['message']
@@ -147,9 +147,9 @@ final class ShipEngineConfigTest extends TestCase
         try {
             new ShipEngineConfig(
                 array(
-                    'api_key' => 'baz',
-                    'base_url' => self::$test_url,
-                    'page_size' => 75,
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
                     'retries' => 7,
                     'timeout' => new \DateInterval('PT0S'),
                     'events' => null
@@ -158,10 +158,10 @@ final class ShipEngineConfigTest extends TestCase
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals('invalid_field_value', $error['errorCode']);
             $this->assertEquals(
                 'Timeout must be greater than zero.',
                 $error['message']
@@ -172,14 +172,14 @@ final class ShipEngineConfigTest extends TestCase
     public function testEmptyAPIKeyInMethodCall()
     {
         try {
-            self::$shipengine->validateAddress(self::$good_address, array('api_key' => ''));
+            self::$shipengine->validateAddress(self::$goodAddress, array('apiKey' => ''));
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('field_value_required', $error['error_code']);
+            $this->assertEquals('field_value_required', $error['errorCode']);
             $this->assertEquals(
                 'A ShipEngine API key must be specified.',
                 $error['message']
@@ -190,14 +190,14 @@ final class ShipEngineConfigTest extends TestCase
     public function testInvalidRetriesInMethodCall()
     {
         try {
-            self::$shipengine->validateAddress(self::$good_address, array('retries' => -7));
+            self::$shipengine->validateAddress(self::$goodAddress, array('retries' => -7));
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals('invalid_field_value', $error['errorCode']);
             $this->assertEquals(
                 'Retries must be zero or greater.',
                 $error['message']
@@ -210,14 +210,14 @@ final class ShipEngineConfigTest extends TestCase
         try {
             $di = new \DateInterval('PT7S');
             $di->invert = 1;
-            self::$shipengine->validateAddress(self::$good_address, array('timeout' => $di));
+            self::$shipengine->validateAddress(self::$goodAddress, array('timeout' => $di));
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $e);
-            $this->assertNull($error['request_id']);
+            $this->assertNull($error['requestId']);
             $this->assertEquals('shipengine', $error['source']);
             $this->assertEquals('validation', $error['type']);
-            $this->assertEquals('invalid_field_value', $error['error_code']);
+            $this->assertEquals('invalid_field_value', $error['errorCode']);
             $this->assertEquals(
                 'Timeout must be greater than zero.',
                 $error['message']
@@ -234,60 +234,60 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );
-        $update_config = array('api_key' => 'foo');
+        $update_config = array('apiKey' => 'foo');
         $new_config = $config->merge($update_config);
-        $this->assertEquals($update_config['api_key'], $new_config->api_key);
+        $this->assertEquals($update_config['apiKey'], $new_config->apiKey);
     }
 
     public function testMergeBaseUrl()
     {
         $config = new ShipEngineConfig(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );
-        $update_config = array('base_url' => 'https://google.com/');
+        $update_config = array('baseUrl' => 'https://google.com/');
         $new_config = $config->merge($update_config);
-        $this->assertEquals($update_config['base_url'], $new_config->base_url);
+        $this->assertEquals($update_config['baseUrl'], $new_config->baseUrl);
     }
 
     public function testMergePageSize()
     {
         $config = new ShipEngineConfig(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
             )
         );
-        $update_config = array('page_size' => 50);
+        $update_config = array('pageSize' => 50);
         $new_config = $config->merge($update_config);
-        $this->assertEquals($update_config['page_size'], $new_config->page_size);
+        $this->assertEquals($update_config['pageSize'], $new_config->pageSize);
     }
 
     public function testMergeRetries()
     {
         $config = new ShipEngineConfig(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null
@@ -302,9 +302,9 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'api_key' => 'baz',
-                'base_url' => self::$test_url,
-                'page_size' => 75,
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15000S'),
                 'events' => null

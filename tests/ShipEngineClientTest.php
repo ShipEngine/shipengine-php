@@ -49,12 +49,12 @@ final class ShipEngineClientTest extends TestCase
                 array(
                     'street' => array(
                         '4 Jersey St',
-                        'validate-residential-address',
+                        'validate-isResidential-address',
                     ),
-                    'city_locality' => 'Boston',
-                    'state_province' => 'MA',
-                    'postal_code' => '02215',
-                    'country_code' => 'US',
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
                 )
             ]
         );
@@ -68,10 +68,10 @@ final class ShipEngineClientTest extends TestCase
         $this->assertIsArray($params);
         $this->assertArrayHasKey('street', $params);
         $this->assertIsArray($params['street']);
-        $this->assertArrayHasKey('city_locality', $params);
-        $this->assertArrayHasKey('state_province', $params);
-        $this->assertArrayHasKey('postal_code', $params);
-        $this->assertArrayHasKey('country_code', $params);
+        $this->assertArrayHasKey('cityLocality', $params);
+        $this->assertArrayHasKey('stateProvince', $params);
+        $this->assertArrayHasKey('postalCode', $params);
+        $this->assertArrayHasKey('countryCode', $params);
     }
 
     public function testWrapRequestWithNullParams(): void

@@ -21,10 +21,10 @@ final class ShipEngineSerializerTest extends TestCase
         $serializer = new ShipEngineSerializer();
         $arr = array(
             'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
-            'city_locality' => 'Boston',
-            'state_province' => 'MA',
-            'postal_code' => '02215',
-            'country_code' => 'US',
+            'cityLocality' => 'Boston',
+            'stateProvince' => 'MA',
+            'postalCode' => '02215',
+            'countryCode' => 'US',
         );
 
         $json = $serializer->serializeDataToJson($arr);
@@ -39,10 +39,10 @@ final class ShipEngineSerializerTest extends TestCase
 				"4 Jersey St",
 				"multiple-error-messages"
 			],
-			"city_locality": "Boston",
-			"state_province": "MA",
-			"postal_code": "02215",
-			"country_code": "US"
+			"cityLocality": "Boston",
+			"stateProvince": "MA",
+			"postalCode": "02215",
+			"countryCode": "US"
 		}}';
 
 
@@ -58,10 +58,10 @@ final class ShipEngineSerializerTest extends TestCase
         $address = array(
             'address' => array(
                 'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
-                'city_locality' => 'Boston',
-                'state_province' => 'MA',
-                'postal_code' => '02215',
-                'country_code' => 'US'
+                'cityLocality' => 'Boston',
+                'stateProvince' => 'MA',
+                'postalCode' => '02215',
+                'countryCode' => 'US'
             )
         );
 
