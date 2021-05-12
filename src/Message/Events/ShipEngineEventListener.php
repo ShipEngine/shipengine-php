@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Message\Events;
 
-use Symfony\Contracts\EventDispatcher\Event;
-
 final class ShipEngineEventListener
 {
     public function onRequestSent(RequestSentEvent $event)

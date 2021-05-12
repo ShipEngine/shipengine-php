@@ -9,10 +9,10 @@ namespace ShipEngine\Message;
  * Is throwable.
  * @package ShipEngine\Message
  * @param string $message
- * @param string|null $request_id
+ * @param string|null $requestId
  * @param string|null $source
  * @param string|null $type
- * @param string|null $error_code
+ * @param string|null $errorCode
  * @param string|null $url
  */
 class ShipEngineException extends \RuntimeException implements \JsonSerializable
@@ -24,7 +24,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      *
      * @var string|null
      */
-    public ?string $request_id;
+    public ?string $requestId;
 
     /**
      * A code that indicates the specific error that occurred, such as missing a
@@ -32,7 +32,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      *
      * @var string|null
      */
-    public ?string $error_code;
+    public ?string $errorCode;
 
     /**
      * Indicates where the error originated. This lets you know whether you should
@@ -65,26 +65,26 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
      * ShipEngineException constructor - Instantiates a client-side error or server-side error.
      *
      * @param string $message
-     * @param string|null $request_id
+     * @param string|null $requestId
      * @param string|null $source
      * @param string|null $type
-     * @param string|null $error_code
+     * @param string|null $errorCode
      * @param string|null $url
      */
     public function __construct(
         string $message,
-        ?string $request_id = null,
+        ?string $requestId = null,
         ?string $source = null,
         ?string $type = null,
-        ?string $error_code = null,
+        ?string $errorCode = null,
         ?string $url = null
     ) {
         parent::__construct($message);
 
-        $this->request_id = $request_id;
+        $this->requestId = $requestId;
         $this->source = $source ?? 'shipengine';
         $this->type = $type;
-        $this->error_code = $error_code;
+        $this->errorCode = $errorCode;
         $this->url = $url ?? 'https://www.shipengine.com/docs/errors/codes/';
     }
 
@@ -94,10 +94,10 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'request_id' => $this->request_id,
+            'requestId' => $this->requestId,
             'source' => $this->source,
             'type' => $this->type,
-            'error_code' => $this->error_code,
+            'errorCode' => $this->errorCode,
             'message' => $this->message,
             'url' => $this->url
         ];

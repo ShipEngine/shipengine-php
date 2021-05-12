@@ -9,17 +9,17 @@ use ShipEngine\Util\Assert;
  * `Address` Type to be passed into the *validateAddress* method
  * and internal **AddressService**.
  *
- * @throws ValidationException
  * @package ShipEngine\Model\Address
  * @property array $street
- * @property string|null $city_locality
- * @property string|null $state_province
- * @property string|null $postal_code
- * @property string $country_code
- * @property bool|null $residential
+ * @property string|null $cityLocality
+ * @property string|null $stateProvince
+ * @property string|null $postalCode
+ * @property string $countryCode
+ * @property bool|null $isResidential
  * @property string|null $name
  * @property string|null $phone
  * @property string|null $company
+ * @throws ValidationException
  */
 final class Address implements \JsonSerializable
 {
@@ -36,36 +36,36 @@ final class Address implements \JsonSerializable
      *
      * @var string|null
      */
-    public ?string $city_locality;
+    public ?string $cityLocality;
 
     /**
      * The state or province.
      *
      * @var string|null
      */
-    public ?string $state_province;
+    public ?string $stateProvince;
 
     /**
      * The postal code or zip code.
      *
      * @var string|null
      */
-    public ?string $postal_code;
+    public ?string $postalCode;
 
     /**
-     * The ISO 3166 country code
+     * The ISO 3166 countryCode code
      *
-     * @link https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+     * @link https://en.wikipedia.org/wiki/List_of_ISO_3166_countryCodes
      * @var string
      */
-    public string $country_code;
+    public string $countryCode;
 
     /**
-     * Indicates whether the address is residential or commercial, if known.
+     * Indicates whether the address is isResidential or commercial, if known.
      *
      * @var bool|null
      */
-    public ?bool $residential;
+    public ?bool $isResidential;
 
     /**
      * The name of the sender or recipient at the address, if applicable.
@@ -98,10 +98,10 @@ final class Address implements \JsonSerializable
     {
         $this->validateInput($address);
 
-        $this->residential = $address['residential'] ?? null;
+        $this->isResidential = $address['isResidential'] ?? null;
         $this->name = $address['name'] ?? '';
         $this->phone = $address['phone'] ?? '';
-        $this->company = $address['company_name'] ?? '';
+        $this->company = $address['company'] ?? '';
     }
 
     /**
@@ -117,17 +117,17 @@ final class Address implements \JsonSerializable
         $assert->tooManyAddressLines($address['street']);
         $this->street = $address['street'];
 
-        $assert->isCityValid($address['city_locality']);
-        $this->city_locality = $address['city_locality'];
+        $assert->isCityValid($address['cityLocality']);
+        $this->cityLocality = $address['cityLocality'];
 
-        $assert->isStateValid($address['state_province']);
-        $this->state_province = $address['state_province'];
+        $assert->isStateValid($address['stateProvince']);
+        $this->stateProvince = $address['stateProvince'];
 
-        $assert->isPostalCodeValid($address['postal_code']);
-        $this->postal_code = $address['postal_code'];
+        $assert->isPostalCodeValid($address['postalCode']);
+        $this->postalCode = $address['postalCode'];
 
-        $assert->isCountryCodeValid($address['country_code']);
-        $this->country_code = $address['country_code'];
+        $assert->isCountryCodeValid($address['countryCode']);
+        $this->countryCode = $address['countryCode'];
     }
 
     /**
@@ -139,15 +139,15 @@ final class Address implements \JsonSerializable
      * {
      *  "name": "ShipEngine",
      *  "phone": "123465798",
-     *  "company_name": "ShipEngine",
+     *  "company": "ShipEngine",
      *  "street": [
      *      "4 Jersey St",
      *      "ste 200"
      *  ],
-     *  "city_locality": "Boston",
-     *  "state_province": "MA",
-     *  "postal_code": "02215",
-     *  "country_code": "US"
+     *  "cityLocality": "Boston",
+     *  "stateProvince": "MA",
+     *  "postalCode": "02215",
+     *  "countryCode": "US"
      * }
      * </code>
      */
@@ -157,13 +157,13 @@ final class Address implements \JsonSerializable
             'address' => [
                 'name' => $this->name,
                 'phone' => $this->phone,
-                'company_name' => $this->company,
+                'company' => $this->company,
                 'street' => $this->street,
-                'city_locality' => $this->city_locality,
-                'state_province' => $this->state_province,
-                'postal_code' => $this->postal_code,
-                'country_code' => $this->country_code,
-                'residential' => $this->residential
+                'cityLocality' => $this->cityLocality,
+                'stateProvince' => $this->stateProvince,
+                'postalCode' => $this->postalCode,
+                'countryCode' => $this->countryCode,
+                'isResidential' => $this->isResidential
             ]
         ];
     }

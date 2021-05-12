@@ -16,9 +16,9 @@ use ShipEngine\Util\Constants\RPCMethods;
  * <br>
  * **Usage**:
  * ```php
- * $address_service = new AddressService();
- * $address_service->validate(args);
- * $address_service->normalize(args);
+ * $addressService = new AddressService();
+ * $addressService->validate(args);
+ * $addressService->normalize(args);
  * ```
  * @package ShipEngine\Service\Address
  */
@@ -30,8 +30,8 @@ final class AddressService
      * <br>
      * **Usage**:
      * ```php
-     * $address_service = new AddressService();
-     * $address_service->validate(Address, ShipEngineConfig);
+     * $addressService = new AddressService();
+     * $addressService->validate(Address, ShipEngineConfig);
      * ```
      *
      * @param Address $address
@@ -42,13 +42,13 @@ final class AddressService
     public function validate(Address $address, ShipEngineConfig $config): AddressValidateResult
     {
         $client = new ShipEngineClient();
-        $api_response = $client->request(
+        $apiResponse = $client->request(
             RPCMethods::ADDRESS_VALIDATE,
             $config,
             $address->jsonSerialize()
         );
 
-        return new AddressValidateResult($api_response);
+        return new AddressValidateResult($apiResponse);
     }
 
     /**
@@ -57,8 +57,8 @@ final class AddressService
      * <br>
      * **Usage**:
      * ```php
-     * $address_service = new AddressService();
-     * $address_service->normalize(Address, ShipEngineConfig);
+     * $addressService = new AddressService();
+     * $addressService->normalize(Address, ShipEngineConfig);
      * ```
      *
      * @param Address $address
@@ -69,8 +69,8 @@ final class AddressService
     public function normalize(Address $address, ShipEngineConfig $config): Address
     {
         $assert = new Assert();
-        $validation_result = $this->validate($address, $config);
-        $assert->doesNormalizedAddressHaveErrors($validation_result);
-        return $validation_result->normalized_address;
+        $validationResult = $this->validate($address, $config);
+        $assert->doesNormalizedAddressHaveErrors($validationResult);
+        return $validationResult->normalizedAddress;
     }
 }

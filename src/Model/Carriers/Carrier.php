@@ -3,8 +3,6 @@
 namespace ShipEngine\Model\Carriers;
 
 use ShipEngine\Message\InvalidFieldValueException;
-use ShipEngine\Util\Constants\CarrierNames;
-use ShipEngine\Util\Constants\Carriers;
 
 /**
  * Class Carrier - Immutable carrier object.
@@ -35,36 +33,30 @@ final class Carrier implements \JsonSerializable
     public function __construct(string $code)
     {
         $this->code = $code;
-
-        switch ($code) {
-            case Carriers::FEDEX:
-                $this->name = CarrierNames::FEDEX;
-                break;
-            case Carriers::UPS:
-                $this->name = CarrierNames::UPS;
-                break;
-            case Carriers::USPS:
-                $this->name = CarrierNames::USPS;
-                break;
-            default:
-                throw new InvalidFieldValueException(
-                    'carrier_account',
-                    "Carrier [$code] is currently not supported by the SDK",
-                    $code
-                );
-        };
-
-        $this->code = $code;
-//        The below is for use in case we use a POPO here instead of args
-//        $this->name = $carrier_info['name'];
-//        $this->code = $carrier_info['code'];
+        $upperCaseCode = strtoupper($code);
+        $definedInCarriers = defined("ShipEngine\Util\Constants\Carriers::$upperCaseCode");
+        if ($definedInCarriers === true) {
+            $constantValue = constant("ShipEngine\Util\Constants\CarrierNames::$upperCaseCode");
+            $this->name = $constantValue;
+        } else {
+            throw new InvalidFieldValueException(
+                'carrierAccount',
+                "Carrier [$code] is currently not supported by the SDK",
+                $code
+            );
+        }
     }
 
     /**
+     * ```json5
      * {
      *  "name": "FedEx",
      *  "code": "fedex"
      * }
+     * ```
+     *
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
      */
     public function jsonSerialize()
     {

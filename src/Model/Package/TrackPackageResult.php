@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Model\Package;
 
+use ShipEngine\ShipEngineConfig;
+
 /**
  * Class TrackPackageResult
  * @package ShipEngine\Model\Package
@@ -48,7 +50,7 @@ final class TrackPackageResult implements \JsonSerializable
     public function hasErrors(): bool
     {
         foreach ($this->events as $event) {
-            if ($event['status'] === 'EXCEPTION') {
+            if ($event->status === 'EXCEPTION') {
                 return true;
             }
         }
@@ -64,7 +66,7 @@ final class TrackPackageResult implements \JsonSerializable
     {
         $errors = array();
         foreach ($this->events as $event) {
-            if ($event['status'] === 'EXCEPTION') {
+            if ($event->status === 'EXCEPTION') {
                 $errors[] = $event;
             }
         }
@@ -75,18 +77,17 @@ final class TrackPackageResult implements \JsonSerializable
      * TrackPackageResult constructor. This object is the return type for the `trackPackage` method in
      * the `TrackPackageService`.
      *
-     * @param array $api_response
+     * @param array $apiResponse
      */
-    public function __construct(array $api_response)
+    public function __construct(array $apiResponse, ShipEngineConfig $config)
     {
-        $result = $api_response['result'];
+        $result = $apiResponse['result'];
 
-        $this->events = null ?? $result['events'];
-        foreach ($this->events as $event) {
+        foreach ($result['events'] as $event) {
             $this->events[] = new TrackingEvent($event);
         }
 
-        $this->shipment = null ?? new Shipment($result['shipment'], $this->getLatestEvent()->date_time);
+        $this->shipment = null ?? new Shipment($result['shipment'], $this->getLatestEvent()->dateTime, $config);
         $this->package = null ?? new Package($result['package']);
     }
 
@@ -99,10 +100,7 @@ final class TrackPackageResult implements \JsonSerializable
         return [
             'shipment' => $this->shipment,
             'package' => $this->package,
-            'events' => $this->events,
-            'latest_event' => $this->getLatestEvent(),
-            'has_errors' => $this->hasErrors(),
-            'errors' => $this->getErrors()
+            'events' => $this->events
         ];
     }
 }

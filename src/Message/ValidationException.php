@@ -9,10 +9,10 @@ namespace ShipEngine\Message;
  * Is throwable.
  * @package ShipEngine\Message
  * @param string $message
- * @param string|null $request_id
+ * @param string|null $requestId
  * @param string|null $source
  * @param string|null $type
- * @param string|null $error_code
+ * @param string|null $errorCode
  * @param string|null $url
  *
  * @package ShipEngine\Message

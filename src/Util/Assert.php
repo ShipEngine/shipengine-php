@@ -3,11 +3,9 @@
 namespace ShipEngine\Util;
 
 use DateInterval;
-use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
-use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
@@ -61,12 +59,12 @@ final class Assert
     /**
      * Asserts that city in not an empty string and is valid characters.
      *
-     * @param string $city_locality
+     * @param string $cityLocality
      * @throws ValidationException
      */
-    public function isCityValid(string $city_locality): void
+    public function isCityValid(string $cityLocality): void
     {
-        if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $city_locality) === false || $city_locality === '') {
+        if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $cityLocality) === false || $cityLocality === '') {
             throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
@@ -80,12 +78,12 @@ final class Assert
     /**
      * Asserts that state is 2 capitalized letters and that it is not an empty string.
      *
-     * @param string $state_province
+     * @param string $stateProvince
      * @throws ValidationException
      */
-    public function isStateValid(string $state_province): void
+    public function isStateValid(string $stateProvince): void
     {
-        if (preg_match('/^[A-Z\W]{2}$/', $state_province) === false || $state_province === '') {
+        if (preg_match('/^[A-Z\W]{2}$/', $stateProvince) === false || $stateProvince === '') {
             throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
@@ -99,12 +97,12 @@ final class Assert
     /**
      * Asserts that the postal code contains to allowed characters and is not an empty string.
      *
-     * @param string $postal_code
+     * @param string $postalCode
      * @throws ValidationException
      */
-    public function isPostalCodeValid(string $postal_code): void
+    public function isPostalCodeValid(string $postalCode): void
     {
-        if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postal_code) === false || $postal_code === '') {
+        if (preg_match('/^[a-zA-Z0-9\s-]*$/', $postalCode) === false || $postalCode === '') {
             throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
@@ -116,24 +114,24 @@ final class Assert
     }
 
     /**
-     * Check if the country code is 2 capitalized letter and is not an empty string.
+     * Check if the countryCode code is 2 capitalized letter and is not an empty string.
      *
-     * @param string $country_code
+     * @param string $countryCode
      * @throws ValidationException
      */
-    public function isCountryCodeValid(string $country_code): void
+    public function isCountryCodeValid(string $countryCode): void
     {
-        if ($country_code === '') {
+        if ($countryCode === '') {
             throw new ValidationException(
-                "Invalid address. The country must be specified.",
+                "Invalid address. The countryCode must be specified.",
                 null,
                 'shipengine',
                 'validation',
                 'invalid_field_value'
             );
-        } elseif (!preg_match('/^[A-Z]{2}$/', $country_code)) {
+        } elseif (!preg_match('/^[A-Z]{2}$/', $countryCode)) {
             throw new ValidationException(
-                "Invalid address. $country_code is not a valid country code.",
+                "Invalid address. $countryCode is not a valid countryCode code.",
                 null,
                 'shipengine',
                 'validation',
@@ -149,7 +147,7 @@ final class Assert
      */
     public function isApiKeyValid(array $config): void
     {
-        if (isset($config['api_key']) === false || $config['api_key'] === '') {
+        if (isset($config['apiKey']) === false || $config['apiKey'] === '') {
             throw new ValidationException(
                 'A ShipEngine API key must be specified.',
                 null,
@@ -181,16 +179,16 @@ final class Assert
     /**
      * Asserts that the status code is 500, and if it is a `SystemException` is thrown.
      *
-     * @param array $parsed_response
-     * @param int $status_code
+     * @param array $parsedResponse
+     * @param int $statusCode
      */
-    public function doesResponseHave500Error(array $parsed_response, int $status_code): void
+    public function doesResponseHave500Error(array $parsedResponse, int $statusCode): void
     {
-        if ($status_code === 500) {
-            $error = $parsed_response['error'];
+        if ($statusCode === 500) {
+            $error = $parsedResponse['error'];
             throw new SystemException(
                 $error['message'],
-                $parsed_response['id'],
+                $parsedResponse['id'],
                 $error['data']['source'],
                 $error['data']['type'],
                 $error['data']['code'],
@@ -203,34 +201,39 @@ final class Assert
      * Assertions to check if the returned normalized address has any errors. If errors
      * are present an exception is thrown.
      *
-     * @param AddressValidateResult $validation_result
+     * @param AddressValidateResult $validationResult
      */
-    public function doesNormalizedAddressHaveErrors(AddressValidateResult $validation_result): void
+    public function doesNormalizedAddressHaveErrors(AddressValidateResult $validationResult): void
     {
-        if (count($validation_result->errors) > 1) {
-            throw new BusinessRuleException(
-                "Invalid address.\n" . implode("\n", $validation_result->errors),
-                $validation_result->request_id,
+        if (count($validationResult->errors) > 1) {
+            $errorMessageArray = array();
+            foreach ($validationResult->errors as $errorMessage) {
+                $errorMessageArray[] = $errorMessage['message'];
+            }
+
+            throw new ShipEngineException(
+                "Invalid address.\n" . implode("\n", $errorMessageArray) . "\n\n",
+                $validationResult->requestId,
                 ErrorSource::SHIPENGINE,
-                ErrorType::BUSINESS_RULES,
+                'error',
                 ErrorCode::INVALID_ADDRESS,
                 null
             );
-        } elseif (count($validation_result->errors) === 1) {
-            throw new BusinessRuleException(
-                "Invalid address. " . $validation_result->errors[0],
-                $validation_result->request_id,
+        } elseif (count($validationResult->errors) === 1) {
+            throw new ShipEngineException(
+                "Invalid address. " . $validationResult->errors[0]['message'],
+                $validationResult->requestId,
                 ErrorSource::SHIPENGINE,
-                ErrorType::BUSINESS_RULES,
-                ErrorCode::INVALID_ADDRESS,
+                'error',
+                $validationResult->errors[0]['code'],
                 null
             );
-        } elseif (!$validation_result->valid) {
-            throw new BusinessRuleException(
+        } elseif ($validationResult->isValid === false) {
+            throw new ShipEngineException(
                 'Invalid address - The address provided could not be normalized.',
-                $validation_result->request_id,
+                $validationResult->requestId,
                 ErrorSource::SHIPENGINE,
-                ErrorType::BUSINESS_RULES,
+                'error',
                 ErrorCode::INVALID_ADDRESS,
                 null
             );

@@ -12,25 +12,20 @@ final class RPCMethods
     /**
      * Validate an address.
      */
-    public const ADDRESS_VALIDATE = 'address/validate';
-
-    /**
-     * Track a package.
-     */
-    public const PACKAGE_TRACK = 'package/track';
+    public const ADDRESS_VALIDATE = 'address.validate.v1';
 
     /**
      * Create a tag.
      */
-    public const CREATE_TAG = 'create/tag';
+    public const CREATE_TAG = 'create.tag.v1';
 
     /**
      * List all carriers connected to a given ShipEngine account.
      */
-    public const LIST_CARRIER_ACCOUNTS = 'carrierAccounts/list';
+    public const LIST_CARRIERS = 'carrier.listAccounts.v1';
 
     /**
      * Track a given package.
      */
-    public const TRACK_PACKAGE = 'package/track';
+    public const TRACK_PACKAGE = 'package.track.v1';
 }

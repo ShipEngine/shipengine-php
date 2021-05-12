@@ -18,11 +18,11 @@ final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializabl
     public const REQUEST_SENT = 'request_sent';
 
     /**
-     * The request_id that corresponds to the request that was sent when this event is emitted.
+     * The requestId that corresponds to the request that was sent when this event is emitted.
      *
      * @var string
      */
-    public string $request_id;
+    public string $requestId;
 
     /**
      * This is the URL that the request was sent to.
@@ -65,7 +65,7 @@ final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializabl
      * ShipEngineClient to the target server.
      *
      * @param string $message
-     * @param string $request_id
+     * @param string $requestId
      * @param string $url
      * @param array $headers
      * @param array $body
@@ -74,7 +74,7 @@ final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializabl
      */
     public function __construct(
         string $message,
-        string $request_id,
+        string $requestId,
         string $url,
         array $headers,
         array $body,
@@ -82,7 +82,7 @@ final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializabl
         DateInterval $timeout
     ) {
         parent::__construct(self::REQUEST_SENT, $message);
-        $this->request_id = $request_id;
+        $this->requestId = $requestId;
         $this->url = $url;
         $this->headers = $headers;
         $this->body = $body;
@@ -99,7 +99,7 @@ final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializabl
         return [
             'type' => $this->type,
             'message' => $this->message,
-            'request_id' => $this->request_id,
+            'requestId' => $this->requestId,
             'url' => $this->url,
             'headers' => $this->headers,
             'body' => $this->body,

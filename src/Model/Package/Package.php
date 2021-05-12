@@ -16,14 +16,14 @@ final class Package implements \JsonSerializable
      *
      * @var string|null
      */
-    public ?string $package_id;
+    public ?string $packageId;
 
     /**
      * Weight of the given shipment.
      *
-     * @var string|null
+     * @var array|null
      */
-    public ?string $weight;
+    public ?array $weight;
 
     /**
      * Dimensions of the given shipment.
@@ -38,14 +38,14 @@ final class Package implements \JsonSerializable
      *
      * @var string
      */
-    public string $tracking_number;
+    public string $trackingNumber;
 
     /**
      * The tracking URL to the carrier site with tracking information on your shipment.
      *
      * @var Uri
      */
-    public Uri $tracking_url;
+    public Uri $trackingUrl;
 
     /**
      * Package Class constructor. This is an object containing package information
@@ -55,11 +55,11 @@ final class Package implements \JsonSerializable
      */
     public function __construct(array $package)
     {
-        $this->package_id = null ?? $package['package_id'];
+        $this->packageId = null ?? $package['packageID'];
         $this->weight = null ?? $package['weight'];
         $this->dimensions = null ?? $package['dimensions'];
-        $this->tracking_url = null ?? new Uri($package['tracking_url']);
-        $this->tracking_number = $package['tracking_number'];
+        $this->trackingUrl = null ?? new Uri($package['trackingURL']);
+        $this->trackingNumber = $package['trackingNumber'];
     }
 
     /**
@@ -69,11 +69,11 @@ final class Package implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-          'package_id' => $this->package_id,
+          'packageId' => $this->packageId,
           'weight' => $this->weight,
           'dimensions' => $this->dimensions,
-          'tracking_number' => $this->tracking_number,
-          'tracking_url' => $this->tracking_url,
+          'trackingNumber' => $this->trackingNumber,
+          'trackingUrl' => (string) $this->trackingUrl,
         ];
     }
 }

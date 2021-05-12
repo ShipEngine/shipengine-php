@@ -25,16 +25,16 @@ final class RateLimitExceededException extends ShipEngineException
      *
      * @param \DateInterval $retryAfter
      * @param string|null $source
-     * @param string|null $request_id
+     * @param string|null $requestId
      */
     public function __construct(
         \DateInterval $retryAfter,
         string $source = null,
-        ?string $request_id = null
+        ?string $requestId = null
     ) {
         parent::__construct(
             'You have exceeded the rate limit.',
-            $request_id,
+            $requestId,
             $source,
             ErrorType::SYSTEM,
             ErrorCode::RATE_LIMIT_EXCEEDED,

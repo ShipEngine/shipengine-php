@@ -9,6 +9,7 @@ namespace ShipEngine\Util\Constants;
  */
 final class CarrierNames
 {
+    //TODO: move carrier name check logic into a getCarrierNames() getter
     /**
      * Common name for FEDEX = FedEx
      */
@@ -23,4 +24,9 @@ final class CarrierNames
      * Common name for USPS - U.S. Postal Service
      */
     public const USPS = 'U.S. Postal Service';
+
+    /**
+     * Stamps.com - provider of USPS Services
+     */
+    public const STAMPS_COM = 'Stamps.com';
 }

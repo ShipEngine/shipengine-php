@@ -12,23 +12,23 @@ final class TrackingQuery implements \JsonSerializable
     /**
      * @var string|null
      */
-    public ?string $carrier_code;
+    public ?string $carrierCode;
 
     /**
      * @var string|null
      */
-    public ?string $tracking_number;
+    public ?string $trackingNumber;
 
     /**
      * TrackingQuery constructor.
      *
-     * @param string|null $carrier_code
-     * @param string|null $tracking_number
+     * @param string|null $carrierCode
+     * @param string|null $trackingNumber
      */
-    public function __construct(string $carrier_code = null, string $tracking_number = null)
+    public function __construct(string $carrierCode = null, string $trackingNumber = null)
     {
-        $this->carrier_code = $carrier_code;
-        $this->tracking_number = $tracking_number;
+        $this->carrierCode = $carrierCode;
+        $this->trackingNumber = $trackingNumber;
     }
 
     /**
@@ -38,8 +38,8 @@ final class TrackingQuery implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'carrier_code' => $this->carrier_code,
-            'tracking_number' => $this->tracking_number,
+            'carrierCode' => $this->carrierCode,
+            'trackingNumber' => $this->trackingNumber,
         ];
     }
 }

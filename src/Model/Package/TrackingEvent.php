@@ -15,14 +15,14 @@ final class TrackingEvent implements \JsonSerializable
      *
      * @var IsoString
      */
-    public IsoString $date_time;
+    public IsoString $dateTime;
 
     /**
      * The current date-time of the tracking event per the carrier records.
      *
      * @var IsoString
      */
-    public IsoString $carrier_date_time;
+    public IsoString $carrierDateTime;
 
     /**
      * The current status of the tracking event.
@@ -43,14 +43,14 @@ final class TrackingEvent implements \JsonSerializable
      *
      * @var string|null
      */
-    public ?string $carrier_status_code;
+    public ?string $carrierStatusCode;
 
     /**
      * The carrier defined detail code.
      *
      * @var string|null
      */
-    public ?string $carrier_detail_code;
+    public ?string $carrierDetailCode;
 
     /**
      * The signer or person who singed the package if there is record of one.
@@ -73,12 +73,12 @@ final class TrackingEvent implements \JsonSerializable
      */
     public function __construct(array $events)
     {
-        $this->date_time = new IsoString($events['date_time']);
-        $this->carrier_date_time = new IsoString($events['carrier_date_time']);
+        $this->dateTime = new IsoString($events['timestamp']);
+        $this->carrierDateTime = new IsoString($events['carrierTimestamp']);
         $this->status = $events['status'];
         $this->description = null ?? $events['description'];
-        $this->carrier_status_code = null ?? $events['carrier_status_code'];
-        $this->carrier_detail_code = null ?? $events['carrier_detail_code'];
+        $this->carrierStatusCode = null ?? $events['carrierStatusCode'];
+        $this->carrierDetailCode = null ?? $events['carrierDetailCode'];
         $this->signer = null ?? $events['signer'];
         $this->location = isset($events['location']) ? new Location($events['location']) : null;
     }
@@ -90,12 +90,12 @@ final class TrackingEvent implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'date_time' => $this->date_time,
-            'carrier_date_time' => $this->carrier_date_time,
+            'dateTime' => (string) $this->dateTime,
+            'carrierDateTime' => (string) $this->carrierDateTime,
             'status' => $this->status,
             'description' => $this->description,
-            'carrier_status_code' => $this->carrier_status_code,
-            'carrier_detail_code' => $this->carrier_detail_code,
+            'carrierStatusCode' => $this->carrierStatusCode,
+            'carrierDetailCode' => $this->carrierDetailCode,
             'signer' => $this->signer,
             'location' => $this->location
         ];

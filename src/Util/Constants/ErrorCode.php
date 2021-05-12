@@ -113,7 +113,7 @@ final class ErrorCode
 
     /**
      * This error is similar to invalid_field_value, but is specifically for ID
-     * fields, such as label_id, shipment_id, carrier_id, etc. The field_name
+     * fields, such as label_id, shipmentId, carrierId, etc. The field_name
      * property indicates which field is invalid.
      */
     public const INVALID_IDENTIFIER = "invalid_identifier";

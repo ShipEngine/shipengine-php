@@ -74,12 +74,12 @@ final class ShipEngineClient
      * Send a `JSON-RPC 2.0` request via *ShipEngineClient*.
      *
      * @param string $method
-     * @param array $params
+     * @param array|null $params
      * @param ShipEngineConfig $config
      * @return mixed
-     * @throws ClientExceptionInterface
+     * @throws GuzzleException
      */
-    private function sendRPCRequest(string $method, array $params, ShipEngineConfig $config)
+    private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config)
     {
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
@@ -104,7 +104,7 @@ final class ShipEngineClient
      * is successful, the result is returned. Otherwise, an error is thrown.
      *
      * @param string $method
-     * @param array $params
+     * @param array|null $params
      * @param int $retry
      * @param ShipEngineConfig $config
      * @return mixed
@@ -112,16 +112,16 @@ final class ShipEngineClient
      */
     private function sendRequest(
         string $method,
-        array $params,
+        ?array $params,
         int $retry,
         ShipEngineConfig $config
     ) {
         $assert = new Assert();
-        $base_uri = !getenv('CLIENT_BASE_URI') ? $config->base_url : getenv('CLIENT_BASE_URI');
+        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
         $dispatcher = new EventDispatcher();
-        $shipengine_event_listener = $config->event_listener;
-        $request_headers = array(
-            'Api-Key' => $config->api_key,
+        $shipengineEventListener = $config->eventListener;
+        $requestHeaders = array(
+            'Api-Key' => $config->apiKey,
             'User-Agent' => $this->deriveUserAgent(),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
@@ -130,32 +130,32 @@ final class ShipEngineClient
         $body = $this->wrapRequest($method, $params);
 
         // Config for the Guzzle Client
-        $guzzle_config = array(
-            'base_uri' => $base_uri,
-            'headers' => $request_headers
+        $guzzleConfig = array(
+            'baseUri' => $baseUri,
+            'headers' => $requestHeaders
         );
 
-        $client = new Client($guzzle_config);
+        $client = new Client($guzzleConfig);
 
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
-        $request_sent_event = new RequestSentEvent(
-            "Calling the ShipEngine $method API at $base_uri",
+        $requestSentEvent = new RequestSentEvent(
+            "Calling the ShipEngine $method API at $baseUri",
             $body['id'],
-            $base_uri,
-            $request_headers,
+            $baseUri,
+            $requestHeaders,
             $body,
             $retry,
             $config->timeout
         );
 
         $dispatcher->addListener(
-            $request_sent_event::REQUEST_SENT,
-            [$shipengine_event_listener, 'onRequestSent']
+            $requestSentEvent::REQUEST_SENT,
+            [$shipengineEventListener, 'onRequestSent']
         );
-        $dispatcher->dispatch($request_sent_event, $request_sent_event::REQUEST_SENT);
+        $dispatcher->dispatch($requestSentEvent, $requestSentEvent::REQUEST_SENT);
 
-        $request = new Request('POST', $base_uri, $request_headers, $jsonData);
+        $request = new Request('POST', $baseUri, $requestHeaders, $jsonData);
 
         try {
             $response = $client->send($request, [
@@ -173,29 +173,29 @@ final class ShipEngineClient
             );
         }
 
-        $response_body = (string)$response->getBody();
-        $parsed_response = json_decode($response_body, true);
-        $status_code = $response->getStatusCode();
+        $responseBody = (string)$response->getBody();
+        $parsedResponse = json_decode($responseBody, true);
+        $statusCode = $response->getStatusCode();
 
-        $response_received_event = new ResponseReceivedEvent(
+        $responseReceivedEvent = new ResponseReceivedEvent(
             "Response Received",
-            $parsed_response['id'],
-            $base_uri,
-            $status_code,
+            $parsedResponse['id'],
+            $baseUri,
+            $statusCode,
             $response->getHeaders(),
-            $parsed_response,
+            $parsedResponse,
             $retry,
-            (new \DateTime())->diff($request_sent_event->timestamp)
+            (new \DateTime())->diff($requestSentEvent->timestamp)
         );
         $dispatcher->addListener(
-            $response_received_event::RESPONSE_RECEIVED,
-            [$shipengine_event_listener, 'onResponseReceived']
+            $responseReceivedEvent::RESPONSE_RECEIVED,
+            [$shipengineEventListener, 'onResponseReceived']
         );
-        $dispatcher->dispatch($response_received_event, $response_received_event::RESPONSE_RECEIVED);
+        $dispatcher->dispatch($responseReceivedEvent, $responseReceivedEvent::RESPONSE_RECEIVED);
 
-        $assert->doesResponseHave500Error($parsed_response, $status_code);
+        $assert->doesResponseHave500Error($parsedResponse, $statusCode);
 
-        return $this->handleResponse($parsed_response);
+        return $this->handleResponse($parsedResponse);
     }
 
 
@@ -253,7 +253,7 @@ final class ShipEngineClient
                     $error['data']['code']
                 );
             case ErrorCode::RATE_LIMIT_EXCEEDED:
-                $retryAfter = $error['data']['retry_after'] * 1000;
+                $retryAfter = $error['data']['retryAfter'] * 1000;
                 throw new RateLimitExceededException(
                     new \DateInterval("PT{$retryAfter}S"),
                     ErrorSource::SHIPENGINE,

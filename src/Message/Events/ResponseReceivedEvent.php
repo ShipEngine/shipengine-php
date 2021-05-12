@@ -18,11 +18,11 @@ final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerial
     public const RESPONSE_RECEIVED = 'response_received';
 
     /**
-     * The request_id that corresponds to the request that was sent when this event is emitted.
+     * The requestId that corresponds to the request that was sent when this event is emitted.
      *
      * @var string
      */
-    public string $request_id;
+    public string $requestId;
 
     /**
      * This is the URL that the request was sent to.
@@ -36,7 +36,7 @@ final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerial
      *
      * @var int
      */
-    public int $status_code;
+    public int $statusCode;
 
     /**
      * An array of request headers that was sent on the request that triggered this event.
@@ -73,9 +73,9 @@ final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerial
      * is received by the ShipEngineClient, from the target server.
      *
      * @param string $message
-     * @param string $request_id
+     * @param string $requestId
      * @param string $url
-     * @param int $status_code
+     * @param int $statusCode
      * @param array $headers
      * @param array $body
      * @param int $retry
@@ -83,18 +83,18 @@ final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerial
      */
     public function __construct(
         string $message,
-        string $request_id,
+        string $requestId,
         string $url,
-        int $status_code,
+        int $statusCode,
         array $headers,
         array $body,
         int $retry,
         DateInterval $elapsed
     ) {
         parent::__construct(self::RESPONSE_RECEIVED, $message);
-        $this->request_id = $request_id;
+        $this->requestId = $requestId;
         $this->url = $url;
-        $this->status_code = $status_code;
+        $this->statusCode = $statusCode;
         $this->headers = $headers;
         $this->body = $body;
         $this->retry = $retry;
@@ -110,9 +110,9 @@ final class ResponseReceivedEvent extends ShipEngineEvent implements \JsonSerial
         return [
             'type' => $this->type,
             'message' => $this->message,
-            'request_id' => $this->request_id,
+            'requestId' => $this->requestId,
             'url' => $this->url,
-            'status_code' => $this->status_code,
+            'statusCode' => $this->statusCode,
             'headers' => $this->headers,
             'body' => $this->body,
             'retry' => $this->retry,

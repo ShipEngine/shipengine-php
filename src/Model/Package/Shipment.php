@@ -2,34 +2,106 @@
 
 namespace ShipEngine\Model\Package;
 
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Carriers\Carrier;
 use ShipEngine\Model\Carriers\CarrierAccount;
+use ShipEngine\Service\Carriers\CarrierAccountService;
+use ShipEngine\ShipEngineConfig;
 use ShipEngine\Util\IsoString;
 
+/**
+ * Class Shipment
+ * @package ShipEngine\Model\Package
+ */
 final class Shipment implements \JsonSerializable
 {
-    public ?string $shipment_id;
+    /**
+     * @var ShipEngineConfig
+     */
+    protected ShipEngineConfig $config;
 
-    public ?string $carrier_id;
+    /**
+     * @var string|null
+     */
+    public ?string $shipmentId;
 
-    public ?CarrierAccount $carrier_account;
+    /**
+     * @var string|null
+     */
+    public ?string $accountId;
 
+    /**
+     * @var CarrierAccount|null
+     */
+    public ?CarrierAccount $carrierAccount;
+
+    /**
+     * Returns the carrier account that matches the carrier account referenced by the Tracking response, in
+     * the form of a **CarrierAccount** object.
+     *
+     * @param string|null $carrier
+     * @param string|null $accountId
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    private function getCarrierAccount(?string $carrier = null, ?string $accountId = null)
+    {
+        $target_carrier = array();
+        if (isset($carrier)) {
+            $carrierAccounts = CarrierAccountService::fetchCarrierAccounts($this->config, $carrier);
+
+
+            foreach ($carrierAccounts as $account) {
+                if ($accountId === $account->accountId) {
+                    $target_carrier[] = $account;
+                    return $target_carrier[0];
+                }
+
+                throw new ShipEngineException(
+                    "accountID [$accountId] doesn't match any of the accounts connected to your ShipEngine Account"
+                );
+            }
+        }
+        return $target_carrier;
+    }
+
+    /**
+     * @var Carrier
+     */
     public Carrier $carrier;
 
-    public IsoString $estimated_delivery_date;
+    /**
+     * @var IsoString
+     */
+    public IsoString $estimatedDeliveryDate;
 
-    public IsoString $actual_delivery_date;
+    /**
+     * @var IsoString
+     */
+    public IsoString $actualDeliveryDate;
 
-    public function __construct(array $shipment, IsoString $actual_delivery_date)
+    /**
+     * Shipment constructor.
+     * @param array $shipment
+     * @param IsoString $actualDeliveryDate
+     * @param ShipEngineConfig $config
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     */
+    public function __construct(array $shipment, IsoString $actualDeliveryDate, ShipEngineConfig $config)
     {
-        $this->shipment_id = null ?? $shipment['shipment_id'];
-        $this->carrier_id = null ?? $shipment['carrier_id'];
-        $this->carrier_account = isset($shipment['carrier_account']) ?
-            new CarrierAccount($shipment['carrier_account']) :
+        $this->config = $config;
+        $this->shipmentId = null ?? $shipment['shipmentID'];
+        $this->accountId = null ?? $shipment['carrierAccountID'];
+
+
+        $this->carrierAccount = isset($shipment['carrierCode']) ?
+            $this->getCarrierAccount($shipment['carrierCode'], $this->accountId) :
             null;
-        $this->carrier = new Carrier($shipment['carrier_code']);
-        $this->estimated_delivery_date = new IsoString($shipment['estimated_delivery']);
-        $this->actual_delivery_date = $actual_delivery_date;
+
+        $this->carrier = isset($this->carrierAccount) ?
+            $this->carrierAccount->carrier :
+            new Carrier($shipment['carrierCode']);
+        $this->estimatedDeliveryDate = new IsoString($shipment['estimatedDelivery']);
+        $this->actualDeliveryDate = $actualDeliveryDate;
     }
 
     /**
@@ -39,12 +111,25 @@ final class Shipment implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'shipment_id' => $this->shipment_id,
-            'carrier_id' => $this->carrier_id,
-            'carrier_account' => $this->carrier_account,
+            'shipmentId' => $this->shipmentId,
+            'carrierAccountID' => $this->accountId,
+            'carrierAccount' => $this->carrierAccount,
             'carrier' => $this->carrier,
-            'estimated_delivery' => $this->estimated_delivery_date,
-            'actual_delivery' => $this->actual_delivery_date,
+            'estimatedDeliveryDate' => (string)$this->estimatedDeliveryDate,
+            'actualDeliveryDate' => (string)$this->actualDeliveryDate,
         ];
+    }
+
+    /**
+     * This is a helper method to unset and remove **$this->config** from the **print_r()** or **var_dump()**
+     * output since it's a large object, and is only on **$this** object for internal use.
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        $result = get_object_vars($this);
+        unset($result['config']);
+        return $result;
     }
 }
