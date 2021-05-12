@@ -78,7 +78,7 @@ Lint
 ----
 _phpstan_ using our `composer script`:
 ```bash
-compser phpstan
+composer phpstan
 ```
 
 Generate Documentation
