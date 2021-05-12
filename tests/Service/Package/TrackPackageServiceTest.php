@@ -48,6 +48,20 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
+    public function testTrackByTrackingNumberAndCarrierCode()
+    {
+        $trackingData = new TrackingQuery(
+            'fedex',
+            'abcFedExDelivered'
+        );
+        $trackingResult = self::$shipengine->trackPackage($trackingData);
+
+        $this->assertEquals($trackingData->carrierCode, $trackingResult->shipment->carrier->code);
+        $this->assertEquals($trackingData->trackingNumber, $trackingResult->package->trackingNumber);
+        $this->assertNotNull($trackingResult->package->trackingUrl);
+        $this->assertIsString($trackingResult->package->trackingUrl);
+    }
+
     public function testTrackByPackageId(): void
     {
         $packageId = 'pkg_1FedExAccepted';
