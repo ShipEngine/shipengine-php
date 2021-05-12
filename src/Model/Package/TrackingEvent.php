@@ -79,7 +79,7 @@ final class TrackingEvent implements \JsonSerializable
         $this->description = null ?? $events['description'];
         $this->carrierStatusCode = null ?? $events['carrierStatusCode'];
         $this->carrierDetailCode = isset($events['carrierDetailCode']) ? $events['carrierDetailCode'] : null;
-        $this->signer = null ?? $events['signer'];
+        $this->signer = isset($events['signer']) ? $events['signer'] : null;
         $this->location = isset($events['location']) ? new Location($events['location']) : null;
     }
 

@@ -509,7 +509,7 @@ final class AddressServiceTest extends TestCase
         );
         $this->assertTrue($validation->normalizedAddress->isResidential);
         $this->assertEmpty($validation->errors);
-        $this->assertNotEmpty($validation->warnings[0]);
+        $this->assertNotEmpty($validation->warnings);
         $this->assertEquals('partially_verified_to_premise_level', $validation->warnings[0]['code']);
         $this->assertIsString($validation->warnings[0]['message']);
         $this->assertEquals(
