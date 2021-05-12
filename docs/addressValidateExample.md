@@ -5,7 +5,7 @@ of your packages.
 
 Address validation can lead to reduced shipping costs by preventing address correction surcharges. ShipEngine
 cross-references multiple databases to validate addresses and identify potential delivery issues and supports address
-validation for virtually every country on Earth, including the United States, Canada, Great Britain, Australia,
+validation for virtually every countryCode on Earth, including the United States, Canada, Great Britain, Australia,
 Germany, France, Norway, Spain, Sweden, Israel, Italy, and over 160 others.
 
 ---
@@ -20,17 +20,17 @@ There are two ways to validate an address using this SDK.
 
 - The `validateAddress` method takes in an array containing address information, which would typically be a set of
   **Address Line 1, Address Line 2, and Address Line 3** within a `street` array. This object should also have a
-  `city_locality`, `state_province`, `postal_code`, `country_code`, `name`, `phone`, and `company_name`. This method
-  requires a `country_code` which should be the 2 character capitalized abbreviation for a given country.
+  `cityLocality`, `stateProvince`, `postalCode`, `countryCode`, `name`, `phone`, and `company`. This method
+  requires a `countryCode` which should be the 2 character capitalized abbreviation for a given countryCode.
 
 - **Behavior**: The `validateAddress` method will always return
   an [AddressValidateResult](../src/Model/Address/AddressValidateResult.php), even in the even that the address passed
   in was not *valid*.
 
 - **Method level configuration** - You can optionally pass in an array that contains `configuration` values to be used
-  for the current method call. The options are `api_key`, `base_url`, `page_size`,
+  for the current method call. The options are `apiKey`, `baseUrl`, `pageSize`,
   `retries` **(MUST be of type `DateInterval` e.g. `new DateInterval('PT5S')` would be 5 seconds)**,
-  `timeout`, and `event_listener`.
+  `timeout`, and `eventListener`.
 
 > Learn more about `DateInterval()` in the php manual:
 > [DateInterval PHP Manual](https://www.php.net/manual/en/class.dateinterval.php "DateInterval Documentation")
@@ -41,9 +41,9 @@ Address Array Keys/Values:
 - **street** *array* `required`
 - **city** *string*
 - **state** *string*
-- **postal_code** *string*
-- **country_code** *string* `required`
-- **residential** *boolean*
+- **postalCode** *string*
+- **countryCode** *string* `required`
+- **isResidential** *boolean*
 - **name** *string*
 - **phone** *string*
 - **company** *string*
@@ -65,21 +65,21 @@ require __DIR__ . '/vendor/autoload.php';
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
-$api_key = getenv('SHIPENGINE_API_KEY');
+$apiKey = getenv('SHIPENGINE_apiKey');
 
-$shipengine = new ShipEngine($api_key);
+$shipengine = new ShipEngine($apiKey);
 
 $address = new Address(
     [
         'street' => array('4 Jersey St', 'ste 200'),
-        'city_locality' => 'Boston',
-        'state_province' => 'MA',
-        'postal_code' => '02215',
-        'country_code' => 'US',
-        'residential' => null,
+        'cityLocality' => 'Boston',
+        'stateProvince' => 'MA',
+        'postalCode' => '02215',
+        'countryCode' => 'US',
+        'isResidential' => null,
         'name' => 'Bruce Wayne',
         'phone' => '123-456-7891',
-        'company_name' => 'ShipEngine'
+        'company' => 'ShipEngine'
     ]
 );
 
@@ -94,18 +94,18 @@ print_r($validated_address);
 ShipEngine\Model\Address\AddressValidateResult Object
 (
     [valid] => 1
-    [normalized_address] => ShipEngine\Model\Address\Address Object
+    [normalizedAddress] => ShipEngine\Model\Address\Address Object
         (
             [street:ShipEngine\Model\Address\Address:private] => Array
                 (
                     [0] => 4 JERSEY ST
                 )
 
-            [city_locality:ShipEngine\Model\Address\Address:private] => BOSTON
-            [state_province:ShipEngine\Model\Address\Address:private] => MA
-            [postal_code:ShipEngine\Model\Address\Address:private] => 02215
-            [country_code:ShipEngine\Model\Address\Address:private] => US
-            [residential:ShipEngine\Model\Address\Address:private] =>
+            [cityLocality:ShipEngine\Model\Address\Address:private] => BOSTON
+            [stateProvince:ShipEngine\Model\Address\Address:private] => MA
+            [postalCode:ShipEngine\Model\Address\Address:private] => 02215
+            [countryCode:ShipEngine\Model\Address\Address:private] => US
+            [isResidential:ShipEngine\Model\Address\Address:private] =>
             [name:ShipEngine\Model\Address\Address:private] => BRUCE WAYNE
             [phone:ShipEngine\Model\Address\Address:private] => 1234567891
             [company:ShipEngine\Model\Address\Address:private] => SHIPENGINE
@@ -123,7 +123,7 @@ ShipEngine\Model\Address\AddressValidateResult Object
         (
         )
 
-    [request_id] => req_H3C6E5ovPueNYeik5dnRwa
+    [requestId] => req_H3C6E5ovPueNYeik5dnRwa
 )
 ```
 
@@ -142,25 +142,25 @@ print_r(json_encode($validated_address));  // Return the AddressValidateResult T
 ```json5
 {
   "valid": true,
-  "normalized_address": {
+  "normalizedAddress": {
     "address": {
       "name": "BRUCE WAYNE",
       "phone": "1234567891",
-      "company_name": "SHIPENGINE",
+      "company": "SHIPENGINE",
       "street": [
         "4 JERSEY ST"
       ],
-      "city_locality": "BOSTON",
-      "state_province": "MA",
-      "postal_code": "02215",
-      "country_code": "US",
-      "residential": false
+      "cityLocality": "BOSTON",
+      "stateProvince": "MA",
+      "postalCode": "02215",
+      "countryCode": "US",
+      "isResidential": false
     }
   },
   "info": [],
   "warnings": [],
   "errors": [],
-  "request_id": "req_UGF4BfDHcRc2GCwaFCKwNs"
+  "requestId": "req_UGF4BfDHcRc2GCwaFCKwNs"
 }
 ```
 

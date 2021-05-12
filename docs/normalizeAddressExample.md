@@ -5,7 +5,7 @@ of your packages.
 
 Address validation can lead to reduced shipping costs by preventing address correction surcharges. ShipEngine
 cross-references multiple databases to validate addresses and identify potential delivery issues and supports address
-validation for virtually every country on Earth, including the United States, Canada, Great Britain, Australia,
+validation for virtually every countryCode on Earth, including the United States, Canada, Great Britain, Australia,
 Germany, France, Norway, Spain, Sweden, Israel, Italy, and over 160 others.
 
 ---
@@ -26,9 +26,9 @@ containing method-level configuration options.
   be returned as an instance of the [Address](../src/Model/Address/Address.php) class.
 
 - **Method level configuration** - You can optionally pass in an array that contains `configuration` values to be used
-  for the current method call. The options are `api_key`, `base_url`, `page_size`,
+  for the current method call. The options are `apiKey`, `baseUrl`, `pageSize`,
   `retries` **(MUST be of type `DateInterval` e.g. `new DateInterval('PT5S')` would be 5 seconds)**,
-  `timeout`, and `event_listener`.
+  `timeout`, and `eventListener`.
 
 > Learn more about `DateInterval()` in the php manual:
 > [DateInterval PHP Manual](https://www.php.net/manual/en/class.dateinterval.php "DateInterval Documentation")
@@ -39,9 +39,9 @@ Address Array Keys/Values:
 - **street** *array* `required`
 - **city** *string*
 - **state** *string*
-- **postal_code** *string*
-- **country_code** *string* `required`
-- **residential** *boolean*
+- **postalCode** *string*
+- **countryCode** *string* `required`
+- **isResidential** *boolean*
 - **name** *string*
 - **phone** *string*
 - **company** *string*
@@ -64,27 +64,27 @@ require __DIR__ . '/vendor/autoload.php';
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
-$api_key = getenv('SHIPENGINE_API_KEY');
+$apiKey = getenv('SHIPENGINE_apiKey');
 
-$shipengine = new ShipEngine($api_key);
+$shipengine = new ShipEngine($apiKey);
 
 $address = new Address(
     [
         'street' => array('4 Jersey St', 'ste 200'),
-        'city_locality' => 'Boston',
-        'state_province' => 'MA',
-        'postal_code' => '02215',
-        'country_code' => 'US',
-        'residential' => null,
+        'cityLocality' => 'Boston',
+        'stateProvince' => 'MA',
+        'postalCode' => '02215',
+        'countryCode' => 'US',
+        'isResidential' => null,
         'name' => 'Bruce Wayne',
         'phone' => '123-456-7891',
-        'company_name' => 'ShipEngine'
+        'company' => 'ShipEngine'
     ]
 );
 
-$normalized_address = $shipengine->normalizeAddress($address, ['retries' => 2]);
+$normalizedAddress = $shipengine->normalizeAddress($address, ['retries' => 2]);
 
-print_r($normalized_address);
+print_r($normalizedAddress);
 ```
 **Successful Address Normalization Output**: As a raw `Address` object.
 ```php
@@ -95,11 +95,11 @@ ShipEngine\Model\Address\Address Object
             [0] => 4 JERSEY ST
         )
 
-    [city_locality:ShipEngine\Model\Address\Address:private] => BOSTON
-    [state_province:ShipEngine\Model\Address\Address:private] => MA
-    [postal_code:ShipEngine\Model\Address\Address:private] => 02215
-    [country_code:ShipEngine\Model\Address\Address:private] => US
-    [residential:ShipEngine\Model\Address\Address:private] =>
+    [cityLocality:ShipEngine\Model\Address\Address:private] => BOSTON
+    [stateProvince:ShipEngine\Model\Address\Address:private] => MA
+    [postalCode:ShipEngine\Model\Address\Address:private] => 02215
+    [countryCode:ShipEngine\Model\Address\Address:private] => US
+    [isResidential:ShipEngine\Model\Address\Address:private] =>
     [name:ShipEngine\Model\Address\Address:private] => BRUCE WAYNE
     [phone:ShipEngine\Model\Address\Address:private] => 1234567891
     [company:ShipEngine\Model\Address\Address:private] => SHIPENGINE
@@ -112,15 +112,15 @@ ShipEngine\Model\Address\Address Object
   "address": {
     "name": "BRUCE WAYNE",
     "phone": "1234567891",
-    "company_name": "SHIPENGINE",
+    "company": "SHIPENGINE",
     "street": [
       "4 JERSEY ST"
     ],
-    "city_locality": "BOSTON",
-    "state_province": "MA",
-    "postal_code": "02215",
-    "country_code": "US",
-    "residential": false
+    "cityLocality": "BOSTON",
+    "stateProvince": "MA",
+    "postalCode": "02215",
+    "countryCode": "US",
+    "isResidential": false
   }
 }
 ```

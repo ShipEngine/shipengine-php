@@ -38,9 +38,9 @@ require __DIR__ . '/vendor/autoload.php';
 
 use ShipEngine\ShipEngine;
 
-$api_key = getenv('SHIPENGINE_API_KEY');
+$apiKey = getenv('SHIPENGINE_API_KEY');
 
-$shipengine = new ShipEngine($api_key);
+$shipengine = new ShipEngine($apiKey);
 ```
 - You can also pass the **ShipEngine** object an **array** containing `configuration` options instead of a **string**.
 ```php
@@ -51,8 +51,8 @@ require __DIR__ . '/vendor/autoload.php';
 use ShipEngine\ShipEngine;
 
 $config = array(
-    'api_key' => 'baz',
-    'page_size' => 75,
+    'apiKey' => 'baz',
+    'pageSize' => 75,
     'retries' => 3,
     'timeout' => \DateInterval('PT15000S')
 );
