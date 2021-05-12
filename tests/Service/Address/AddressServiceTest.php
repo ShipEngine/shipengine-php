@@ -452,7 +452,7 @@ final class AddressServiceTest extends TestCase
         );
         $validation = self::$shipengine->validateAddress($validate_with_error);
 
-        $this->assertTrue($validation->isValid);
+        $this->assertFalse($validation->isValid);
         $this->assertNull($validation->normalizedAddress);
         $this->assertNotEmpty($validation->errors);
         $this->assertIsArray($validation->errors);
