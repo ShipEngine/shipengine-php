@@ -4,10 +4,10 @@ namespace Service\Package;
 
 use DateInterval;
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
-use ShipEngine\Util\IsoString;
 
 /**
  * @covers \ShipEngine\ShipEngine
@@ -85,6 +85,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertCount(1, $trackingResult->events);
         $this->assertEquals('accepted', $trackingResult->events[0]->status);
     }
+
     public function testOutForDeliveryTrackingEvent(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedExAttempted');
@@ -100,7 +101,68 @@ final class TrackPackageServiceTest extends TestCase
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedExDeLivered');
         $this->trackPackageAssertions($trackingResult);
-        $this->assertEquals();
+        $this->assertEquals($trackingResult->shipment->actualDeliveryDate, $trackingResult->events[4]->dateTime);
+        $this->doesDeliveryDateMatch($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+        $this->assertEquals('delivered', $trackingResult->events[4]->status);
+        $this->assertEquals(
+            'delivered',
+            $trackingResult->events[array_key_last($trackingResult->events)]->status
+        );
+    }
+
+    public function testMultipleDeliveryAttemptEvents(): void
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertCount(9, $trackingResult->events);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+        $this->assertEquals('unknown', $trackingResult->events[2]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[3]->status);
+        $this->assertEquals('attempted_delivery', $trackingResult->events[4]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[5]->status);
+        $this->assertEquals('attempted_delivery', $trackingResult->events[6]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[7]->status);
+        $this->assertEquals('delivered', $trackingResult->events[8]->status);
+    }
+
+    public function testDeliveryWithSignuatureTrackingEvent()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLivered');
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertCount(5, $trackingResult->events);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->doesDeliveryDateMatch($trackingResult);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+        $this->assertEquals('unknown', $trackingResult->events[2]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[3]->status);
+        $this->assertEquals('delivered', $trackingResult->events[4]->status);
+        $this->assertNotNull($trackingResult->events[4]->signer);
+        $this->assertNotEmpty($trackingResult->events[4]->signer);
+        $this->assertIsString($trackingResult->events[4]->signer);
+    }
+
+    public function testDeliveredAfterMultipleAttempts()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
+
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->doesDeliveryDateMatch($trackingResult);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+        $this->assertEquals('attempted_delivery', $trackingResult->events[4]->status);
+        $this->assertEquals('attempted_delivery', $trackingResult->events[6]->status);
+        $this->assertEquals('delivered', $trackingResult->events[8]->status);
+        $this->assertEquals(
+            'delivered',
+            $trackingResult->events[array_key_last($trackingResult->events)]->status
+        );
     }
 
     public function trackPackageAssertions(TrackPackageResult $trackingResult): void
@@ -118,5 +180,28 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertNotEmpty($estimatedDelivery);
         $this->assertTrue($estimatedDelivery->hasTime());
         $this->assertTrue($estimatedDelivery->hasTimezone());
+    }
+
+    public function doesDeliveryDateMatch(TrackPackageResult $trackingResult)
+    {
+        $this->assertEquals(
+            $trackingResult->shipment->actualDeliveryDate,
+            $trackingResult->events[array_key_last($trackingResult->events)]->dateTime
+        );
+    }
+
+    public function assertEventsInOrder(array $events)
+    {
+        // Iterate over the array passed in and if the old is less than new : DEBUG
+        $previousDateTime = $events[0]->dateTime;
+        foreach ($events as $event) {
+            $status = $event->status;
+            assert(
+                $event->dateTime >= $previousDateTime,
+                "Event $status has an earlier timestamp than $previousDateTime."
+            );
+
+            $previousDateTime = $event->dateTime;
+        }
     }
 }

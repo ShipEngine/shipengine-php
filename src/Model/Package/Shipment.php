@@ -38,28 +38,21 @@ final class Shipment implements \JsonSerializable
     /**
      * Returns the carrier account that matches the carrier account referenced by the Tracking response, in
      * the form of a **CarrierAccount** object.
-     *
-     * @param string|null $carrier
-     * @param string|null $accountId
-     * @throws \Psr\Http\Client\ClientExceptionInterface
      */
-    private function getCarrierAccount(?string $carrier = null, ?string $accountId = null)
+    private function getCarrierAccount(string $carrier, string $accountId)
     {
         $target_carrier = array();
-        if (isset($carrier)) {
-            $carrierAccounts = CarrierAccountService::fetchCarrierAccounts($this->config, $carrier);
+        $carrierAccounts = CarrierAccountService::fetchCachedCarrierAccounts($this->config, $carrier);
 
-
-            foreach ($carrierAccounts as $account) {
-                if ($accountId === $account->accountId) {
-                    $target_carrier[] = $account;
-                    return $target_carrier[0];
-                }
-
-                throw new ShipEngineException(
-                    "accountID [$accountId] doesn't match any of the accounts connected to your ShipEngine Account"
-                );
+        foreach ($carrierAccounts as $account) {
+            if ($accountId === $account->accountId) {
+                $target_carrier[] = $account;
+                return $target_carrier[0];
             }
+
+            throw new ShipEngineException(
+                "accountID [$accountId] doesn't match any of the accounts connected to your ShipEngine Account"
+            );
         }
         return $target_carrier;
     }
@@ -93,7 +86,7 @@ final class Shipment implements \JsonSerializable
         $this->accountId = null ?? $shipment['carrierAccountID'];
 
 
-        $this->carrierAccount = isset($shipment['carrierCode']) ?
+        $this->carrierAccount = isset($this->accountId) ?
             $this->getCarrierAccount($shipment['carrierCode'], $this->accountId) :
             null;
 

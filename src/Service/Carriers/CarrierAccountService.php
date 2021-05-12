@@ -22,21 +22,33 @@ final class CarrierAccountService
      */
     public static array $accounts = array();
 
-    /**
-     * Get all carrier accounts for a given ShipEngine account.
-     *
-     * @param string|null $params
-     * @return array
-     * @throws ClientExceptionInterface
-     */
+    public static function fetchCachedCarrierAccounts(ShipEngineConfig $config, ?string $carrier): array
+    {
+        //TODO: DEBUG ME
+        $accounts = array();
+        //TODO: debug the lint on the method name
+        //Iterate through $accounts to only get the ones that match params and only return those.
+        // IF params are provided else return $accounts.
+        if (count(self::$accounts) > 0) {
+            foreach (self::$accounts as $account) {
+                if ($account->carrier->code === $carrier) {
+                    $accounts = $account;
+                } else {
+                    self::$accounts = self::fetchCarrierAccounts($config, $carrier);
+                    $accounts = self::$accounts;
+                }
+            }
+        } else {
+            self::$accounts = self::fetchCarrierAccounts($config, $carrier);
+            $accounts = self::$accounts;
+        }
+        //TODO: add comments
+        return $accounts;
+    }
+
     public static function fetchCarrierAccounts(ShipEngineConfig $config, ?string $params = null): array
     {
         $client = new ShipEngineClient();
-        $config = $config->merge();
-
-        if (count(self::$accounts) > 0) {
-            return self::$accounts;
-        }
 
         if (isset($params)) {
             $apiResponse = $client->request(

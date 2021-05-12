@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Model\Package;
 
-use GuzzleHttp\Psr7\Uri;
-
 /**
  * Class Package
  *
@@ -43,9 +41,9 @@ final class Package implements \JsonSerializable
     /**
      * The tracking URL to the carrier site with tracking information on your shipment.
      *
-     * @var Uri
+     * @var string
      */
-    public Uri $trackingUrl;
+    public string $trackingUrl;
 
     /**
      * Package Class constructor. This is an object containing package information
@@ -58,7 +56,7 @@ final class Package implements \JsonSerializable
         $this->packageId = null ?? $package['packageID'];
         $this->weight = null ?? $package['weight'];
         $this->dimensions = null ?? $package['dimensions'];
-        $this->trackingUrl = null ?? new Uri($package['trackingURL']);
+        $this->trackingUrl = null ?? $package['trackingURL'];
         $this->trackingNumber = $package['trackingNumber'];
     }
 
@@ -73,7 +71,7 @@ final class Package implements \JsonSerializable
           'weight' => $this->weight,
           'dimensions' => $this->dimensions,
           'trackingNumber' => $this->trackingNumber,
-          'trackingUrl' => (string) $this->trackingUrl,
+          'trackingUrl' => $this->trackingUrl,
         ];
     }
 }
