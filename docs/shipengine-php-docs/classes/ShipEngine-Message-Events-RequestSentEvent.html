@@ -54,9 +54,9 @@
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
-                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                     </ul>
                         </section>
 
@@ -109,16 +109,16 @@
                             </ul>
         </div>
 
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <abbr title="\JsonSerializable">JsonSerializable</abbr>                    </span>
 
-            <span class="phpdocumentor-element__extends">
-            Uses
-                            <a href="classes/ShipEngine-Util-Getters.html"><abbr title="\ShipEngine\Util\Getters">Getters</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 </aside>
 
             <p class="phpdocumentor-summary">Class RequestSentEvent</p>
@@ -130,6 +130,17 @@
 
 
 
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes and Traits
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\JsonSerializable">JsonSerializable</abbr></dt>
+        <dd></dd>
+
+
+    </dl>
 
 
 <h3 id="toc">
@@ -146,62 +157,62 @@
 <dd>The event name for the RequestSentEvent.</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_timestamp">$timestamp</a>
-    <span>
-                &nbsp;: <abbr title="\DateTime">DateTime</abbr>            </span>
-</dt>
-<dd>The timestamp of when the event was emitted.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_body">$body</a>
     <span>
                 &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>An associative array representation of the response body.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_headers">$headers</a>
     <span>
                 &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd>An array of request headers that was sent on the request that triggered this event.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_message">$message</a>
     <span>
                 &nbsp;: string            </span>
 </dt>
 <dd>The event message to provide context to the underlying event.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_request_id">$request_id</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_requestId">$requestId</a>
     <span>
                 &nbsp;: string            </span>
 </dt>
-<dd>The request_id that corresponds to the request that was sent when this event is emitted.</dd>
+<dd>The requestId that corresponds to the request that was sent when this event is emitted.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_retry">$retry</a>
     <span>
                 &nbsp;: int            </span>
 </dt>
 <dd>The current retry - this is used in the retry logic that the ShipEngineClient executes.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_timeout">$timeout</a>
     <span>
                 &nbsp;: <abbr title="\DateInterval">DateInterval</abbr>            </span>
 </dt>
 <dd>The timeout for requests in seconds.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_timestamp">$timestamp</a>
+    <span>
+                &nbsp;: <abbr title="\DateTime">DateTime</abbr>            </span>
+</dt>
+<dd>The timestamp of when the event was emitted.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_type">$type</a>
     <span>
                 &nbsp;: string            </span>
 </dt>
 <dd>The type of event being emitted.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_url">$url</a>
     <span>
                 &nbsp;: string            </span>
@@ -217,11 +228,11 @@
 ShipEngineClient to the target server.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-Util-Getters.html#method___get">__get()</a>
+    <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                         &nbsp;: mixed    </span>
 </dt>
-<dd></dd>
+<dd>Specify data which should be serialized to JSON</dd>
 
         </dl>
 
@@ -242,7 +253,7 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 </aside>
 
         <p class="phpdocumentor-summary">The event name for the RequestSentEvent.</p>
@@ -290,38 +301,6 @@ ShipEngineClient to the target server.</dd>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_timestamp">
-        $timestamp
-        <a href="classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_timestamp" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/ShipEngineEvent.php"><a href="files/src-message-events-shipengineevent.html"><abbr title="src/Message/Events/ShipEngineEvent.php">ShipEngineEvent.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">21</span>
-</aside>
-
-        <p class="phpdocumentor-summary">The timestamp of when the event was emitted.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr></span>
-    <span class="phpdocumentor-signature__name">$timestamp</span>
-    </code>
-
-        <section class="phpdocumentor-description"></section>
-
-
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="property_body">
         $body
         <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_body" class="headerlink"><i class="fas fa-link"></i></a>
@@ -331,13 +310,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 </aside>
 
         <p class="phpdocumentor-summary">An associative array representation of the response body.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$body</span>
     </code>
@@ -351,7 +330,7 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_headers">
@@ -363,13 +342,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 </aside>
 
         <p class="phpdocumentor-summary">An array of request headers that was sent on the request that triggered this event.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$headers</span>
     </code>
@@ -383,7 +362,7 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_message">
@@ -395,13 +374,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/ShipEngineEvent.php"><a href="files/src-message-events-shipengineevent.html"><abbr title="src/Message/Events/ShipEngineEvent.php">ShipEngineEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 </aside>
 
         <p class="phpdocumentor-summary">The event message to provide context to the underlying event.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$message</span>
     </code>
@@ -415,27 +394,27 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_request_id">
-        $request_id
-        <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_request_id" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_requestId">
+        $requestId
+        <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#property_requestId" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
-        <p class="phpdocumentor-summary">The request_id that corresponds to the request that was sent when this event is emitted.</p>
+        <p class="phpdocumentor-summary">The requestId that corresponds to the request that was sent when this event is emitted.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$request_id</span>
+    <span class="phpdocumentor-signature__name">$requestId</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -447,7 +426,7 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_retry">
@@ -459,13 +438,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 </aside>
 
         <p class="phpdocumentor-summary">The current retry - this is used in the retry logic that the ShipEngineClient executes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">$retry</span>
     </code>
@@ -479,7 +458,7 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_timeout">
@@ -491,13 +470,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 </aside>
 
         <p class="phpdocumentor-summary">The timeout for requests in seconds.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type"><abbr title="\DateInterval">DateInterval</abbr></span>
     <span class="phpdocumentor-signature__name">$timeout</span>
     </code>
@@ -524,7 +503,39 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_timestamp">
+        $timestamp
+        <a href="classes/ShipEngine-Message-Events-ShipEngineEvent.html#property_timestamp" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/ShipEngineEvent.php"><a href="files/src-message-events-shipengineevent.html"><abbr title="src/Message/Events/ShipEngineEvent.php">ShipEngineEvent.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">18</span>
+</aside>
+
+        <p class="phpdocumentor-summary">The timestamp of when the event was emitted.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\DateTime">DateTime</abbr></span>
+    <span class="phpdocumentor-signature__name">$timestamp</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_type">
@@ -536,13 +547,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/ShipEngineEvent.php"><a href="files/src-message-events-shipengineevent.html"><abbr title="src/Message/Events/ShipEngineEvent.php">ShipEngineEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
         <p class="phpdocumentor-summary">The type of event being emitted.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$type</span>
     </code>
@@ -556,7 +567,7 @@ ShipEngineClient to the target server.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_url">
@@ -568,13 +579,13 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 </aside>
 
         <p class="phpdocumentor-summary">This is the URL that the request was sent to.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$url</span>
     </code>
@@ -604,7 +615,7 @@ ShipEngineClient to the target server.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 </aside>
 
         <p class="phpdocumentor-summary">RequestSentEvent constructor - this event is emitted when a request is sent from the
@@ -612,7 +623,7 @@ ShipEngineClient to the target server.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request_id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$headers</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$body</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$retry</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateInterval">DateInterval</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timeout</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$headers</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$body</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$retry</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateInterval">DateInterval</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timeout</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -627,7 +638,7 @@ ShipEngineClient to the target server.</p>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$request_id</span>
+                <span class="phpdocumentor-signature__argument__name">$requestId</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -691,34 +702,39 @@ ShipEngineClient to the target server.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___get">
-        __get()
-        <a href="classes/ShipEngine-Util-Getters.html#method___get" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_jsonSerialize">
+        jsonSerialize()
+        <a href="classes/ShipEngine-Message-Events-RequestSentEvent.html#method_jsonSerialize" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Getters.php"><a href="files/src-util-getters.html"><abbr title="src/Util/Getters.php">Getters.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/Events/RequestSentEvent.php"><a href="files/src-message-events-requestsentevent.html"><abbr title="src/Message/Events/RequestSentEvent.php">RequestSentEvent.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">10</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 </aside>
 
+        <p class="phpdocumentor-summary">Specify data which should be serialized to JSON</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
 
 
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
 
-            </dd>
-            </dl>
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="http://php.net/manual/en/jsonserializable.jsonserialize.php"> http://php.net/manual/en/jsonserializable.jsonserialize.php </a>
 
-
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>

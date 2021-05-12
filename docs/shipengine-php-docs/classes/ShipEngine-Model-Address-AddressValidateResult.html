@@ -54,9 +54,9 @@
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
-                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                     </ul>
                         </section>
 
@@ -110,15 +110,12 @@
             implements
                             <abbr title="\JsonSerializable">JsonSerializable</abbr>                    </span>
 
-            <span class="phpdocumentor-element__extends">
-            Uses
-                            <a href="classes/ShipEngine-Util-Getters.html"><abbr title="\ShipEngine\Util\Getters">Getters</abbr></a>                    </span>
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 </aside>
 
             <p class="phpdocumentor-summary">`AddressValidateResult` Type to be returned by *AddressService*. This is the result of
@@ -180,14 +177,21 @@ prevent the address from being fully validated.</dd>
 <dd>An array of informational messages about the address validation, such as minor corrections.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalized_address">$normalized_address</a>
+    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_isValid">$isValid</a>
+    <span>
+                &nbsp;: bool|null            </span>
+</dt>
+<dd>Indicates whether the address is valid</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalizedAddress">$normalizedAddress</a>
     <span>
                 &nbsp;: <a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalized_address">$normalized_address</a>
+    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalizedAddress">$normalizedAddress</a>
     <span>
                 &nbsp;: <a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null            </span>
 </dt>
@@ -195,14 +199,14 @@ prevent the address from being fully validated.</dd>
 address was valid (i.e. `$valid` is `true`).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_request_id">$request_id</a>
+    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_requestId">$requestId</a>
     <span>
                 &nbsp;: string|null            </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_request_id">$request_id</a>
+    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_requestId">$requestId</a>
     <span>
                 &nbsp;: string|null            </span>
 </dt>
@@ -215,13 +219,6 @@ for address validation.</dd>
                 &nbsp;: bool            </span>
 </dt>
 <dd></dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_valid">$valid</a>
-    <span>
-                &nbsp;: bool            </span>
-</dt>
-<dd>Indicates whether the address is valid</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_warnings">$warnings</a>
@@ -245,13 +242,6 @@ were made to the normalized address.</dd>
 </dt>
 <dd>AddressValidateResult Type constructor. Takes in a `POPO` (Plain Old PHP Object) that is
 the response object from the `JSON-RPC` response we get back.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-Util-Getters.html#method___get">__get()</a>
-    <span>
-                        &nbsp;: mixed    </span>
-</dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#method_jsonSerialize">jsonSerialize()</a>
@@ -288,7 +278,7 @@ the response object from the `JSON-RPC` response we get back.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 </aside>
 
         <p class="phpdocumentor-summary">Error messages about the address validation, such as invalid fields that
@@ -298,7 +288,7 @@ prevent the address from being fully validated.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$errors</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">array()</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -383,7 +373,7 @@ prevent the address from being fully validated.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 </aside>
 
         <p class="phpdocumentor-summary">An array of informational messages about the address validation, such as minor corrections.</p>
@@ -392,6 +382,38 @@ prevent the address from being fully validated.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$info</span>
+     = <span class="phpdocumentor-signature__default-value">array()</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_isValid">
+        $isValid
+        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_isValid" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Indicates whether the address is valid</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">bool|null</span>
+    <span class="phpdocumentor-signature__name">$isValid</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -406,9 +428,9 @@ prevent the address from being fully validated.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_normalized_address">
-        $normalized_address
-        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalized_address" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_normalizedAddress">
+        $normalizedAddress
+        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalizedAddress" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -422,7 +444,7 @@ prevent the address from being fully validated.</p>
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$normalized_address</span>
+    <span class="phpdocumentor-signature__name">$normalizedAddress</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -437,16 +459,16 @@ prevent the address from being fully validated.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_normalized_address">
-        $normalized_address
-        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalized_address" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_normalizedAddress">
+        $normalizedAddress
+        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalizedAddress" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 </aside>
 
         <p class="phpdocumentor-summary">The normalized form of the address. This will only be populated if the
@@ -455,11 +477,11 @@ address was valid (i.e. `$valid` is `true`).</p>
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type"><a href="classes/ShipEngine-Model-Address-Address.html"><abbr title="\ShipEngine\Model\Address\Address">Address</abbr></a>|null</span>
-    <span class="phpdocumentor-signature__name">$normalized_address</span>
+    <span class="phpdocumentor-signature__name">$normalizedAddress</span>
     </code>
 
         <section class="phpdocumentor-description"><p>Addresses are normalized according to the normalization rules of the
-country they're in.</p>
+countryCode they're in.</p>
 </section>
 
 
@@ -472,9 +494,9 @@ country they're in.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_request_id">
-        $request_id
-        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_request_id" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_requestId">
+        $requestId
+        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_requestId" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -488,7 +510,7 @@ country they're in.</p>
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$request_id</span>
+    <span class="phpdocumentor-signature__name">$requestId</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -503,16 +525,16 @@ country they're in.</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_request_id">
-        $request_id
-        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_request_id" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_requestId">
+        $requestId
+        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_requestId" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 </aside>
 
         <p class="phpdocumentor-summary">The unique ID that is associated with the current request to ShipEngine API
@@ -521,7 +543,7 @@ for address validation.</p>
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$request_id</span>
+    <span class="phpdocumentor-signature__name">$requestId</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -548,38 +570,6 @@ for address validation.</p>
     <span class="phpdocumentor-element-found-in__line">0</span>
 </aside>
 
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool</span>
-    <span class="phpdocumentor-signature__name">$valid</span>
-    </code>
-
-        <section class="phpdocumentor-description"></section>
-
-
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_valid">
-        $valid
-        <a href="classes/ShipEngine-Model-Address-AddressValidateResult.html#property_valid" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">28</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Indicates whether the address is valid</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -639,7 +629,7 @@ for address validation.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 </aside>
 
         <p class="phpdocumentor-summary">Warning messages about the address validation, such as major changes that
@@ -649,7 +639,7 @@ were made to the normalized address.</p>
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$warnings</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">array()</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -676,7 +666,7 @@ were made to the normalized address.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 </aside>
 
         <p class="phpdocumentor-summary">AddressValidateResult Type constructor. Takes in a `POPO` (Plain Old PHP Object) that is
@@ -684,60 +674,18 @@ the response object from the `JSON-RPC` response we get back.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$api_response</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$apiResponse</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$api_response</span>
+                <span class="phpdocumentor-signature__argument__name">$apiResponse</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method___get">
-        __get()
-        <a href="classes/ShipEngine-Util-Getters.html#method___get" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Getters.php"><a href="files/src-util-getters.html"><abbr title="src/Util/Getters.php">Getters.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">10</span>
-</aside>
-
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
 
             </dd>
             </dl>
@@ -764,7 +712,7 @@ the response object from the `JSON-RPC` response we get back.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Model/Address/AddressValidateResult.php"><a href="files/src-model-address-addressvalidateresult.html"><abbr title="src/Model/Address/AddressValidateResult.php">AddressValidateResult.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 </aside>
 
         <p class="phpdocumentor-summary">Return a JsonSerialized string representation of the `AddressValidateResult` Type.</p>
@@ -776,36 +724,51 @@ the response object from the `JSON-RPC` response we get back.</p>
         <section class="phpdocumentor-description"><code class="prettyprint">
 {
 "valid": true,
-"normalized_address": {
+"normalizedAddress": {
 "address": {
 "name": "BRUCE WAYNE",
 "phone": "1234567891",
-"company_name": "SHIPENGINE",
+"company": "SHIPENGINE",
 "street": [
 "4 JERSEY ST"
 ],
-"city_locality": "BOSTON",
-"state_province": "MA",
-"postal_code": "02215",
-"country_code": "US",
-"residential": false
+"cityLocality": "BOSTON",
+"stateProvince": "MA",
+"postalCode": "02215",
+"countryCode": "US",
+"isResidential": false
 }
 },
 "info": [],
 "warnings": [],
 "errors": [],
-"request_id": "req_9yvuxhYGymTzNorcM16gwT"
+"requestId": "req_9yvuxhYGymTzNorcM16gwT"
 }
 <code class="prettyprint">
+<p>Specify data which should be serialized to JSON</p>
 </section>
 
 
 
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">link</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                                        <a class="phpdocumentor-tag-link" href="https://php.net/manual/en/jsonserializable.jsonserialize.php"> https://php.net/manual/en/jsonserializable.jsonserialize.php </a>
+
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-            <section class="phpdocumentor-description"></section>
+            <section class="phpdocumentor-description"><p>data which can be serialized by <b>json_encode</b></p>
+</section>
 
 
 </article>

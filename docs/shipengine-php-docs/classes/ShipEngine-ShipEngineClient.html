@@ -54,9 +54,9 @@
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
-                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                     </ul>
                         </section>
 
@@ -108,7 +108,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 </aside>
 
             <p class="phpdocumentor-summary">A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.</p>
@@ -131,7 +131,7 @@
                     <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-ShipEngineClient.html#method_request">request()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;|mixed    </span>
 </dt>
 <dd>Create and send a `JSON-RPC 2.0` request over HTTP messages.</dd>
 
@@ -198,14 +198,14 @@ is successful, the result is returned. Otherwise, an error is thrown.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create and send a `JSON-RPC 2.0` request over HTTP messages.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">request</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -216,25 +216,26 @@ is successful, the result is returned. Otherwise, an error is thrown.</dd>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Name of an RPC method.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$params</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Data that a remote procedure will make use of.</p>
+                    <section class="phpdocumentor-description"><p>The RPC method to be used in the request.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$config</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>A ShipEngineConfig object.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$params</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>An array of params to be sent in the JSON-RPC request.</p>
+</section>
 
             </dd>
             </dl>
@@ -257,7 +258,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|mixed</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -276,7 +277,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">279</span>
 </aside>
 
         <p class="phpdocumentor-summary">Derive a User-Agent header from the environment. This is the user-agent that will be set on every request
@@ -326,7 +327,7 @@ via the ShipEngine Client.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">198</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 </aside>
 
 
@@ -370,7 +371,7 @@ via the ShipEngine Client.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">106</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 </aside>
 
         <p class="phpdocumentor-summary">Send a `JSON-RPC 2.0` request via HTTP Messages to ShipEngine API. If the response
@@ -378,7 +379,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">sendRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$retry</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">sendRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$retry</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -394,7 +395,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$params</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -410,7 +411,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$config</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -455,14 +456,14 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 </aside>
 
         <p class="phpdocumentor-summary">Send a `JSON-RPC 2.0` request via *ShipEngineClient*.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">sendRPCRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">sendRPCRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -478,7 +479,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$params</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -486,7 +487,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$config</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-Service-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/ShipEngine-ShipEngineConfig.html"><abbr title="\ShipEngine\ShipEngineConfig">ShipEngineConfig</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -504,7 +505,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                <span class="phpdocumentor-tag-link"><abbr title="\Psr\Http\Client\ClientExceptionInterface">ClientExceptionInterface</abbr></span>
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\GuzzleHttp\Exception\GuzzleException">GuzzleException</abbr></span>
 
                                                  <section class="phpdocumentor-description"></section>
 
@@ -531,14 +532,14 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ShipEngineClient.php"><a href="files/src-shipengineclient.html"><abbr title="src/ShipEngineClient.php">ShipEngineClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 </aside>
 
         <p class="phpdocumentor-summary">Wrap request per `JSON-RPC 2.0` spec.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                <span class="phpdocumentor-signature__name">wrapRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                <span class="phpdocumentor-signature__name">wrapRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -554,7 +555,7 @@ is successful, the result is returned. Otherwise, an error is thrown.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$params</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>

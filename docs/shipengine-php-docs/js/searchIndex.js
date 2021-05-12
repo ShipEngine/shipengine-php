@@ -21,15 +21,20 @@ Search.appendIndex(
             "summary": "RequestSentEvent\u0020constructor\u0020\u002D\u0020this\u0020event\u0020is\u0020emitted\u0020when\u0020a\u0020request\u0020is\u0020sent\u0020from\u0020the\nShipEngineClient\u0020to\u0020the\u0020target\u0020server.",
             "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#method___construct"
         },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#method_jsonSerialize"
+        },                {
             "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003AREQUEST_SENT",
             "name": "REQUEST_SENT",
             "summary": "The\u0020event\u0020name\u0020for\u0020the\u0020RequestSentEvent.",
             "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#constant_REQUEST_SENT"
         },                {
-            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024request_id",
-            "name": "request_id",
-            "summary": "The\u0020request_id\u0020that\u0020corresponds\u0020to\u0020the\u0020request\u0020that\u0020was\u0020sent\u0020when\u0020this\u0020event\u0020is\u0020emitted.",
-            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_request_id"
+            "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024requestId",
+            "name": "requestId",
+            "summary": "The\u0020requestId\u0020that\u0020corresponds\u0020to\u0020the\u0020request\u0020that\u0020was\u0020sent\u0020when\u0020this\u0020event\u0020is\u0020emitted.",
+            "url": "classes/ShipEngine-Message-Events-RequestSentEvent.html#property_requestId"
         },                {
             "fqsen": "\\ShipEngine\\Message\\Events\\RequestSentEvent\u003A\u003A\u0024url",
             "name": "url",
@@ -66,25 +71,30 @@ Search.appendIndex(
             "summary": "ResponseReceivedEvent\u0020constructor\u0020\u002D\u0020this\u0020event\u0020is\u0020emitted\u0020when\u0020a\u0020response\nis\u0020received\u0020by\u0020the\u0020ShipEngineClient,\u0020from\u0020the\u0020target\u0020server.",
             "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#method___construct"
         },                {
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#method_jsonSerialize"
+        },                {
             "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003ARESPONSE_RECEIVED",
             "name": "RESPONSE_RECEIVED",
             "summary": "The\u0020event\u0020name\u0020for\u0020the\u0020ResponseReceivedEvent.",
             "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#constant_RESPONSE_RECEIVED"
         },                {
-            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024request_id",
-            "name": "request_id",
-            "summary": "The\u0020request_id\u0020that\u0020corresponds\u0020to\u0020the\u0020request\u0020that\u0020was\u0020sent\u0020when\u0020this\u0020event\u0020is\u0020emitted.",
-            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_request_id"
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024requestId",
+            "name": "requestId",
+            "summary": "The\u0020requestId\u0020that\u0020corresponds\u0020to\u0020the\u0020request\u0020that\u0020was\u0020sent\u0020when\u0020this\u0020event\u0020is\u0020emitted.",
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_requestId"
         },                {
             "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024url",
             "name": "url",
             "summary": "This\u0020is\u0020the\u0020URL\u0020that\u0020the\u0020request\u0020was\u0020sent\u0020to.",
             "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_url"
         },                {
-            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024status_code",
-            "name": "status_code",
+            "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024statusCode",
+            "name": "statusCode",
             "summary": "The\u0020response\u0020status\u0020code.",
-            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_status_code"
+            "url": "classes/ShipEngine-Message-Events-ResponseReceivedEvent.html#property_statusCode"
         },                {
             "fqsen": "\\ShipEngine\\Message\\Events\\ResponseReceivedEvent\u003A\u003A\u0024headers",
             "name": "headers",
@@ -146,25 +156,25 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Message-Events-ShipEngineEventListener.html#method_onResponseReceived"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\InvalidFieldValueException",
+            "fqsen": "\\ShipEngine\\Message\\InvalidFieldValueException",
             "name": "InvalidFieldValueException",
             "summary": "This\u0020error\u0020occurs\u0020when\u0020a\u0020field\u0020has\u0020been\u0020set\u0020to\u0020an\u0020invalid\u0020value.",
-            "url": "classes/ShipEngine-Util-InvalidFieldValueException.html"
+            "url": "classes/ShipEngine-Message-InvalidFieldValueException.html"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\InvalidFieldValueException\u003A\u003A__construct\u0028\u0029",
+            "fqsen": "\\ShipEngine\\Message\\InvalidFieldValueException\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
             "summary": "Instantiates\u0020a\u0020client\u002Dside\u0020error.",
-            "url": "classes/ShipEngine-Util-InvalidFieldValueException.html#method___construct"
+            "url": "classes/ShipEngine-Message-InvalidFieldValueException.html#method___construct"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\InvalidFieldValueException\u003A\u003A\u0024field_name",
+            "fqsen": "\\ShipEngine\\Message\\InvalidFieldValueException\u003A\u003A\u0024field_name",
             "name": "field_name",
             "summary": "The\u0020name\u0020of\u0020the\u0020invalid\u0020field.",
-            "url": "classes/ShipEngine-Util-InvalidFieldValueException.html#property_field_name"
+            "url": "classes/ShipEngine-Message-InvalidFieldValueException.html#property_field_name"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\InvalidFieldValueException\u003A\u003A\u0024field_value",
+            "fqsen": "\\ShipEngine\\Message\\InvalidFieldValueException\u003A\u003A\u0024field_value",
             "name": "field_value",
             "summary": "The\u0020value\u0020of\u0020the\u0020invalid\u0020field.",
-            "url": "classes/ShipEngine-Util-InvalidFieldValueException.html#property_field_value"
+            "url": "classes/ShipEngine-Message-InvalidFieldValueException.html#property_field_value"
         },                {
             "fqsen": "\\ShipEngine\\Message\\RateLimitExceededException",
             "name": "RateLimitExceededException",
@@ -201,15 +211,15 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Message-ShipEngineException.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024request_id",
-            "name": "request_id",
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024requestId",
+            "name": "requestId",
             "summary": "If\u0020the\u0020error\u0020came\u0020from\u0020the\u0020ShipEngine\u0020server\u0020\u0028as\u0020opposed\u0020to\u0020a\u0020client\u002Dside\u0020error\u0029\nthen\u0020this\u0020is\u0020the\u0020unique\u0020ID\u0020of\u0020the\u0020HTTP\u0020request\u0020that\u0020returned\u0020the\u0020error.",
-            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_request_id"
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_requestId"
         },                {
-            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024error_code",
-            "name": "error_code",
+            "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024errorCode",
+            "name": "errorCode",
             "summary": "A\u0020code\u0020that\u0020indicates\u0020the\u0020specific\u0020error\u0020that\u0020occurred,\u0020such\u0020as\u0020missing\u0020a\nrequired\u0020field,\u0020an\u0020invalid\u0020address,\u0020a\u0020timeout,\u0020etc.",
-            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_error_code"
+            "url": "classes/ShipEngine-Message-ShipEngineException.html#property_errorCode"
         },                {
             "fqsen": "\\ShipEngine\\Message\\ShipEngineException\u003A\u003A\u0024source",
             "name": "source",
@@ -261,30 +271,30 @@ Search.appendIndex(
             "summary": "The\u0020street\u0020address.\u0020If\u0020the\u0020street\u0020address\u0020is\u0020multiple\u0020lines,\u0020then\u0020pass\u0020an\narray\u0020of\u0020lines\u0020\u0028up\u0020to\u00203\u0029.",
             "url": "classes/ShipEngine-Model-Address-Address.html#property_street"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024city_locality",
-            "name": "city_locality",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024cityLocality",
+            "name": "cityLocality",
             "summary": "The\u0020city\u0020or\u0020locality.",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_city_locality"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_cityLocality"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024state_province",
-            "name": "state_province",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024stateProvince",
+            "name": "stateProvince",
             "summary": "The\u0020state\u0020or\u0020province.",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_state_province"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_stateProvince"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024postal_code",
-            "name": "postal_code",
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024postalCode",
+            "name": "postalCode",
             "summary": "The\u0020postal\u0020code\u0020or\u0020zip\u0020code.",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_postal_code"
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_postalCode"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024country_code",
-            "name": "country_code",
-            "summary": "The\u0020ISO\u00203166\u0020country\u0020code",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_country_code"
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024countryCode",
+            "name": "countryCode",
+            "summary": "The\u0020ISO\u00203166\u0020countryCode\u0020code",
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_countryCode"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024residential",
-            "name": "residential",
-            "summary": "Indicates\u0020whether\u0020the\u0020address\u0020is\u0020residential\u0020or\u0020commercial,\u0020if\u0020known.",
-            "url": "classes/ShipEngine-Model-Address-Address.html#property_residential"
+            "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024isResidential",
+            "name": "isResidential",
+            "summary": "Indicates\u0020whether\u0020the\u0020address\u0020is\u0020isResidential\u0020or\u0020commercial,\u0020if\u0020known.",
+            "url": "classes/ShipEngine-Model-Address-Address.html#property_isResidential"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\Address\u003A\u003A\u0024name",
             "name": "name",
@@ -316,15 +326,15 @@ Search.appendIndex(
             "summary": "Return\u0020a\u0020JsonSerialized\u0020string\u0020representation\u0020of\u0020the\u0020\u0060AddressValidateResult\u0060\u0020Type.",
             "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024valid",
-            "name": "valid",
+            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024isValid",
+            "name": "isValid",
             "summary": "Indicates\u0020whether\u0020the\u0020address\u0020is\u0020valid",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_valid"
+            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_isValid"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024normalized_address",
-            "name": "normalized_address",
+            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024normalizedAddress",
+            "name": "normalizedAddress",
             "summary": "The\u0020normalized\u0020form\u0020of\u0020the\u0020address.\u0020This\u0020will\u0020only\u0020be\u0020populated\u0020if\u0020the\naddress\u0020was\u0020valid\u0020\u0028i.e.\u0020\u0060\u0024valid\u0060\u0020is\u0020\u0060true\u0060\u0029.",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalized_address"
+            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_normalizedAddress"
         },                {
             "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024info",
             "name": "info",
@@ -341,10 +351,345 @@ Search.appendIndex(
             "summary": "Error\u0020messages\u0020about\u0020the\u0020address\u0020validation,\u0020such\u0020as\u0020invalid\u0020fields\u0020that\nprevent\u0020the\u0020address\u0020from\u0020being\u0020fully\u0020validated.",
             "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_errors"
         },                {
-            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024request_id",
-            "name": "request_id",
+            "fqsen": "\\ShipEngine\\Model\\Address\\AddressValidateResult\u003A\u003A\u0024requestId",
+            "name": "requestId",
             "summary": "The\u0020unique\u0020ID\u0020that\u0020is\u0020associated\u0020with\u0020the\u0020current\u0020request\u0020to\u0020ShipEngine\u0020API\nfor\u0020address\u0020validation.",
-            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_request_id"
+            "url": "classes/ShipEngine-Model-Address-AddressValidateResult.html#property_requestId"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\Carrier",
+            "name": "Carrier",
+            "summary": "Class\u0020Carrier\u0020\u002D\u0020Immutable\u0020carrier\u0020object.",
+            "url": "classes/ShipEngine-Model-Carriers-Carrier.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\Carrier\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Carrier\u0020constructor.",
+            "url": "classes/ShipEngine-Model-Carriers-Carrier.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\Carrier\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "\u0060\u0060\u0060json5\n\u007B\n\u0020\u0022name\u0022\u003A\u0020\u0022FedEx\u0022,\n\u0020\u0022code\u0022\u003A\u0020\u0022fedex\u0022\n\u007D\n\u0060\u0060\u0060",
+            "url": "classes/ShipEngine-Model-Carriers-Carrier.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\Carrier\u003A\u003A\u0024name",
+            "name": "name",
+            "summary": "The\u0020common\u0020carrier\/provider\u0020name\u003A\u0020\u0060FedEx\u0060",
+            "url": "classes/ShipEngine-Model-Carriers-Carrier.html#property_name"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\Carrier\u003A\u003A\u0024code",
+            "name": "code",
+            "summary": "The\u0020actual\u0020\u002A\u002Acode\u002A\u002A\u0020that\u0020ShipEngine\u0020API\u0020uses\u003A\u0020\u0060fedex\u0060",
+            "url": "classes/ShipEngine-Model-Carriers-Carrier.html#property_code"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount",
+            "name": "CarrierAccount",
+            "summary": "Class\u0020CarrierAccount\u0020\u002D\u0020This\u0020class\u0020represents\u0020a\u0020given\u0020Carrier\u0020Account\u0020e.g.\u0020FedEx,\u0020UPS,\u0020USPS.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "CarrierAccount\u0020constructor.\u0020This\u0020class\u0020contains\u0020account\u0020information\u0020such\u0020as\nthe\u0020carrier\/provider,\u0020accountId,\u0020account\u0020number,\u0020and\u0020account\u0020name.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003AsetCarrierAccount\u0028\u0029",
+            "name": "setCarrierAccount",
+            "summary": "Instantiate\u0020an\u0020immutable\u0020carrier\u0020class\u0020based\u0020on\u0020the\u0020\u0060carrier\u0060\u0020key\nand\u0020sets\u0020\u0060\u0024this\u002D\u003Ecarrier\u0060\u0020based\u0020on\u0020it\u0027s\u0020value.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#method_setCarrierAccount"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "\u007B\n\u0020\u0022carrier\u0022\u003A\u0020\u007B\n\u0020\u0020\u0020\u0020\u0020\u0022carrier_name\u0022\u003A\u0020\u0022FedEx\u0022,\n\u0020\u0020\u0020\u0020\u0020\u0022carrierCode\u0022\u003A\u0020\u0022fedex\u0022\n\u007D,\n\u0020\u0022accountId\u0022\u003A\u0020\u0022car_a09a8jsfd09wjzxcs9dfyha\u0022,\n\u0020\u0022accountNumber\u0022\u003A\u0020\u0022SDF987\u0022,\n\u0020\u0022name\u0022\u003A\u0020\u0022ShipEngine\u0020FedEx\u0020Account\u0022\n\u007D",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003A\u0024carrier",
+            "name": "carrier",
+            "summary": "An\u0020immutable\u0020object\u0020that\u0020will\u0020represent\u0020a\u0020carrier\u0020account.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#property_carrier"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003A\u0024accountId",
+            "name": "accountId",
+            "summary": "The\u0020unique\u0020ID\u0020that\u0020is\u0020associated\u0020with\u0020the\u0020current\u0020carrier\u0020account.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#property_accountId"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003A\u0024accountNumber",
+            "name": "accountNumber",
+            "summary": "The\u0020account\u0020number\u0020of\u0020the\u0020current\u0020carrier\u0020account.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#property_accountNumber"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers\\CarrierAccount\u003A\u003A\u0024name",
+            "name": "name",
+            "summary": "The\u0020account\u0020name\u0020of\u0020the\u0020current\u0020carrier\u0020account.",
+            "url": "classes/ShipEngine-Model-Carriers-CarrierAccount.html#property_name"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location",
+            "name": "Location",
+            "summary": "The\u0020location\u0020of\u0020a\u0020given\u0020tracking\u0020event.",
+            "url": "classes/ShipEngine-Model-Package-Location.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Location\u0020constructor.\u0020The\u0020location\u0020of\u0020where\u0020a\u0020given\u0020tracking\u0020event\u0020occurred.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Model-Package-Location.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A\u0024cityLocality",
+            "name": "cityLocality",
+            "summary": "The\u0020tracking\u0020event\u0027s\u0020city\/locality.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#property_cityLocality"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A\u0024stateProvince",
+            "name": "stateProvince",
+            "summary": "The\u0020tracking\u0020event\u0027s\u0020state\/province.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#property_stateProvince"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A\u0024postalCode",
+            "name": "postalCode",
+            "summary": "The\u0020tracking\u0020event\u0027s\u0020postal\u0020code.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#property_postalCode"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A\u0024countryCode",
+            "name": "countryCode",
+            "summary": "The\u0020tracking\u0020event\u0027s\u0020countryCode.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#property_countryCode"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A\u0024latitude",
+            "name": "latitude",
+            "summary": "The\u0020tracking\u0020event\u0027s\u0020latitude.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#property_latitude"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Location\u003A\u003A\u0024longitude",
+            "name": "longitude",
+            "summary": "The\u0020tracking\u0020event\u0027s\u0020longitude.",
+            "url": "classes/ShipEngine-Model-Package-Location.html#property_longitude"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package",
+            "name": "Package",
+            "summary": "Class\u0020Package",
+            "url": "classes/ShipEngine-Model-Package-Package.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Package\u0020Class\u0020constructor.\u0020This\u0020is\u0020an\u0020object\u0020containing\u0020package\u0020information\nfor\u0020a\u0020given\u0020shipment.",
+            "url": "classes/ShipEngine-Model-Package-Package.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Model-Package-Package.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003A\u0024packageId",
+            "name": "packageId",
+            "summary": "The\u0020unique\u0020ID\u0020that\u0020corresponds\u0020to\u0020the\u0020current\u0020package.",
+            "url": "classes/ShipEngine-Model-Package-Package.html#property_packageId"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003A\u0024weight",
+            "name": "weight",
+            "summary": "Weight\u0020of\u0020the\u0020given\u0020shipment.",
+            "url": "classes/ShipEngine-Model-Package-Package.html#property_weight"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003A\u0024dimensions",
+            "name": "dimensions",
+            "summary": "Dimensions\u0020of\u0020the\u0020given\u0020shipment.",
+            "url": "classes/ShipEngine-Model-Package-Package.html#property_dimensions"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003A\u0024trackingNumber",
+            "name": "trackingNumber",
+            "summary": "The\u0020tracking\u0020number\u0020of\u0020a\u0020given\u0020shipment.\u0020This\u0020number\u0020helps\u0020is\u0020obtaining\u0020tracking\u0020updates\u0020for\u0020a\nspecific\u0020shipment.",
+            "url": "classes/ShipEngine-Model-Package-Package.html#property_trackingNumber"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Package\u003A\u003A\u0024trackingUrl",
+            "name": "trackingUrl",
+            "summary": "The\u0020tracking\u0020URL\u0020to\u0020the\u0020carrier\u0020site\u0020with\u0020tracking\u0020information\u0020on\u0020your\u0020shipment.",
+            "url": "classes/ShipEngine-Model-Package-Package.html#property_trackingUrl"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment",
+            "name": "Shipment",
+            "summary": "Class\u0020Shipment",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003AgetCarrierAccount\u0028\u0029",
+            "name": "getCarrierAccount",
+            "summary": "Returns\u0020the\u0020carrier\u0020account\u0020that\u0020matches\u0020the\u0020carrier\u0020account\u0020referenced\u0020by\u0020the\u0020Tracking\u0020response,\u0020in\nthe\u0020form\u0020of\u0020a\u0020\u002A\u002ACarrierAccount\u002A\u002A\u0020object.",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#method_getCarrierAccount"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Shipment\u0020constructor.",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A__debugInfo\u0028\u0029",
+            "name": "__debugInfo",
+            "summary": "This\u0020is\u0020a\u0020helper\u0020method\u0020to\u0020unset\u0020and\u0020remove\u0020\u002A\u002A\u0024this\u002D\u003Econfig\u002A\u002A\u0020from\u0020the\u0020\u002A\u002Aprint_r\u0028\u0029\u002A\u002A\u0020or\u0020\u002A\u002Avar_dump\u0028\u0029\u002A\u002A\noutput\u0020since\u0020it\u0027s\u0020a\u0020large\u0020object,\u0020and\u0020is\u0020only\u0020on\u0020\u002A\u002A\u0024this\u002A\u002A\u0020object\u0020for\u0020internal\u0020use.",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#method___debugInfo"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024config",
+            "name": "config",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_config"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024shipmentId",
+            "name": "shipmentId",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_shipmentId"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024accountId",
+            "name": "accountId",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_accountId"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024carrierAccount",
+            "name": "carrierAccount",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_carrierAccount"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024carrier",
+            "name": "carrier",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_carrier"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024estimatedDeliveryDate",
+            "name": "estimatedDeliveryDate",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_estimatedDeliveryDate"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\Shipment\u003A\u003A\u0024actualDeliveryDate",
+            "name": "actualDeliveryDate",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-Shipment.html#property_actualDeliveryDate"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent",
+            "name": "TrackingEvent",
+            "summary": "Class\u0020TrackingEvent",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "TrackingEvent\u0020constructor.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024dateTime",
+            "name": "dateTime",
+            "summary": "The\u0020current\u0020date\u002Dtime\u0020of\u0020the\u0020tracking\u0020event.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_dateTime"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024carrierDateTime",
+            "name": "carrierDateTime",
+            "summary": "The\u0020current\u0020date\u002Dtime\u0020of\u0020the\u0020tracking\u0020event\u0020per\u0020the\u0020carrier\u0020records.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_carrierDateTime"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024status",
+            "name": "status",
+            "summary": "The\u0020current\u0020status\u0020of\u0020the\u0020tracking\u0020event.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_status"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024description",
+            "name": "description",
+            "summary": "The\u0020carrier\u0020status\u0020description\u0020of\u0020the\u0020tracking\u0020event.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_description"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024carrierStatusCode",
+            "name": "carrierStatusCode",
+            "summary": "The\u0020carrier\u0020defined\u0020status\u0020code.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_carrierStatusCode"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024carrierDetailCode",
+            "name": "carrierDetailCode",
+            "summary": "The\u0020carrier\u0020defined\u0020detail\u0020code.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_carrierDetailCode"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024signer",
+            "name": "signer",
+            "summary": "The\u0020signer\u0020or\u0020person\u0020who\u0020singed\u0020the\u0020package\u0020if\u0020there\u0020is\u0020record\u0020of\u0020one.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_signer"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingEvent\u003A\u003A\u0024location",
+            "name": "location",
+            "summary": "The\u0020location\u0020details\u0020of\u0020where\u0020the\u0020current\u0020tracking\u0020event\u0020occurred.",
+            "url": "classes/ShipEngine-Model-Package-TrackingEvent.html#property_location"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingQuery",
+            "name": "TrackingQuery",
+            "summary": "Class\u0020TrackingQuery\u0020\u002D\u0020This\u0020Type\u0020is\u0020used\u0020as\u0020an\u0020argument\u0020in\u0020the\u0020\u0060TrackPackageService\u0060\u0020methods.",
+            "url": "classes/ShipEngine-Model-Package-TrackingQuery.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingQuery\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "TrackingQuery\u0020constructor.",
+            "url": "classes/ShipEngine-Model-Package-TrackingQuery.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingQuery\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Model-Package-TrackingQuery.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingQuery\u003A\u003A\u0024carrierCode",
+            "name": "carrierCode",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-TrackingQuery.html#property_carrierCode"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackingQuery\u003A\u003A\u0024trackingNumber",
+            "name": "trackingNumber",
+            "summary": "",
+            "url": "classes/ShipEngine-Model-Package-TrackingQuery.html#property_trackingNumber"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult",
+            "name": "TrackPackageResult",
+            "summary": "Class\u0020TrackPackageResult",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003AgetLatestEvent\u0028\u0029",
+            "name": "getLatestEvent",
+            "summary": "This\u0020is\u0020the\u0020latest\u0020event\u0020to\u0020have\u0020occurred\u0020in\u0020the\u0020\u0060\u0024events\u0060\u0020array.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#method_getLatestEvent"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003AhasErrors\u0028\u0029",
+            "name": "hasErrors",
+            "summary": "Returns\u0020\u0060true\u0060\u0020if\u0020there\u0020are\u0020any\u0020EXCEPTION\u0020events.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#method_hasErrors"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003AgetErrors\u0028\u0029",
+            "name": "getErrors",
+            "summary": "Returns\u0020\u002A\u002Aonly\u002A\u002A\u0020the\u0020EXCEPTION\u0020events.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#method_getErrors"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "TrackPackageResult\u0020constructor.\u0020This\u0020object\u0020is\u0020the\u0020return\u0020type\u0020for\u0020the\u0020\u0060trackPackage\u0060\u0020method\u0020in\nthe\u0020\u0060TrackPackageService\u0060.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003A\u0024shipment",
+            "name": "shipment",
+            "summary": "The\u0020shipment\u0020object\u0020that\u0020is\u0020related\u0020to\u0020the\u0020tracking\u0020data\u0020and\u0020is\u0020returned\u0020from\u0020ShipEngine\u0020API.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#property_shipment"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003A\u0024package",
+            "name": "package",
+            "summary": "A\u0020Package\u0020object\u0020representing\u0020the\u0020package\u0020data\u0020associated\u0020with\u0020a\u0020given\u0020shipment\/tracking\u0020number.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#property_package"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package\\TrackPackageResult\u003A\u003A\u0024events",
+            "name": "events",
+            "summary": "A\u0020list\u0020of\u0020tracking\u0020events\u0020that\u0020have\u0020occurred\u0020on\u0020a\u0020given\u0020shipment\/tracking\u0020number,\u0020up\u0020to\u0020the\ntime\u0020of\u0020the\u0020request.\u0020Each\u0020event\u0020is\u0020of\u0020type\u0020\u0060TrackingEvent\u0060.",
+            "url": "classes/ShipEngine-Model-Package-TrackPackageResult.html#property_events"
         },                {
             "fqsen": "\\ShipEngine\\Service\\Address\\AddressService",
             "name": "AddressService",
@@ -361,70 +706,30 @@ Search.appendIndex(
             "summary": "Normalize\u0020a\u0020given\u0020address\u0020into\u0020a\u0020standardized\u0020format.",
             "url": "classes/ShipEngine-Service-Address-AddressService.html#method_normalize"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig",
-            "name": "ShipEngineConfig",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html"
+            "fqsen": "\\ShipEngine\\Service\\Carriers\\CarrierAccountService",
+            "name": "CarrierAccountService",
+            "summary": "Class\u0020CarrierAccountService",
+            "url": "classes/ShipEngine-Service-Carriers-CarrierAccountService.html"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "ShipEngineConfig\u0020constructor.",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#method___construct"
+            "fqsen": "\\ShipEngine\\Service\\Carriers\\CarrierAccountService\u003A\u003AfetchCarrierAccounts\u0028\u0029",
+            "name": "fetchCarrierAccounts",
+            "summary": "Get\u0020all\u0020carrier\u0020accounts\u0020for\u0020a\u0020given\u0020ShipEngine\u0020account.",
+            "url": "classes/ShipEngine-Service-Carriers-CarrierAccountService.html#method_fetchCarrierAccounts"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003Amerge\u0028\u0029",
-            "name": "merge",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#method_merge"
+            "fqsen": "\\ShipEngine\\Service\\Carriers\\CarrierAccountService\u003A\u003A\u0024accounts",
+            "name": "accounts",
+            "summary": "Cached\u0020list\u0020of\u0020carrier\u0020accounts\u0020if\u0020any\u0020are\u0020present.",
+            "url": "classes/ShipEngine-Service-Carriers-CarrierAccountService.html#property_accounts"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_BASE_URI",
-            "name": "DEFAULT_BASE_URI",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_BASE_URI"
+            "fqsen": "\\ShipEngine\\Service\\Package\\TrackPackageService",
+            "name": "TrackPackageService",
+            "summary": "Track\u0020a\u0020given\u0020package\u0020to\u0020obtain\u0020status\u0020updates\u0020on\u0020it\u0027s\u0020progression\u0020through\u0020the\u0020fulfillment\u0020cycle.",
+            "url": "classes/ShipEngine-Service-Package-TrackPackageService.html"
         },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_PAGE_SIZE",
-            "name": "DEFAULT_PAGE_SIZE",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_PAGE_SIZE"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_RETRIES",
-            "name": "DEFAULT_RETRIES",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_RETRIES"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003ADEFAULT_TIMEOUT",
-            "name": "DEFAULT_TIMEOUT",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#constant_DEFAULT_TIMEOUT"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024api_key",
-            "name": "api_key",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_api_key"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024base_url",
-            "name": "base_url",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_base_url"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024page_size",
-            "name": "page_size",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_page_size"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024retries",
-            "name": "retries",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_retries"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024timeout",
-            "name": "timeout",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_timeout"
-        },                {
-            "fqsen": "\\ShipEngine\\Service\\ShipEngineConfig\u003A\u003A\u0024event_listener",
-            "name": "event_listener",
-            "summary": "",
-            "url": "classes/ShipEngine-Service-ShipEngineConfig.html#property_event_listener"
+            "fqsen": "\\ShipEngine\\Service\\Package\\TrackPackageService\u003A\u003Atrack\u0028\u0029",
+            "name": "track",
+            "summary": "Track\u0020a\u0020package\u0020by\u0020\u0060trackingNumber\u0060\u0020and\u0020\u0060carrierCode\u0060\u0020via\u0020the\u0020\u002A\u002ATrackingQuery\u002A\u002A\u0020object,\u0020or\u0020ou\u0020can\u0020track\u0020by\npassing\u0020in\u0020a\u0020string\u0020that\u0020is\u0020the\u0020\u002A\u002ApackageId\u002A\u002A\u0020of\u0020the\u0020shipment\u0020you\u0020wish\u0020to\u0020track.",
+            "url": "classes/ShipEngine-Service-Package-TrackPackageService.html#method_track"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine",
             "name": "ShipEngine",
@@ -433,12 +738,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Instantiates\u0020the\u0020ShipEngine\u0020class.\u0020The\u0020\u0060api_key\u0060\u0020you\u0020pass\u0020in\u0020can\u0020be\u0020either\na\u0020ShipEngine\u0020sandbox\u0020or\u0020production\u0020API\u0020Key.\u0020\u0028sandbox\u0020keys\u0020start\u0020with\u0020\u0022TEST_\u0029",
+            "summary": "Instantiates\u0020the\u0020ShipEngine\u0020class.\u0020The\u0020\u0060apiKey\u0060\u0020you\u0020pass\u0020in\u0020can\u0020be\u0020either\na\u0020ShipEngine\u0020sandbox\u0020or\u0020production\u0020API\u0020Key.\u0020\u0028sandbox\u0020keys\u0020start\u0020with\u0020\u0022TEST_\u0029",
             "url": "classes/ShipEngine-ShipEngine.html#method___construct"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateAddress\u0028\u0029",
             "name": "validateAddress",
-            "summary": "Validate\u0020an\u0020address\u0020in\u0020nearly\u0020any\u0020country\u0020in\u0020the\u0020world.",
+            "summary": "Validate\u0020an\u0020address\u0020in\u0020nearly\u0020any\u0020countryCode\u0020in\u0020the\u0020world.",
             "url": "classes/ShipEngine-ShipEngine.html#method_validateAddress"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AnormalizeAddress\u0028\u0029",
@@ -446,10 +751,25 @@ Search.appendIndex(
             "summary": "Normalize\u0020a\u0020given\u0020address\u0020into\u0020a\u0020standardized\u0020format\u0020used\u0020by\u0020carriers.",
             "url": "classes/ShipEngine-ShipEngine.html#method_normalizeAddress"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024address_service",
-            "name": "address_service",
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AgetCarrierAccounts\u0028\u0029",
+            "name": "getCarrierAccounts",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngine.html#method_getCarrierAccounts"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AtrackPackage\u0028\u0029",
+            "name": "trackPackage",
+            "summary": "Track\u0020a\u0020package\u0020by\u0020\u0060trackingNumber\u0060\u0020and\u0020\u0060carrierCode\u0060\u0020via\u0020the\u0020\u002A\u002ATrackingQuery\u002A\u002A\u0020object,\u0020by\u0020using\u0020just\u0020the\n\u002A\u002ApackageId\u002A\u002A,\u0020or\u0020by\u0020using\u0020a\u0020\u002A\u002APackage\u002A\u002A\u0020object.",
+            "url": "classes/ShipEngine-ShipEngine.html#method_trackPackage"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024addressService",
+            "name": "addressService",
             "summary": "A\u0020collection\u0020of\u0020methods\u0020to\u0020call\u0020the\u0020ShipEngine\u0020Address\u0020Validation\u0020Services.",
-            "url": "classes/ShipEngine-ShipEngine.html#property_address_service"
+            "url": "classes/ShipEngine-ShipEngine.html#property_addressService"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024trackingService",
+            "name": "trackingService",
+            "summary": "Methods\u0020that\u0020allow\u0020you\u0020to\u0020track\u0020a\u0020package\u0020by\u0020\u002A\u002ApackageId\u002A\u002A\u0020or\u0020by\u0020\u002AtrackingNumber\u002A\u0020and\u0020\u002A\u002AcarrierCode\u002A\u002A\u0020using\nan\u0020instance\u0020of\u0020the\u0020\u002A\u002ATrackingQuery\u002A\u002A\u0020class\u0020that\u0020has\u0020those\u0020properties.",
+            "url": "classes/ShipEngine-ShipEngine.html#property_trackingService"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A\u0024config",
             "name": "config",
@@ -495,6 +815,76 @@ Search.appendIndex(
             "name": "deriveUserAgent",
             "summary": "Derive\u0020a\u0020User\u002DAgent\u0020header\u0020from\u0020the\u0020environment.\u0020This\u0020is\u0020the\u0020user\u002Dagent\u0020that\u0020will\u0020be\u0020set\u0020on\u0020every\u0020request\nvia\u0020the\u0020ShipEngine\u0020Client.",
             "url": "classes/ShipEngine-ShipEngineClient.html#method_deriveUserAgent"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig",
+            "name": "ShipEngineConfig",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "ShipEngineConfig\u0020constructor.",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method___construct"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003Amerge\u0028\u0029",
+            "name": "merge",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method_merge"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Specify\u0020data\u0020which\u0020should\u0020be\u0020serialized\u0020to\u0020JSON",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_BASE_URI",
+            "name": "DEFAULT_BASE_URI",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_BASE_URI"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_PAGE_SIZE",
+            "name": "DEFAULT_PAGE_SIZE",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_PAGE_SIZE"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_RETRIES",
+            "name": "DEFAULT_RETRIES",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_RETRIES"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003ADEFAULT_TIMEOUT",
+            "name": "DEFAULT_TIMEOUT",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_TIMEOUT"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024apiKey",
+            "name": "apiKey",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_apiKey"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024baseUrl",
+            "name": "baseUrl",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_baseUrl"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024pageSize",
+            "name": "pageSize",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_pageSize"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024retries",
+            "name": "retries",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_retries"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024timeout",
+            "name": "timeout",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_timeout"
+        },                {
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024eventListener",
+            "name": "eventListener",
+            "summary": "",
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_eventListener"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Arr",
             "name": "Arr",
@@ -543,7 +933,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\Util\\Assert\u003A\u003AisCountryCodeValid\u0028\u0029",
             "name": "isCountryCodeValid",
-            "summary": "Check\u0020if\u0020the\u0020country\u0020code\u0020is\u00202\u0020capitalized\u0020letter\u0020and\u0020is\u0020not\u0020an\u0020empty\u0020string.",
+            "summary": "Check\u0020if\u0020the\u0020countryCode\u0020code\u0020is\u00202\u0020capitalized\u0020letter\u0020and\u0020is\u0020not\u0020an\u0020empty\u0020string.",
             "url": "classes/ShipEngine-Util-Assert.html#method_isCountryCodeValid"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Assert\u003A\u003AisApiKeyValid\u0028\u0029",
@@ -565,6 +955,71 @@ Search.appendIndex(
             "name": "doesNormalizedAddressHaveErrors",
             "summary": "Assertions\u0020to\u0020check\u0020if\u0020the\u0020returned\u0020normalized\u0020address\u0020has\u0020any\u0020errors.\u0020If\u0020errors\nare\u0020present\u0020an\u0020exception\u0020is\u0020thrown.",
             "url": "classes/ShipEngine-Util-Assert.html#method_doesNormalizedAddressHaveErrors"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\CarrierNames",
+            "name": "CarrierNames",
+            "summary": "This\u0020class\u0020contains\u0020constants\u0020that\u0020are\u0020the\u0020common\u0020names\u0020for\u0020various\u0020carriers.",
+            "url": "classes/ShipEngine-Util-Constants-CarrierNames.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\CarrierNames\u003A\u003AFEDEX",
+            "name": "FEDEX",
+            "summary": "Common\u0020name\u0020for\u0020FEDEX\u0020\u003D\u0020FedEx",
+            "url": "classes/ShipEngine-Util-Constants-CarrierNames.html#constant_FEDEX"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\CarrierNames\u003A\u003AUPS",
+            "name": "UPS",
+            "summary": "Common\u0020name\u0020for\u0020UPS\u0020\u002D\u0020United\u0020Parcel\u0020Service",
+            "url": "classes/ShipEngine-Util-Constants-CarrierNames.html#constant_UPS"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\CarrierNames\u003A\u003AUSPS",
+            "name": "USPS",
+            "summary": "Common\u0020name\u0020for\u0020USPS\u0020\u002D\u0020U.S.\u0020Postal\u0020Service",
+            "url": "classes/ShipEngine-Util-Constants-CarrierNames.html#constant_USPS"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\CarrierNames\u003A\u003ASTAMPS_COM",
+            "name": "STAMPS_COM",
+            "summary": "Stamps.com\u0020\u002D\u0020provider\u0020of\u0020USPS\u0020Services",
+            "url": "classes/ShipEngine-Util-Constants-CarrierNames.html#constant_STAMPS_COM"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Carriers",
+            "name": "Carriers",
+            "summary": "Carriers\u0020that\u0020are\u0020supported\u0020by\u0020ShipEngine\u0020API.",
+            "url": "classes/ShipEngine-Util-Constants-Carriers.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Carriers\u003A\u003AFEDEX",
+            "name": "FEDEX",
+            "summary": "FedEx\u0020\u002D\u0020Federal\u0020Express",
+            "url": "classes/ShipEngine-Util-Constants-Carriers.html#constant_FEDEX"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Carriers\u003A\u003AUPS",
+            "name": "UPS",
+            "summary": "UPS\u0020\u002D\u0020United\u0020Parcel\u0020Service",
+            "url": "classes/ShipEngine-Util-Constants-Carriers.html#constant_UPS"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Carriers\u003A\u003AUSPS",
+            "name": "USPS",
+            "summary": "USPS\u0020\u002D\u0020United\u0020State\u0020Postal\u0020Service",
+            "url": "classes/ShipEngine-Util-Constants-Carriers.html#constant_USPS"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Carriers\u003A\u003ASTAMPS_COM",
+            "name": "STAMPS_COM",
+            "summary": "USPS\u0020services\u0020via\u0020Stamps.com",
+            "url": "classes/ShipEngine-Util-Constants-Carriers.html#constant_STAMPS_COM"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints",
+            "name": "Endpoints",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-Endpoints.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints\u003A\u003ATEST_RPC_URL",
+            "name": "TEST_RPC_URL",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-Endpoints.html#constant_TEST_RPC_URL"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints\u003A\u003ASHIPENGINE_RPC_URL",
+            "name": "SHIPENGINE_RPC_URL",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-Endpoints.html#constant_SHIPENGINE_RPC_URL"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\ErrorCode",
             "name": "ErrorCode",
@@ -653,12 +1108,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\ErrorCode\u003A\u003AINVALID_IDENTIFIER",
             "name": "INVALID_IDENTIFIER",
-            "summary": "This\u0020error\u0020is\u0020similar\u0020to\u0020invalid_field_value,\u0020but\u0020is\u0020specifically\u0020for\u0020ID\nfields,\u0020such\u0020as\u0020label_id,\u0020shipment_id,\u0020carrier_id,\u0020etc.\u0020The\u0020field_name\nproperty\u0020indicates\u0020which\u0020field\u0020is\u0020invalid.",
+            "summary": "This\u0020error\u0020is\u0020similar\u0020to\u0020invalid_field_value,\u0020but\u0020is\u0020specifically\u0020for\u0020ID\nfields,\u0020such\u0020as\u0020label_id,\u0020shipmentId,\u0020carrierId,\u0020etc.\u0020The\u0020field_name\nproperty\u0020indicates\u0020which\u0020field\u0020is\u0020invalid.",
             "url": "classes/ShipEngine-Util-Constants-ErrorCode.html#constant_INVALID_IDENTIFIER"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\ErrorCode\u003A\u003AINVALID_STATUS",
             "name": "INVALID_STATUS",
-            "summary": "The\u0020operation\u0020you\u0027re\u0020attempting\u0020to\u0020perform\u0020is\u0020not\u0020allowed\u0020because\u0020the\u0020resource\nconst\u0020\u002A\u0020is\u0020in\u0020the\u0020wrong\u0020status.\u0020For\u0020example,\u0020if\u0020a\u0020label\u0027s\u0020status\u0020is\u0020\u0022voided\u0022\u003B\u0020then\nit\u0020cannot\u0020be\u0020included\u0020in\u0020a\u0020manifest.",
+            "summary": "The\u0020operation\u0020you\u0027re\u0020attempting\u0020to\u0020perform\u0020is\u0020not\u0020allowed\u0020because\u0020the\u0020resource\npublic\u0020const\u0020\u002A\u0020is\u0020in\u0020the\u0020wrong\u0020status.\u0020For\u0020example,\u0020if\u0020a\u0020label\u0027s\u0020status\u0020is\u0020\u0022voided\u0022\u003B\u0020then\nit\u0020cannot\u0020be\u0020included\u0020in\u0020a\u0020manifest.",
             "url": "classes/ShipEngine-Util-Constants-ErrorCode.html#constant_INVALID_STATUS"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\ErrorCode\u003A\u003AINVALID_STRING_LENGTH",
@@ -803,18 +1258,63 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\RPCMethods\u003A\u003AADDRESS_VALIDATE",
             "name": "ADDRESS_VALIDATE",
-            "summary": "",
+            "summary": "Validate\u0020an\u0020address.",
             "url": "classes/ShipEngine-Util-Constants-RPCMethods.html#constant_ADDRESS_VALIDATE"
-        },                {
-            "fqsen": "\\ShipEngine\\Util\\Constants\\RPCMethods\u003A\u003APACKAGE_TRACK",
-            "name": "PACKAGE_TRACK",
-            "summary": "",
-            "url": "classes/ShipEngine-Util-Constants-RPCMethods.html#constant_PACKAGE_TRACK"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\RPCMethods\u003A\u003ACREATE_TAG",
             "name": "CREATE_TAG",
-            "summary": "",
+            "summary": "Create\u0020a\u0020tag.",
             "url": "classes/ShipEngine-Util-Constants-RPCMethods.html#constant_CREATE_TAG"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\RPCMethods\u003A\u003ALIST_CARRIERS",
+            "name": "LIST_CARRIERS",
+            "summary": "List\u0020all\u0020carriers\u0020connected\u0020to\u0020a\u0020given\u0020ShipEngine\u0020account.",
+            "url": "classes/ShipEngine-Util-Constants-RPCMethods.html#constant_LIST_CARRIERS"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\RPCMethods\u003A\u003ATRACK_PACKAGE",
+            "name": "TRACK_PACKAGE",
+            "summary": "Track\u0020a\u0020given\u0020package.",
+            "url": "classes/ShipEngine-Util-Constants-RPCMethods.html#constant_TRACK_PACKAGE"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus",
+            "name": "TrackingStatus",
+            "summary": "Shipment\u0020status.",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003AACCEPTED",
+            "name": "ACCEPTED",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_ACCEPTED"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003AATTEMPTED_DELIVERY",
+            "name": "ATTEMPTED_DELIVERY",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_ATTEMPTED_DELIVERY"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003ADELIVERED",
+            "name": "DELIVERED",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_DELIVERED"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003AEXCEPTION",
+            "name": "EXCEPTION",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_EXCEPTION"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003AIN_TRANSIT",
+            "name": "IN_TRANSIT",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_IN_TRANSIT"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003ANOT_YET_IN_SYSTEM",
+            "name": "NOT_YET_IN_SYSTEM",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_NOT_YET_IN_SYSTEM"
+        },                {
+            "fqsen": "\\ShipEngine\\Util\\Constants\\TrackingStatus\u003A\u003AUNKNOWN",
+            "name": "UNKNOWN",
+            "summary": "",
+            "url": "classes/ShipEngine-Util-Constants-TrackingStatus.html#constant_UNKNOWN"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Getters",
             "name": "Getters",
@@ -923,22 +1423,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\Util\\VersionInfo\u003A\u003Astring\u0028\u0029",
             "name": "string",
-            "summary": "",
+            "summary": "Return\u0020the\u0020version\u0020as\u0020a\u0020string.",
             "url": "classes/ShipEngine-Util-VersionInfo.html#method_string"
         },                {
             "fqsen": "\\ShipEngine\\Util\\VersionInfo\u003A\u003AMAJOR",
             "name": "MAJOR",
-            "summary": "",
+            "summary": "MAJOR\u0020version\u0020number",
             "url": "classes/ShipEngine-Util-VersionInfo.html#constant_MAJOR"
         },                {
             "fqsen": "\\ShipEngine\\Util\\VersionInfo\u003A\u003AMINOR",
             "name": "MINOR",
-            "summary": "",
+            "summary": "MINOR\u0020version\u0020number",
             "url": "classes/ShipEngine-Util-VersionInfo.html#constant_MINOR"
         },                {
             "fqsen": "\\ShipEngine\\Util\\VersionInfo\u003A\u003APATCH",
             "name": "PATCH",
-            "summary": "",
+            "summary": "PATCH\u0020version\u0020number",
             "url": "classes/ShipEngine-Util-VersionInfo.html#constant_PATCH"
         },                {
             "fqsen": "\\",
@@ -956,11 +1456,6 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/shipengine-message-events.html"
         },                {
-            "fqsen": "\\ShipEngine\\Util",
-            "name": "Util",
-            "summary": "",
-            "url": "namespaces/shipengine-util.html"
-        },                {
             "fqsen": "\\ShipEngine\\Model\\Address",
             "name": "Address",
             "summary": "",
@@ -970,6 +1465,16 @@ Search.appendIndex(
             "name": "Model",
             "summary": "",
             "url": "namespaces/shipengine-model.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Carriers",
+            "name": "Carriers",
+            "summary": "",
+            "url": "namespaces/shipengine-model-carriers.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Model\\Package",
+            "name": "Package",
+            "summary": "",
+            "url": "namespaces/shipengine-model-package.html"
         },                {
             "fqsen": "\\ShipEngine\\Service\\Address",
             "name": "Address",
@@ -981,10 +1486,25 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/shipengine-service.html"
         },                {
+            "fqsen": "\\ShipEngine\\Service\\Carriers",
+            "name": "Carriers",
+            "summary": "",
+            "url": "namespaces/shipengine-service-carriers.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Service\\Package",
+            "name": "Package",
+            "summary": "",
+            "url": "namespaces/shipengine-service-package.html"
+        },                {
             "fqsen": "\\ShipEngine",
             "name": "ShipEngine",
             "summary": "",
             "url": "namespaces/shipengine.html"
+        },                {
+            "fqsen": "\\ShipEngine\\Util",
+            "name": "Util",
+            "summary": "",
+            "url": "namespaces/shipengine-util.html"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants",
             "name": "Constants",

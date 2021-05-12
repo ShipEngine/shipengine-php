@@ -54,9 +54,9 @@
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
-                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                     </ul>
                         </section>
 
@@ -134,23 +134,30 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_ADDRESS_VALIDATE">ADDRESS_VALIDATE</a>
     <span>
-        &nbsp;= &#039;address/validate&#039;                    </span>
+        &nbsp;= &#039;address.validate.v1&#039;                    </span>
 </dt>
-<dd></dd>
+<dd>Validate an address.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_CREATE_TAG">CREATE_TAG</a>
     <span>
-        &nbsp;= &#039;create/tag&#039;                    </span>
+        &nbsp;= &#039;create.tag.v1&#039;                    </span>
 </dt>
-<dd></dd>
+<dd>Create a tag.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_PACKAGE_TRACK">PACKAGE_TRACK</a>
+    <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_LIST_CARRIERS">LIST_CARRIERS</a>
     <span>
-        &nbsp;= &#039;package/track&#039;                    </span>
+        &nbsp;= &#039;carrier.listAccounts.v1&#039;                    </span>
 </dt>
-<dd></dd>
+<dd>List all carriers connected to a given ShipEngine account.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_TRACK_PACKAGE">TRACK_PACKAGE</a>
+    <span>
+        &nbsp;= &#039;package.track.v1&#039;                    </span>
+</dt>
+<dd>Track a given package.</dd>
 
                 </dl>
 
@@ -174,33 +181,19 @@
     <span class="phpdocumentor-element-found-in__line">15</span>
 </aside>
 
+        <p class="phpdocumentor-summary">Validate an address.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">ADDRESS_VALIDATE</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;address/validate&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;address.validate.v1&#039;</span>
 </code>
 
 
         <section class="phpdocumentor-description"></section>
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">const</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-
-                                                 <section class="phpdocumentor-description"><p>ADDRESS_VALIDATE</p>
-</section>
-
-                                    </dd>
-                        </dl>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
@@ -212,77 +205,76 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Constants/RPCMethods.php"><a href="files/src-util-constants-rpcmethods.html"><abbr title="src/Util/Constants/RPCMethods.php">RPCMethods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 </aside>
 
+        <p class="phpdocumentor-summary">Create a tag.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">CREATE_TAG</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;create/tag&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;create.tag.v1&#039;</span>
 </code>
 
 
         <section class="phpdocumentor-description"></section>
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">const</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-
-                                                 <section class="phpdocumentor-description"><p>CREATE_TAG</p>
-</section>
-
-                                    </dd>
-                        </dl>
 
 </article>
                     <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_PACKAGE_TRACK">
-        PACKAGE_TRACK
-        <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_PACKAGE_TRACK" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="constant_LIST_CARRIERS">
+        LIST_CARRIERS
+        <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_LIST_CARRIERS" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
 
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Constants/RPCMethods.php"><a href="files/src-util-constants-rpcmethods.html"><abbr title="src/Util/Constants/RPCMethods.php">RPCMethods.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 </aside>
 
+        <p class="phpdocumentor-summary">List all carriers connected to a given ShipEngine account.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">PACKAGE_TRACK</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;package/track&#039;</span>
+    <span class="phpdocumentor-signature__name">LIST_CARRIERS</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;carrier.listAccounts.v1&#039;</span>
 </code>
 
 
         <section class="phpdocumentor-description"></section>
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">const</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
 
-                                                 <section class="phpdocumentor-description"><p>PACKAGE_TRACK</p>
-</section>
+</article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_TRACK_PACKAGE">
+        TRACK_PACKAGE
+        <a href="classes/ShipEngine-Util-Constants-RPCMethods.html#constant_TRACK_PACKAGE" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
 
-                                    </dd>
-                        </dl>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Constants/RPCMethods.php"><a href="files/src-util-constants-rpcmethods.html"><abbr title="src/Util/Constants/RPCMethods.php">RPCMethods.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">30</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Track a given package.</p>
+
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">TRACK_PACKAGE</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;package.track.v1&#039;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"></section>
+
+
 
 </article>
             </section>

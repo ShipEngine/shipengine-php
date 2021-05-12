@@ -54,9 +54,9 @@
                                                 <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/shipengine.html"><abbr title="\ShipEngine">ShipEngine</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/shipengine-message.html"><abbr title="\ShipEngine\Message">Message</abbr></a></li>
-                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                             <li><a href="namespaces/shipengine-model.html"><abbr title="\ShipEngine\Model">Model</abbr></a></li>
                                             <li><a href="namespaces/shipengine-service.html"><abbr title="\ShipEngine\Service">Service</abbr></a></li>
+                                            <li><a href="namespaces/shipengine-util.html"><abbr title="\ShipEngine\Util">Util</abbr></a></li>
                                     </ul>
                         </section>
 
@@ -135,29 +135,29 @@ rate limit being exceeded.</p>
 
 <dl class="phpdocumentor-table-of-contents">
                 <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/ShipEngine-Message-RateLimitExceededException.html#property_retryAfter">$retryAfter</a>
-    <span>
-                &nbsp;: <abbr title="\DateInterval">DateInterval</abbr>            </span>
-</dt>
-<dd>The amount of time (in milliseconds) to wait before retrying the request.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-Message-ShipEngineException.html#property_error_code">$error_code</a>
+    <a href="classes/ShipEngine-Message-ShipEngineException.html#property_errorCode">$errorCode</a>
     <span>
                 &nbsp;: string|null            </span>
 </dt>
 <dd>A code that indicates the specific error that occurred, such as missing a
 required field, an invalid address, a timeout, etc.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/ShipEngine-Message-ShipEngineException.html#property_request_id">$request_id</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Message-ShipEngineException.html#property_requestId">$requestId</a>
     <span>
                 &nbsp;: string|null            </span>
 </dt>
 <dd>If the error came from the ShipEngine server (as opposed to a client-side error)
 then this is the unique ID of the HTTP request that returned the error.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/ShipEngine-Message-RateLimitExceededException.html#property_retryAfter">$retryAfter</a>
+    <span>
+                &nbsp;: <abbr title="\DateInterval">DateInterval</abbr>            </span>
+</dt>
+<dd>The amount of time (in milliseconds) to wait before retrying the request.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-ShipEngineException.html#property_source">$source</a>
     <span>
                 &nbsp;: string|null            </span>
@@ -166,7 +166,7 @@ then this is the unique ID of the HTTP request that returned the error.</dd>
 contact ShipEngine for support or if you should contact the carrier or
 marketplace instead.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-ShipEngineException.html#property_type">$type</a>
     <span>
                 &nbsp;: string|null            </span>
@@ -174,7 +174,7 @@ marketplace instead.</dd>
 <dd>Indicates the type of error that occurred, such as a validation error, a
 security error, etc.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/ShipEngine-Message-ShipEngineException.html#property_url">$url</a>
     <span>
                 &nbsp;: string|null            </span>
@@ -188,13 +188,6 @@ find out how to resolve it, or get support.</dd>
                         &nbsp;: mixed    </span>
 </dt>
 <dd>RateLimitExceededException constructor - Instantiates a server-side error.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/ShipEngine-Util-Getters.html#method___get">__get()</a>
-    <span>
-                        &nbsp;: mixed    </span>
-</dt>
-<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/ShipEngine-Message-ShipEngineException.html#method_jsonSerialize">jsonSerialize()</a>
@@ -215,6 +208,73 @@ find out how to resolve it, or get support.</dd>
             Properties
             <a href="classes/ShipEngine-Message-RateLimitExceededException.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_errorCode">
+        $errorCode
+        <a href="classes/ShipEngine-Message-ShipEngineException.html#property_errorCode" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">35</span>
+</aside>
+
+        <p class="phpdocumentor-summary">A code that indicates the specific error that occurred, such as missing a
+required field, an invalid address, a timeout, etc.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$errorCode</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_requestId">
+        $requestId
+        <a href="classes/ShipEngine-Message-ShipEngineException.html#property_requestId" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">27</span>
+</aside>
+
+        <p class="phpdocumentor-summary">If the error came from the ShipEngine server (as opposed to a client-side error)
+then this is the unique ID of the HTTP request that returned the error.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
+    <span class="phpdocumentor-signature__name">$requestId</span>
+    </code>
+
+        <section class="phpdocumentor-description"><p>You can use this ID when contacting ShipEngine support for help.</p>
+</section>
+
+
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -251,74 +311,7 @@ find out how to resolve it, or get support.</dd>
         class="
             phpdocumentor-element
             -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_error_code">
-        $error_code
-        <a href="classes/ShipEngine-Message-ShipEngineException.html#property_error_code" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">41</span>
-</aside>
-
-        <p class="phpdocumentor-summary">A code that indicates the specific error that occurred, such as missing a
-required field, an invalid address, a timeout, etc.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$error_code</span>
-    </code>
-
-        <section class="phpdocumentor-description"></section>
-
-
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_request_id">
-        $request_id
-        <a href="classes/ShipEngine-Message-ShipEngineException.html#property_request_id" class="headerlink"><i class="fas fa-link"></i></a>
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">33</span>
-</aside>
-
-        <p class="phpdocumentor-summary">If the error came from the ShipEngine server (as opposed to a client-side error)
-then this is the unique ID of the HTTP request that returned the error.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">string|null</span>
-    <span class="phpdocumentor-signature__name">$request_id</span>
-    </code>
-
-        <section class="phpdocumentor-description"><p>You can use this ID when contacting ShipEngine support for help.</p>
-</section>
-
-
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_source">
@@ -330,7 +323,7 @@ then this is the unique ID of the HTTP request that returned the error.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 </aside>
 
         <p class="phpdocumentor-summary">Indicates where the error originated. This lets you know whether you should
@@ -338,7 +331,7 @@ contact ShipEngine for support or if you should contact the carrier or
 marketplace instead.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$source</span>
     </code>
@@ -365,7 +358,7 @@ marketplace instead.</p>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_type">
@@ -377,14 +370,14 @@ marketplace instead.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 </aside>
 
         <p class="phpdocumentor-summary">Indicates the type of error that occurred, such as a validation error, a
 security error, etc.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$type</span>
     </code>
@@ -411,7 +404,7 @@ security error, etc.</p>
         class="
             phpdocumentor-element
             -property
-            -private
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="property_url">
@@ -423,14 +416,14 @@ security error, etc.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 </aside>
 
         <p class="phpdocumentor-summary">Some errors include a URL that you can visit to learn more about the error,
 find out how to resolve it, or get support.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$url</span>
     </code>
@@ -467,7 +460,7 @@ find out how to resolve it, or get support.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateInterval">DateInterval</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$retryAfter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$source</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request_id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateInterval">DateInterval</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$retryAfter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$source</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestId</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -490,53 +483,11 @@ find out how to resolve it, or get support.</p>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$request_id</span>
+                <span class="phpdocumentor-signature__argument__name">$requestId</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method___get">
-        __get()
-        <a href="classes/ShipEngine-Util-Getters.html#method___get" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Util/Getters.php"><a href="files/src-util-getters.html"><abbr title="src/Util/Getters.php">Getters.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">10</span>
-</aside>
-
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
 
             </dd>
             </dl>
@@ -563,7 +514,7 @@ find out how to resolve it, or get support.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Message/ShipEngineException.php"><a href="files/src-message-shipengineexception.html"><abbr title="src/Message/ShipEngineException.php">ShipEngineException.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">100</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 </aside>
 
 
