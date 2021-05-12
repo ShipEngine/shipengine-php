@@ -63,12 +63,16 @@ final class Location implements \JsonSerializable
      */
     public function __construct(array $location_data)
     {
-        $this->cityLocality = null ?? $location_data['cityLocality'];
-        $this->stateProvince = null ?? $location_data['stateProvince'];
-        $this->postalCode = null ?? $location_data['postalCode'];
-        $this->countryCode = null ?? $location_data['countryCode'];
-        $this->latitude = null ?? $location_data['coordinates']['latitude'];
-        $this->longitude = null ?? $location_data['coordinates']['longitude'];
+        $this->cityLocality = isset($location_data['cityLocality']) ? $location_data['cityLocality'] : null;
+        $this->stateProvince = isset($location_data['stateProvince']) ? $location_data['stateProvince'] : null;
+        $this->postalCode = isset($location_data['postalCode']) ? $location_data['postalCode'] : null;
+        $this->countryCode = isset($location_data['countryCode']) ? $location_data['countryCode'] : null;
+        $this->latitude = isset($location_data['coordinates']['latitude']) ?
+            $location_data['coordinates']['latitude'] :
+            null;
+        $this->longitude = isset($location_data['coordinates']['longitude']) ?
+            $location_data['coordinates']['longitude'] :
+            null;
     }
 
     /**
