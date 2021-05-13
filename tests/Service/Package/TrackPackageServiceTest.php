@@ -100,6 +100,27 @@ final class TrackPackageServiceTest extends TestCase
         }
     }
 
+    public function testPackageIdNotFound(): void
+    {
+        $packageId = 'pkg_123';
+
+        try {
+            self::$shipengine->trackPackage($packageId);
+        } catch (ShipEngineException $err) {
+            $error = $err->jsonSerialize();
+            $this->assertInstanceOf(SystemException::class, $err);
+            $this->assertNotNull($error['requestId']);
+            $this->assertStringStartsWith('req_', $error['requestId']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_IDENTIFIER, $error['errorCode']);
+            $this->assertEquals(
+                "Package ID $packageId does not exist.",
+                $error['message']
+            );
+        }
+    }
+
     public function testInvalidPackageIdPrefix(): void
     {
         $packageId = 'car_1FedExAccepted';
