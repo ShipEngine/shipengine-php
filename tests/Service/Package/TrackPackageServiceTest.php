@@ -324,6 +324,21 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertEquals('exception', $trackingResult->events[5]->status);
     }
 
+    public function testMultipleLocationsInTrackingEvent()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_Attempted');
+
+//        print_r($trackingResult->events[2]);
+
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->assertNull($trackingResult->events[0]->location);
+        $this->assertNull($trackingResult->events[4]->location->latitude);
+        $this->assertNull($trackingResult->events[4]->location->longitude);
+        $this->assertNotNull($trackingResult->events[2]->location->latitude);
+        $this->assertNotNull($trackingResult->events[2]->location->longitude);
+    }
+
     public function trackPackageAssertions(TrackPackageResult $trackingResult): void
     {
         $carrierAccountCarrierCode = $trackingResult->shipment->carrierAccount->carrier->code;
