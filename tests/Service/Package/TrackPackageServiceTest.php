@@ -312,6 +312,18 @@ final class TrackPackageServiceTest extends TestCase
         }
     }
 
+    public function testMultipleExcpetionsInTrackingEvents()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_DeLiveredException');
+
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->assertCount(8, $trackingResult->events);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('exception', $trackingResult->events[4]->status);
+        $this->assertEquals('exception', $trackingResult->events[5]->status);
+    }
+
     public function trackPackageAssertions(TrackPackageResult $trackingResult): void
     {
         $carrierAccountCarrierCode = $trackingResult->shipment->carrierAccount->carrier->code;
