@@ -180,7 +180,7 @@ final class ShipEngineClient
         $assert->isResponse404($statusCode, $parsedResponse);
 
         $responseReceivedEvent = new ResponseReceivedEvent(
-            "Response Received",
+            "Received an HTTP $statusCode response from the ShipEngine $method API",
             $parsedResponse['id'],
             $baseUri,
             $statusCode,
