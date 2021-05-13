@@ -22,20 +22,18 @@ final class CarrierAccountService
      */
     public static array $accounts = array();
 
-    public static function fetchCachedCarrierAccounts(ShipEngineConfig $config, ?string $carrier): array
+    public static function fetchCachedCarrierAccounts(ShipEngineConfig $config, ?string $carrier)
     {
-        //TODO: DEBUG ME
         $accounts = array();
-        //TODO: debug the lint on the method name
         //Iterate through $accounts to only get the ones that match params and only return those.
         // IF params are provided else return $accounts.
         if (count(self::$accounts) > 0) {
             foreach (self::$accounts as $account) {
                 if ($account->carrier->code === $carrier) {
-                    $accounts = $account;
+                    $accounts[] = $account;
                 } else {
                     self::$accounts = self::fetchCarrierAccounts($config, $carrier);
-                    $accounts = self::$accounts;
+                    $accounts[] = self::$accounts;
                 }
             }
         } else {
