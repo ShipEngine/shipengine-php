@@ -6,6 +6,7 @@ use DateInterval;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
+use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
@@ -285,6 +286,30 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertEquals('accepted', $trackingResult->events[0]->status);
         $this->assertEquals('in_transit', $trackingResult->events[1]->status);
         $this->assertEquals('exception', $trackingResult->events[2]->status);
+    }
+
+    public function testServerSideError(): void
+    {
+        $trackingData = new TrackingQuery(
+            'fedex',
+            '500 Server Error'
+        );
+
+        try {
+            self::$shipengine->trackPackage($trackingData);
+        } catch (ShipEngineException $err) {
+            $error = $err->jsonSerialize();
+            $this->assertInstanceOf(SystemException::class, $err);
+            $this->assertNotEmpty($error['requestId']);
+            $this->assertStringStartsWith('req_', $error['requestId']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::UNSPECIFIED, $error['errorCode']);
+            $this->assertEquals(
+                "Unable to connect to the database",
+                $error['message']
+            );
+        }
     }
 
     public function trackPackageAssertions(TrackPackageResult $trackingResult): void
