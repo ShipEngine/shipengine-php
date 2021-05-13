@@ -339,6 +339,24 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertNotNull($trackingResult->events[2]->location->longitude);
     }
 
+    public function testCarrierDateTimeWithoutTimezome()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_Attempted');
+
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->assertArrayHasKey(0, $trackingResult->events);
+        $this->assertArrayHasKey(1, $trackingResult->events);
+        $this->assertArrayHasKey(2, $trackingResult->events);
+
+        foreach ($trackingResult->events as $event) {
+            $this->assertNotNull($event->dateTime);
+            $this->assertNotNull($event->carrierDateTime);
+            $this->assertTrue($event->dateTime->hasTimezone());
+            $this->assertFalse($event->carrierDateTime->hasTimezone());
+        }
+    }
+
     public function trackPackageAssertions(TrackPackageResult $trackingResult): void
     {
         $carrierAccountCarrierCode = $trackingResult->shipment->carrierAccount->carrier->code;
