@@ -274,4 +274,20 @@ final class Assert
             );
         }
     }
+
+    public function isResponse404(int $statusCode, $parsedResponse): void
+    {
+        $error = $parsedResponse['error'];
+        $errorData = $parsedResponse['error']['data'];
+        if ($statusCode === 404) {
+            throw new SystemException(
+                $error['message'],
+                $parsedResponse['id'],
+                $errorData['source'],
+                $errorData['type'],
+                $errorData['code'],
+                null
+            );
+        }
+    }
 }
