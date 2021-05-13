@@ -9,8 +9,7 @@ repos:
   - repo: https://github.com/digitalpulp/pre-commit-php.git
     rev: 1.4.0
     hooks:
-#      - id: php-unit
-#        args: [ --process-isolation]
+      - id: php-unit
       - id: php-cs
         files: \.(php)$
         args: [ --standard=PSR2 src ]

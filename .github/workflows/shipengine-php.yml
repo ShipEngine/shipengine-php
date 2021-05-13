@@ -31,5 +31,5 @@ jobs:
       - run: php-cs-fixer fix -vvv --config=.php-cs-fixer.dist.php
       - run: phpcs --standard=PSR2 src
       - run: phpstan analyse src --level 5
-      - run: phpunit --process-isolation
+      - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
