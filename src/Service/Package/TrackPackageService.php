@@ -47,7 +47,7 @@ final class TrackPackageService
         $client = new ShipEngineClient();
 
         if (is_string($trackingData)) {
-            $assert->isPackageIdPrefixValid($trackingData);
+            $assert->isPackageIdValid($trackingData);
 
             $apiResponse = $client->request(
                 RPCMethods::TRACK_PACKAGE,

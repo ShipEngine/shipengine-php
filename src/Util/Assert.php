@@ -245,7 +245,27 @@ final class Assert
         $subString = substr($packageId, 0, 4);
         if ($subString !== 'pkg_') {
             throw new ValidationException(
-                "[$subString] is not a valid package ID.",
+                "[$subString] is not a valid package ID prefix.",
+                null,
+                ErrorSource::SHIPENGINE,
+                ErrorType::VALIDATION,
+                ErrorCode::INVALID_IDENTIFIER,
+                null
+            );
+        }
+    }
+
+    public function isPackageIdValid(string $packageId): void
+    {
+        $this->isPackageIdPrefixValid($packageId);
+
+        if (preg_match(
+            '/^pkg_[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/',
+            $packageId
+        ) === 0
+        ) {
+            throw new ValidationException(
+                "[$packageId] is not a valid package ID.",
                 null,
                 ErrorSource::SHIPENGINE,
                 ErrorType::VALIDATION,

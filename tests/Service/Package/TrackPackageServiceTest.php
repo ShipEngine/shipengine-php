@@ -80,6 +80,26 @@ final class TrackPackageServiceTest extends TestCase
         }
     }
 
+    public function testInvalidPackageId(): void
+    {
+        $packageId = 'pkg_12!@3a s567';
+
+        try {
+            self::$shipengine->trackPackage($packageId);
+        } catch (ShipEngineException $err) {
+            $error = $err->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $err);
+            $this->assertNull($error['requestId']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_IDENTIFIER, $error['errorCode']);
+            $this->assertEquals(
+                "[$packageId] is not a valid package ID.",
+                $error['message']
+            );
+        }
+    }
+
     public function testInvalidPackageIdPrefix(): void
     {
         $packageId = 'car_1FedExAccepted';
@@ -95,7 +115,7 @@ final class TrackPackageServiceTest extends TestCase
             $this->assertEquals(ErrorType::VALIDATION, $error['type']);
             $this->assertEquals(ErrorCode::INVALID_IDENTIFIER, $error['errorCode']);
             $this->assertEquals(
-                "[$subString] is not a valid package ID.",
+                "[$subString] is not a valid package ID prefix.",
                 $error['message']
             );
         }
