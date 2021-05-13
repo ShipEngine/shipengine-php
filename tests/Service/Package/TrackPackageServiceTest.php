@@ -68,7 +68,7 @@ final class TrackPackageServiceTest extends TestCase
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $trackingNumber = $trackingData->trackingNumber;
-            $this->assertInstanceOf(BusinessRuleException::class, $err);
+            $this->assertInstanceOf(SystemException::class, $err);
             $this->assertNotNull($error['requestId']);
             $this->assertStringStartsWith('req_', $error['requestId']);
             $this->assertEquals(ErrorSource::CARRIER, $error['source']);
