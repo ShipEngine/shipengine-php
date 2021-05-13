@@ -312,7 +312,7 @@ final class TrackPackageServiceTest extends TestCase
         }
     }
 
-    public function testMultipleExcpetionsInTrackingEvents()
+    public function testMultipleExceptionsInTrackingEvents(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_DeLiveredException');
 
@@ -324,11 +324,9 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertEquals('exception', $trackingResult->events[5]->status);
     }
 
-    public function testMultipleLocationsInTrackingEvent()
+    public function testMultipleLocationsInTrackingEvent(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_Attempted');
-
-//        print_r($trackingResult->events[2]);
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);
