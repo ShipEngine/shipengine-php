@@ -165,7 +165,23 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
-    public function testTrackingEventWithSignleException()
+    public function testDeliveredAfterExceptionTrackingEvent()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredException');
+
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->doesDeliveryDateMatch($trackingResult);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+        $this->assertEquals('exception', $trackingResult->events[4]->status);
+        $this->assertEquals(
+            'delivered',
+            $trackingResult->events[array_key_last($trackingResult->events)]->status
+        );
+    }
+
+    public function testSignleExceptionTrackingEvent()
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedexException');
 
