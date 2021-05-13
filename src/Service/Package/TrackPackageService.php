@@ -8,6 +8,7 @@ use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\ShipEngineClient;
 use ShipEngine\ShipEngineConfig;
+use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\RPCMethods;
 
 /**
@@ -42,9 +43,12 @@ final class TrackPackageService
         ShipEngineConfig $config,
         $trackingData
     ): TrackPackageResult {
+        $assert = new Assert();
         $client = new ShipEngineClient();
 
         if (is_string($trackingData)) {
+            $assert->isPackageIdPrefixValid($trackingData);
+
             $apiResponse = $client->request(
                 RPCMethods::TRACK_PACKAGE,
                 $config,

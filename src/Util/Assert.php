@@ -239,4 +239,19 @@ final class Assert
             );
         }
     }
+
+    public function isPackageIdPrefixValid(string $packageId): void
+    {
+        $subString = substr($packageId, 0, 4);
+        if ($subString !== 'pkg_') {
+            throw new ValidationException(
+                "[$subString] is not a valid package ID.",
+                null,
+                ErrorSource::SHIPENGINE,
+                ErrorType::VALIDATION,
+                ErrorCode::INVALID_IDENTIFIER,
+                null
+            );
+        }
+    }
 }

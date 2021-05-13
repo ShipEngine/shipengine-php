@@ -39,7 +39,7 @@ final class Shipment implements \JsonSerializable
      * Returns the carrier account that matches the carrier account referenced by the Tracking response, in
      * the form of a **CarrierAccount** object.
      */
-    private function getCarrierAccount(string $carrier, string $accountId): CarrierAccount
+    private function getCarrierAccount(string $carrier, string $accountId)
     {
         $target_carrier = array();
         $carrierAccounts = CarrierAccountService::fetchCachedCarrierAccounts($this->config, $carrier);

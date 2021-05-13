@@ -4,10 +4,16 @@ namespace Service\Package;
 
 use DateInterval;
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\BusinessRuleException;
+use ShipEngine\Message\ShipEngineException;
+use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 
 /**
  * @covers \ShipEngine\ShipEngine
@@ -30,6 +36,7 @@ use ShipEngine\Util\Constants\Endpoints;
  * @covers \ShipEngine\Util\IsoString
  * @covers \ShipEngine\Util\VersionInfo
  * @covers \ShipEngine\Model\Package\Location
+ * @uses \ShipEngine\Message\ShipEngineException
  */
 final class TrackPackageServiceTest extends TestCase
 {
@@ -48,7 +55,53 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
-    public function testTrackByTrackingNumberAndCarrierCode()
+    public function testInvalidTrackingNumber(): void
+    {
+        $trackingData = new TrackingQuery(
+            'fedex',
+            'abc123'
+        );
+
+        try {
+            self::$shipengine->trackPackage($trackingData);
+        } catch (ShipEngineException $err) {
+            $error = $err->jsonSerialize();
+            $trackingNumber = $trackingData->trackingNumber;
+            $this->assertInstanceOf(BusinessRuleException::class, $err);
+            $this->assertNotNull($error['requestId']);
+            $this->assertStringStartsWith('req_', $error['requestId']);
+            $this->assertEquals(ErrorSource::CARRIER, $error['source']);
+            $this->assertEquals(ErrorType::BUSINESS_RULES, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_IDENTIFIER, $error['errorCode']);
+            $this->assertEquals(
+                "$trackingNumber is not a valid fedex tracking number.",
+                $error['message']
+            );
+        }
+    }
+
+    public function testInvalidPackageIdPrefix(): void
+    {
+        $packageId = 'car_1FedExAccepted';
+        $subString = substr($packageId, 0, 4);
+
+        try {
+            self::$shipengine->trackPackage($packageId);
+        } catch (ShipEngineException $err) {
+            $error = $err->jsonSerialize();
+            $this->assertInstanceOf(ValidationException::class, $err);
+            $this->assertNull($error['requestId']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::INVALID_IDENTIFIER, $error['errorCode']);
+            $this->assertEquals(
+                "[$subString] is not a valid package ID.",
+                $error['message']
+            );
+        }
+    }
+
+    public function testTrackByTrackingNumberAndCarrierCode(): void
     {
         $trackingData = new TrackingQuery(
             'fedex',
