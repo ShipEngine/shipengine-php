@@ -92,7 +92,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->trackPackageAssertions($trackingResult);
         $this->assertArrayHasKey(0, $trackingResult->events);
         $this->assertArrayHasKey(1, $trackingResult->events);
-        $this->assertCount(2, $trackingResult->events);
+        $this->assertCount(5, $trackingResult->events);
         $this->assertEquals('accepted', $trackingResult->events[0]->status);
         $this->assertEquals('in_transit', $trackingResult->events[1]->status);
     }
@@ -165,6 +165,18 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
+    public function testTrackingEventWithSignleException()
+    {
+        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexException');
+
+        $this->trackPackageAssertions($trackingResult);
+        $this->assertEventsInOrder($trackingResult->events);
+        $this->assertCount(3, $trackingResult->events);
+        $this->assertEquals('accepted', $trackingResult->events[0]->status);
+        $this->assertEquals('in_transit', $trackingResult->events[1]->status);
+        $this->assertEquals('exception', $trackingResult->events[2]->status);
+    }
+
     public function trackPackageAssertions(TrackPackageResult $trackingResult): void
     {
         $carrierAccountCarrierCode = $trackingResult->shipment->carrierAccount->carrier->code;
@@ -192,7 +204,6 @@ final class TrackPackageServiceTest extends TestCase
 
     public function assertEventsInOrder(array $events)
     {
-        // Iterate over the array passed in and if the old is less than new : DEBUG
         $previousDateTime = $events[0]->dateTime;
         foreach ($events as $event) {
             $status = $event->status;
