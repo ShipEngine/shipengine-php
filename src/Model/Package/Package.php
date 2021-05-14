@@ -2,8 +2,6 @@
 
 namespace ShipEngine\Model\Package;
 
-use GuzzleHttp\Psr7\Uri;
-
 /**
  * Class Package
  *
@@ -36,16 +34,16 @@ final class Package implements \JsonSerializable
      * The tracking number of a given shipment. This number helps is obtaining tracking updates for a
      * specific shipment.
      *
-     * @var string
+     * @var string|null
      */
-    public string $trackingNumber;
+    public ?string $trackingNumber;
 
     /**
      * The tracking URL to the carrier site with tracking information on your shipment.
      *
-     * @var Uri
+     * @var string|null
      */
-    public Uri $trackingUrl;
+    public ?string $trackingUrl;
 
     /**
      * Package Class constructor. This is an object containing package information
@@ -55,11 +53,11 @@ final class Package implements \JsonSerializable
      */
     public function __construct(array $package)
     {
-        $this->packageId = null ?? $package['packageID'];
-        $this->weight = null ?? $package['weight'];
-        $this->dimensions = null ?? $package['dimensions'];
-        $this->trackingUrl = null ?? new Uri($package['trackingURL']);
-        $this->trackingNumber = $package['trackingNumber'];
+        $this->packageId = isset($package['packageID']) ? $package['packageID'] : null;
+        $this->weight = isset($package['weight']) ? $package['weight'] : null;
+        $this->dimensions = isset($package['dimensions']) ? $package['dimensions'] : null;
+        $this->trackingUrl = isset($package['trackingURL']) ? $package['trackingURL'] : null;
+        $this->trackingNumber = $package['trackingNumber'] ? $package['trackingNumber'] : null;
     }
 
     /**
@@ -73,7 +71,7 @@ final class Package implements \JsonSerializable
           'weight' => $this->weight,
           'dimensions' => $this->dimensions,
           'trackingNumber' => $this->trackingNumber,
-          'trackingUrl' => (string) $this->trackingUrl,
+          'trackingUrl' => $this->trackingUrl,
         ];
     }
 }

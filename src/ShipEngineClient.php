@@ -177,8 +177,10 @@ final class ShipEngineClient
         $parsedResponse = json_decode($responseBody, true);
         $statusCode = $response->getStatusCode();
 
+        $assert->isResponse404($statusCode, $parsedResponse);
+
         $responseReceivedEvent = new ResponseReceivedEvent(
-            "Response Received",
+            "Received an HTTP $statusCode response from the ShipEngine $method API",
             $parsedResponse['id'],
             $baseUri,
             $statusCode,

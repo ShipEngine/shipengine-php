@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Model\Carriers\CarrierAccount;
-use ShipEngine\Model\Package\TrackPackageResult;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\ErrorCode;

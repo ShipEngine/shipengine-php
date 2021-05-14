@@ -239,4 +239,57 @@ final class Assert
             );
         }
     }
+
+    public function isPackageIdPrefixValid(string $packageId): void
+    {
+        $subString = substr($packageId, 0, 4);
+        if ($subString !== 'pkg_') {
+            throw new ValidationException(
+                "[$subString] is not a valid package ID prefix.",
+                null,
+                ErrorSource::SHIPENGINE,
+                ErrorType::VALIDATION,
+                ErrorCode::INVALID_IDENTIFIER,
+                null
+            );
+        }
+    }
+
+    public function isPackageIdValid(string $packageId): void
+    {
+        $this->isPackageIdPrefixValid($packageId);
+
+        if (preg_match(
+            '/^pkg_[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/',
+            $packageId
+        ) === 0
+        ) {
+            throw new ValidationException(
+                "[$packageId] is not a valid package ID.",
+                null,
+                ErrorSource::SHIPENGINE,
+                ErrorType::VALIDATION,
+                ErrorCode::INVALID_IDENTIFIER,
+                null
+            );
+        }
+    }
+
+    public function isResponse404(int $statusCode, $parsedResponse): void
+    {
+        if (array_key_exists('error', $parsedResponse)) {
+            $error = $parsedResponse['error'];
+            $errorData = $parsedResponse['error']['data'];
+            if ($statusCode === 404) {
+                throw new SystemException(
+                    $error['message'],
+                    $parsedResponse['id'],
+                    $errorData['source'],
+                    $errorData['type'],
+                    $errorData['code'],
+                    null
+                );
+            }
+        }
+    }
 }

@@ -41,7 +41,7 @@ final class ShipEngine
      *
      * @var ShipEngineConfig
      */
-    protected ShipEngineConfig $config;
+    public ShipEngineConfig $config;
 
     /**
      * ShipEngineLogger class.

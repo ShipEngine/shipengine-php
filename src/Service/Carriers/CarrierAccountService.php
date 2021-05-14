@@ -22,27 +22,15 @@ final class CarrierAccountService
      */
     public static array $accounts = array();
 
-    /**
-     * Get all carrier accounts for a given ShipEngine account.
-     *
-     * @param string|null $params
-     * @return array
-     * @throws ClientExceptionInterface
-     */
-    public static function fetchCarrierAccounts(ShipEngineConfig $config, ?string $params = null): array
+    public static function fetchCarrierAccounts(ShipEngineConfig $config, ?string $carrierCode = null): array
     {
         $client = new ShipEngineClient();
-        $config = $config->merge();
 
-        if (count(self::$accounts) > 0) {
-            return self::$accounts;
-        }
-
-        if (isset($params)) {
+        if (isset($carrierCode)) {
             $apiResponse = $client->request(
                 RPCMethods::LIST_CARRIERS,
                 $config,
-                array('carrierCode' => $params)
+                array('carrierCode' => $carrierCode)
             );
         } else {
             $apiResponse = $client->request(
@@ -59,5 +47,33 @@ final class CarrierAccountService
         }
 
         return self::$accounts;
+    }
+
+
+    public static function fetchCachedCarrierAccounts(ShipEngineConfig $config, ?string $carrier): array
+    {
+        $accounts = self::getCachedAccounts($carrier);
+
+        if (count(self::$accounts) > 0) {
+            return $accounts;
+        }
+
+        return self::fetchCarrierAccounts($config, $carrier);
+    }
+
+    private static function getCachedAccounts(?string $carrierCode): array
+    {
+        if (!isset($carrierCode)) {
+            return self::$accounts;
+        }
+
+        $accounts = array();
+
+        foreach (self::$accounts as $account) {
+            if ($account->carrier->code === $carrierCode) {
+                $accounts[] = $account;
+            }
+        }
+        return $accounts;
     }
 }
