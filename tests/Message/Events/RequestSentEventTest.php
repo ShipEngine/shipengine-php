@@ -8,6 +8,7 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\Events\RequestSentEvent;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
@@ -21,31 +22,49 @@ use ShipEngine\Util\Constants\RPCMethods;
  * @uses   \ShipEngine\Model\Address\Address
  * @uses   \ShipEngine\Model\Address\AddressValidateResult
  * @uses   \ShipEngine\Service\Address\AddressService
+ * @uses   \ShipEngine\Message\RateLimitExceededException
+ * @uses   \ShipEngine\Message\ShipEngineException
  * @uses   \ShipEngine\ShipEngine
  * @uses   \ShipEngine\ShipEngineClient
  * @uses   \ShipEngine\ShipEngineConfig
  * @uses   \ShipEngine\Util\Assert
  * @uses   \ShipEngine\Util\VersionInfo
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
  */
 final class RequestSentEventTest extends MockeryTestCase
 {
     /**
+     * Private instance of Mocker Spy() to be shared across assertions.
+     *
+     * @var object|Mockery\LegacyMockInterface|Mockery\MockInterface
+     */
+    private object $spy;
+
+    /**
+     * Instantiate fixtures that will be shared across test methods.
+     */
+    public function setUp(): void
+    {
+        $this->spy = Mockery::spy('ShipEngineEventListener');
+    }
+
+    /**
      * A method using **Mockery Spies** to test the **RequestSentEvent**
-     * being emitted.
+     * being emitted on successful requests.
      *
      * @throws ClientExceptionInterface
      */
     public function testRequestSentEvent(): void
     {
-        $spy = Mockery::spy('ShipEngineEventListener');
-        $config = $this->stubConfig($spy);
+        $config = $this->testConfig($this->spy);
         $shipengine = new ShipEngine($config);
-        $goodAddress = $this->stubAddress();
+        $goodAddress = $this->goodAddress();
 
         $shipengine->validateAddress($goodAddress);
 
         $eventResult = null;
-        $spy->shouldHaveReceived('onRequestSent')
+        $this->spy->shouldHaveReceived('onRequestSent')
             ->withArgs(
                 function ($event) use (&$eventResult) {
                     $eventResult = $event;
@@ -53,7 +72,35 @@ final class RequestSentEventTest extends MockeryTestCase
                 }
             )->once();
 
-        $this->assertRequestEvent($eventResult, $config);
+        $this->assertRequestEventOnSuccess($eventResult, $config);
+    }
+
+
+    /**
+     * A method using **Mockery Spies** to test the **RequestSentEvent**
+     * being emitted on retries.
+     *
+     * @throws ClientExceptionInterface
+     */
+    public function testRequestSentEventOnRetries(): void
+    {
+        $config = $this->testConfig($this->spy);
+        $shipengine = new ShipEngine($config);
+
+        $eventResult = array();
+
+        try {
+            $shipengine->validateAddress($this->get429Response());
+        } catch (ShipEngineException $err) {
+            $this->spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        $eventResult[] = $event;
+                        return true;
+                    }
+                )->twice();
+            $this->assertRequestSentEventOnRetries($eventResult, $config);
+        }
     }
 
     /**
@@ -62,12 +109,12 @@ final class RequestSentEventTest extends MockeryTestCase
      * @param RequestSentEvent $event
      * @param array $config
      */
-    private function assertRequestEvent(RequestSentEvent $event, array $config): void
+    private function assertRequestEventOnSuccess(RequestSentEvent $event, array $config): void
     {
         $this->assertInstanceOf(RequestSentEvent::class, $event);
         $this->assertEqualsWithDelta($event->timestamp, new DateTime(), 5);
         $this->assertEquals($event->type, RequestSentEvent::REQUEST_SENT);
-        $this->assertEquals($event->message, $this->expectedMessage($config));
+        $this->assertEquals($event->message, $this->expectedMessage($config, 'success'));
         $this->assertEquals($event->url, $config['baseUrl']);
         $this->assertEquals($event->headers['Api-Key'], $config['apiKey']);
         $this->assertEquals($event->headers['Content-Type'], 'application/json');
@@ -77,17 +124,58 @@ final class RequestSentEventTest extends MockeryTestCase
     }
 
     /**
+     * Tests the assertions outlined in JIRA DX-1553.
+     *
+     * @param array $events
+     * @param array $config
+     */
+    private function assertRequestSentEventOnRetries(array $events, array $config): void
+    {
+        $count = 0;
+        [$event1, $event2] = $events;
+
+        $this->assertEquals($event1->message, $this->expectedMessage($config, 'success'));
+        $this->assertEquals($event2->message, $this->expectedMessage($config, 'retry'));
+        $this->assertEquals(0, $event1->retry);
+        $this->assertEquals(1, $event2->retry);
+        foreach ([$event1, $event2] as $event) {
+            $this->assertInstanceOf(RequestSentEvent::class, $event);
+            $this->assertObjectHasAttribute('timestamp', $event);
+            $this->assertEquals(RequestSentEvent::REQUEST_SENT, $event->type);
+            $this->assertEquals($event->url, $config['baseUrl']);
+            $this->assertEquals($event->headers['Api-Key'], $config['apiKey']);
+            $this->assertEquals($event->headers['Content-Type'], 'application/json');
+            $this->assertEquals($event->body['method'], RPCMethods::ADDRESS_VALIDATE);
+            $this->assertEquals($event->timeout, $config['timeout']);
+            $this->assertEquals($count, $event->retry);
+            $count ++;
+        }
+    }
+
+    /**
      * A method that returns the expected exception message in
      * the **testResponseReceivedEvent()** test.
      *
-     * @param $config
+     * @param array $config
+     * @param string $messageType
      * @return string
      */
-    private function expectedMessage($config): string
+    private function expectedMessage(array $config, string $messageType): string
     {
         $url = $config['baseUrl'];
         $method = RPCMethods::ADDRESS_VALIDATE;
-        return "Calling the ShipEngine $method API at $url";
+        $eventMessage = null;
+
+        switch ($messageType) {
+            case 'success':
+                $eventMessage = "Calling the ShipEngine $method API at $url";
+                break;
+            case 'retry':
+                $eventMessage = "Retrying the ShipEngine $method API at $url";
+                break;
+        }
+
+        return $eventMessage;
     }
 
     /**
@@ -96,11 +184,30 @@ final class RequestSentEventTest extends MockeryTestCase
      *
      * @return Address
      */
-    private function stubAddress(): Address
+    private function goodAddress(): Address
     {
         return new Address(
             array(
                 'street' => array('11222 Washington Pl'),
+                'cityLocality' => 'Culver City',
+                'stateProvince' => 'CA',
+                'postalCode' => '90230',
+                'countryCode' => 'US',
+            )
+        );
+    }
+
+
+    /**
+     * Fetch a 429 response from the simegnine.
+     *
+     * @return Address
+     */
+    private function get429Response(): Address
+    {
+        return new Address(
+            array(
+                'street' => array('429 Rate Limit Error'),
                 'cityLocality' => 'Culver City',
                 'stateProvince' => 'CA',
                 'postalCode' => '90230',
@@ -116,12 +223,12 @@ final class RequestSentEventTest extends MockeryTestCase
      * @param object $eventListener
      * @return array
      */
-    private function stubConfig(object $eventListener): array
+    private function testConfig(object $eventListener): array
     {
         return array(
             'apiKey' => 'baz',
             'baseUrl' => Endpoints::TEST_RPC_URL,
-            'timeout' => new DateInterval('PT15000S'),
+            'timeout' => new DateInterval('PT15S'),
             'eventListener' => $eventListener
         );
     }
