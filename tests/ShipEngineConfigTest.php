@@ -332,10 +332,9 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['timeout'], $new_config->timeout);
     }
 
-    public function testConfigWithRetriesDisabled()
+    public function testConfigWithRetriesDisabled(): void
     {
         $spy = Mockery::spy('ShipEngineEventListener');
-        $responseReceivedEventSpy = Mockery::spy('ShipEngineEventListener');
         try {
             $address429 = new Address(
                 array(
@@ -360,19 +359,7 @@ final class ShipEngineConfigTest extends TestCase
             );
             $shipengine->validateAddress($address429);
         } catch (ShipEngineException $err) {
-            $error = $err->jsonSerialize();
-            $this->assertInstanceOf(RateLimitExceededException::class, $err);
-            $this->assertNotNull($error['requestId']);
-            $this->assertStringStartsWith('req_', $error['requestId']);
-            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
-            $this->assertEquals(ErrorCode::RATE_LIMIT_EXCEEDED, $error['errorCode']);
-            $this->assertEquals(
-                'You have exceeded the rate limit.',
-                $error['message']
-            );
-            $this->assertNotNull($error['url']);
-            $this->assertEquals('https://www.shipengine.com/docs/rate-limits', $error['url']);
+            $this->assertionsOn429Exception($err);
 
             $eventResult = array();
             $spy->shouldHaveReceived('onRequestSent')
@@ -400,5 +387,81 @@ final class ShipEngineConfigTest extends TestCase
             $this->assertEquals(0, $eventResult[1]->retry);
             $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
         }
+    }
+
+    public function testConfigRetryOnceByDefault(): void
+    {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine(
+                array(
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
+                    'timeout' => new \DateInterval('PT15S'),
+                    'eventListener' => $spy
+                )
+            );
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err);
+
+            $requestEventResult = array();
+            $responseEventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$requestEventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $requestEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$responseEventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $responseEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+            $this->assertEquals(0, $requestEventResult[0]->retry);
+            $this->assertEquals(0, $responseEventResult[0]->retry);
+
+            $this->assertEquals(1, $requestEventResult[1]->retry);
+            $this->assertEquals(1, $responseEventResult[1]->retry);
+        }
+    }
+
+    public function assertionsOn429Exception(ShipEngineException $err): void
+    {
+        $error = $err->jsonSerialize();
+        $this->assertInstanceOf(RateLimitExceededException::class, $err);
+        $this->assertNotNull($error['requestId']);
+        $this->assertStringStartsWith('req_', $error['requestId']);
+        $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+        $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+        $this->assertEquals(ErrorCode::RATE_LIMIT_EXCEEDED, $error['errorCode']);
+        $this->assertEquals(
+            'You have exceeded the rate limit.',
+            $error['message']
+        );
+        $this->assertNotNull($error['url']);
+        $this->assertEquals('https://www.shipengine.com/docs/rate-limits', $error['url']);
     }
 }
