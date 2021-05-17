@@ -14,6 +14,16 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 
 </hr>
 
+## Table of Contents
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+  * [Methods](#methods)
+  * [Class Objects](#class-objects)
+  * [Instantiate ShipEngine Class](#instantiate-shipengine-class)
+- [Testing](#testing)
+- [Linting](#linting)
+- [Contributing](#contributing)
+
 Quick Start
 ===========
 Install ShipEngine via [Composer](https://getcomposer.org/):
@@ -27,8 +37,8 @@ composer require shipengine/shipengine
 Examples
 ========
 
-`Methods`
---------
+Methods
+-------
 - [validateAddress](./docs/addressValidateExample.md) -  Indicates whether the provided address is valid. If the
   address is valid, the method returns a normalized version of the address based on the standards of the country in
   which the address resides.
@@ -37,8 +47,8 @@ Examples
 - [trackPackage]() - Track a package by `packageId` or by `carrierCode` and `trackingNumber`. This method returns
 the all tracking events for a given shipment.
 
-`Class Objects`
----------------
+Class Objects
+--------------
 - [ShipEngine]() - A configurable entry point to the ShipEngine API SDK, this class provides convenience methods
   for various ShipEngine API Services.
 
@@ -76,7 +86,7 @@ $shipengine = new ShipEngine($config);
 ```
 
 Testing
--------
+=======
 - You can now run all tests using [PHPUnit](https://phpunit.de/):
 _phpunit_
 ```bash
@@ -84,7 +94,7 @@ composer test
 ```
 
 Linting
--------
+=======
 You can utilize the `composer` script that runs **phpcs**, **phpstan**, and **php-cs-fixer**.
 ```bash
 composer lint
