@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Tests;
+namespace ShipEngine;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Model\Address\Address;
-use ShipEngine\ShipEngine;
 
 /**
  * @covers \ShipEngine\ShipEngine
@@ -22,7 +20,7 @@ final class ShipEngineTest extends TestCase
                 'baseUrl' => 'https://api.shipengine.com',
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );

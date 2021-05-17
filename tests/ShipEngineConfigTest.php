@@ -1,13 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Service;
+namespace ShipEngine;
 
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\RateLimitExceededException;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
-use ShipEngine\ShipEngineConfig;
-use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 
 /**
  * @covers \ShipEngine\Util\Assert
@@ -37,7 +40,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -47,7 +50,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -70,7 +73,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT15000S'),
+                    'timeout' => new \DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -97,7 +100,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT15000S'),
+                    'timeout' => new \DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -124,7 +127,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => -7,
-                    'timeout' => new \DateInterval('PT15000S'),
+                    'timeout' => new \DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -169,7 +172,7 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testEmptyAPIKeyInMethodCall()
+    public function testEmptyAPIKeyInMethodCall(): void
     {
         try {
             self::$shipengine->validateAddress(self::$goodAddress, array('apiKey' => ''));
@@ -187,7 +190,7 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testInvalidRetriesInMethodCall()
+    public function testInvalidRetriesInMethodCall(): void
     {
         try {
             self::$shipengine->validateAddress(self::$goodAddress, array('retries' => -7));
@@ -205,7 +208,7 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testInvalidTimeoutInMethodCall()
+    public function testInvalidTimeoutInMethodCall(): void
     {
         try {
             $di = new \DateInterval('PT7S');
@@ -225,12 +228,12 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $this->assertInstanceOf(ShipEngineConfig::class, self::$config);
     }
 
-    public function testMergeApiKey()
+    public function testMergeApiKey(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -238,7 +241,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -247,7 +250,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['apiKey'], $new_config->apiKey);
     }
 
-    public function testMergeBaseUrl()
+    public function testMergeBaseUrl(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -255,7 +258,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -264,7 +267,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['baseUrl'], $new_config->baseUrl);
     }
 
-    public function testMergePageSize()
+    public function testMergePageSize(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -272,7 +275,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -281,7 +284,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['pageSize'], $new_config->pageSize);
     }
 
-    public function testMergeRetries()
+    public function testMergeRetries(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -289,7 +292,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -298,7 +301,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['retries'], $new_config->retries);
     }
 
-    public function testMergeTimeout()
+    public function testMergeTimeout(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -306,12 +309,38 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new \DateInterval('PT15S'),
                 'events' => null
             )
         );
         $update_config = array('timeout' => new \DateInterval('PT25S'));
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['timeout'], $new_config->timeout);
+    }
+
+    public function testConfigWithRetriesDisabled()
+    {
+        try {
+            $config = new ShipEngineConfig(
+                array(
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
+                    'retries' => 0,
+                    'timeout' => new \DateInterval('PT15S')
+                )
+            );
+        } catch (ShipEngineException $err) {
+            $error = $err->jsonSerialize();
+            $this->assertInstanceOf(RateLimitExceededException::class, $err);
+            $this->assertNull($error['requestId']);
+            $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
+            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['errorCode']);
+            $this->assertEquals(
+                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                $error['message']
+            );
+        }
     }
 }

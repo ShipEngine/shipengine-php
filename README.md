@@ -54,7 +54,7 @@ $config = array(
     'apiKey' => 'baz',
     'pageSize' => 75,
     'retries' => 3,
-    'timeout' => \DateInterval('PT15000S')
+    'timeout' => \DateInterval('PT15S')
 );
 
 $shipengine = new ShipEngine($config);

@@ -34,8 +34,6 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\Message\ValidationException
  * @covers \ShipEngine\Message\ShipEngineException
- * @backupStaticAttributes enabled
- * @runTestsInSeparateProcesses
  */
 final class AddressServiceTest extends TestCase
 {
@@ -58,7 +56,7 @@ final class AddressServiceTest extends TestCase
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
-                'timeout' => new DateInterval('PT15000S')
+                'timeout' => new DateInterval('PT15S')
             )
         );
     }

@@ -52,7 +52,7 @@ final class TrackPackageServiceTest extends TestCase
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
-                'timeout' => new DateInterval('PT15000S')
+                'timeout' => new DateInterval('PT15S')
             )
         );
     }
