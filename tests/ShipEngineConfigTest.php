@@ -79,6 +79,11 @@ final class ShipEngineConfigTest extends TestCase
         );
     }
 
+    public function tearDown(): void
+    {
+        Mockery::close();
+    }
+
     public function testNoAPIKey(): void
     {
         try {
@@ -445,6 +450,72 @@ final class ShipEngineConfigTest extends TestCase
 
             $this->assertEquals(1, $requestEventResult[1]->retry);
             $this->assertEquals(1, $responseEventResult[1]->retry);
+        }
+    }
+
+    public function testConfigWithCustomRetries(): void
+    {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine(
+                array(
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
+                    'retries' => 3,
+                    'timeout' => new \DateInterval('PT15S'),
+                    'eventListener' => $spy
+                )
+            );
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err);
+
+            $requestEventResult = array();
+            $responseEventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$requestEventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $requestEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->times(4);
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$responseEventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $responseEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->times(4);
+            $this->assertEquals(0, $requestEventResult[0]->retry);
+            $this->assertEquals(0, $responseEventResult[0]->retry);
+
+            $this->assertEquals(1, $requestEventResult[1]->retry);
+            $this->assertEquals(1, $responseEventResult[1]->retry);
+
+            $this->assertEquals(2, $requestEventResult[2]->retry);
+            $this->assertEquals(2, $responseEventResult[2]->retry);
+
+            $this->assertEquals(3, $requestEventResult[3]->retry);
+            $this->assertEquals(3, $responseEventResult[3]->retry);
         }
     }
 
