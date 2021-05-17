@@ -3,6 +3,7 @@
 namespace ShipEngine\Util;
 
 use DateInterval;
+use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
@@ -176,13 +177,14 @@ final class Assert
         }
     }
 
+
     /**
      * Asserts that the status code is 500, and if it is a `SystemException` is thrown.
      *
-     * @param array $parsedResponse
      * @param int $statusCode
+     * @param array $parsedResponse
      */
-    public function doesResponseHave500Error(array $parsedResponse, int $statusCode): void
+    public function isResponse500(int $statusCode, array $parsedResponse): void
     {
         if ($statusCode === 500) {
             $error = $parsedResponse['error'];
@@ -290,6 +292,19 @@ final class Assert
                     null
                 );
             }
+        }
+    }
+
+    public function isResponse429(int $statusCode, array $response): void
+    {
+        $error = $response['error'];
+        if ($statusCode === 429) {
+            $retryAfter = $error['data']['retryAfter'];
+            throw new RateLimitExceededException(
+                new \DateInterval("PT{$retryAfter}S"),
+                ErrorSource::SHIPENGINE,
+                $response['id']
+            );
         }
     }
 }

@@ -4,7 +4,6 @@ namespace Service\Package;
 
 use DateInterval;
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;

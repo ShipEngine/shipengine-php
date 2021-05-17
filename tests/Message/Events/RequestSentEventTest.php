@@ -78,7 +78,7 @@ final class RequestSentEventTest extends MockeryTestCase
 
     /**
      * A method using **Mockery Spies** to test the **RequestSentEvent**
-     * being emitted on retries.
+     * being emitted on retries per **JIRA DX-1551**.
      *
      * @throws ClientExceptionInterface
      */
@@ -104,7 +104,7 @@ final class RequestSentEventTest extends MockeryTestCase
     }
 
     /**
-     * Tests the assertions outlined in JIRA DX-1550.
+     * Tests the assertions outlined in **JIRA DX-1550**.
      *
      * @param RequestSentEvent $event
      * @param array $config
@@ -124,7 +124,7 @@ final class RequestSentEventTest extends MockeryTestCase
     }
 
     /**
-     * Tests the assertions outlined in JIRA DX-1553.
+     * Tests the assertions outlined in **JIRA DX-1551**.
      *
      * @param array $events
      * @param array $config
@@ -199,7 +199,7 @@ final class RequestSentEventTest extends MockeryTestCase
 
 
     /**
-     * Fetch a 429 response from the simegnine.
+     * Fetch a 429 response from the **ShipEngine API**.
      *
      * @return Address
      */
