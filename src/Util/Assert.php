@@ -6,8 +6,10 @@ use DateInterval;
 use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
+use ShipEngine\Message\TimeoutException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\AddressValidateResult;
+use ShipEngine\ShipEngineConfig;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
@@ -295,11 +297,20 @@ final class Assert
         }
     }
 
-    public function isResponse429(int $statusCode, array $response): void
+    public function isResponse429(int $statusCode, array $response, ShipEngineConfig $config): void
     {
         $error = $response['error'];
+        $retryAfter = $error['data']['retryAfter'];
+
+        if ($retryAfter > $config->timeout->s) {
+            throw new TimeoutException(
+                $config->timeout->s,
+                ErrorSource::SHIPENGINE,
+                $response['id']
+            );
+        }
+
         if ($statusCode === 429) {
-            $retryAfter = $error['data']['retryAfter'];
             throw new RateLimitExceededException(
                 new \DateInterval("PT{$retryAfter}S"),
                 ErrorSource::SHIPENGINE,
