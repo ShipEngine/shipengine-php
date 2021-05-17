@@ -2,6 +2,8 @@
 
 namespace ShipEngine;
 
+use DateInterval;
+use DateTime;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use ShipEngine\Message\Events\RequestSentEvent;
@@ -56,7 +58,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -66,7 +68,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -94,7 +96,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -121,7 +123,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -148,7 +150,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => -7,
-                    'timeout' => new \DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -175,7 +177,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT0S'),
+                    'timeout' => new DateInterval('PT0S'),
                     'events' => null
                 )
             );
@@ -232,7 +234,7 @@ final class ShipEngineConfigTest extends TestCase
     public function testInvalidTimeoutInMethodCall(): void
     {
         try {
-            $di = new \DateInterval('PT7S');
+            $di = new DateInterval('PT7S');
             $di->invert = 1;
             self::$shipengine->validateAddress(self::$goodAddress, array('timeout' => $di));
         } catch (ValidationException $e) {
@@ -262,7 +264,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -279,7 +281,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -296,7 +298,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -313,7 +315,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -330,11 +332,11 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
-        $update_config = array('timeout' => new \DateInterval('PT25S'));
+        $update_config = array('timeout' => new DateInterval('PT25S'));
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['timeout'], $new_config->timeout);
     }
@@ -360,7 +362,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 0,
-                    'timeout' => new \DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'eventListener' => $spy
                 )
             );
@@ -416,7 +418,7 @@ final class ShipEngineConfigTest extends TestCase
                     'apiKey' => 'baz',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
-                    'timeout' => new \DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'eventListener' => $spy
                 )
             );
@@ -476,7 +478,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 3,
-                    'timeout' => new \DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'eventListener' => $spy
                 )
             );
@@ -529,7 +531,7 @@ final class ShipEngineConfigTest extends TestCase
             'baseUrl' => self::$test_url,
             'pageSize' => 75,
             'retries' => 0,
-            'timeout' => new \DateInterval('PT2S'),
+            'timeout' => new DateInterval('PT2S'),
             'eventListener' => $spy
         );
 
@@ -576,6 +578,65 @@ final class ShipEngineConfigTest extends TestCase
             $this->assertEquals(0, $eventResult[1]->retry);
             $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
             $this->assertEquals(2, $eventResult[0]->timeout->s);
+        }
+    }
+
+    public function testConfigRetryWaitsCorrectAmountOfTime(): void
+    {
+        $testStartTime = new DateTime();
+        $spy = Mockery::spy('ShipEngineEventListener');
+        $config = array(
+            'apiKey' => 'baz',
+            'baseUrl' => self::$test_url,
+            'pageSize' => 75,
+            'retries' => 1,
+            'timeout' => new DateInterval('PT10S'),
+            'eventListener' => $spy
+        );
+
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine($config);
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err, RateLimitExceededException::class);
+
+            $requestEventResult = array();
+            $responseEventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$requestEventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $requestEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$responseEventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $responseEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+
+            $this->assertEqualsWithDelta($testStartTime, new DateTime(), 5);
+            $this->assertEqualsWithDelta($requestEventResult[0]->timestamp, $requestEventResult[1]->timestamp, 5);
         }
     }
 
