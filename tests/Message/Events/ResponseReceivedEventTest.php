@@ -58,7 +58,7 @@ final class ResponseReceivedEventTest extends MockeryTestCase
     public function testResponseReceivedEvent(): void
     {
         $testStartTime = new DateTime();
-        $config = $this->testConfig($this->spy);
+        $config = $this->testConfig($this->spy, 0);
         $shipengine = new ShipEngine($config);
 
         $shipengine->validateAddress($this->testAddress());
@@ -86,7 +86,7 @@ final class ResponseReceivedEventTest extends MockeryTestCase
     public function testResponseReceivedOnError(): void
     {
         $testStartTime = new DateTime();
-        $config = $this->testConfig($this->spy);
+        $config = $this->testConfig($this->spy, 1);
         $shipengine = new ShipEngine($config);
 
         $eventResult = array();
@@ -194,15 +194,16 @@ final class ResponseReceivedEventTest extends MockeryTestCase
      * in the **testResponseReceivedEvent()** test.
      *
      * @param object $eventListener
+     * @param int $retries
      * @return array
      */
-    private function testConfig(object $eventListener): array
+    private function testConfig(object $eventListener, int $retries): array
     {
         return array(
             'apiKey' => 'baz',
             'baseUrl' => Endpoints::TEST_RPC_URL,
             'pageSize' => 75,
-            'retries' => 1,
+            'retries' => $retries,
             'timeout' => new DateInterval('PT15S'),
             'eventListener' => $eventListener
         );

@@ -57,7 +57,7 @@ final class RequestSentEventTest extends MockeryTestCase
      */
     public function testRequestSentEvent(): void
     {
-        $config = $this->testConfig($this->spy);
+        $config = $this->testConfig($this->spy, 0);
         $shipengine = new ShipEngine($config);
         $goodAddress = $this->goodAddress();
 
@@ -87,7 +87,7 @@ final class RequestSentEventTest extends MockeryTestCase
      */
     public function testRequestSentEventOnRetries(): void
     {
-        $config = $this->testConfig($this->spy);
+        $config = $this->testConfig($this->spy, 1);
         $shipengine = new ShipEngine($config);
 
         $eventResult = array();
@@ -227,13 +227,16 @@ final class RequestSentEventTest extends MockeryTestCase
      * in the **testRequestSentEvent()** test.
      *
      * @param object $eventListener
+     * @param int $retries
      * @return array
      */
-    private function testConfig(object $eventListener): array
+    private function testConfig(object $eventListener, int $retries): array
     {
         return array(
             'apiKey' => 'baz',
             'baseUrl' => Endpoints::TEST_RPC_URL,
+            'pageSize' => 75,
+            'retries' => $retries,
             'timeout' => new DateInterval('PT15S'),
             'eventListener' => $eventListener
         );
