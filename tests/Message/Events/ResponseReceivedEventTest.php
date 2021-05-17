@@ -8,6 +8,7 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\Events\ResponseReceivedEvent;
+use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
@@ -21,62 +22,113 @@ use ShipEngine\Util\Constants\RPCMethods;
  * @uses   \ShipEngine\Model\Address\Address
  * @uses   \ShipEngine\Model\Address\AddressValidateResult
  * @uses   \ShipEngine\Service\Address\AddressService
+ * @uses   \ShipEngine\Message\RateLimitExceededException
+ * @uses   \ShipEngine\Message\ShipEngineException
  * @uses   \ShipEngine\ShipEngine
  * @uses   \ShipEngine\ShipEngineClient
  * @uses   \ShipEngine\ShipEngineConfig
  * @uses   \ShipEngine\Util\Assert
  * @uses   \ShipEngine\Util\VersionInfo
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
  */
 final class ResponseReceivedEventTest extends MockeryTestCase
 {
     /**
-     * A method using **Mockery Spies** to test the **RequestSentEvent**
-     * being emitted.
+     * Private instance of Mocker Spy() to be shared across assertions.
+     *
+     * @var object|Mockery\LegacyMockInterface|Mockery\MockInterface
+     */
+    private object $spy;
+
+    /**
+     * Instantiate fixtures that will be shared across test methods.
+     */
+    public function setUp(): void
+    {
+        $this->spy = Mockery::spy('ShipEngineEventListener');
+    }
+
+    /**
+     * A method using **Mockery Spies** to test the **ResponseReceivedEvent**
+     * being emitted per **JIRA DX-1550**.
      *
      * @throws ClientExceptionInterface
      */
     public function testResponseReceivedEvent(): void
     {
         $testStartTime = new DateTime();
-        $spy = Mockery::spy('ShipEngineEventListener');
-        $config = $this->testConfig($spy);
+        $config = $this->testConfig($this->spy);
         $shipengine = new ShipEngine($config);
 
         $shipengine->validateAddress($this->testAddress());
 
         $eventResult = null;
-        $spy->shouldHaveReceived('onResponseReceived')
+        $this->spy->shouldHaveReceived('onResponseReceived')
             ->withArgs(
                 function ($event) use (&$eventResult) {
                     $eventResult = $event;
                     return true;
                 }
             )->once();
-        $this->assertResponseReceivedEvent($eventResult, $testStartTime, $config);
+        $this->assertResponseReceivedEvent($eventResult, $testStartTime, $config, '200', 0);
     }
 
     /**
-     * Tests the assertions outlined in JIRA DX-1552.
+     * A method using **Mockery Spies** to test the **ResponseReceivedEvent** being
+     * emitted on request/client errors per **JIRA DX-1553**.
+     *
+     * @throws ClientExceptionInterface
+     */
+    public function testResponseReceivedOnError(): void
+    {
+        $testStartTime = new DateTime();
+        $config = $this->testConfig($this->spy);
+        $shipengine = new ShipEngine($config);
+
+        $eventResult = array();
+
+        try {
+            $shipengine->validateAddress($this->get429Response());
+        } catch (ShipEngineException $err) {
+            $this->spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        $eventResult[] = $event;
+                        return true;
+                    }
+                )->twice();
+            $this->assertResponseReceivedEvent($eventResult[0], $testStartTime, $config, '429', 0);
+            $this->assertResponseReceivedEvent($eventResult[1], $testStartTime, $config, '429', 1);
+        }
+    }
+
+    /**
+     * Tests the assertions outlined in **JIRA DX-1552**.
      *
      * @param ResponseReceivedEvent $event
      * @param DateTime $testStartTime
      * @param array $config
+     * @param string $statusCode
+     * @param int $retries
      */
     private function assertResponseReceivedEvent(
         ResponseReceivedEvent $event,
         DateTime $testStartTime,
-        array $config
+        array $config,
+        string $statusCode,
+        int $retries
     ): void {
         $contentTypeHeaders = explode(';', $event->headers['Content-Type'][0]);
 
         $this->assertInstanceOf(ResponseReceivedEvent::class, $event);
         $this->assertEqualsWithDelta($event->timestamp, new DateTime(), 5);
         $this->assertEquals(ResponseReceivedEvent::RESPONSE_RECEIVED, $event->type);
-        $this->assertEquals($this->expectedMessage(), $event->message);
-        $this->assertEquals('200', $event->statusCode);
+        $this->assertEquals($this->expectedMessage($statusCode), $event->message);
+        $this->assertEquals($statusCode, $event->statusCode);
         $this->assertEquals($config['baseUrl'], $event->url);
         $this->assertEquals('application/json', $contentTypeHeaders[0]);
-        $this->assertEquals(0, $event->retry);
+        $this->assertEquals($retries, $event->retry);
         $this->assertGreaterThan(0, $event->elapsed->f);
         $this->assertLessThan((new DateTime())->diff($testStartTime)->f, $event->elapsed->f);
     }
@@ -85,12 +137,13 @@ final class ResponseReceivedEventTest extends MockeryTestCase
      * A method that returns the expected exception message in
      * the **testResponseReceivedEvent()** test.
      *
+     * @param string $statusCode
      * @return string
      */
-    private function expectedMessage(): string
+    private function expectedMessage(string $statusCode): string
     {
         $method = RPCMethods::ADDRESS_VALIDATE;
-        return "Received an HTTP 200 response from the ShipEngine $method API";
+        return "Received an HTTP $statusCode response from the ShipEngine $method API";
     }
 
     /**
@@ -113,6 +166,24 @@ final class ResponseReceivedEventTest extends MockeryTestCase
     }
 
     /**
+     * Fetch a 429 response from the simegnine.
+     *
+     * @return Address
+     */
+    private function get429Response(): Address
+    {
+        return new Address(
+            array(
+                'street' => array('429 Rate Limit Error'),
+                'cityLocality' => 'Culver City',
+                'stateProvince' => 'CA',
+                'postalCode' => '90230',
+                'countryCode' => 'US',
+            )
+        );
+    }
+
+    /**
      * A method that returns a stub config object to use when instantiating the **ShipEngine** class
      * in the **testResponseReceivedEvent()** test.
      *
@@ -125,8 +196,8 @@ final class ResponseReceivedEventTest extends MockeryTestCase
             'apiKey' => 'baz',
             'baseUrl' => Endpoints::TEST_RPC_URL,
             'pageSize' => 75,
-            'retries' => 2,
-            'timeout' => new DateInterval('PT15000S'),
+            'retries' => 1,
+            'timeout' => new DateInterval('PT15S'),
             'eventListener' => $eventListener
         );
     }
