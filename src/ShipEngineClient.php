@@ -25,7 +25,6 @@ use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 use ShipEngine\Util\VersionInfo;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
@@ -65,10 +64,10 @@ final class ShipEngineClient
      * @param string $method The RPC method to be used in the request.
      * @param ShipEngineConfig $config A ShipEngineConfig object.
      * @param array|null $params An array of params to be sent in the JSON-RPC request.
-     * @return array|mixed
+     * @return array
      * @throws ClientExceptionInterface
      */
-    public function request(string $method, ShipEngineConfig $config, array $params = null)
+    public function request(string $method, ShipEngineConfig $config, array $params = null): array
     {
         return $this->sendRPCRequest($method, $params, $config);
     }
@@ -79,10 +78,10 @@ final class ShipEngineClient
      * @param string $method
      * @param array|null $params
      * @param ShipEngineConfig $config
-     * @return mixed
+     * @return array
      * @throws GuzzleException
      */
-    private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config)
+    private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config): array
     {
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
@@ -110,7 +109,7 @@ final class ShipEngineClient
      * @param array|null $params
      * @param int $retry
      * @param ShipEngineConfig $config
-     * @return mixed
+     * @return array
      * @throws GuzzleException
      */
     private function sendRequest(
@@ -118,11 +117,9 @@ final class ShipEngineClient
         ?array $params,
         int $retry,
         ShipEngineConfig $config
-    ) {
+    ): array {
         $assert = new Assert();
         $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
-//        $dispatcher = new EventDispatcher();
-//        $shipengineEventListener = $config->eventListener;
         $requestHeaders = array(
             'Api-Key' => $config->apiKey,
             'User-Agent' => $this->deriveUserAgent(),
@@ -213,7 +210,7 @@ final class ShipEngineClient
      * @param array $response
      * @return array
      */
-    private function handleResponse(array $response)
+    private function handleResponse(array $response): array
     {
         if (isset($response['result']) === true) {
             return $response;

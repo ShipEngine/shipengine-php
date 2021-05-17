@@ -29,6 +29,8 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\Message\Events\ShipEngineEventListener
  * @covers \ShipEngine\Message\Events\RequestSentEvent
  * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
  */
 final class CarrierAccountServiceTest extends TestCase
 {
@@ -57,7 +59,7 @@ final class CarrierAccountServiceTest extends TestCase
         }
     }
 
-    public function testFetchWithMultipleAccounts()
+    public function testFetchWithMultipleAccounts(): void
     {
         $carrier_accounts = self::$shipengine->getCarrierAccounts();
 
@@ -78,7 +80,7 @@ final class CarrierAccountServiceTest extends TestCase
         }
     }
 
-    public function testFetchWithMutlipleAccountsOfSameCarrier()
+    public function testFetchWithMultipleAccountsOfSameCarrier(): void
     {
         $carrier_accounts = self::$shipengine->getCarrierAccounts();
 
