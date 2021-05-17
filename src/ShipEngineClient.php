@@ -83,9 +83,10 @@ final class ShipEngineClient
      */
     private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config): array
     {
+        $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                return $this->sendRequest($method, $params, $retry, $config);
+                $apiResponse = $this->sendRequest($method, $params, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
@@ -99,6 +100,7 @@ final class ShipEngineClient
                 }
             }
         }
+        return $apiResponse;
     }
 
     /**
@@ -199,7 +201,7 @@ final class ShipEngineClient
         );
 
         $assert->isResponse404($statusCode, $parsedResponse);
-        $assert->isResponse429($statusCode, $parsedResponse);
+        $assert->isResponse429($statusCode, $parsedResponse, $config);
         $assert->isResponse500($statusCode, $parsedResponse);
 
         return $this->handleResponse($parsedResponse);
