@@ -14,7 +14,7 @@ use ShipEngine\Util\Constants\ErrorType;
 final class RateLimitExceededException extends ShipEngineException
 {
     /**
-     * The amount of time (in milliseconds) to wait before retrying the request.
+     * The amount of time (in SECONDS) to wait before retrying the request.
      *
      * @var \DateInterval
      */

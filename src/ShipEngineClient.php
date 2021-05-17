@@ -10,8 +10,11 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\AccountStatusException;
 use ShipEngine\Message\BusinessRuleException;
+use ShipEngine\Message\Events\EventMessage;
+use ShipEngine\Message\Events\EventOptions;
 use ShipEngine\Message\Events\RequestSentEvent;
 use ShipEngine\Message\Events\ResponseReceivedEvent;
+use ShipEngine\Message\Events\ShipEngineEvent;
 use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
@@ -86,7 +89,7 @@ final class ShipEngineClient
                 return $this->sendRequest($method, $params, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
-                    ($err instanceof RateLimitExceededException) &&
+                    $err instanceof RateLimitExceededException &&
                     ($err->retryAfter->s < $config->timeout->s)
                 ) {
                     // The request was blocked due to exceeding the rate limit.
@@ -118,8 +121,8 @@ final class ShipEngineClient
     ) {
         $assert = new Assert();
         $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
-        $dispatcher = new EventDispatcher();
-        $shipengineEventListener = $config->eventListener;
+//        $dispatcher = new EventDispatcher();
+//        $shipengineEventListener = $config->eventListener;
         $requestHeaders = array(
             'Api-Key' => $config->apiKey,
             'User-Agent' => $this->deriveUserAgent(),
@@ -129,39 +132,43 @@ final class ShipEngineClient
 
         $body = $this->wrapRequest($method, $params);
 
-        // Config for the Guzzle Client
-        $guzzleConfig = array(
-            'baseUri' => $baseUri,
-            'headers' => $requestHeaders
+        $client = new Client(
+            [
+                'baseUri' => $baseUri,
+                'headers' => $requestHeaders,
+                'max_retry_attempts' => $config->retries
+            ]
         );
-
-        $client = new Client($guzzleConfig);
 
         $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
 
-        $requestSentEvent = new RequestSentEvent(
-            "Calling the ShipEngine $method API at $baseUri",
-            $body['id'],
-            $baseUri,
-            $requestHeaders,
-            $body,
-            $retry,
-            $config->timeout
-        );
+        $retry === 0 ?
+            $requestEventMessage = EventMessage::newEventMessage($method, $baseUri, 'base_message') :
+            $requestEventMessage = EventMessage::newEventMessage($method, $baseUri, 'retry_message');
 
-        $dispatcher->addListener(
-            $requestSentEvent::REQUEST_SENT,
-            [$shipengineEventListener, 'onRequestSent']
+        $requestEventData = new EventOptions([
+            'message' => $requestEventMessage,
+            'id' => $body['id'],
+            'baseUri' => $baseUri,
+            'requestHeaders' => $requestHeaders,
+            'body' => $body,
+            'retry' => $retry,
+            'timeout' => $config->timeout
+        ]);
+
+        $requestSentEvent = ShipEngineEvent::emitEvent(
+            RequestSentEvent::REQUEST_SENT,
+            $requestEventData,
+            $config
         );
-        $dispatcher->dispatch($requestSentEvent, $requestSentEvent::REQUEST_SENT);
 
         $request = new Request('POST', $baseUri, $requestHeaders, $jsonData);
 
         try {
-            $response = $client->send($request, [
-                'timeout' => $config->timeout->s,
-                'http_errors' => false
-            ]);
+            $response = $client->send(
+                $request,
+                ['timeout' => $config->timeout->s, 'http_errors' => false]
+            );
         } catch (ClientException $err) {
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
@@ -177,25 +184,26 @@ final class ShipEngineClient
         $parsedResponse = json_decode($responseBody, true);
         $statusCode = $response->getStatusCode();
 
+        $responseEventData = new EventOptions([
+            'message' => "Received an HTTP $statusCode response from the ShipEngine $method API",
+            'id' => $parsedResponse['id'],
+            'baseUri' => $baseUri,
+            'statusCode' => $statusCode,
+            'responseHeaders' => $response->getHeaders(),
+            'body' => $parsedResponse,
+            'retry' => $retry,
+            'elapsed' => (new \DateTime())->diff($requestSentEvent->timestamp)
+        ]);
+
+        ShipEngineEvent::emitEvent(
+            ResponseReceivedEvent::RESPONSE_RECEIVED,
+            $responseEventData,
+            $config
+        );
+
         $assert->isResponse404($statusCode, $parsedResponse);
-
-        $responseReceivedEvent = new ResponseReceivedEvent(
-            "Received an HTTP $statusCode response from the ShipEngine $method API",
-            $parsedResponse['id'],
-            $baseUri,
-            $statusCode,
-            $response->getHeaders(),
-            $parsedResponse,
-            $retry,
-            (new \DateTime())->diff($requestSentEvent->timestamp)
-        );
-        $dispatcher->addListener(
-            $responseReceivedEvent::RESPONSE_RECEIVED,
-            [$shipengineEventListener, 'onResponseReceived']
-        );
-        $dispatcher->dispatch($responseReceivedEvent, $responseReceivedEvent::RESPONSE_RECEIVED);
-
-        $assert->doesResponseHave500Error($parsedResponse, $statusCode);
+        $assert->isResponse429($statusCode, $parsedResponse);
+        $assert->isResponse500($statusCode, $parsedResponse);
 
         return $this->handleResponse($parsedResponse);
     }
@@ -203,7 +211,7 @@ final class ShipEngineClient
 
     /**
      * @param array $response
-     * @return mixed
+     * @return array
      */
     private function handleResponse(array $response)
     {
@@ -253,13 +261,6 @@ final class ShipEngineClient
                     $error['data']['source'],
                     $error['data']['type'],
                     $error['data']['code']
-                );
-            case ErrorCode::RATE_LIMIT_EXCEEDED:
-                $retryAfter = $error['data']['retryAfter'] * 1000;
-                throw new RateLimitExceededException(
-                    new \DateInterval("PT{$retryAfter}S"),
-                    ErrorSource::SHIPENGINE,
-                    $response['id']
                 );
             default:
                 throw new ShipEngineException(
