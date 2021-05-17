@@ -2,7 +2,10 @@
 
 namespace ShipEngine;
 
+use Mockery;
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\Events\RequestSentEvent;
+use ShipEngine\Message\Events\ResponseReceivedEvent;
 use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\ValidationException;
@@ -13,13 +16,24 @@ use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\ShipEngineConfig
- * @covers \ShipEngine\Message\ShipEngineException
- * @covers \ShipEngine\Message\ValidationException
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngineConfig
+ * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @uses   \ShipEngine\Message\Events\RequestSentEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEventListener
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
+ * @uses   \ShipEngine\Message\RateLimitExceededException
+ * @uses   \ShipEngine\Model\Address\AddressValidateResult
+ * @uses   \ShipEngine\Model\Address\Address
+ * @uses   \ShipEngine\Service\Address\AddressService
+ * @uses   \ShipEngine\Util\Assert
+ * @uses   \ShipEngine\ShipEngineConfig
+ * @uses   \ShipEngine\Message\ShipEngineException
+ * @uses   \ShipEngine\Message\ValidationException
+ * @uses   \ShipEngine\ShipEngine
+ * @uses   \ShipEngine\ShipEngineClient
+ * @uses   \ShipEngine\Util\VersionInfo
  */
 final class ShipEngineConfigTest extends TestCase
 {
@@ -320,27 +334,71 @@ final class ShipEngineConfigTest extends TestCase
 
     public function testConfigWithRetriesDisabled()
     {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        $responseReceivedEventSpy = Mockery::spy('ShipEngineEventListener');
         try {
-            $config = new ShipEngineConfig(
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine(
                 array(
                     'apiKey' => 'baz',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 0,
-                    'timeout' => new \DateInterval('PT15S')
+                    'timeout' => new \DateInterval('PT15S'),
+                    'eventListener' => $spy
                 )
             );
+            $shipengine->validateAddress($address429);
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $this->assertInstanceOf(RateLimitExceededException::class, $err);
-            $this->assertNull($error['requestId']);
+            $this->assertNotNull($error['requestId']);
+            $this->assertStringStartsWith('req_', $error['requestId']);
             $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
-            $this->assertEquals(ErrorType::VALIDATION, $error['type']);
-            $this->assertEquals(ErrorCode::FIELD_VALUE_REQUIRED, $error['errorCode']);
+            $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+            $this->assertEquals(ErrorCode::RATE_LIMIT_EXCEEDED, $error['errorCode']);
             $this->assertEquals(
-                'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
+                'You have exceeded the rate limit.',
                 $error['message']
             );
+            $this->assertNotNull($error['url']);
+            $this->assertEquals('https://www.shipengine.com/docs/rate-limits', $error['url']);
+
+            $eventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->once();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->once();
+            $this->assertEquals(0, $eventResult[0]->retry);
+            $this->assertEquals(0, $eventResult[1]->retry);
+            $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
         }
     }
 }
