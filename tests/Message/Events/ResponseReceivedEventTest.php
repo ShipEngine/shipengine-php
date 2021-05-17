@@ -67,8 +67,11 @@ final class ResponseReceivedEventTest extends MockeryTestCase
         $this->spy->shouldHaveReceived('onResponseReceived')
             ->withArgs(
                 function ($event) use (&$eventResult) {
-                    $eventResult = $event;
-                    return true;
+                    if ($event instanceof ResponseReceivedEvent) {
+                        $eventResult = $event;
+                        return true;
+                    }
+                    return false;
                 }
             )->once();
         $this->assertResponseReceivedEvent($eventResult, $testStartTime, $config, '200', 0);
@@ -94,8 +97,11 @@ final class ResponseReceivedEventTest extends MockeryTestCase
             $this->spy->shouldHaveReceived('onResponseReceived')
                 ->withArgs(
                     function ($event) use (&$eventResult) {
-                        $eventResult[] = $event;
-                        return true;
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
                     }
                 )->twice();
             $this->assertResponseReceivedEvent($eventResult[0], $testStartTime, $config, '429', 0);

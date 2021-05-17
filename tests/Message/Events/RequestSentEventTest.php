@@ -67,8 +67,11 @@ final class RequestSentEventTest extends MockeryTestCase
         $this->spy->shouldHaveReceived('onRequestSent')
             ->withArgs(
                 function ($event) use (&$eventResult) {
-                    $eventResult = $event;
-                    return true;
+                    if ($event instanceof RequestSentEvent) {
+                        $eventResult = $event;
+                        return true;
+                    }
+                    return false;
                 }
             )->once();
 
@@ -95,8 +98,11 @@ final class RequestSentEventTest extends MockeryTestCase
             $this->spy->shouldHaveReceived('onRequestSent')
                 ->withArgs(
                     function ($event) use (&$eventResult) {
-                        $eventResult[] = $event;
-                        return true;
+                        if ($event instanceof RequestSentEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
                     }
                 )->twice();
             $this->assertRequestSentEventOnRetries($eventResult, $config);
