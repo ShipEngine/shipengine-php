@@ -299,23 +299,25 @@ final class Assert
 
     public function isResponse429(int $statusCode, array $response, ShipEngineConfig $config): void
     {
-        $error = isset($response['error']) ? $response['error'] : null;
-        $retryAfter = $error['data']['retryAfter'];
+        if (array_key_exists('error', $response)) {
+            $error = $response['error'];
+            $retryAfter = $error['data']['retryAfter'];
 
-        if ($retryAfter > $config->timeout->s) {
-            throw new TimeoutException(
-                $config->timeout->s,
-                ErrorSource::SHIPENGINE,
-                $response['id']
-            );
-        }
+            if ($retryAfter > $config->timeout->s) {
+                throw new TimeoutException(
+                    $config->timeout->s,
+                    ErrorSource::SHIPENGINE,
+                    $response['id']
+                );
+            }
 
-        if ($statusCode === 429) {
-            throw new RateLimitExceededException(
-                new \DateInterval("PT{$retryAfter}S"),
-                ErrorSource::SHIPENGINE,
-                $response['id']
-            );
+            if ($statusCode === 429) {
+                throw new RateLimitExceededException(
+                    new \DateInterval("PT{$retryAfter}S"),
+                    ErrorSource::SHIPENGINE,
+                    $response['id']
+                );
+            }
         }
     }
 }
