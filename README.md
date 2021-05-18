@@ -102,6 +102,9 @@ composer lint
 
 Contributing
 ============
+Contributions, enhancements, and bug-fixes are welcome!  [Open an issue](https://github.com/ShipEngine/shipengine-php/issues)
+on GitHub and [submit a pull request](https://github.com/ShipEngine/shipengine-php/pulls).
+
 We are managing `php environment` with [Nix](https://nixos.org/download.html "Nix Website")
 and [Direnv](https://direnv.net/docs/installation.html "Direnv Install page"), and we recommend downloading
 them before contributing to this project.
