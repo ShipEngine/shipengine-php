@@ -83,15 +83,15 @@ final class EventOptions
      */
     public function __construct(array $eventData)
     {
-        $this->message = $eventData['message'];
-        $this->id = $eventData['id'];
-        $this->baseUri = $eventData['baseUri'];
-        $this->requestHeaders = $eventData['requestHeaders'];
-        $this->responseHeaders = $eventData['responseHeaders'];
-        $this->statusCode = $eventData['statusCode'];
-        $this->body = $eventData['body'];
-        $this->retry = $eventData['retry'];
-        $this->timeout = $eventData['timeout'];
-        $this->elapsed = $eventData['elapsed'];
+        $this->message = isset($eventData['message']) ? $eventData['message'] : null;
+        $this->id = isset($eventData['id']) ? $eventData['id'] : null;
+        $this->baseUri = isset($eventData['baseUri']) ? $eventData['baseUri'] : null;
+        $this->requestHeaders = isset($eventData['requestHeaders']) ? $eventData['requestHeaders'] : null;
+        $this->responseHeaders = isset($eventData['responseHeaders']) ? $eventData['responseHeaders'] : null;
+        $this->statusCode = isset($eventData['statusCode']) ? $eventData['statusCode'] : null;
+        $this->body = isset($eventData['body']) ? $eventData['body'] : null;
+        $this->retry = isset($eventData['retry']) ? $eventData['retry'] : null;
+        $this->timeout = isset($eventData['timeout']) ? $eventData['timeout'] : null;
+        $this->elapsed = isset($eventData['elapsed']) ? $eventData['elapsed'] : null;
     }
 }
