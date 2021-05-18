@@ -1,22 +1,43 @@
 <?php declare(strict_types=1);
 
-namespace Service;
+namespace ShipEngine;
 
+use DateInterval;
+use DateTime;
+use Mockery;
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Message\Events\RequestSentEvent;
+use ShipEngine\Message\Events\ResponseReceivedEvent;
+use ShipEngine\Message\RateLimitExceededException;
+use ShipEngine\Message\ShipEngineException;
+use ShipEngine\Message\TimeoutException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Model\Address\Address;
-use ShipEngine\ShipEngineConfig;
-use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
+use ShipEngine\Util\Constants\ErrorCode;
+use ShipEngine\Util\Constants\ErrorSource;
+use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\ShipEngineConfig
- * @covers \ShipEngine\Message\ShipEngineException
- * @covers \ShipEngine\Message\ValidationException
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngineConfig
+ * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @uses   \ShipEngine\Message\Events\RequestSentEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEventListener
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
+ * @uses   \ShipEngine\Message\RateLimitExceededException
+ * @uses   \ShipEngine\Model\Address\AddressValidateResult
+ * @uses   \ShipEngine\Model\Address\Address
+ * @uses   \ShipEngine\Service\Address\AddressService
+ * @uses   \ShipEngine\Util\Assert
+ * @uses   \ShipEngine\ShipEngineConfig
+ * @uses   \ShipEngine\Message\ShipEngineException
+ * @uses   \ShipEngine\Message\ValidationException
+ * @uses   \ShipEngine\ShipEngine
+ * @uses   \ShipEngine\ShipEngineClient
+ * @uses   \ShipEngine\Util\VersionInfo
+ * @uses   \ShipEngine\Message\TimeoutException
  */
 final class ShipEngineConfigTest extends TestCase
 {
@@ -37,7 +58,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -47,7 +68,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -62,6 +83,11 @@ final class ShipEngineConfigTest extends TestCase
         );
     }
 
+    public function tearDown(): void
+    {
+        Mockery::close();
+    }
+
     public function testNoAPIKey(): void
     {
         try {
@@ -70,7 +96,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT15000S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -97,7 +123,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT15000S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -124,7 +150,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => -7,
-                    'timeout' => new \DateInterval('PT15000S'),
+                    'timeout' => new DateInterval('PT15S'),
                     'events' => null
                 )
             );
@@ -151,7 +177,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new \DateInterval('PT0S'),
+                    'timeout' => new DateInterval('PT0S'),
                     'events' => null
                 )
             );
@@ -169,7 +195,7 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testEmptyAPIKeyInMethodCall()
+    public function testEmptyAPIKeyInMethodCall(): void
     {
         try {
             self::$shipengine->validateAddress(self::$goodAddress, array('apiKey' => ''));
@@ -187,7 +213,7 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testInvalidRetriesInMethodCall()
+    public function testInvalidRetriesInMethodCall(): void
     {
         try {
             self::$shipengine->validateAddress(self::$goodAddress, array('retries' => -7));
@@ -205,10 +231,10 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testInvalidTimeoutInMethodCall()
+    public function testInvalidTimeoutInMethodCall(): void
     {
         try {
-            $di = new \DateInterval('PT7S');
+            $di = new DateInterval('PT7S');
             $di->invert = 1;
             self::$shipengine->validateAddress(self::$goodAddress, array('timeout' => $di));
         } catch (ValidationException $e) {
@@ -225,12 +251,12 @@ final class ShipEngineConfigTest extends TestCase
         }
     }
 
-    public function testInstantiation()
+    public function testInstantiation(): void
     {
         $this->assertInstanceOf(ShipEngineConfig::class, self::$config);
     }
 
-    public function testMergeApiKey()
+    public function testMergeApiKey(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -238,7 +264,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -247,7 +273,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['apiKey'], $new_config->apiKey);
     }
 
-    public function testMergeBaseUrl()
+    public function testMergeBaseUrl(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -255,7 +281,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -264,7 +290,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['baseUrl'], $new_config->baseUrl);
     }
 
-    public function testMergePageSize()
+    public function testMergePageSize(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -272,7 +298,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -281,7 +307,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['pageSize'], $new_config->pageSize);
     }
 
-    public function testMergeRetries()
+    public function testMergeRetries(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -289,7 +315,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
@@ -298,7 +324,7 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertEquals($update_config['retries'], $new_config->retries);
     }
 
-    public function testMergeTimeout()
+    public function testMergeTimeout(): void
     {
         $config = new ShipEngineConfig(
             array(
@@ -306,12 +332,345 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15000S'),
+                'timeout' => new DateInterval('PT15S'),
                 'events' => null
             )
         );
-        $update_config = array('timeout' => new \DateInterval('PT25S'));
+        $update_config = array('timeout' => new DateInterval('PT25S'));
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['timeout'], $new_config->timeout);
+    }
+
+    public function testConfigWithRetriesDisabled(): void
+    {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine(
+                array(
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
+                    'retries' => 0,
+                    'timeout' => new DateInterval('PT15S'),
+                    'eventListener' => $spy
+                )
+            );
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err, RateLimitExceededException::class);
+
+            $eventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->once();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->once();
+            $this->assertEquals(0, $eventResult[0]->retry);
+            $this->assertEquals(0, $eventResult[1]->retry);
+            $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
+        }
+    }
+
+    public function testConfigRetryOnceByDefault(): void
+    {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine(
+                array(
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
+                    'timeout' => new DateInterval('PT15S'),
+                    'eventListener' => $spy
+                )
+            );
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err, RateLimitExceededException::class);
+
+            $requestEventResult = array();
+            $responseEventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$requestEventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $requestEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$responseEventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $responseEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+            $this->assertEquals(0, $requestEventResult[0]->retry);
+            $this->assertEquals(0, $responseEventResult[0]->retry);
+
+            $this->assertEquals(1, $requestEventResult[1]->retry);
+            $this->assertEquals(1, $responseEventResult[1]->retry);
+        }
+    }
+
+    public function testConfigWithCustomRetries(): void
+    {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine(
+                array(
+                    'apiKey' => 'baz',
+                    'baseUrl' => self::$test_url,
+                    'pageSize' => 75,
+                    'retries' => 3,
+                    'timeout' => new DateInterval('PT15S'),
+                    'eventListener' => $spy
+                )
+            );
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err, RateLimitExceededException::class);
+
+            $requestEventResult = array();
+            $responseEventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$requestEventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $requestEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->times(4);
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$responseEventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $responseEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->times(4);
+            $this->assertEquals(0, $requestEventResult[0]->retry);
+            $this->assertEquals(0, $responseEventResult[0]->retry);
+
+            $this->assertEquals(1, $requestEventResult[1]->retry);
+            $this->assertEquals(1, $responseEventResult[1]->retry);
+
+            $this->assertEquals(2, $requestEventResult[2]->retry);
+            $this->assertEquals(2, $responseEventResult[2]->retry);
+
+            $this->assertEquals(3, $requestEventResult[3]->retry);
+            $this->assertEquals(3, $responseEventResult[3]->retry);
+        }
+    }
+
+    public function testTimeoutExceptionWhenRetryGreaterThanTimeout(): void
+    {
+        $spy = Mockery::spy('ShipEngineEventListener');
+        $config = array(
+            'apiKey' => 'baz',
+            'baseUrl' => self::$test_url,
+            'pageSize' => 75,
+            'retries' => 0,
+            'timeout' => new DateInterval('PT2S'),
+            'eventListener' => $spy
+        );
+
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine($config);
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOnTimeoutException($err, $config['timeout']->s);
+
+            $eventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->once();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$eventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $eventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->once();
+            $this->assertEquals(0, $eventResult[0]->retry);
+            $this->assertEquals(0, $eventResult[1]->retry);
+            $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
+            $this->assertEquals(2, $eventResult[0]->timeout->s);
+        }
+    }
+
+    public function testConfigRetryWaitsCorrectAmountOfTime(): void
+    {
+        $testStartTime = new DateTime();
+        $spy = Mockery::spy('ShipEngineEventListener');
+        $config = array(
+            'apiKey' => 'baz',
+            'baseUrl' => self::$test_url,
+            'pageSize' => 75,
+            'retries' => 1,
+            'timeout' => new DateInterval('PT10S'),
+            'eventListener' => $spy
+        );
+
+        try {
+            $address429 = new Address(
+                array(
+                    'street' => array(
+                        '429 Rate Limit Error'
+                    ),
+                    'cityLocality' => 'Boston',
+                    'stateProvince' => 'MA',
+                    'postalCode' => '02215',
+                    'countryCode' => 'US',
+                )
+            );
+            $shipengine = new ShipEngine($config);
+            $shipengine->validateAddress($address429);
+        } catch (ShipEngineException $err) {
+            $this->assertionsOn429Exception($err, RateLimitExceededException::class);
+
+            $requestEventResult = array();
+            $responseEventResult = array();
+            $spy->shouldHaveReceived('onRequestSent')
+                ->withArgs(
+                    function ($event) use (&$requestEventResult) {
+                        if ($event instanceof RequestSentEvent) {
+                            $requestEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+
+            $spy->shouldHaveReceived('onResponseReceived')
+                ->withArgs(
+                    function ($event) use (&$responseEventResult) {
+                        if ($event instanceof ResponseReceivedEvent) {
+                            $responseEventResult[] = $event;
+                            return true;
+                        }
+                        return false;
+                    }
+                )->twice();
+
+            $this->assertEqualsWithDelta($testStartTime, new DateTime(), 5);
+            $this->assertEqualsWithDelta($requestEventResult[0]->timestamp, $requestEventResult[1]->timestamp, 5);
+        }
+    }
+
+    public function assertionsOn429Exception(ShipEngineException $err, string $errorClass): void
+    {
+        $error = $err->jsonSerialize();
+        $this->assertInstanceOf($errorClass, $err);
+        $this->assertNotNull($error['requestId']);
+        $this->assertStringStartsWith('req_', $error['requestId']);
+        $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+        $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+        $this->assertEquals(ErrorCode::RATE_LIMIT_EXCEEDED, $error['errorCode']);
+        $this->assertEquals(
+            'You have exceeded the rate limit.',
+            $error['message']
+        );
+        $this->assertNotNull($error['url']);
+        $this->assertEquals('https://www.shipengine.com/docs/rate-limits', $error['url']);
+    }
+
+    public function assertionsOnTimeoutException(ShipEngineException $err, int $timeout): void
+    {
+        $error = $err->jsonSerialize();
+        $this->assertInstanceOf(TimeoutException::class, $err);
+        $this->assertNotNull($error['requestId']);
+        $this->assertStringStartsWith('req_', $error['requestId']);
+        $this->assertEquals(ErrorSource::SHIPENGINE, $error['source']);
+        $this->assertEquals(ErrorType::SYSTEM, $error['type']);
+        $this->assertEquals(ErrorCode::TIMEOUT, $error['errorCode']);
+        $this->assertEquals(
+            "The request took longer than the $timeout seconds allowed.",
+            $error['message']
+        );
+        $this->assertNotNull($error['url']);
+        $this->assertEquals('https://www.shipengine.com/docs/rate-limits', $error['url']);
     }
 }

@@ -59,7 +59,7 @@ final class CarrierAccount implements \JsonSerializable
      *
      * @param array $accountInformation
      */
-    private function setCarrierAccount(array $accountInformation)
+    private function setCarrierAccount(array $accountInformation): void
     {
         if (array_key_exists('carrierCode', $accountInformation)) {
             $carrierCode = $accountInformation['carrierCode'];

@@ -4,7 +4,6 @@ namespace Service\Package;
 
 use DateInterval;
 use PHPUnit\Framework\TestCase;
-use ShipEngine\Message\BusinessRuleException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
@@ -37,7 +36,9 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\Util\IsoString
  * @covers \ShipEngine\Util\VersionInfo
  * @covers \ShipEngine\Model\Package\Location
- * @uses \ShipEngine\Message\ShipEngineException
+ * @uses   \ShipEngine\Message\ShipEngineException
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
  */
 final class TrackPackageServiceTest extends TestCase
 {
@@ -51,7 +52,7 @@ final class TrackPackageServiceTest extends TestCase
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
-                'timeout' => new DateInterval('PT15000S')
+                'timeout' => new DateInterval('PT15S')
             )
         );
     }
@@ -225,7 +226,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertEquals('delivered', $trackingResult->events[8]->status);
     }
 
-    public function testDeliveryWithSignuatureTrackingEvent()
+    public function testDeliveryWithSignuatureTrackingEvent(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLivered');
         $this->trackPackageAssertions($trackingResult);
@@ -242,7 +243,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertIsString($trackingResult->events[4]->signer);
     }
 
-    public function testDeliveredAfterMultipleAttempts()
+    public function testDeliveredAfterMultipleAttempts(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
 
@@ -260,7 +261,7 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
-    public function testDeliveredAfterExceptionTrackingEvent()
+    public function testDeliveredAfterExceptionTrackingEvent(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredException');
 
@@ -276,7 +277,7 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
-    public function testSignleExceptionTrackingEvent()
+    public function testSignleExceptionTrackingEvent(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_1FedexException');
 
@@ -337,7 +338,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertNotNull($trackingResult->events[2]->location->longitude);
     }
 
-    public function testCarrierDateTimeWithoutTimezome()
+    public function testCarrierDateTimeWithoutTimezone(): void
     {
         $trackingResult = self::$shipengine->trackPackage('pkg_Attempted');
 
@@ -372,7 +373,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertTrue($estimatedDelivery->hasTimezone());
     }
 
-    public function doesDeliveryDateMatch(TrackPackageResult $trackingResult)
+    public function doesDeliveryDateMatch(TrackPackageResult $trackingResult): void
     {
         $this->assertEquals(
             $trackingResult->shipment->actualDeliveryDate,
@@ -380,7 +381,7 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
-    public function assertEventsInOrder(array $events)
+    public function assertEventsInOrder(array $events): void
     {
         $previousDateTime = $events[0]->dateTime;
         foreach ($events as $event) {

@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Service;
+namespace ShipEngine;
 
 use PHPUnit\Framework\TestCase;
-use ShipEngine\ShipEngineClient;
-use ShipEngine\ShipEngineConfig;
 use ShipEngine\Util\Constants\RPCMethods;
 
 /**

@@ -32,6 +32,13 @@ final class TrackingQuery implements \JsonSerializable
     }
 
     /**
+     * ```json5
+     * {
+     *  "carrierCode": "fedex",
+     *  "trackingNumber": "abc123"
+     * }
+     * ```
+     *
      * Specify data which should be serialized to JSON
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
      */

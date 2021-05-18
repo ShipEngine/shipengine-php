@@ -2,10 +2,12 @@
 
 namespace ShipEngine\Model\Package;
 
+use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\ShipEngineConfig;
 
 /**
  * Class TrackPackageResult
+ *
  * @package ShipEngine\Model\Package
  */
 final class TrackPackageResult implements \JsonSerializable
@@ -78,6 +80,8 @@ final class TrackPackageResult implements \JsonSerializable
      * the `TrackPackageService`.
      *
      * @param array $apiResponse
+     * @param ShipEngineConfig $config
+     * @throws ClientExceptionInterface
      */
     public function __construct(array $apiResponse, ShipEngineConfig $config)
     {

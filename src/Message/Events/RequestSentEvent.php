@@ -5,7 +5,9 @@ namespace ShipEngine\Message\Events;
 use DateInterval;
 
 /**
- * Class RequestSentEvent
+ * Class RequestSentEvent - This event gets emitted everytime the **ShipEngineClient** sends a request to
+ * ShipEngine API.
+ *
  * @package ShipEngine\Message\Events
  */
 final class RequestSentEvent extends ShipEngineEvent implements \JsonSerializable

@@ -13,9 +13,9 @@ env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  php_tests:
     name: shipengine-php
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:

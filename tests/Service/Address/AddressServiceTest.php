@@ -20,10 +20,6 @@ use ShipEngine\Util\Constants\ErrorType;
 /**
  * Tests the method provided in the `AddressService` that allows for single address validation.
  *
- * @covers \ShipEngine\Util\VersionInfo
- * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
- * @covers \ShipEngine\Message\Events\RequestSentEvent
- * @covers \ShipEngine\Message\Events\ShipEngineEvent
  * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\Service\Address\AddressService
  * @covers \ShipEngine\Model\Address\Address
@@ -34,8 +30,14 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\Message\ValidationException
  * @covers \ShipEngine\Message\ShipEngineException
- * @backupStaticAttributes enabled
- * @runTestsInSeparateProcesses
+ * @uses   \ShipEngine\Message\Events\ShipEngineEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEventListener
+ * @uses   \ShipEngine\Message\Events\EventMessage
+ * @uses   \ShipEngine\Message\Events\EventOptions
+ * @uses   \ShipEngine\Util\VersionInfo
+ * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @uses   \ShipEngine\Message\Events\RequestSentEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEvent
  */
 final class AddressServiceTest extends TestCase
 {
@@ -58,7 +60,7 @@ final class AddressServiceTest extends TestCase
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
-                'timeout' => new DateInterval('PT15000S')
+                'timeout' => new DateInterval('PT15S')
             )
         );
     }
@@ -1164,7 +1166,7 @@ EOT,
         $this->assertInstanceOf(Address::class, $validation->normalizedAddress);
         $this->assertNotEmpty($validation->normalizedAddress);
         $this->assertEquals(
-            $canadaAddress->street[0] . " ". $canadaAddress->street[1],
+            $canadaAddress->street[0] . " " . $canadaAddress->street[1],
             $validation->normalizedAddress->street[0]
         );
         $this->assertEquals(

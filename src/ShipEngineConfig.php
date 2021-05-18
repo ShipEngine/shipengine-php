@@ -8,18 +8,75 @@ use ShipEngine\Message\ValidationException;
 use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\Endpoints;
 
+/**
+ * Class ShipEngineConfig - This is the configuration object for the ShipEngine object and it's properties are
+ * used throughout this SDK>
+ *
+ * @package ShipEngine
+ */
 final class ShipEngineConfig implements \JsonSerializable
 {
+    /**
+     * The default base uri for the ShipEngineClient.
+     */
     public const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_RPC_URL;
+
+    /**
+     * Default page size for responses from ShipEngine API.
+     */
     public const DEFAULT_PAGE_SIZE = 50;
+
+    /**
+     * Default number of retries the ShipEngineClient should make before returning an exception.
+     */
     public const DEFAULT_RETRIES = 1;
+
+    /**
+     * Default timeout for the ShipEngineClient in seconds as a **DateInterval**.
+     */
     public const DEFAULT_TIMEOUT = 'PT5S';
 
+
+    /**
+     * A ShipEngine API Key, sandbox API Keys start with **TEST_**.
+     *
+     * @var string
+     */
     public string $apiKey;
+
+    /**
+     * The configured base uri for the ShipEngineClient.
+     *
+     * @var string
+     */
     public string $baseUrl;
+
+    /**
+     * Configured page size for responses from ShipEngine API.
+     *
+     * @var int
+     */
     public int $pageSize;
+
+    /**
+     * Configured number of retries the ShipEngineClient should make before returning an exception.
+     *
+     * @var int
+     */
     public int $retries;
+
+    /**
+     * Configured timeout for the ShipEngineClient in seconds as a **DateInterval**.
+     *
+     * @var DateInterval
+     */
     public DateInterval $timeout;
+
+    /**
+     * Configured **PSR-14** event listener to consume events emitted by this SDK.
+     *
+     * @var object|ShipEngineEventListener
+     */
     public $eventListener;
 
     /**
@@ -72,6 +129,12 @@ final class ShipEngineConfig implements \JsonSerializable
         $this->pageSize = $config['pageSize'] ?? self::DEFAULT_PAGE_SIZE;
     }
 
+    /**
+     * Merge in method level config into the global config used by the **ShipEngine** object.
+     *
+     * @param array|null $newConfig
+     * @return $this
+     */
     public function merge(?array $newConfig = null): ShipEngineConfig
     {
         if (!isset($newConfig)) {

@@ -6,6 +6,7 @@ use ShipEngine\Util\IsoString;
 
 /**
  * Class TrackingEvent
+ *
  * @package ShipEngine\Model\Package
  */
 final class TrackingEvent implements \JsonSerializable

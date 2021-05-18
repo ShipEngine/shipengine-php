@@ -8,6 +8,7 @@ use Psr\Log\LogLevel;
 
 /**
  * Class ShipEngineLogger
+ *
  * @package ShipEngine\Util
  */
 final class ShipEngineLogger implements LoggerInterface
