@@ -13,6 +13,7 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\RPCMethods;
+use ShipEngine\Util\VersionInfo;
 
 /**
  * @covers \ShipEngine\Message\Events\RequestSentEvent
@@ -109,6 +110,30 @@ final class RequestSentEventTest extends MockeryTestCase
         }
     }
 
+    public function testUserAgentInRequestSentEvent()
+    {
+        $config = $this->testConfig($this->spy, 0);
+        $shipengine = new ShipEngine($config);
+
+        $eventResult = null;
+
+        $shipengine->validateAddress($this->goodAddress());
+        $this->spy->shouldHaveReceived('onRequestSent')
+            ->withArgs(
+                function ($event) use (&$eventResult) {
+                    if ($event instanceof RequestSentEvent) {
+                        $eventResult = $event;
+                        return true;
+                    }
+                    return false;
+                }
+            )->once();
+
+        $requestHeaders = explode('/', $eventResult->headers['User-Agent']);
+        $versionNumber = explode(' ', $requestHeaders[1])[0];
+        $this->assertEquals(VersionInfo::string(), $versionNumber);
+    }
+
     /**
      * Tests the assertions outlined in **JIRA DX-1550**.
      *
@@ -154,7 +179,7 @@ final class RequestSentEventTest extends MockeryTestCase
             $this->assertEquals($event->body['method'], RPCMethods::ADDRESS_VALIDATE);
             $this->assertEquals($event->timeout, $config['timeout']);
             $this->assertEquals($count, $event->retry);
-            $count ++;
+            $count++;
         }
     }
 
