@@ -24,8 +24,8 @@ There are two ways to validate an address using this SDK.
   requires a `countryCode` which should be the 2 character capitalized abbreviation for a given countryCode.
 
 - **Behavior**: The `validateAddress` method will always return
-  an [AddressValidateResult](../src/Model/Address/AddressValidateResult.php), even in the even that the address passed
-  in was not *valid*.
+  an [AddressValidateResult](../src/Model/Address/AddressValidateResult.php) object, even in the even that the
+  address passed in was not *valid*.
 
 - **Method level configuration** - You can optionally pass in an array that contains `configuration` values to be used
   for the current method call. The options are `apiKey`, `baseUrl`, `pageSize`,
@@ -65,7 +65,7 @@ require __DIR__ . '/vendor/autoload.php';
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
-$apiKey = getenv('SHIPENGINE_apiKey');
+$apiKey = getenv('SHIPENGINE_API_KEY');
 
 $shipengine = new ShipEngine($apiKey);
 
@@ -135,7 +135,7 @@ the `jsonSerialize()` method. View the example below:
 
 $validated_address = $shipengine->validateAddress($address, ['retries' => 2]);
 
-print_r(json_encode($validated_address));  // Return the AddressValidateResult Type as a JSON string.
+print_r(json_encode($validated_address, JSON_PRETTY_PRINT));  // Return the AddressValidateResult Type as a JSON string.
 ```
 
 **Successful Address Validation Output:**: This is the `AddressValidateResult` Type serialized as JSON.

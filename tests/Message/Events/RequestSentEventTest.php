@@ -110,7 +110,7 @@ final class RequestSentEventTest extends MockeryTestCase
         }
     }
 
-    public function testUserAgentInRequestSentEvent()
+    public function testUserAgentInRequestSentEvent(): void
     {
         $config = $this->testConfig($this->spy, 0);
         $shipengine = new ShipEngine($config);
