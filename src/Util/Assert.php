@@ -301,7 +301,7 @@ final class Assert
     {
         if (array_key_exists('error', $response)) {
             $error = $response['error'];
-            $retryAfter = $error['data']['retryAfter'];
+            $retryAfter = isset($error['data']['retryAfter']) ? $error['data']['retryAfter'] : null;
 
             if ($retryAfter > $config->timeout->s) {
                 throw new TimeoutException(
