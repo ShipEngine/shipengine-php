@@ -11,6 +11,7 @@ use ShipEngine\Util\IsoString;
 
 /**
  * Class Shipment
+ *
  * @package ShipEngine\Model\Package
  */
 final class Shipment implements \JsonSerializable

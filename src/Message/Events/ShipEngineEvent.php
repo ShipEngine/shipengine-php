@@ -48,6 +48,13 @@ class ShipEngineEvent extends Event
         $this->message = $message;
     }
 
+    /**
+     * A helper method to dynamically create any of the events that are dispatched by this SDK.
+     *
+     * @param string $eventType
+     * @param ShipEngineConfig $config
+     * @return ShipEngineEvent
+     */
     public static function emitEvent(string $eventType, $eventData, ShipEngineConfig $config): ShipEngineEvent
     {
         $dispatcher = new EventDispatcher();
@@ -93,48 +100,5 @@ class ShipEngineEvent extends Event
             default:
                 throw new ShipEngineException("Event type [$eventType] is not a valid type of event.");
         }
-
-//        if ($eventType === RequestSentEvent::REQUEST_SENT) {
-//            $requestSentEvent = new RequestSentEvent(
-//                $eventData->message,
-//                $eventData->id,
-//                $eventData->baseUri,
-//                $eventData->requestHeaders,
-//                $eventData->body,
-//                $eventData->retry,
-//                $eventData->timeout,
-//            );
-//
-//            $emittedEvent[] = $requestSentEvent;
-//
-//            $dispatcher->addListener(
-//                $requestSentEvent::REQUEST_SENT,
-//                [$shipengineEventListener, 'onRequestSent']
-//            );
-//
-//            $dispatcher->dispatch($requestSentEvent, $requestSentEvent::REQUEST_SENT);
-//        }
-//
-//        if ($eventType === ResponseReceivedEvent::RESPONSE_RECEIVED) {
-//            $responseReceivedEvent = new ResponseReceivedEvent(
-//                $eventData->message,
-//                $eventData->id,
-//                $eventData->baseUri,
-//                $eventData->statusCode,
-//                $eventData->headers,
-//                $eventData->body,
-//                $eventData->retry,
-//                $eventData->elapsed
-//            );
-//
-//            $emittedEvent[] = $responseReceivedEvent;
-//
-//            $dispatcher->addListener(
-//                $responseReceivedEvent::RESPONSE_RECEIVED,
-//                [$shipengineEventListener, 'onResponseReceived']
-//            );
-//            $dispatcher->dispatch($responseReceivedEvent, $responseReceivedEvent::RESPONSE_RECEIVED);
-//            return $responseReceivedEvent;
-//        }
     }
 }

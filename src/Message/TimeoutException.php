@@ -5,6 +5,11 @@ namespace ShipEngine\Message;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorType;
 
+/**
+ * Class TimeoutException - The exception used by this SDK when the configured/default client timeout is reached.
+ *
+ * @package ShipEngine\Message
+ */
 final class TimeoutException extends ShipEngineException
 {
     /**

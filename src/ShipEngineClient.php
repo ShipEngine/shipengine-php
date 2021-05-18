@@ -209,6 +209,8 @@ final class ShipEngineClient
 
 
     /**
+     * Handles the response from ShipEngine API.
+     *
      * @param array $response
      * @return array
      */
