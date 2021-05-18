@@ -299,7 +299,7 @@ final class Assert
 
     public function isResponse429(int $statusCode, array $response, ShipEngineConfig $config): void
     {
-        $error = array_key_exists('error', $response) ? $response['error'] : null;
+        $error = isset($response['error']) ? $response['error'] : null;
         $retryAfter = $error['data']['retryAfter'];
 
         if ($retryAfter > $config->timeout->s) {
