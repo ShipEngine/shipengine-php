@@ -50,6 +50,15 @@ final class ResponseReceivedEventTest extends MockeryTestCase
     }
 
     /**
+     * After each class this method runs and closes all mocks and verifies all mocks in the global container.
+     * It also manages resetting the container static variable to null.
+     */
+    public function tearDown(): void
+    {
+        Mockery::close();
+    }
+
+    /**
      * A method using **Mockery Spies** to test the **ResponseReceivedEvent**
      * being emitted per **JIRA DX-1550**.
      *

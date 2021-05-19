@@ -43,11 +43,20 @@ final class RequestSentEventTest extends MockeryTestCase
     private object $spy;
 
     /**
-     * Instantiate fixtures that will be shared across test methods.
+     * Instantiate fixtures that will be shared across test methods. Fixtures instantiated before each test method runs.
      */
     public function setUp(): void
     {
         $this->spy = Mockery::spy('ShipEngineEventListener');
+    }
+
+    /**
+     * After each class this method runs and closes all mocks and verifies all mocks in the global container.
+     * It also manages resetting the container static variable to null.
+     */
+    public function tearDown(): void
+    {
+        Mockery::close();
     }
 
     /**
@@ -110,6 +119,12 @@ final class RequestSentEventTest extends MockeryTestCase
         }
     }
 
+    /**
+     * A test to verify that the Request Header 'User-Agent' is populated
+     * with the correct version number managed by the SDK.
+     *
+     * @throws ClientExceptionInterface
+     */
     public function testUserAgentInRequestSentEvent(): void
     {
         $config = $this->testConfig($this->spy, 0);
