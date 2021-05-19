@@ -1616,7 +1616,7 @@ EOT,
         $this->assertIsArray(self::$shipengine->validateAddress($goodAddress)->jsonSerialize());
     }
 
-    public function addressObjectAssertions($object)
+    public function addressObjectAssertions($object): void
     {
         $this->assertInstanceOf(Address::class, $object);
         $this->assertObjectHasAttribute('street', $object);
