@@ -2,6 +2,8 @@
 
 namespace ShipEngine\Util\Constants;
 
+use ShipEngine\Message\ShipEngineException;
+
 /**
  * Carriers that are supported by ShipEngine API.
  */
@@ -31,4 +33,33 @@ final class Carriers
      * @link https://www.stamps.com/
      */
     public const STAMPS_COM = 'stamps_com';
+
+    /**
+     * Verify that the passed in uppercase carrier name is a constant that exists on this class.
+     *
+     * @param string $upperCaseCarrierCode
+     * @return bool
+     */
+    public static function doesCarrierExist(string $upperCaseCarrierCode): bool
+    {
+        return defined("ShipEngine\Util\Constants\Carriers::$upperCaseCarrierCode");
+    }
+
+    /**
+     * Verify that the passed in uppercase carrier code is a constant that exists on this class
+     * and returns its value.
+     *
+     * @param string $upperCaseCarrierCode
+     * @return mixed
+     */
+    public static function getCarrierCode(string $upperCaseCarrierCode)
+    {
+        if (self::doesCarrierExist($upperCaseCarrierCode) === true) {
+            return constant("ShipEngine\Util\Constants\Carriers::$upperCaseCarrierCode");
+        }
+
+        throw new ShipEngineException(
+            "CarrierCode [$upperCaseCarrierCode] is not a constant in this class object."
+        );
+    }
 }
