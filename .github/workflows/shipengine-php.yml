@@ -14,7 +14,7 @@ env:
 
 jobs:
   php_tests:
-    name: shipengine-php sdk
+    name: shipengine-php test suite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
   deploy:
     needs: [php_tests]
     if: ${{ success() && contains(github.event.head_commit.message, 'packagist release') }}
-    name: DEPLOY
+    name: Publish to Packagist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
