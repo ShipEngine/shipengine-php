@@ -14,15 +14,8 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 
 </hr>
 
-## Table of Contents
-- [Quick Start](#quick-start)
-- [Examples](#examples)
-  * [Methods](#methods)
-  * [Class Objects](#class-objects)
-  * [Instantiate ShipEngine Class](#instantiate-shipengine-class)
-- [Testing](#testing)
-- [Linting](#linting)
-- [Contributing](#contributing)
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 Quick Start
 ===========

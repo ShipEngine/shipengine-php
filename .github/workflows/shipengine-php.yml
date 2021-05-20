@@ -14,7 +14,7 @@ env:
 
 jobs:
   php_tests:
-    name: shipengine-php
+    name: shipengine-php test suite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,6 +33,15 @@ jobs:
       - run: phpstan analyse src --level 5
       - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+
+  generateTOC:
+    name: TOC Generator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: technote-space/toc-generator@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   deploy:
     needs: [php_tests]
     if: ${{ success() && contains(github.event.head_commit.message, 'packagist release') }}
