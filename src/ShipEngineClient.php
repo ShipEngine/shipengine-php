@@ -24,7 +24,6 @@ use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
-use ShipEngine\Util\VersionInfo;
 
 /**
  * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
@@ -124,7 +123,7 @@ final class ShipEngineClient
         $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
         $requestHeaders = array(
             'Api-Key' => $config->apiKey,
-            'User-Agent' => $this->deriveUserAgent(),
+            'User-Agent' => $this->deriveUserAgent(ShipEngine::VERSION),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         );
@@ -280,9 +279,9 @@ final class ShipEngineClient
      *
      * @returns string
      */
-    private function deriveUserAgent(): string
+    private function deriveUserAgent(string $version): string
     {
-        $sdk_version = 'shipengine-php/' . VersionInfo::string();
+        $sdk_version = 'shipengine-php/' . $version;
 
         $os = explode(' ', php_uname());
         $os_kernel = $os[0] . '/' . $os[2];

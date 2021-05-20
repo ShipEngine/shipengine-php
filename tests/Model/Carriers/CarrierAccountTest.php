@@ -10,9 +10,11 @@ use ShipEngine\Util\Constants\Carriers;
 
 /**
  * @covers \ShipEngine\Model\Carriers\CarrierAccount
- * @covers \ShipEngine\Message\InvalidFieldValueException
- * @covers \ShipEngine\Message\ShipEngineException
- * @covers \ShipEngine\Model\Carriers\Carrier
+ * @uses   \ShipEngine\Message\InvalidFieldValueException
+ * @uses   \ShipEngine\Message\ShipEngineException
+ * @uses   \ShipEngine\Model\Carriers\Carrier
+ * @uses   \ShipEngine\Util\Constants\CarrierNames
+ * @uses   \ShipEngine\Util\Constants\Carriers
  */
 final class CarrierAccountTest extends TestCase
 {
@@ -32,7 +34,7 @@ final class CarrierAccountTest extends TestCase
         $this->assertInstanceOf(CarrierAccount::class, $carrierCode);
     }
 
-    public function testEachSDKSupportedCarrier()
+    public function testEachSDKSupportedCarrier(): void
     {
         $accounts = array(
             array(
@@ -77,15 +79,15 @@ final class CarrierAccountTest extends TestCase
 
     public function testInvalidCarrierAccountValue(): void
     {
-        $invalaccountID_carrierCode = array(
-            'carrierCode' => 'canada_post',
+        $invalidCarrierAccount = array(
+            'carrierCode' => 'united_post',
             'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'accountNumber' => 'SDF987',
             'name' => 'Canada Post',
         );
-        $account = $invalaccountID_carrierCode['carrierCode'];
+        $account = $invalidCarrierAccount['carrierCode'];
         try {
-            new CarrierAccount($invalaccountID_carrierCode);
+            new CarrierAccount($invalidCarrierAccount);
         } catch (InvalidFieldValueException $err) {
             $this->assertInstanceOf(InvalidFieldValueException::class, $err);
             $this->assertEquals('carrier', $err->field_name);

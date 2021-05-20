@@ -32,6 +32,81 @@ final class CarrierNames
     public const STAMPS_COM = 'Stamps.com';
 
     /**
+     * DHL Express
+     */
+    public const DHL_EXPRESS = 'DHL Express';
+
+    /**
+     * DHL ECommerce
+     */
+    public const DHL_GLOBAL_MAIL = 'DHL ECommerce';
+
+    /**
+     * Canada Post
+     */
+    public const CANADA_POST = 'Canada Post';
+
+    /**
+     * Australia Post
+     */
+    public const AUSTRALIA_POST = 'Australia Post';
+
+    /**
+     * First Mile
+     */
+    public const FIRSTMILE = 'First Mile';
+
+    /**
+     * Asendia
+     */
+    public const ASENDIA = 'Asendia';
+
+    /**
+     * OnTrac
+     */
+    public const ONTRAC = 'OnTrac';
+
+    /**
+     * APC
+     */
+    public const APC = 'APC';
+
+    /**
+     * Newgistics
+     */
+    public const NEWGISTICS = 'Newgistics';
+
+    /**
+     * Globegistics
+     */
+    public const GLOBEGISTICS = 'Globegistics';
+
+    /**
+     * RR Donnelley
+     */
+    public const RR_DONNELLEY = 'RR Donnelley';
+
+    /**
+     * IMEX
+     */
+    public const IMEX = 'IMEX';
+
+    /**
+     * Access Worldwide
+     */
+    public const ACCESS_WORLDWIDE = 'Access Worldwide';
+
+    /**
+     * Purolator Canada
+     */
+    public const PUROLATOR_CA = 'Purolator Canada';
+
+    /**
+     * Sendle
+     */
+    public const SENDLE = 'Sendle';
+
+    /**
      * Verify that the passed in uppercase carrier name is a constant that exists on this class.
      *
      * @param string $upperCaseCarrierCode
