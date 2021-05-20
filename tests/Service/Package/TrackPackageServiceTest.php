@@ -16,29 +16,31 @@ use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngineConfig
- * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\Service\Package\TrackPackageService
- * @covers \ShipEngine\Message\Events\RequestSentEvent
- * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
- * @covers \ShipEngine\Message\Events\ShipEngineEvent
- * @covers \ShipEngine\Message\Events\ShipEngineEventListener
- * @covers \ShipEngine\Model\Carriers\Carrier
- * @covers \ShipEngine\Model\Carriers\CarrierAccount
- * @covers \ShipEngine\Model\Package\Package
- * @covers \ShipEngine\Model\Package\Shipment
- * @covers \ShipEngine\Model\Package\TrackPackageResult
- * @covers \ShipEngine\Model\Package\TrackingEvent
- * @covers \ShipEngine\Model\Package\TrackingQuery
- * @covers \ShipEngine\Service\Carriers\CarrierAccountService
- * @covers \ShipEngine\Util\Assert
- * @covers \ShipEngine\Util\IsoString
- * @covers \ShipEngine\Util\VersionInfo
- * @covers \ShipEngine\Model\Package\Location
+ * @uses   \ShipEngine\ShipEngine
+ * @uses   \ShipEngine\ShipEngineConfig
+ * @uses   \ShipEngine\ShipEngineClient
+ * @uses   \ShipEngine\Message\Events\RequestSentEvent
+ * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEvent
+ * @uses   \ShipEngine\Message\Events\ShipEngineEventListener
+ * @uses   \ShipEngine\Model\Carriers\Carrier
+ * @uses   \ShipEngine\Model\Carriers\CarrierAccount
+ * @uses   \ShipEngine\Model\Package\Package
+ * @uses   \ShipEngine\Model\Package\Shipment
+ * @uses   \ShipEngine\Model\Package\TrackPackageResult
+ * @uses   \ShipEngine\Model\Package\TrackingEvent
+ * @uses   \ShipEngine\Model\Package\TrackingQuery
+ * @uses   \ShipEngine\Service\Carriers\CarrierAccountService
+ * @uses   \ShipEngine\Util\Assert
+ * @uses   \ShipEngine\Util\IsoString
+ * @uses   \ShipEngine\Util\VersionInfo
+ * @uses   \ShipEngine\Model\Package\Location
  * @uses   \ShipEngine\Message\ShipEngineException
  * @uses   \ShipEngine\Message\Events\EventMessage
  * @uses   \ShipEngine\Message\Events\EventOptions
+ * @uses   \ShipEngine\Util\Constants\CarrierNames
+ * @uses   \ShipEngine\Util\Constants\Carriers
  */
 final class TrackPackageServiceTest extends TestCase
 {

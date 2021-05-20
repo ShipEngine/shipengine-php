@@ -20,6 +20,11 @@ use ShipEngine\Util\ShipEngineLogger;
 final class ShipEngine
 {
     /**
+     * ShipEngine SDK Version
+     */
+    public const VERSION = '0.0.1';
+
+    /**
      * A collection of methods to call the ShipEngine Address Validation Services.
      *
      * @var AddressService
@@ -105,7 +110,6 @@ final class ShipEngine
      * @param string|null $carrierCode
      * @return array An array of **CarrierAccount** objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
-     * @throws ClientExceptionInterface
      */
     public function getCarrierAccounts(?string $carrierCode = null, $config = null): array
     {

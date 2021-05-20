@@ -78,7 +78,6 @@ final class Shipment implements \JsonSerializable
      * @param array $shipment
      * @param IsoString $actualDeliveryDate
      * @param ShipEngineConfig $config
-     * @throws \Psr\Http\Client\ClientExceptionInterface
      */
     public function __construct(array $shipment, IsoString $actualDeliveryDate, ShipEngineConfig $config)
     {

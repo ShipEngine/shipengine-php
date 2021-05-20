@@ -9,18 +9,21 @@ on:
       - main
 
 env:
-  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   php_tests:
-    name: shipengine-php
+    name: shipengine-php test suite
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: technote-space/toc-generator@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
@@ -33,3 +36,19 @@ jobs:
       - run: phpstan analyse src --level 5
       - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+
+  deploy:
+    needs: [php_tests]
+    if: ${{ success() && contains(github.event.head_commit.message, 'packagist release') }}
+    name: Publish to Packagist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: ${{ github.workflow }}-CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

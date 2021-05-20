@@ -3,6 +3,7 @@
 namespace ShipEngine\Model\Carriers;
 
 use ShipEngine\Message\InvalidFieldValueException;
+use ShipEngine\Util\Constants\Carriers;
 
 /**
  * Class CarrierAccount - This class represents a given Carrier Account e.g. FedEx, UPS, USPS.
@@ -65,8 +66,7 @@ final class CarrierAccount implements \JsonSerializable
             $carrierCode = $accountInformation['carrierCode'];
             $upperCaseCarrierCode = strtoupper($accountInformation['carrierCode']);
 
-            $definedInCarriers = defined("ShipEngine\Util\Constants\Carriers::$upperCaseCarrierCode");
-            if ($definedInCarriers === true) {
+            if (Carriers::doesCarrierExist($upperCaseCarrierCode) === true) {
                 $this->carrier = new Carrier(
                     $carrierCode
                 );

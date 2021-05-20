@@ -3,6 +3,8 @@
 namespace ShipEngine\Model\Carriers;
 
 use ShipEngine\Message\InvalidFieldValueException;
+use ShipEngine\Util\Constants\CarrierNames;
+use ShipEngine\Util\Constants\Carriers;
 
 /**
  * Class Carrier - Immutable carrier object.
@@ -34,10 +36,9 @@ final class Carrier implements \JsonSerializable
     {
         $this->code = $code;
         $upperCaseCode = strtoupper($code);
-        $definedInCarriers = defined("ShipEngine\Util\Constants\Carriers::$upperCaseCode");
-        if ($definedInCarriers === true) {
-            $constantValue = constant("ShipEngine\Util\Constants\CarrierNames::$upperCaseCode");
-            $this->name = $constantValue;
+
+        if (Carriers::doesCarrierExist($upperCaseCode) === true) {
+            $this->name = CarrierNames::getCarrierName($upperCaseCode);
         } else {
             throw new InvalidFieldValueException(
                 'carrierAccount',
