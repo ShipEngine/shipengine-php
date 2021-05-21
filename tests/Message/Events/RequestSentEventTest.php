@@ -13,7 +13,6 @@ use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\RPCMethods;
-use ShipEngine\Util\VersionInfo;
 
 /**
  * @covers \ShipEngine\Message\Events\RequestSentEvent
@@ -29,7 +28,6 @@ use ShipEngine\Util\VersionInfo;
  * @uses   \ShipEngine\ShipEngineClient
  * @uses   \ShipEngine\ShipEngineConfig
  * @uses   \ShipEngine\Util\Assert
- * @uses   \ShipEngine\Util\VersionInfo
  * @uses   \ShipEngine\Message\Events\EventMessage
  * @uses   \ShipEngine\Message\Events\EventOptions
  */
@@ -146,7 +144,7 @@ final class RequestSentEventTest extends MockeryTestCase
 
         $requestHeaders = explode('/', $eventResult->headers['User-Agent']);
         $versionNumber = explode(' ', $requestHeaders[1])[0];
-        $this->assertEquals(VersionInfo::string(), $versionNumber);
+        $this->assertEquals(ShipEngine::VERSION, $versionNumber);
     }
 
     /**

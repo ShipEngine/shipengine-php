@@ -20,7 +20,6 @@ use ShipEngine\Util\Constants\ErrorType;
  * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\Util\VersionInfo
  * @covers \ShipEngine\Model\Carriers\Carrier
  * @covers \ShipEngine\Model\Carriers\CarrierAccount
  * @covers \ShipEngine\Util\Constants\Carriers

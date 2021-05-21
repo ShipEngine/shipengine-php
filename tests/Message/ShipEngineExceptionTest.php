@@ -23,7 +23,7 @@ use ShipEngine\Util\Constants\ErrorType;
  */
 final class ShipEngineExceptionTest extends TestCase
 {
-    public function testAccountStatusException()
+    public function testAccountStatusException(): void
     {
         $account_status_exception = new AccountStatusException(
             'There is a hold on your account.',

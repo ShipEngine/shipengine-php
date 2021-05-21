@@ -9,7 +9,6 @@ use ShipEngine\Util\Constants\RPCMethods;
  * @covers \ShipEngine\ShipEngineClient
  * @covers \ShipEngine\ShipEngineConfig
  * @covers \ShipEngine\Util\Assert
- * @covers \ShipEngine\Util\VersionInfo
  */
 final class ShipEngineClientTest extends TestCase
 {

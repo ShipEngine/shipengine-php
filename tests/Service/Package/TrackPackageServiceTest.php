@@ -34,7 +34,6 @@ use ShipEngine\Util\Constants\ErrorType;
  * @uses   \ShipEngine\Service\Carriers\CarrierAccountService
  * @uses   \ShipEngine\Util\Assert
  * @uses   \ShipEngine\Util\IsoString
- * @uses   \ShipEngine\Util\VersionInfo
  * @uses   \ShipEngine\Model\Package\Location
  * @uses   \ShipEngine\Message\ShipEngineException
  * @uses   \ShipEngine\Message\Events\EventMessage

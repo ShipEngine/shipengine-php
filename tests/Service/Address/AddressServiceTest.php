@@ -34,7 +34,6 @@ use ShipEngine\Util\Constants\ErrorType;
  * @uses   \ShipEngine\Message\Events\ShipEngineEventListener
  * @uses   \ShipEngine\Message\Events\EventMessage
  * @uses   \ShipEngine\Message\Events\EventOptions
- * @uses   \ShipEngine\Util\VersionInfo
  * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
  * @uses   \ShipEngine\Message\Events\RequestSentEvent
  * @uses   \ShipEngine\Message\Events\ShipEngineEvent

@@ -36,7 +36,6 @@ use ShipEngine\Util\Constants\ErrorType;
  * @uses   \ShipEngine\Message\ValidationException
  * @uses   \ShipEngine\ShipEngine
  * @uses   \ShipEngine\ShipEngineClient
- * @uses   \ShipEngine\Util\VersionInfo
  * @uses   \ShipEngine\Message\TimeoutException
  */
 final class ShipEngineConfigTest extends TestCase

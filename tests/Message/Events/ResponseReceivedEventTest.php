@@ -28,7 +28,6 @@ use ShipEngine\Util\Constants\RPCMethods;
  * @uses   \ShipEngine\ShipEngineClient
  * @uses   \ShipEngine\ShipEngineConfig
  * @uses   \ShipEngine\Util\Assert
- * @uses   \ShipEngine\Util\VersionInfo
  * @uses   \ShipEngine\Message\Events\EventMessage
  * @uses   \ShipEngine\Message\Events\EventOptions
  */
