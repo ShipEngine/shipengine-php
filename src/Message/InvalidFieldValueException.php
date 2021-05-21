@@ -33,7 +33,7 @@ final class InvalidFieldValueException extends ShipEngineException
         $field_value
     ) {
         parent::__construct(
-            "{$field_name} - {$reason}",
+            "$field_name - $reason",
             null,
             null,
             ErrorType::VALIDATION,
