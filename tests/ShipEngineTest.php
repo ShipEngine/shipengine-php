@@ -3,18 +3,21 @@
 namespace ShipEngine;
 
 use PHPUnit\Framework\TestCase;
+use ShipEngine\Model\Package\TrackPackageResult;
 
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
+ * @uses \ShipEngine\ShipEngineConfig
+ * @uses \ShipEngine\Util\Assert
+ * @uses \ShipEngine\Service\Package\TrackPackageService
+ * @uses \ShipEngine\Model\Package\TrackPackageResult
  */
 final class ShipEngineTest extends TestCase
 {
-    private static ShipEngine $shipengine;
-
-    public static function setUpBeforeClass(): void
+    public function testInstantiation(): void
     {
-        self::$shipengine = new ShipEngine(
+        $shipengine = new ShipEngine(
             array(
                 'apiKey' => 'baz',
                 'baseUrl' => 'https://api.shipengine.com',
@@ -24,10 +27,6 @@ final class ShipEngineTest extends TestCase
                 'events' => null
             )
         );
-    }
-
-    public function testInstantiation(): void
-    {
-        $this->assertInstanceOf(ShipEngine::class, self::$shipengine);
+        $this->assertInstanceOf(ShipEngine::class, $shipengine);
     }
 }

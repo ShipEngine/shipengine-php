@@ -16,38 +16,36 @@ use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * @covers \ShipEngine\Service\Package\TrackPackageService
- * @uses   \ShipEngine\ShipEngine
- * @uses   \ShipEngine\ShipEngineConfig
- * @uses   \ShipEngine\ShipEngineClient
- * @uses   \ShipEngine\Message\Events\RequestSentEvent
- * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
- * @uses   \ShipEngine\Message\Events\ShipEngineEvent
- * @uses   \ShipEngine\Message\Events\ShipEngineEventListener
- * @uses   \ShipEngine\Model\Carriers\Carrier
- * @uses   \ShipEngine\Model\Carriers\CarrierAccount
- * @uses   \ShipEngine\Model\Package\Package
- * @uses   \ShipEngine\Model\Package\Shipment
- * @uses   \ShipEngine\Model\Package\TrackPackageResult
- * @uses   \ShipEngine\Model\Package\TrackingEvent
- * @uses   \ShipEngine\Model\Package\TrackingQuery
- * @uses   \ShipEngine\Service\Carriers\CarrierAccountService
- * @uses   \ShipEngine\Util\Assert
- * @uses   \ShipEngine\Util\IsoString
- * @uses   \ShipEngine\Model\Package\Location
- * @uses   \ShipEngine\Message\ShipEngineException
- * @uses   \ShipEngine\Message\Events\EventMessage
- * @uses   \ShipEngine\Message\Events\EventOptions
- * @uses   \ShipEngine\Util\Constants\CarrierNames
- * @uses   \ShipEngine\Util\Constants\Carriers
+ * @covers   \ShipEngine\Service\Package\TrackPackageService
+ * @covers   \ShipEngine\ShipEngine
+ * @uses     \ShipEngine\ShipEngineConfig
+ * @uses     \ShipEngine\ShipEngineClient
+ * @uses     \ShipEngine\Message\Events\RequestSentEvent
+ * @uses     \ShipEngine\Message\Events\ResponseReceivedEvent
+ * @uses     \ShipEngine\Message\Events\ShipEngineEvent
+ * @uses     \ShipEngine\Message\Events\ShipEngineEventListener
+ * @uses     \ShipEngine\Model\Carriers\Carrier
+ * @uses     \ShipEngine\Model\Carriers\CarrierAccount
+ * @uses     \ShipEngine\Model\Package\Package
+ * @uses     \ShipEngine\Model\Package\Shipment
+ * @uses     \ShipEngine\Model\Package\TrackPackageResult
+ * @uses     \ShipEngine\Model\Package\TrackingEvent
+ * @uses     \ShipEngine\Model\Package\TrackingQuery
+ * @uses     \ShipEngine\Service\Carriers\CarrierAccountService
+ * @uses     \ShipEngine\Util\Assert
+ * @uses     \ShipEngine\Util\IsoString
+ * @uses     \ShipEngine\Model\Package\Location
+ * @uses     \ShipEngine\Message\ShipEngineException
+ * @uses     \ShipEngine\Message\Events\EventMessage
+ * @uses     \ShipEngine\Message\Events\EventOptions
+ * @uses     \ShipEngine\Util\Constants\CarrierNames
+ * @uses     \ShipEngine\Util\Constants\Carriers
  */
 final class TrackPackageServiceTest extends TestCase
 {
-    private static ShipEngine $shipengine;
-
-    public static function setUpBeforeClass(): void
+    public function testInvalidTrackingNumber(): void
     {
-        self::$shipengine = new ShipEngine(
+        $shipengine = new ShipEngine(
             array(
                 'apiKey' => 'baz',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
@@ -56,17 +54,13 @@ final class TrackPackageServiceTest extends TestCase
                 'timeout' => new DateInterval('PT15S')
             )
         );
-    }
-
-    public function testInvalidTrackingNumber(): void
-    {
         $trackingData = new TrackingQuery(
             'fedex',
             'abc123'
         );
 
         try {
-            self::$shipengine->trackPackage($trackingData);
+            $shipengine->trackPackage($trackingData);
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $trackingNumber = $trackingData->trackingNumber;
@@ -85,10 +79,19 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testInvalidPackageId(): void
     {
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
         $packageId = 'pkg_12!@3a s567';
 
         try {
-            self::$shipengine->trackPackage($packageId);
+            $shipengine->trackPackage($packageId);
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $err);
@@ -105,10 +108,19 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testPackageIdNotFound(): void
     {
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
         $packageId = 'pkg_123';
 
         try {
-            self::$shipengine->trackPackage($packageId);
+            $shipengine->trackPackage($packageId);
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $this->assertInstanceOf(SystemException::class, $err);
@@ -126,11 +138,20 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testInvalidPackageIdPrefix(): void
     {
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
         $packageId = 'car_1FedExAccepted';
         $subString = substr($packageId, 0, 4);
 
         try {
-            self::$shipengine->trackPackage($packageId);
+            $shipengine->trackPackage($packageId);
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $this->assertInstanceOf(ValidationException::class, $err);
@@ -147,11 +168,20 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testTrackByTrackingNumberAndCarrierCode(): void
     {
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
         $trackingData = new TrackingQuery(
             'fedex',
             'abcFedExDelivered'
         );
-        $trackingResult = self::$shipengine->trackPackage($trackingData);
+        $trackingResult = $shipengine->trackPackage($trackingData);
 
         $this->assertEquals($trackingData->carrierCode, $trackingResult->shipment->carrier->code);
         $this->assertEquals($trackingData->trackingNumber, $trackingResult->package->trackingNumber);
@@ -161,8 +191,17 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testTrackByPackageId(): void
     {
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
         $packageId = 'pkg_1FedExAccepted';
-        $trackingResult = self::$shipengine->trackPackage($packageId);
+        $trackingResult = $shipengine->trackPackage($packageId);
 
         $this->assertEquals($packageId, $trackingResult->package->packageId);
         $this->assertNotEmpty($trackingResult->shipment->shipmentId);
@@ -175,7 +214,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testInitialScanTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedExAccepted');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedExAccepted');
         $this->trackPackageAssertions($trackingResult);
         $this->assertArrayHasKey(0, $trackingResult->events);
         $this->assertArrayNotHasKey(1, $trackingResult->events);
@@ -185,7 +233,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testOutForDeliveryTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedExAttempted');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedExAttempted');
         $this->trackPackageAssertions($trackingResult);
         $this->assertArrayHasKey(0, $trackingResult->events);
         $this->assertArrayHasKey(1, $trackingResult->events);
@@ -196,7 +253,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testDevliveredFirstTryTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedExDeLivered');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedExDeLivered');
         $this->trackPackageAssertions($trackingResult);
         $this->assertEquals($trackingResult->shipment->actualDeliveryDate, $trackingResult->events[4]->dateTime);
         $this->doesDeliveryDateMatch($trackingResult);
@@ -212,7 +278,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testMultipleDeliveryAttemptEvents(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
         $this->trackPackageAssertions($trackingResult);
         $this->assertCount(9, $trackingResult->events);
         $this->assertEventsInOrder($trackingResult->events);
@@ -229,7 +304,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testDeliveryWithSignuatureTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLivered');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedexDeLivered');
         $this->trackPackageAssertions($trackingResult);
         $this->assertCount(5, $trackingResult->events);
         $this->assertEventsInOrder($trackingResult->events);
@@ -246,7 +330,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testDeliveredAfterMultipleAttempts(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedexDeLiveredAttempted');
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);
@@ -264,7 +357,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testDeliveredAfterExceptionTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexDeLiveredException');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedexDeLiveredException');
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);
@@ -280,7 +382,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testSignleExceptionTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_1FedexException');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_1FedexException');
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);
@@ -292,13 +403,22 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testServerSideError(): void
     {
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
         $trackingData = new TrackingQuery(
             'fedex',
             '500 Server Error'
         );
 
         try {
-            self::$shipengine->trackPackage($trackingData);
+            $shipengine->trackPackage($trackingData);
         } catch (ShipEngineException $err) {
             $error = $err->jsonSerialize();
             $this->assertInstanceOf(SystemException::class, $err);
@@ -316,7 +436,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testMultipleExceptionsInTrackingEvents(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_DeLiveredException');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_DeLiveredException');
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);
@@ -328,7 +457,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testMultipleLocationsInTrackingEvent(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_Attempted');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_Attempted');
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);
@@ -341,7 +479,16 @@ final class TrackPackageServiceTest extends TestCase
 
     public function testCarrierDateTimeWithoutTimezone(): void
     {
-        $trackingResult = self::$shipengine->trackPackage('pkg_Attempted');
+        $shipengine = new ShipEngine(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => Endpoints::TEST_RPC_URL,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT15S')
+            )
+        );
+        $trackingResult = $shipengine->trackPackage('pkg_Attempted');
 
         $this->trackPackageAssertions($trackingResult);
         $this->assertEventsInOrder($trackingResult->events);

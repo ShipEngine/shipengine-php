@@ -3,6 +3,7 @@
 namespace ShipEngine\Message\Events;
 
 use DateTime;
+use ShipEngine\Message\InvalidFieldValueException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\ShipEngineConfig;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -98,7 +99,11 @@ class ShipEngineEvent extends Event
                 $dispatcher->dispatch($responseReceivedEvent, $responseReceivedEvent::RESPONSE_RECEIVED);
                 return $responseReceivedEvent;
             default:
-                throw new ShipEngineException("Event type [$eventType] is not a valid type of event.");
+                throw new InvalidFieldValueException(
+                    'eventType',
+                    "Event type [$eventType] is not a valid type of event.",
+                    $eventType
+                );
         }
     }
 }

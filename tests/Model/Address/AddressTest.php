@@ -264,7 +264,7 @@ final class AddressTest extends TestCase
      * - **message** is "Invalid address. XX is not a valid countryCode code."
      * (where XX is the value that was specified).
      */
-    public function testInvalidcountryCode(): void
+    public function testInvalidCountryCode(): void
     {
         try {
             new Address(
@@ -303,5 +303,6 @@ final class AddressTest extends TestCase
 
         $this->assertNotNull($json);
         $this->assertIsArray($json);
+        $this->assertJson(json_encode($json));
     }
 }

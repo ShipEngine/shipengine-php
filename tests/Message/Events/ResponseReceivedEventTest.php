@@ -7,6 +7,7 @@ use DateTime;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Psr\Http\Client\ClientExceptionInterface;
+use ShipEngine\Message\Events\RequestSentEvent;
 use ShipEngine\Message\Events\ResponseReceivedEvent;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
@@ -215,5 +216,24 @@ final class ResponseReceivedEventTest extends MockeryTestCase
             'timeout' => new DateInterval('PT15S'),
             'eventListener' => $eventListener
         );
+    }
+
+    /**
+     * Test the jsonSerialize method on the the RequestSentEvent.
+     */
+    public function testJsonSerialize(): void
+    {
+        $responseReceivedEvent = new ResponseReceivedEvent(
+            'testing the request sent event.',
+            'req_h08s7fe7h3f4fhq4fw4f5',
+            'https://google.com',
+            200,
+            array(),
+            array(),
+            300,
+            new DateInterval('PT3S')
+        );
+
+        $this->assertJson(json_encode($responseReceivedEvent));
     }
 }

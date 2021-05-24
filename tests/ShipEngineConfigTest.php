@@ -672,4 +672,18 @@ final class ShipEngineConfigTest extends TestCase
         $this->assertNotNull($error['url']);
         $this->assertEquals('https://www.shipengine.com/docs/rate-limits', $error['url']);
     }
+
+    public function testJsonSerialize(): void
+    {
+        $se_config = new ShipEngineConfig(
+            array(
+                'apiKey' => 'baz',
+                'baseUrl' => self::$test_url,
+                'pageSize' => 75,
+                'retries' => 1,
+                'timeout' => new DateInterval('PT10S')
+            )
+        );
+        $this->assertJson(json_encode($se_config));
+    }
 }

@@ -279,4 +279,22 @@ final class RequestSentEventTest extends MockeryTestCase
             'eventListener' => $eventListener
         );
     }
+
+    /**
+     * Test the jsonSerialize method on the the RequestSentEvent.
+     */
+    public function testJsonSerialize(): void
+    {
+        $requestSentEvent = new RequestSentEvent(
+            'testing the request sent event.',
+            'req_h08s7fe7h3f4fhq4fw4f5',
+            'https://google.com',
+            array(),
+            array(),
+            300,
+            new DateInterval('PT300S')
+        );
+
+        $this->assertJson(json_encode($requestSentEvent));
+    }
 }
