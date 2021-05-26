@@ -10,7 +10,7 @@ use ShipEngine\Util\Constants\Endpoints;
 
 /**
  * Class ShipEngineConfig - This is the configuration object for the ShipEngine object and it's properties are
- * used throughout this SDK>
+ * used throughout this SDK.
  *
  * @package ShipEngine
  */
@@ -158,10 +158,6 @@ final class ShipEngineConfig implements \JsonSerializable
         isset($newConfig['retries']) ?
             ($config['retries'] = $newConfig['retries']) :
             ($config['retries'] = $this->retries);
-
-        isset($newConfig['timeout']) ?
-            ($config['timeout'] = $newConfig['timeout']) :
-            ($config['timeout'] = $this->timeout);
 
         isset($newConfig['timeout']) ?
             ($config['timeout'] = $newConfig['timeout']) :
