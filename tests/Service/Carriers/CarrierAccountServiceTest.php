@@ -90,7 +90,7 @@ final class CarrierAccountServiceTest extends TestCase
         $this->assertEquals('ups', $carrier_accounts[0]->carrier->code);
         $this->assertEquals('fedex', $carrier_accounts[1]->carrier->code);
         $this->assertEquals('fedex', $carrier_accounts[2]->carrier->code);
-        $this->assertNotEquals($carrier_accounts[1]->name, $carrier_accounts[2]->name);
+        $this->assertNotEquals($carrier_accounts[0]->name, $carrier_accounts[1]->name);
         foreach ($carrier_accounts as $account) {
             $this->assertInstanceOf(CarrierAccount::class, $account);
             $this->assertStringStartsWith('car_', $account->accountId);

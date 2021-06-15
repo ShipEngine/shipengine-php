@@ -202,7 +202,7 @@ final class AddressServiceTest extends TestCase
     {
         $unknown_address_type = new Address(
             array(
-                'street' => array('4 Jersey St', 'validate-unknown-address'),
+                'street' => array('4 Jersey St', 'unknown'),
                 'cityLocality' => 'Boston',
                 'stateProvince' => 'MA',
                 'postalCode' => '02215',
@@ -838,18 +838,6 @@ EOT,
         $this->assertEquals($goodAddress->stateProvince, $validation->normalizedAddress->stateProvince);
         $this->assertEquals($goodAddress->postalCode, $validation->normalizedAddress->postalCode);
         $this->assertEquals($goodAddress->countryCode, $validation->normalizedAddress->countryCode);
-        //        $this->assertFalse(
-        //array_key_exists($validation->normalizedAddress->name,
-        // $validation->normalizedAddress)
-        //);
-        //        $this->assertFalse(
-        //array_key_exists($validation->normalizedAddress->phone,
-        // $validation->normalizedAddress)
-        //);
-        //        $this->assertFalse(
-        //array_key_exists($validation->normalizedAddress['company'],
-        // $validation->normalizedAddress)
-        //);
     }
 
     public function testWithNameCompanyPhone(): void

@@ -104,9 +104,10 @@ final class ShipEngine
     }
 
     /**
+     * Fetch the carrier accounts connected to your ShipEngine Account.
+     *
      * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
-     *
      * @param string|null $carrierCode
      * @return array An array of **CarrierAccount** objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
@@ -120,7 +121,7 @@ final class ShipEngine
 
     /**
      * Track a package by `trackingNumber` and `carrierCode` via the **TrackingQuery** object, by using just the
-     * **packageId**, or by using a **Package** object.
+     * **packageId**.
      *
      * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}

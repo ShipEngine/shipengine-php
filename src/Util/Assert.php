@@ -60,14 +60,14 @@ final class Assert
     }
 
     /**
-     * Asserts that city in not an empty string and is valid characters.
+     * Asserts that city in not an empty string and contains valid characters.
      *
      * @param string $cityLocality
      * @throws ValidationException
      */
     public function isCityValid(string $cityLocality): void
     {
-        if (preg_match('/^[a-zA-Z0-9\s\W]*$/', $cityLocality) === false || $cityLocality === '') {
+        if (preg_match('/^[a-zA-Z0-9\s]*$/', $cityLocality) === false || $cityLocality === '') {
             throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
@@ -86,7 +86,7 @@ final class Assert
      */
     public function isStateValid(string $stateProvince): void
     {
-        if (preg_match('/^[A-Z\W]{2}$/', $stateProvince) === false || $stateProvince === '') {
+        if (preg_match('/^[A-Z]{2}$/', $stateProvince) === false || $stateProvince === '') {
             throw new ValidationException(
                 'Invalid address. Either the postal code or the city/locality and state/province must be specified.',
                 null,
@@ -264,7 +264,7 @@ final class Assert
         $this->isPackageIdPrefixValid($packageId);
 
         if (preg_match(
-            '/^pkg_[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/',
+            '/^pkg_[1-9a-zA-Z]+$/',
             $packageId
         ) === 0
         ) {

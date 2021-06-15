@@ -12,7 +12,7 @@ use ShipEngine\Message\ShipEngineException;
 final class CarrierNames
 {
     /**
-     * Common name for FEDEX = FedEx
+     * Common name for FEDEX - FedEx
      */
     public const FEDEX = 'FedEx';
 
