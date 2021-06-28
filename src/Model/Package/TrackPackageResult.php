@@ -35,7 +35,7 @@ final class TrackPackageResult implements \JsonSerializable
     public ?array $events = array();
 
     /**
-     * This is the latest event to have occurred in the `$events` array.
+     * Returns the latest event to have occurred in the `$events` array.
      *
      * @return TrackingEvent
      */
@@ -45,14 +45,14 @@ final class TrackPackageResult implements \JsonSerializable
     }
 
     /**
-     * Returns `true` if there are any EXCEPTION events.
+     * Returns `true` if there are any exception events.
      *
      * @return bool
      */
     public function hasErrors(): bool
     {
         foreach ($this->events as $event) {
-            if ($event->status === 'EXCEPTION') {
+            if ($event->status === 'exception') {
                 return true;
             }
         }
@@ -60,7 +60,7 @@ final class TrackPackageResult implements \JsonSerializable
     }
 
     /**
-     * Returns **only** the EXCEPTION events.
+     * Returns **only** the exception events.
      *
      * @return array
      */
@@ -68,7 +68,7 @@ final class TrackPackageResult implements \JsonSerializable
     {
         $errors = array();
         foreach ($this->events as $event) {
-            if ($event->status === 'EXCEPTION') {
+            if ($event->status === 'exception') {
                 $errors[] = $event;
             }
         }

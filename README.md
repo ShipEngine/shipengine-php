@@ -35,30 +35,30 @@ Install ShipEngine via [Composer](https://getcomposer.org/):
 ```bash
 composer require shipengine/shipengine
 ```
-- The only configuration requirement is an [API key](https://www.shipengine.com/docs/auth/#api-keys).
+- The only configuration requirement is an [API Key](https://www.shipengine.com/docs/auth/#api-keys).
 
-> The following example assumes that you have already set the `SHIPENGIEN_API_KEY` using `putenv()`.
+> The following example assumes that you have already set the `SHIPENGIEN_API_KEY` environment variable with your Api Key using `putenv()`.
 
 Examples
 ========
 
 Methods
 -------
-- [validateAddress](./docs/addressValidateExample.md) -  Indicates whether the provided address is valid. If the
+- [validateAddress](./docs/addressValidateExample.md "Validate Address method documentation") - Indicates whether the provided address is valid. If the
   address is valid, the method returns a normalized version of the address based on the standards of the country in
   which the address resides.
-- [normalizeAddress](./docs/normalizeAddressExample.md) - Returns a normalized, or standardized, version of the
+- [normalizeAddress](./docs/normalizeAddressExample.md "Normalize Address method documentation") - Returns a normalized, or standardized, version of the
   address. If the address cannot be normalized, an error is returned.
-- [trackPackage](./docs/trackPackageExample.md) - Track a package by `packageId` or by `carrierCode` and `trackingNumber`. This method returns
+- [trackPackage](./docs/trackPackageExample.md "Track Package method documentation") - Track a package by `packageId` or by `carrierCode` and `trackingNumber`. This method returns
 the all tracking events for a given shipment.
 
 Class Objects
---------------
+-------------
 - [ShipEngine]() - A configurable entry point to the ShipEngine API SDK, this class provides convenience methods
   for various ShipEngine API Services.
 
 Instantiate ShipEngine Class
-------------------------------
+----------------------------
 ```php
 <?php declare(strict_types=1);
 

@@ -251,7 +251,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertEquals('in_transit', $trackingResult->events[1]->status);
     }
 
-    public function testDevliveredFirstTryTrackingEvent(): void
+    public function testDeliveredFirstTryTrackingEvent(): void
     {
         $shipengine = new ShipEngine(
             array(
@@ -302,7 +302,7 @@ final class TrackPackageServiceTest extends TestCase
         $this->assertEquals('delivered', $trackingResult->events[8]->status);
     }
 
-    public function testDeliveryWithSignuatureTrackingEvent(): void
+    public function testDeliveryWithSignatureTrackingEvent(): void
     {
         $shipengine = new ShipEngine(
             array(
@@ -380,7 +380,7 @@ final class TrackPackageServiceTest extends TestCase
         );
     }
 
-    public function testSignleExceptionTrackingEvent(): void
+    public function testSingleExceptionTrackingEvent(): void
     {
         $shipengine = new ShipEngine(
             array(

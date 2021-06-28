@@ -7,7 +7,6 @@ use DateTime;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Psr\Http\Client\ClientExceptionInterface;
-use ShipEngine\Message\Events\RequestSentEvent;
 use ShipEngine\Message\Events\ResponseReceivedEvent;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;

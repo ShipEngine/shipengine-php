@@ -51,7 +51,6 @@ final class CarrierAccount implements \JsonSerializable
         $this->setCarrierAccount($accountInformation);
         $this->accountId = $accountInformation['accountID'];
         $this->accountNumber = $accountInformation['accountNumber'];
-        $this->name = $accountInformation['name'];
     }
 
     /**

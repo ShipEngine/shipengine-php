@@ -123,7 +123,7 @@ final class ShipEngineClient
         $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
         $requestHeaders = array(
             'Api-Key' => $config->apiKey,
-            'User-Agent' => $this->deriveUserAgent(ShipEngine::VERSION),
+            'User-Agent' => $this->deriveUserAgent(),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         );
@@ -279,9 +279,9 @@ final class ShipEngineClient
      *
      * @returns string
      */
-    private function deriveUserAgent(string $version): string
+    private function deriveUserAgent(): string
     {
-        $sdk_version = 'shipengine-php/' . $version;
+        $sdk_version = 'shipengine-php/' . ShipEngine::VERSION;
 
         $os = explode(' ', php_uname());
         $os_kernel = $os[0] . '/' . $os[2];
