@@ -13,7 +13,7 @@ use ShipEngine\Util\Constants\ErrorType;
 final class TimeoutException extends ShipEngineException
 {
     /**
-     * TimeoutException constructor - Instantiates a server-side error.
+     * TimeoutException constructor - Instantiates a timeout exception.
      *
      * @param int $retryAfter The amount of time (in SECONDS) to wait before retrying the request.
      * @param string|null $source

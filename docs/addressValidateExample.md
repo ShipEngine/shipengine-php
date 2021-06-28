@@ -1,6 +1,6 @@
 Address Validation Documentation
 ================================
-ShipEngine allows you to validate an address before using it to create a shipment to ensure accurate delivery
+[ShipEngine](www.shipengine.com) allows you to validate an address before using it to create a shipment to ensure accurate delivery
 of your packages.
 
 Address validation can lead to reduced shipping costs by preventing address correction surcharges. ShipEngine
@@ -24,8 +24,9 @@ There are two ways to validate an address using this SDK.
   requires a `countryCode` which should be the 2 character capitalized abbreviation for a given countryCode.
 
 - **Behavior**: The `validateAddress` method will always return
-  an [AddressValidateResult](../src/Model/Address/AddressValidateResult.php) object, even in the even that the
-  address passed in was not *valid*.
+  an [AddressValidateResult](../src/Model/Address/AddressValidateResult.php) object, and it allows you to determine
+  whether an address is valid before using it for your shipments. It accepts an address object containing typical
+  address properties, described below, and will return a normalized address object if the address is valid.
 
 - **Method level configuration** - You can optionally pass in an array that contains `configuration` values to be used
   for the current method call. The options are `apiKey`, `baseUrl`, `pageSize`,
@@ -88,7 +89,7 @@ $validated_address = $shipengine->validateAddress($address, ['retries' => 2]);
 print_r($validated_address);
 ```
 
-**Successful Address Validation Output:**: As a raw `AddressValidateResult` object.
+**Successful Address Validation Output:** As a raw `AddressValidateResult` object.
 
 ```php
 ShipEngine\Model\Address\AddressValidateResult Object
@@ -138,7 +139,7 @@ $validated_address = $shipengine->validateAddress($address, ['retries' => 2]);
 print_r(json_encode($validated_address, JSON_PRETTY_PRINT));  // Return the AddressValidateResult Type as a JSON string.
 ```
 
-**Successful Address Validation Output:**: This is the `AddressValidateResult` Type serialized as JSON.
+**Successful Address Validation Output:** This is the `AddressValidateResult` Type serialized as JSON.
 ```json5
 {
   "valid": true,

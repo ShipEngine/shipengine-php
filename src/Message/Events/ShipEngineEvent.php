@@ -4,7 +4,6 @@ namespace ShipEngine\Message\Events;
 
 use DateTime;
 use ShipEngine\Message\InvalidFieldValueException;
-use ShipEngine\Message\ShipEngineException;
 use ShipEngine\ShipEngineConfig;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\EventDispatcher\Event;
