@@ -47,7 +47,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -81,7 +81,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -110,7 +110,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -140,7 +140,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -170,7 +170,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -193,7 +193,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -216,7 +216,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -235,7 +235,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -255,7 +255,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -280,7 +280,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -306,7 +306,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -332,7 +332,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -359,7 +359,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -384,7 +384,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -405,7 +405,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -428,7 +428,7 @@ final class TrackPackageServiceTest extends TestCase
             $this->assertEquals(ErrorType::SYSTEM, $error['type']);
             $this->assertEquals(ErrorCode::UNSPECIFIED, $error['errorCode']);
             $this->assertEquals(
-                "Unable to connect to the database",
+                "Unable to process this request. A downstream API error occurred.",
                 $error['message']
             );
         }
@@ -438,7 +438,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -459,7 +459,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -481,7 +481,7 @@ final class TrackPackageServiceTest extends TestCase
     {
         $shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,

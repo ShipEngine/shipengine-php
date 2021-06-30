@@ -30,7 +30,7 @@ final class ShipEngineEventTest extends TestCase
         try {
             $config = new ShipEngineConfig(
                 array(
-                    'apiKey' => 'baz',
+                    'apiKey' => 'baz_sim',
                     'baseUrl' => Endpoints::TEST_RPC_URL,
                     'pageSize' => 75,
                     'retries' => 1,

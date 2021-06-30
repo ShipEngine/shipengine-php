@@ -49,7 +49,7 @@ final class CarrierAccount implements \JsonSerializable
     public function __construct(array $accountInformation)
     {
         $this->setCarrierAccount($accountInformation);
-        $this->accountId = $accountInformation['accountID'];
+        $this->accountId = $accountInformation['accountId'];
         $this->accountNumber = $accountInformation['accountNumber'];
     }
 

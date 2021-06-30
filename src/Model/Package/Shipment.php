@@ -82,8 +82,8 @@ final class Shipment implements \JsonSerializable
     public function __construct(array $shipment, IsoString $actualDeliveryDate, ShipEngineConfig $config)
     {
         $this->config = $config;
-        $this->shipmentId = isset($shipment['shipmentID']) ? $shipment['shipmentID'] : null;
-        $this->accountId = isset($shipment['carrierAccountID']) ? $shipment['carrierAccountID'] : null;
+        $this->shipmentId = isset($shipment['shipmentId']) ? $shipment['shipmentId'] : null;
+        $this->accountId = isset($shipment['carrierAccountId']) ? $shipment['carrierAccountId'] : null;
 
 
         $this->carrierAccount = isset($this->accountId) ?
@@ -105,7 +105,7 @@ final class Shipment implements \JsonSerializable
     {
         return [
             'shipmentId' => $this->shipmentId,
-            'carrierAccountID' => $this->accountId,
+            'carrierAccountId' => $this->accountId,
             'carrierAccount' => $this->carrierAccount,
             'carrier' => $this->carrier,
             'estimatedDeliveryDate' => (string)$this->estimatedDeliveryDate,

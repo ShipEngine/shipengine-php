@@ -26,7 +26,7 @@ final class CarrierAccountTest extends TestCase
         $carrierCode = new CarrierAccount(
             array(
                 'carrierCode' => Carriers::FEDEX,
-                'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
+                'accountId' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'accountNumber' => 'SDF987',
                 'name' => 'ShipEngine FedEx Account',
             )
@@ -39,19 +39,19 @@ final class CarrierAccountTest extends TestCase
         $accounts = array(
             array(
                 'carrierCode' => Carriers::FEDEX,
-                'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
+                'accountId' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'accountNumber' => 'SDF987',
                 'name' => 'ShipEngine FedEx Account',
             ),
             array(
                 'carrierCode' => Carriers::UPS,
-                'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
+                'accountId' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'accountNumber' => 'SDF987',
                 'name' => 'ShipEngine UPS Account',
             ),
             array(
                 'carrierCode' => Carriers::USPS,
-                'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
+                'accountId' => 'car_a09a8jsfd09wjzxcs9dfyha',
                 'accountNumber' => 'SDF987',
                 'name' => 'ShipEngine USPS Account',
             )
@@ -81,7 +81,7 @@ final class CarrierAccountTest extends TestCase
     {
         $invalidCarrierAccount = array(
             'carrierCode' => 'united_post',
-            'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
+            'accountId' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'accountNumber' => 'SDF987',
             'name' => 'Canada Post',
         );
@@ -103,7 +103,7 @@ final class CarrierAccountTest extends TestCase
     {
         $ups_account_info = array(
             'carrierCode' => Carriers::UPS,
-            'accountID' => 'car_a09a8jsfd09wjzxcs9dfyha',
+            'accountId' => 'car_a09a8jsfd09wjzxcs9dfyha',
             'accountNumber' => 'SDF987',
             'name' => 'ShipEngine UPS Account',
         );
