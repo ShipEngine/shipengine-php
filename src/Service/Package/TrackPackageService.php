@@ -52,7 +52,7 @@ final class TrackPackageService
             $apiResponse = $client->request(
                 RPCMethods::TRACK_PACKAGE,
                 $config,
-                array('packageId' => $trackingData)
+                array('packageId ' => $trackingData)
             );
             return new TrackPackageResult($apiResponse, $config);
         }
