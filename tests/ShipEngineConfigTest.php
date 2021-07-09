@@ -84,6 +84,9 @@ final class ShipEngineConfigTest extends TestCase
 
     public function tearDown(): void
     {
+        $this->addToAssertionCount(
+            \Mockery::getContainer()->mockery_getExpectationCount()
+        );
         Mockery::close();
     }
 
