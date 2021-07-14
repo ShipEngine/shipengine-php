@@ -64,14 +64,14 @@ final class Shipment implements \JsonSerializable
     public Carrier $carrier;
 
     /**
-     * @var IsoString
+     * @var IsoString|null
      */
-    public IsoString $estimatedDeliveryDate;
+    public ?IsoString $estimatedDeliveryDate;
 
     /**
-     * @var IsoString
+     * @var IsoString|null
      */
-    public IsoString $actualDeliveryDate;
+    public ?IsoString $actualDeliveryDate;
 
     /**
      * Shipment constructor.
@@ -82,8 +82,8 @@ final class Shipment implements \JsonSerializable
     public function __construct(array $shipment, IsoString $actualDeliveryDate, ShipEngineConfig $config)
     {
         $this->config = $config;
-        $this->shipmentId = isset($shipment['shipmentID']) ? $shipment['shipmentID'] : null;
-        $this->accountId = isset($shipment['carrierAccountID']) ? $shipment['carrierAccountID'] : null;
+        $this->shipmentId = isset($shipment['shipmentId']) ? $shipment['shipmentId'] : null;
+        $this->accountId = isset($shipment['carrierAccountId']) ? $shipment['carrierAccountId'] : null;
 
 
         $this->carrierAccount = isset($this->accountId) ?
@@ -93,7 +93,9 @@ final class Shipment implements \JsonSerializable
         $this->carrier = isset($this->carrierAccount) ?
             $this->carrierAccount->carrier :
             new Carrier($shipment['carrierCode']);
-        $this->estimatedDeliveryDate = new IsoString($shipment['estimatedDelivery']);
+        $this->estimatedDeliveryDate = isset($shipment["estimatedDelivery"]) ?
+            new IsoString($shipment['estimatedDelivery']) :
+            null;
         $this->actualDeliveryDate = $actualDeliveryDate;
     }
 
@@ -105,7 +107,7 @@ final class Shipment implements \JsonSerializable
     {
         return [
             'shipmentId' => $this->shipmentId,
-            'carrierAccountID' => $this->accountId,
+            'carrierAccountId' => $this->accountId,
             'carrierAccount' => $this->carrierAccount,
             'carrier' => $this->carrier,
             'estimatedDeliveryDate' => (string)$this->estimatedDeliveryDate,

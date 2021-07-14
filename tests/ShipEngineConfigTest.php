@@ -53,7 +53,7 @@ final class ShipEngineConfigTest extends TestCase
         self::$test_url = Endpoints::TEST_RPC_URL;
         self::$config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -63,7 +63,7 @@ final class ShipEngineConfigTest extends TestCase
         );
         self::$shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -84,6 +84,9 @@ final class ShipEngineConfigTest extends TestCase
 
     public function tearDown(): void
     {
+        $this->addToAssertionCount(
+            \Mockery::getContainer()->mockery_getExpectationCount()
+        );
         Mockery::close();
     }
 
@@ -145,7 +148,7 @@ final class ShipEngineConfigTest extends TestCase
         try {
             new ShipEngineConfig(
                 array(
-                    'apiKey' => 'baz',
+                    'apiKey' => 'baz_sim',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => -7,
@@ -172,7 +175,7 @@ final class ShipEngineConfigTest extends TestCase
         try {
             new ShipEngineConfig(
                 array(
-                    'apiKey' => 'baz',
+                    'apiKey' => 'baz_sim',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
@@ -259,7 +262,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -276,7 +279,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -293,7 +296,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -310,7 +313,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -327,7 +330,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
@@ -357,7 +360,7 @@ final class ShipEngineConfigTest extends TestCase
             );
             $shipengine = new ShipEngine(
                 array(
-                    'apiKey' => 'baz',
+                    'apiKey' => 'baz_sim',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 0,
@@ -414,7 +417,7 @@ final class ShipEngineConfigTest extends TestCase
             );
             $shipengine = new ShipEngine(
                 array(
-                    'apiKey' => 'baz',
+                    'apiKey' => 'baz_sim',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'timeout' => new DateInterval('PT15S'),
@@ -473,7 +476,7 @@ final class ShipEngineConfigTest extends TestCase
             );
             $shipengine = new ShipEngine(
                 array(
-                    'apiKey' => 'baz',
+                    'apiKey' => 'baz_sim',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 3,
@@ -526,7 +529,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $spy = Mockery::spy('ShipEngineEventListener');
         $config = array(
-            'apiKey' => 'baz',
+            'apiKey' => 'baz_sim',
             'baseUrl' => self::$test_url,
             'pageSize' => 75,
             'retries' => 0,
@@ -585,7 +588,7 @@ final class ShipEngineConfigTest extends TestCase
         $testStartTime = new DateTime();
         $spy = Mockery::spy('ShipEngineEventListener');
         $config = array(
-            'apiKey' => 'baz',
+            'apiKey' => 'baz_sim',
             'baseUrl' => self::$test_url,
             'pageSize' => 75,
             'retries' => 1,
@@ -677,7 +680,7 @@ final class ShipEngineConfigTest extends TestCase
     {
         $se_config = new ShipEngineConfig(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 1,

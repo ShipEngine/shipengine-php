@@ -55,7 +55,7 @@ final class AddressServiceTest extends TestCase
     {
         self::$shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,
@@ -373,7 +373,7 @@ final class AddressServiceTest extends TestCase
             $validation->normalizedAddress->cityLocality
         );
         $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $canadaAddress->postalCode);
-        $this->assertEquals('M6 K 3 C3', $validation->normalizedAddress->postalCode);
+        $this->assertEquals('M6K 3C3', $validation->normalizedAddress->postalCode);
         $this->assertEquals($canadaAddress->countryCode, $validation->normalizedAddress->countryCode);
         $this->assertFalse($validation->normalizedAddress->isResidential);
         $this->assertEmpty($validation->errors);
@@ -806,7 +806,7 @@ EOT,
             $this->assertEquals(ErrorType::SYSTEM, $error['type']);
             $this->assertEquals(ErrorCode::UNSPECIFIED, $error['errorCode']);
             $this->assertEquals(
-                "Unable to connect to the database",
+                "Unable to process this request. A downstream API error occurred.",
                 $error['message']
             );
         }
@@ -1161,7 +1161,7 @@ EOT,
             $validation->normalizedAddress->cityLocality
         );
         $this->assertMatchesRegularExpression('/^[a-zA-Z0-9\s]*$/', $canadaAddress->postalCode);
-        $this->assertEquals('M6 K 3 C3', $validation->normalizedAddress->postalCode);
+        $this->assertEquals('M6K 3C3', $validation->normalizedAddress->postalCode);
         $this->assertEquals($canadaAddress->countryCode, $validation->normalizedAddress->countryCode);
         $this->assertFalse($validation->normalizedAddress->isResidential);
     }
@@ -1526,7 +1526,7 @@ EOT,
             $this->assertEquals(ErrorType::SYSTEM, $error['type']);
             $this->assertEquals(ErrorCode::UNSPECIFIED, $error['errorCode']);
             $this->assertEquals(
-                "Unable to connect to the database",
+                "Unable to process this request. A downstream API error occurred.",
                 $error['message']
             );
         }

@@ -1,7 +1,7 @@
 [![ShipEngine](https://shipengine.github.io/img/shipengine-logo-wide.png)](https://shipengine.com)
 
-ShipEngine PHP
-==============
+ShipEngine PHP SDK
+==================
 
 [![Build Status](https://github.com/ShipEngine/shipengine-php/workflows/shipengine-php/badge.svg)](https://github.com/ShipEngine/shipengine-php/actions)
 [![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-php/badge.svg?branch=main&t=SkXqIE)](https://coveralls.io/github/ShipEngine/shipengine-php?branch=main)
@@ -19,7 +19,6 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 **Table of Contents**
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
   - [Methods](#methods)
   - [Class Objects](#class-objects)
   - [Instantiate ShipEngine Class](#instantiate-shipengine-class)
@@ -37,10 +36,7 @@ composer require shipengine/shipengine
 ```
 - The only configuration requirement is an [API Key](https://www.shipengine.com/docs/auth/#api-keys).
 
-> The following example assumes that you have already set the `SHIPENGIEN_API_KEY` environment variable with your Api Key using `putenv()`.
-
-Examples
-========
+> The following examples assumes that you have already set the `SHIPENGIEN_API_KEY` environment variable with your Api Key using `putenv()`.
 
 Methods
 -------
@@ -49,7 +45,7 @@ Methods
   which the address resides.
 - [normalizeAddress](./docs/normalizeAddressExample.md "Normalize Address method documentation") - Returns a normalized, or standardized, version of the
   address. If the address cannot be normalized, an error is returned.
-- [trackPackage](./docs/trackPackageExample.md "Track Package method documentation") - Track a package by `packageId` or by `carrierCode` and `trackingNumber`. This method returns
+- [trackPackage](./docs/trackPackageExample.md "Track Package method documentation") - Track a package by `packageId` (Ideal if you create a shipping label via ShipEngine) or by `carrierCode` and `trackingNumber`. This method returns
 the all tracking events for a given shipment.
 
 Class Objects
@@ -132,6 +128,8 @@ them before contributing to this project.
   - You will need to `cd` out of the project directory after you first install `direnv` and run `direnv allow` from within
     the project directory, and then `cd` back into the project directory for `direnv` to auto-load the `Nix` environment properly.
 
+Pre-Commit Hooks
+----------------
 This project also makes use of `pre-commit hooks` to help run lint and tests at time of commit, to leverage this you will
 need to install [pre-commit](https://pre-commit.com/#installation) and run the following command while in this repo:
 
