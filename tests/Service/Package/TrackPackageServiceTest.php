@@ -313,7 +313,7 @@ final class TrackPackageServiceTest extends TestCase
                 'timeout' => new DateInterval('PT15S')
             )
         );
-        $trackingResult = $shipengine->trackPackage('pkg_1FedexDeLivered');
+        $trackingResult = $shipengine->trackPackage('pkg_1FedExDeLivered');
         $this->trackPackageAssertions($trackingResult);
         $this->assertCount(5, $trackingResult->events);
         $this->assertEventsInOrder($trackingResult->events);

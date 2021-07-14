@@ -128,6 +128,8 @@ them before contributing to this project.
   - You will need to `cd` out of the project directory after you first install `direnv` and run `direnv allow` from within
     the project directory, and then `cd` back into the project directory for `direnv` to auto-load the `Nix` environment properly.
 
+Pre-Commit Hooks
+----------------
 This project also makes use of `pre-commit hooks` to help run lint and tests at time of commit, to leverage this you will
 need to install [pre-commit](https://pre-commit.com/#installation) and run the following command while in this repo:
 

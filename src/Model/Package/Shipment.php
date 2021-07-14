@@ -64,14 +64,14 @@ final class Shipment implements \JsonSerializable
     public Carrier $carrier;
 
     /**
-     * @var IsoString
+     * @var IsoString|null
      */
-    public IsoString $estimatedDeliveryDate;
+    public ?IsoString $estimatedDeliveryDate;
 
     /**
-     * @var IsoString
+     * @var IsoString|null
      */
-    public IsoString $actualDeliveryDate;
+    public ?IsoString $actualDeliveryDate;
 
     /**
      * Shipment constructor.
@@ -93,7 +93,9 @@ final class Shipment implements \JsonSerializable
         $this->carrier = isset($this->carrierAccount) ?
             $this->carrierAccount->carrier :
             new Carrier($shipment['carrierCode']);
-        $this->estimatedDeliveryDate = new IsoString($shipment['estimatedDelivery']);
+        $this->estimatedDeliveryDate = isset($shipment["estimatedDelivery"]) ?
+            new IsoString($shipment['estimatedDelivery']) :
+            null;
         $this->actualDeliveryDate = $actualDeliveryDate;
     }
 
