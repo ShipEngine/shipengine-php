@@ -25,6 +25,7 @@ A PHP library built on the [ShipEngine API](https://shipengine.com) offering low
 - [Testing](#testing)
 - [Linting](#linting)
 - [Contributing](#contributing)
+  - [Pre-Commit Hooks](#pre-commit-hooks)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
