@@ -150,7 +150,7 @@ final class Assert
      */
     public function isApiKeyValid(array $config): void
     {
-        if (isset($config['apiKey']) === false || $config['apiKey'] === '') {
+        if (isset($config['api_key']) === false || $config['api_key'] === '') {
             throw new ValidationException(
                 'A ShipEngine API key must be specified.',
                 null,

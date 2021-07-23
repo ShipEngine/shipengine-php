@@ -2,13 +2,11 @@
 
 namespace ShipEngine\Service\Address;
 
-use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Model\Address\Address;
 use ShipEngine\Model\Address\AddressValidateResult;
 use ShipEngine\ShipEngineClient;
 use ShipEngine\ShipEngineConfig;
-use ShipEngine\Util\Assert;
-use ShipEngine\Util\Constants\RPCMethods;
+use ShipEngine\Util\Constants\Endpoints;
 
 /**
  * Validate a single address or multiple addresses.
@@ -25,7 +23,7 @@ use ShipEngine\Util\Constants\RPCMethods;
 final class AddressService
 {
     /**
-     * Validate a single address via the `address/validate` remote procedure.
+     * Validate an individual address or multiple addresses via the `addresses/validate` endpoint.
      *
      * <br>
      * **Usage**:
@@ -34,43 +32,33 @@ final class AddressService
      * $addressService->validate(Address, ShipEngineConfig);
      * ```
      *
-     * @param Address $address
+     * @param Address|array $address
      * @param ShipEngineConfig $config
-     * @return AddressValidateResult
-     * @throws ClientExceptionInterface
      */
-    public function validate(Address $address, ShipEngineConfig $config): AddressValidateResult
+    public function validate($address, ShipEngineConfig $config)
     {
+        if (!is_array($address)) {
+            $request_body = [$address];
+        } else {
+            $request_body = $address;
+        }
+
         $client = new ShipEngineClient();
-        $apiResponse = $client->request(
-            RPCMethods::ADDRESS_VALIDATE,
-            $config,
-            $address->jsonSerialize()
+        $api_response = $client->restRequest(
+            'POST',
+            Endpoints::VALIDATE_ADDRESS,
+            $request_body,
+            $config
         );
 
-        return new AddressValidateResult($apiResponse);
-    }
+        $result = array();
+        foreach ($api_response as $returned_address) {
+            $result[] = new AddressValidateResult($returned_address);
+        }
 
-    /**
-     * Normalize a given address into a standardized format.
-     *
-     * <br>
-     * **Usage**:
-     * ```php
-     * $addressService = new AddressService();
-     * $addressService->normalize(Address, ShipEngineConfig);
-     * ```
-     *
-     * @param Address $address
-     * @param ShipEngineConfig $config
-     * @return Address
-     * @throws ClientExceptionInterface
-     */
-    public function normalize(Address $address, ShipEngineConfig $config): Address
-    {
-        $assert = new Assert();
-        $validationResult = $this->validate($address, $config);
-        $assert->doesNormalizedAddressHaveErrors($validationResult);
-        return $validationResult->normalizedAddress;
+        if (count($result) === 1) {
+            return $result[0];
+        }
+        return $result;
     }
 }

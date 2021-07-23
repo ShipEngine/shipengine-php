@@ -26,7 +26,7 @@ containing method-level configuration options.
   be returned as an instance of the [Address](../src/Model/Address/Address.php) class.
 
 - **Method level configuration** - You can optionally pass in an array that contains `configuration` values to be used
-  for the current method call. The options are `apiKey`, `baseUrl`, `pageSize`,
+  for the current method call. The options are `api_key`, `baseUrl`, `pageSize`,
   `retries` **(MUST be of type `DateInterval` e.g. `new DateInterval('PT5S')` would be 5 seconds)**,
   `timeout`, and `eventListener`.
 
@@ -64,9 +64,9 @@ require __DIR__ . '/vendor/autoload.php';
 use ShipEngine\Model\Address\Address;
 use ShipEngine\ShipEngine;
 
-$apiKey = getenv('SHIPENGINE_apiKey');
+$api_key = getenv('SHIPENGINE_api_key');
 
-$shipengine = new ShipEngine($apiKey);
+$shipengine = new ShipEngine($api_key);
 
 $address = new Address(
     [

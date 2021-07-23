@@ -22,7 +22,7 @@ to this method. Alternatively, you can track by `carrierCode` and `trackingNumbe
   instance or extension of [ShipEngineException](../src/Message/ShipEngineException.php) will be returned.
 
 - **Method level configuration** - You can optionally pass in an array that contains `configuration` values to be used
-  for the current method call. The options are `apiKey`, `baseUrl`, `pageSize`,
+  for the current method call. The options are `api_key`, `baseUrl`, `pageSize`,
   `retries` **(MUST be of type `DateInterval` e.g. `new DateInterval('PT5S')` would be 5 seconds)**,
   `timeout`, and `eventListener`.
 
@@ -46,9 +46,9 @@ require __DIR__ . '/vendor/autoload.php';
 use ShipEngine\Model\Package\TrackingQuery;
 use ShipEngine\ShipEngine;
 
-$apiKey = getenv('SHIPENGINE_apiKey');
+$api_key = getenv('SHIPENGINE_api_key');
 
-$shipengine = new ShipEngine($apiKey);
+$shipengine = new ShipEngine($api_key);
 
 $trackingData = new TrackingQuery('fedex', 'abcFedExDelivered');
 
@@ -317,9 +317,9 @@ require __DIR__ . '/vendor/autoload.php';
 
 use ShipEngine\ShipEngine;
 
-$apiKey = getenv('SHIPENGINE_apiKey');
+$api_key = getenv('SHIPENGINE_api_key');
 
-$shipengine = new ShipEngine($apiKey);
+$shipengine = new ShipEngine($api_key);
 
 $trackingData = 'pkg_1FedExAccepted';
 

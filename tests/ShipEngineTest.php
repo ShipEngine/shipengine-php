@@ -16,7 +16,7 @@ final class ShipEngineTest extends TestCase
     {
         self::$shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'api_key' => 'baz',
                 'baseUrl' => 'https://api.shipengine.com',
                 'pageSize' => 75,
                 'retries' => 7,

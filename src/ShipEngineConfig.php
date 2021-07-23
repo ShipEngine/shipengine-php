@@ -19,7 +19,7 @@ final class ShipEngineConfig implements \JsonSerializable
     /**
      * The default base uri for the ShipEngineClient.
      */
-    public const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_RPC_URL;
+    public const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_API;
 
     /**
      * Default page size for responses from ShipEngine API.
@@ -42,21 +42,21 @@ final class ShipEngineConfig implements \JsonSerializable
      *
      * @var string
      */
-    public string $apiKey;
+    public string $api_key;
 
     /**
      * The configured base uri for the ShipEngineClient.
      *
      * @var string
      */
-    public string $baseUrl;
+    public string $base_url;
 
     /**
      * Configured page size for responses from ShipEngine API.
      *
      * @var int
      */
-    public int $pageSize;
+    public int $page_size;
 
     /**
      * Configured number of retries the ShipEngineClient should make before returning an exception.
@@ -77,19 +77,19 @@ final class ShipEngineConfig implements \JsonSerializable
      *
      * @var object|ShipEngineEventListener
      */
-    public $eventListener;
+    public $event_listener;
 
     /**
      * ShipEngineConfig constructor.
      *
-     * @param array $config {apiKey:string, baseUrl:string, pageSize:int,
-     * retries:int, timeout:DateInterval, eventListener:object}
+     * @param array $config {api_key:string, base_url:string, page_size:int,
+     * retries:int, timeout:DateInterval, event_listener:object}
      */
     public function __construct(array $config = array())
     {
         $assert = new Assert();
-        $assert->isApiKeyValid($config);
-        $this->apiKey = $config['apiKey'];
+        $assert->isapi_keyValid($config);
+        $this->api_key = $config['api_key'];
 
         if (isset($config['retries']) === true && $config['retries'] >= 0) {
             $this->retries = $config['retries'];
@@ -121,12 +121,12 @@ final class ShipEngineConfig implements \JsonSerializable
             );
         }
 
-        isset($config['eventListener']) ?
-            $this->eventListener = $config['eventListener'] :
-            $this->eventListener =  new ShipEngineEventListener();
+        isset($config['event_listener']) ?
+            $this->event_listener = $config['event_listener'] :
+            $this->event_listener =  new ShipEngineEventListener();
 
-        $this->baseUrl = $config['baseUrl'] ?? self::DEFAULT_BASE_URI;
-        $this->pageSize = $config['pageSize'] ?? self::DEFAULT_PAGE_SIZE;
+        $this->base_url = $config['base_url'] ?? self::DEFAULT_BASE_URI;
+        $this->page_size = $config['page_size'] ?? self::DEFAULT_PAGE_SIZE;
     }
 
     /**
@@ -143,17 +143,17 @@ final class ShipEngineConfig implements \JsonSerializable
 
         $config = array();
 
-        isset($newConfig['apiKey']) ?
-            ($config['apiKey'] = $newConfig['apiKey']) :
-            ($config['apiKey'] = $this->apiKey);
+        isset($newConfig['api_key']) ?
+            ($config['api_key'] = $newConfig['api_key']) :
+            ($config['api_key'] = $this->api_key);
 
-        isset($newConfig['baseUrl']) ?
-            ($config['baseUrl'] = $newConfig['baseUrl']) :
-            ($config['baseUrl'] = $this->baseUrl);
+        isset($newConfig['base_url']) ?
+            ($config['base_url'] = $newConfig['base_url']) :
+            ($config['base_url'] = $this->base_url);
 
-        isset($newConfig['pageSize']) ?
-            ($config['pageSize'] = $newConfig['pageSize']) :
-            ($config['pageSize'] = $this->pageSize);
+        isset($newConfig['page_size']) ?
+            ($config['page_size'] = $newConfig['page_size']) :
+            ($config['page_size'] = $this->page_size);
 
         isset($newConfig['retries']) ?
             ($config['retries'] = $newConfig['retries']) :
@@ -163,13 +163,9 @@ final class ShipEngineConfig implements \JsonSerializable
             ($config['timeout'] = $newConfig['timeout']) :
             ($config['timeout'] = $this->timeout);
 
-        isset($newConfig['timeout']) ?
-            ($config['timeout'] = $newConfig['timeout']) :
-            ($config['timeout'] = $this->timeout);
-
-        isset($newConfig['$this->eventListener']) ?
-            ($config['$this->eventListener'] = $newConfig['$this->eventListener']) :
-            ($config['$this->eventListener'] = $this->eventListener);
+        isset($newConfig['$this->event_listener']) ?
+            ($config['$this->event_listener'] = $newConfig['$this->event_listener']) :
+            ($config['$this->event_listener'] = $this->event_listener);
 
         return new ShipEngineConfig($config);
     }
@@ -181,12 +177,12 @@ final class ShipEngineConfig implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-          'apiKey' => $this->apiKey,
-          'baseUrl' => $this->baseUrl,
-          'pageSize' => $this->pageSize,
+          'api_key' => $this->api_key,
+          'base_url' => $this->base_url,
+          'page_size' => $this->page_size,
           'retries' => $this->retries,
           'timeout' => $this->timeout->s,
-          'eventListener' => $this->eventListener
+          'event_listener' => $this->event_listener
         ];
     }
 }

@@ -40,7 +40,7 @@ final class CarrierAccountServiceTest extends TestCase
     {
         self::$shipengine = new ShipEngine(
             array(
-                'apiKey' => 'baz',
+                'api_key' => 'baz',
                 'baseUrl' => Endpoints::TEST_RPC_URL,
                 'pageSize' => 75,
                 'retries' => 1,

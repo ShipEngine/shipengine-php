@@ -738,7 +738,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Instantiates\u0020the\u0020ShipEngine\u0020class.\u0020The\u0020\u0060apiKey\u0060\u0020you\u0020pass\u0020in\u0020can\u0020be\u0020either\na\u0020ShipEngine\u0020sandbox\u0020or\u0020production\u0020API\u0020Key.\u0020\u0028sandbox\u0020keys\u0020start\u0020with\u0020\u0022TEST_\u0029",
+            "summary": "Instantiates\u0020the\u0020ShipEngine\u0020class.\u0020The\u0020\u0060api_key\u0060\u0020you\u0020pass\u0020in\u0020can\u0020be\u0020either\na\u0020ShipEngine\u0020sandbox\u0020or\u0020production\u0020API\u0020Key.\u0020\u0028sandbox\u0020keys\u0020start\u0020with\u0020\u0022TEST_\u0029",
             "url": "classes/ShipEngine-ShipEngine.html#method___construct"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngine\u003A\u003AvalidateAddress\u0028\u0029",
@@ -856,10 +856,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-ShipEngineConfig.html#constant_DEFAULT_TIMEOUT"
         },                {
-            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024apiKey",
-            "name": "apiKey",
+            "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024api_key",
+            "name": "api_key",
             "summary": "",
-            "url": "classes/ShipEngine-ShipEngineConfig.html#property_apiKey"
+            "url": "classes/ShipEngine-ShipEngineConfig.html#property_api_key"
         },                {
             "fqsen": "\\ShipEngine\\ShipEngineConfig\u003A\u003A\u0024baseUrl",
             "name": "baseUrl",
@@ -936,10 +936,10 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020the\u0020countryCode\u0020code\u0020is\u00202\u0020capitalized\u0020letter\u0020and\u0020is\u0020not\u0020an\u0020empty\u0020string.",
             "url": "classes/ShipEngine-Util-Assert.html#method_isCountryCodeValid"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\Assert\u003A\u003AisApiKeyValid\u0028\u0029",
-            "name": "isApiKeyValid",
+            "fqsen": "\\ShipEngine\\Util\\Assert\u003A\u003Aisapi_keyValid\u0028\u0029",
+            "name": "isapi_keyValid",
             "summary": "Asserts\u0020that\u0020the\u0020API\u0020Key\u0020provided\u0020is\u0020a\u0020valid\u0020string\u0020and\u0020is\u0020provided.",
-            "url": "classes/ShipEngine-Util-Assert.html#method_isApiKeyValid"
+            "url": "classes/ShipEngine-Util-Assert.html#method_isapi_keyValid"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Assert\u003A\u003AisTimeoutValid\u0028\u0029",
             "name": "isTimeoutValid",

@@ -56,16 +56,16 @@ final class ShipEngine
     protected ShipEngineLogger $logger;
 
     /**
-     * Instantiates the ShipEngine class. The `apiKey` you pass in can be either
+     * Instantiates the ShipEngine class. The `api_key` you pass in can be either
      * a ShipEngine sandbox or production API Key. (sandbox keys start with "TEST_)
      *
-     * @param mixed $config Can be either a string that is your `apiKey` or an `array` {apiKey:string,
+     * @param mixed $config Can be either a string that is your `api_key` or an `array` {api_key:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, eventListener:object}
      */
     public function __construct($config = null)
     {
         $this->config = new ShipEngineConfig(
-            is_string($config) ? array('apiKey' => $config) : $config
+            is_string($config) ? array('api_key' => $config) : $config
         );
         $this->addressService = new AddressService();
         $this->trackingService = new TrackPackageService();
@@ -74,13 +74,13 @@ final class ShipEngine
     /**
      * Validate an address in nearly any countryCode in the world.
      *
-     * @param Address $address The address to validate. This can even be an incomplete or improperly formatted address.
-     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
+     * @param Address|array $address The address to validate. This can even be an incomplete or improperly
+     * formatted address.
+     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
-     * @return AddressValidateResult
-     * @throws ShipEngineException|ClientExceptionInterface
+     * @throws ShipEngineException
      */
-    public function validateAddress(Address $address, $config = null): AddressValidateResult
+    public function validateAddresses($address, $config = null)
     {
         $config = $this->config->merge($config);
 
@@ -88,23 +88,7 @@ final class ShipEngine
     }
 
     /**
-     * Normalize a given address into a standardized format used by carriers.
-     *
-     * @param Address $address
-     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
-     * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
-     * @return Address
-     * @throws ShipEngineException|ClientExceptionInterface
-     */
-    public function normalizeAddress(Address $address, $config = null): Address
-    {
-        $config = $this->config->merge($config);
-
-        return $this->addressService->normalize($address, $config);
-    }
-
-    /**
-     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
+     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
      *
      * @param string|null $carrierCode
@@ -122,7 +106,7 @@ final class ShipEngine
      * Track a package by `trackingNumber` and `carrierCode` via the **TrackingQuery** object, by using just the
      * **packageId**, or by using a **Package** object.
      *
-     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
+     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {api_key:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
      * @return Model\Package\TrackPackageResult
      * @throws ClientExceptionInterface
