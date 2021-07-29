@@ -2,7 +2,6 @@
 
 namespace ShipEngine;
 
-use cbschuld\UuidBase58;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -21,7 +20,7 @@ use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
+ * A wrapped `REST` HTTP client to send HTTP requests from the SDK.
  *
  * @package ShipEngine
  */
@@ -32,84 +31,54 @@ final class ShipEngineClient
      * Implement a GET request and return output
      *
      * @param string $url
-     * @param array $httpHeaders
+     * @param ShipEngineConfig $config
      *
      * @return string
      */
-    public static function get($url, $httpHeaders = array())
+    public static function get($url, ShipEngineConfig $config)
     {
-        return self::sendRESTRequest('GET', array(), $config);
+        return self::sendRESTRequest('GET', $url, null, $config);
     }
 
     /**
      * Implement a POST request and return output
      *
      * @param string $url
+     * @param ShipEngineConfig $config
      * @param array $data
-     * @param array $httpHeaders
      *
      * @return string
      */
-    public static function post($url, $data, $httpHeaders = array())
+    public static function post($url, ShipEngineConfig $config, array $params = null)
     {
-        return self::sendRESTRequest('POST', $params, $config);
+        return self::sendRESTRequest('POST', $url, $params, $config);
     }
 
     /**
      * Implement a PUT request and return output
      *
      * @param string $url
+     * @param ShipEngineConfig $config
      * @param array $data
-     * @param array $httpHeaders
      *
      * @return string
      */
-    public static function put($url, $data, $httpHeaders = array())
+    public static function put($url, ShipEngineConfig $config, array $params = null)
     {
-        return self::sendRESTRequest('PUT', $params, $config);
+        return self::sendRESTRequest('PUT', $url, $params, $config);
     }
 
     /**
      * Implement a DELETE request and return output
      *
      * @param string $url
-     * @param array $httpHeaders
+     * @param ShipEngineConfig $config
      *
      * @return string
      */
-    public static function delete($url, ShipEngineConfig $config, array $params = null)
+    public static function delete($url, ShipEngineConfig $config)
     {
-        return self::sendRESTRequest('DELETE', $params, $config);
-    }
-    
-
-    /**
-     * Create a `REST` request over HTTP messages.
-     *
-     * @param string $method The REST method to be used in the request.
-     * @param string $url The REST url to be used in the request.
-     * @param array|null $params An array of params to be sent in the REST request.
-     * @param ShipEngineConfig $config A ShipEngineConfig object.
-     * @return array
-     * @throws ClientExceptionInterface
-     */
-    
-    private function createRequest(string $method, string $url, ?array $params, ShipEngineConfig $config): Request
-    {
-        $assert = new Assert();
-        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
-        $requestHeaders = array(
-            'Api-Key' => $config->apiKey,
-            'User-Agent' => $this->deriveUserAgent(),
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        );
-
-        $body = $this->wrapRequest($method, $params);
-
-        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
-        
-        return new Request($method, $baseUri, $requestHeaders, $jsonData);
+        return self::sendRESTRequest('DELETE', $url, null, $config);
     }
 
     /**
@@ -142,6 +111,35 @@ final class ShipEngineClient
             }
         }
         return $apiResponse;
+    }
+
+    /**
+     * Create a `REST` request over HTTP messages.
+     *
+     * @param string $method The REST method to be used in the request.
+     * @param string $url The REST url to be used in the request.
+     * @param array|null $params An array of params to be sent in the REST request.
+     * @param ShipEngineConfig $config A ShipEngineConfig object.
+     * @return array
+     * @throws ClientExceptionInterface
+     */
+    
+    private function createRequest(string $method, string $url, ?array $params, ShipEngineConfig $config): Request
+    {
+        $assert = new Assert();
+        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
+        $requestHeaders = array(
+            'Api-Key' => $config->apiKey,
+            'User-Agent' => $this->deriveUserAgent(),
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        );
+
+        $body = $this->wrapRequest($method, $params);
+
+        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
+        
+        return new Request($method, $baseUri, $requestHeaders, $jsonData);
     }
 
 

@@ -5,11 +5,11 @@ namespace ShipEngine;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Model\Address\Address;
-use ShipEngine\Model\Address\AddressValidateResult;
-use ShipEngine\Model\Package\TrackPackageResult;
-use ShipEngine\Service\Address\AddressService;
+// use ShipEngine\Model\Address\AddressValidateResult;
+// use ShipEngine\Model\Package\TrackPackageResult;
+// use ShipEngine\Service\Address\AddressService;
 use ShipEngine\Service\Carriers\CarrierAccountService;
-use ShipEngine\Service\Package\TrackPackageService;
+// use ShipEngine\Service\Package\TrackPackageService;
 use ShipEngine\Util\ShipEngineLogger;
 
 /**
@@ -29,7 +29,7 @@ final class ShipEngine
      *
      * @var AddressService
      */
-    protected AddressService $addressService;
+    // protected AddressService $addressService;
 
     /**
      * Methods that allow you to track a package by **packageId** or by *trackingNumber* and **carrierCode** using
@@ -37,7 +37,7 @@ final class ShipEngine
      *
      * @var TrackPackageService
      */
-    protected TrackPackageService $trackingService;
+    // protected TrackPackageService $trackingService;
 
     /**
      * Global configuration for the ShipEngine API client, such as timeouts,
@@ -80,12 +80,12 @@ final class ShipEngine
      * @return AddressValidateResult
      * @throws ShipEngineException|ClientExceptionInterface
      */
-    public function validateAddress(Address $address, $config = null): AddressValidateResult
-    {
-        $config = $this->config->merge($config);
+    // public function validateAddress(Address $address, $config = null): AddressValidateResult
+    // {
+    //     $config = $this->config->merge($config);
 
-        return $this->addressService->validate($address, $config);
-    }
+    //     return $this->addressService->validate($address, $config);
+    // }
 
     /**
      * Fetch the carrier accounts connected to your ShipEngine Account.
@@ -96,7 +96,7 @@ final class ShipEngine
      * @return array An array of **CarrierAccount** objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
      */
-    public function getCarrierAccounts(?string $carrierCode = null, $config = null): array
+    public function listCarriers($config = null): array
     {
         $config = $this->config->merge($config);
 
@@ -112,10 +112,10 @@ final class ShipEngine
      * @return Model\Package\TrackPackageResult
      * @throws ClientExceptionInterface
      */
-    public function trackPackage($tracking_data, $config = null): TrackPackageResult
-    {
-        $config = $this->config->merge($config);
+    // public function trackPackage($tracking_data, $config = null): TrackPackageResult
+    // {
+    //     $config = $this->config->merge($config);
 
-        return $this->trackingService->track($config, $tracking_data);
-    }
+    //     return $this->trackingService->track($config, $tracking_data);
+    // }
 }

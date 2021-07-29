@@ -39,17 +39,17 @@ final class AddressService
      * @return AddressValidateResult
      * @throws ClientExceptionInterface
      */
-    public function validate(Address $address, ShipEngineConfig $config): AddressValidateResult
-    {
-        $client = new ShipEngineClient();
-        $apiResponse = $client->request(
-            RPCMethods::ADDRESS_VALIDATE,
-            $config,
-            $address->jsonSerialize()
-        );
+    // public function validate(Address $address, ShipEngineConfig $config): AddressValidateResult
+    // {
+    //     $client = new ShipEngineClient();
+    //     $apiResponse = $client->request(
+    //         RPCMethods::ADDRESS_VALIDATE,
+    //         $config,
+    //         $address->jsonSerialize()
+    //     );
 
-        return new AddressValidateResult($apiResponse);
-    }
+    //     return new AddressValidateResult($apiResponse);
+    // }
 
     /**
      * Normalize a given address into a standardized format.
@@ -66,11 +66,11 @@ final class AddressService
      * @return Address
      * @throws ClientExceptionInterface
      */
-    public function normalize(Address $address, ShipEngineConfig $config): Address
-    {
-        $assert = new Assert();
-        $validationResult = $this->validate($address, $config);
-        $assert->doesNormalizedAddressHaveErrors($validationResult);
-        return $validationResult->normalizedAddress;
-    }
+    // public function normalize(Address $address, ShipEngineConfig $config): Address
+    // {
+    //     $assert = new Assert();
+    //     $validationResult = $this->validate($address, $config);
+    //     $assert->doesNormalizedAddressHaveErrors($validationResult);
+    //     return $validationResult->normalizedAddress;
+    // }
 }
