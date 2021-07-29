@@ -39,13 +39,8 @@ final class CarrierAccountServiceTest extends TestCase
     {
         self::$shipengine = new ShipEngine(
             array(
-<<<<<<< Updated upstream
-                'apiKey' => 'baz',
-                'baseUrl' => Endpoints::TEST_RPC_URL,
-=======
                 'apiKey' => 'baz_sim',
                 'baseUrl' => Endpoints::TEST_REST_URL,
->>>>>>> Stashed changes
                 'pageSize' => 75,
                 'retries' => 1,
                 'timeout' => new DateInterval('PT15S')
@@ -55,7 +50,7 @@ final class CarrierAccountServiceTest extends TestCase
 
     public function testFetchCarrierAccountsReturnValue(): void
     {
-        $carrier_accounts = self::$shipengine->getCarrierAccounts();
+        $carrier_accounts = self::$shipengine->listCarriers();
 
         foreach ($carrier_accounts as $account) {
             $this->assertInstanceOf(CarrierAccount::class, $account);
@@ -65,7 +60,7 @@ final class CarrierAccountServiceTest extends TestCase
 
     public function testFetchWithMultipleAccounts(): void
     {
-        $carrier_accounts = self::$shipengine->getCarrierAccounts();
+        $carrier_accounts = self::$shipengine->listCarriers();
 
         $this->assertIsArray($carrier_accounts);
         $this->assertArrayHasKey(0, $carrier_accounts);
@@ -86,7 +81,7 @@ final class CarrierAccountServiceTest extends TestCase
 
     public function testFetchWithMultipleAccountsOfSameCarrier(): void
     {
-        $carrier_accounts = self::$shipengine->getCarrierAccounts();
+        $carrier_accounts = self::$shipengine->listCarriers();
 
         $this->assertArrayHasKey(0, $carrier_accounts);
         $this->assertArrayHasKey(1, $carrier_accounts);
@@ -105,7 +100,7 @@ final class CarrierAccountServiceTest extends TestCase
 
     public function testNoCarrierAccountsSetup(): void
     {
-        $carrier_accounts = self::$shipengine->getCarrierAccounts('sendle');
+        $carrier_accounts = self::$shipengine->listCarriers('sendle');
 
         $this->assertIsArray($carrier_accounts);
         $this->assertCount(0, $carrier_accounts);
@@ -116,7 +111,7 @@ final class CarrierAccountServiceTest extends TestCase
     public function testServerSideError(): void
     {
         try {
-            self::$shipengine->getCarrierAccounts('access_worldwide');
+            self::$shipengine->listCarriers('access_worldwide');
         } catch (SystemException $e) {
             $error = $e->jsonSerialize();
             $this->assertInstanceOf(SystemException::class, $e);

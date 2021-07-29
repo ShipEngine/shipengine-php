@@ -96,38 +96,10 @@ final class Address implements \JsonSerializable
      */
     public function __construct(array $address)
     {
-        $this->validateInput($address);
-
         $this->isResidential = $address['isResidential'] ?? null;
         $this->name = $address['name'] ?? '';
         $this->phone = $address['phone'] ?? '';
         $this->company = $address['company'] ?? '';
-    }
-
-    /**
-     * Assertions to validate that the address array items are  in the type/format we need them to be.
-     *
-     * @param array $address
-     */
-    public function validateInput(array $address): void
-    {
-        $assert = new Assert();
-
-        $assert->isStreetSet($address['street']);
-        $assert->tooManyAddressLines($address['street']);
-        $this->street = $address['street'];
-
-        $assert->isCityValid($address['cityLocality']);
-        $this->cityLocality = $address['cityLocality'];
-
-        $assert->isStateValid($address['stateProvince']);
-        $this->stateProvince = $address['stateProvince'];
-
-        $assert->isPostalCodeValid($address['postalCode']);
-        $this->postalCode = $address['postalCode'];
-
-        $assert->isCountryCodeValid($address['countryCode']);
-        $this->countryCode = $address['countryCode'];
     }
 
     /**

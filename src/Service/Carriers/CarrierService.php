@@ -12,7 +12,7 @@ use ShipEngine\Util\Constants\RPCMethods;
  *
  * @package ShipEngine\Service\Carriers
  */
-final class ListCarriersService
+final class CarrierService
 {
     /**
      * Cached list of carrier accounts if any are present.

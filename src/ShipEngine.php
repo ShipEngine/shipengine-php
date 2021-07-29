@@ -8,7 +8,7 @@ use ShipEngine\Model\Address\Address;
 // use ShipEngine\Model\Address\AddressValidateResult;
 // use ShipEngine\Model\Package\TrackPackageResult;
 // use ShipEngine\Service\Address\AddressService;
-use ShipEngine\Service\Carriers\CarrierAccountService;
+use ShipEngine\Service\Carriers\CarrierService;
 // use ShipEngine\Service\Package\TrackPackageService;
 use ShipEngine\Util\ShipEngineLogger;
 
@@ -40,6 +40,14 @@ final class ShipEngine
     // protected TrackPackageService $trackingService;
 
     /**
+     * Methods that allow you to track a package by **packageId** or by *trackingNumber* and **carrierCode** using
+     * an instance of the **TrackingQuery** class that has those properties.
+     *
+     * @var TrackPackageService
+     */
+    protected CarrierService $carrierService;
+
+    /**
      * Global configuration for the ShipEngine API client, such as timeouts,
      * retries, page size, etc. This configuration applies to all method calls,
      * unless specifically overridden when calling a method.
@@ -67,8 +75,10 @@ final class ShipEngine
         $this->config = new ShipEngineConfig(
             is_string($config) ? array('apiKey' => $config) : $config
         );
-        $this->addressService = new AddressService();
-        $this->trackingService = new TrackPackageService();
+        // $this->addressService = new AddressService();
+        // $this->trackingService = new TrackPackageService();
+        // $this->trackingService = new TrackPackageService();
+        $this->carrierService = new CarrierService();
     }
 
     /**
@@ -100,7 +110,7 @@ final class ShipEngine
     {
         $config = $this->config->merge($config);
 
-        return CarrierAccountService::fetchCarrierAccounts($config, $carrierCode);
+        return $this->carrierService->listCarriers($config);
     }
 
     /**
