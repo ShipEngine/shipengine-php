@@ -30,8 +30,13 @@ final class ShipEngineEventTest extends TestCase
         try {
             $config = new ShipEngineConfig(
                 array(
+<<<<<<< Updated upstream
                     'apiKey' => 'baz',
                     'baseUrl' => Endpoints::TEST_RPC_URL,
+=======
+                    'apiKey' => 'baz_sim',
+                    'baseUrl' => Endpoints::TEST_REST_URL,
+>>>>>>> Stashed changes
                     'pageSize' => 75,
                     'retries' => 1,
                     'timeout' => new DateInterval('PT15S')

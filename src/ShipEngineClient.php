@@ -10,11 +10,6 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\AccountStatusException;
 use ShipEngine\Message\BusinessRuleException;
-use ShipEngine\Message\Events\EventMessage;
-use ShipEngine\Message\Events\EventOptions;
-use ShipEngine\Message\Events\RequestSentEvent;
-use ShipEngine\Message\Events\ResponseReceivedEvent;
-use ShipEngine\Message\Events\ShipEngineEvent;
 use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
@@ -32,47 +27,110 @@ use ShipEngine\Util\Constants\ErrorType;
  */
 final class ShipEngineClient
 {
+
     /**
-     * Wrap request per `JSON-RPC 2.0` spec.
+     * Implement a GET request and return output
      *
-     * @param string $method
-     * @param array|null $params
-     * @return array
+     * @param string $url
+     * @param array $httpHeaders
+     *
+     * @return string
      */
-    private function wrapRequest(string $method, ?array $params): array
+    public static function get($url, $httpHeaders = array())
     {
-        if ($params === null) {
-            return array_filter([
-                'id' => 'req_' . UuidBase58::id(),
-                'jsonrpc' => '2.0',
-                'method' => $method
-            ]);
-        } else {
-            return array_filter([
-                'id' => 'req_' . UuidBase58::id(),
-                'jsonrpc' => '2.0',
-                'method' => $method,
-                'params' => $params
-            ]);
-        }
+        //Initialize the Curl resource
+        $ch = self::init($url, $httpHeaders);
+
+        return self::processRequest($ch);
     }
 
     /**
-     * Create and send a `JSON-RPC 2.0` request over HTTP messages.
+     * Implement a POST request and return output
      *
-     * @param string $method The RPC method to be used in the request.
+     * @param string $url
+     * @param array $data
+     * @param array $httpHeaders
+     *
+     * @return string
+     */
+    public static function post($url, $data, $httpHeaders = array())
+    {
+        $ch = self::init($url, $httpHeaders);
+        //Set the request type
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        return self::processRequest($ch);
+    }
+
+    /**
+     * Implement a PUT request and return output
+     *
+     * @param string $url
+     * @param array $data
+     * @param array $httpHeaders
+     *
+     * @return string
+     */
+    public static function put($url, $data, $httpHeaders = array())
+    {
+        $ch = self::init($url, $httpHeaders);
+        //set the request type
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        return self::processRequest($ch);
+    }
+
+    /**
+     * Implement a DELETE request and return output
+     *
+     * @param string $url
+     * @param array $httpHeaders
+     *
+     * @return string
+     */
+    public static function delete($url, ShipEngineConfig $config, array $params = null)
+    {
+        $ch = self::init($url, $httpHeaders);
+        //set the request type
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+        return self::sendRESTRequest('DELETE', $params, $config);
+    }
+    
+
+    /**
+     * Create a `REST` request over HTTP messages.
+     *
+     * @param string $method The REST method to be used in the request.
+     * @param string $url The REST url to be used in the request.
+     * @param array|null $params An array of params to be sent in the REST request.
      * @param ShipEngineConfig $config A ShipEngineConfig object.
-     * @param array|null $params An array of params to be sent in the JSON-RPC request.
      * @return array
      * @throws ClientExceptionInterface
      */
-    public function request(string $method, ShipEngineConfig $config, array $params = null): array
+    
+    private function createRequest(string $method, string $url, ?array $params, ShipEngineConfig $config): Request
     {
-        return $this->sendRPCRequest($method, $params, $config);
+        $assert = new Assert();
+        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
+        $requestHeaders = array(
+            'Api-Key' => $config->apiKey,
+            'User-Agent' => $this->deriveUserAgent(),
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        );
+
+        $body = $this->wrapRequest($method, $params);
+
+        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
+        
+        return new Request($method, $baseUri, $requestHeaders, $jsonData);
     }
 
     /**
-     * Send a `JSON-RPC 2.0` request via *ShipEngineClient*.
+     * Send a `REST` request via *ShipEngineClient*.
      *
      * @param string $method
      * @param array|null $params
@@ -80,12 +138,13 @@ final class ShipEngineClient
      * @return array
      * @throws GuzzleException
      */
-    private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config): array
+    private function sendRESTRequest(string $method, string $url, ?array $params, ShipEngineConfig $config): array
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                $apiResponse = $this->sendRequest($method, $params, $retry, $config);
+                $request = createRequest($method, $url, $params, $config)
+                $apiResponse = $this->sendRequest($request, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
@@ -102,34 +161,22 @@ final class ShipEngineClient
         return $apiResponse;
     }
 
+
     /**
-     * Send a `JSON-RPC 2.0` request via HTTP Messages to ShipEngine API. If the response
+     * Send a `REST` request via HTTP Messages to ShipEngine API. If the response
      * is successful, the result is returned. Otherwise, an error is thrown.
      *
-     * @param string $method
-     * @param array|null $params
+     * @param Request $request
      * @param int $retry
      * @param ShipEngineConfig $config
      * @return array
      * @throws GuzzleException
      */
     private function sendRequest(
-        string $method,
-        ?array $params,
+        Request $request,
         int $retry,
         ShipEngineConfig $config
     ): array {
-        $assert = new Assert();
-        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
-        $requestHeaders = array(
-            'Api-Key' => $config->apiKey,
-            'User-Agent' => $this->deriveUserAgent(),
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        );
-
-        $body = $this->wrapRequest($method, $params);
-
         $client = new Client(
             [
                 'baseUri' => $baseUri,
@@ -137,30 +184,6 @@ final class ShipEngineClient
                 'max_retry_attempts' => $config->retries
             ]
         );
-
-        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
-
-        $retry === 0 ?
-            $requestEventMessage = EventMessage::newEventMessage($method, $baseUri, 'base_message') :
-            $requestEventMessage = EventMessage::newEventMessage($method, $baseUri, 'retry_message');
-
-        $requestEventData = new EventOptions([
-            'message' => $requestEventMessage,
-            'id' => $body['id'],
-            'baseUri' => $baseUri,
-            'requestHeaders' => $requestHeaders,
-            'body' => $body,
-            'retry' => $retry,
-            'timeout' => $config->timeout
-        ]);
-
-        $requestSentEvent = ShipEngineEvent::emitEvent(
-            RequestSentEvent::REQUEST_SENT,
-            $requestEventData,
-            $config
-        );
-
-        $request = new Request('POST', $baseUri, $requestHeaders, $jsonData);
 
         try {
             $response = $client->send(
@@ -181,23 +204,6 @@ final class ShipEngineClient
         $responseBody = (string)$response->getBody();
         $parsedResponse = json_decode($responseBody, true);
         $statusCode = $response->getStatusCode();
-
-        $responseEventData = new EventOptions([
-            'message' => "Received an HTTP $statusCode response from the ShipEngine $method API",
-            'id' => $parsedResponse['id'],
-            'baseUri' => $baseUri,
-            'statusCode' => $statusCode,
-            'responseHeaders' => $response->getHeaders(),
-            'body' => $parsedResponse,
-            'retry' => $retry,
-            'elapsed' => (new \DateTime())->diff($requestSentEvent->timestamp)
-        ]);
-
-        ShipEngineEvent::emitEvent(
-            ResponseReceivedEvent::RESPONSE_RECEIVED,
-            $responseEventData,
-            $config
-        );
 
         $assert->isResponse404($statusCode, $parsedResponse);
         $assert->isResponse429($statusCode, $parsedResponse, $config);

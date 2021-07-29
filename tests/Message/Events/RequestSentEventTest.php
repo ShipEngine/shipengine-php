@@ -271,8 +271,13 @@ final class RequestSentEventTest extends MockeryTestCase
     private function testConfig(object $eventListener, int $retries): array
     {
         return array(
+<<<<<<< Updated upstream
             'apiKey' => 'baz',
             'baseUrl' => Endpoints::TEST_RPC_URL,
+=======
+            'apiKey' => 'baz_sim',
+            'baseUrl' => Endpoints::TEST_REST_URL,
+>>>>>>> Stashed changes
             'pageSize' => 75,
             'retries' => $retries,
             'timeout' => new DateInterval('PT15S'),

@@ -19,7 +19,7 @@ final class ShipEngineConfig implements \JsonSerializable
     /**
      * The default base uri for the ShipEngineClient.
      */
-    public const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_RPC_URL;
+    public const DEFAULT_BASE_URI = Endpoints::SHIPENGINE_REST_URL;
 
     /**
      * Default page size for responses from ShipEngine API.

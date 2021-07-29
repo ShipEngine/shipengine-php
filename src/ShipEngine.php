@@ -88,22 +88,6 @@ final class ShipEngine
     }
 
     /**
-     * Normalize a given address into a standardized format used by carriers.
-     *
-     * @param Address $address
-     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
-     * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
-     * @return Address
-     * @throws ShipEngineException|ClientExceptionInterface
-     */
-    public function normalizeAddress(Address $address, $config = null): Address
-    {
-        $config = $this->config->merge($config);
-
-        return $this->addressService->normalize($address, $config);
-    }
-
-    /**
      * Fetch the carrier accounts connected to your ShipEngine Account.
      *
      * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
