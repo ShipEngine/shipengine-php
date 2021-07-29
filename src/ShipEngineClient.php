@@ -38,10 +38,7 @@ final class ShipEngineClient
      */
     public static function get($url, $httpHeaders = array())
     {
-        //Initialize the Curl resource
-        $ch = self::init($url, $httpHeaders);
-
-        return self::processRequest($ch);
+        return self::sendRESTRequest('GET', array(), $config);
     }
 
     /**
@@ -55,12 +52,7 @@ final class ShipEngineClient
      */
     public static function post($url, $data, $httpHeaders = array())
     {
-        $ch = self::init($url, $httpHeaders);
-        //Set the request type
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        return self::processRequest($ch);
+        return self::sendRESTRequest('POST', $params, $config);
     }
 
     /**
@@ -74,12 +66,7 @@ final class ShipEngineClient
      */
     public static function put($url, $data, $httpHeaders = array())
     {
-        $ch = self::init($url, $httpHeaders);
-        //set the request type
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-
-        return self::processRequest($ch);
+        return self::sendRESTRequest('PUT', $params, $config);
     }
 
     /**
@@ -92,10 +79,6 @@ final class ShipEngineClient
      */
     public static function delete($url, ShipEngineConfig $config, array $params = null)
     {
-        $ch = self::init($url, $httpHeaders);
-        //set the request type
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-
         return self::sendRESTRequest('DELETE', $params, $config);
     }
     
