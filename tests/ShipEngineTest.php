@@ -8,10 +8,6 @@ use ShipEngine\Model\Package\TrackPackageResult;
 /**
  * @covers \ShipEngine\ShipEngine
  * @covers \ShipEngine\ShipEngineClient
- * @uses \ShipEngine\ShipEngineConfig
- * @uses \ShipEngine\Util\Assert
- * @uses \ShipEngine\Service\Package\TrackPackageService
- * @uses \ShipEngine\Model\Package\TrackPackageResult
  */
 final class ShipEngineTest extends TestCase
 {

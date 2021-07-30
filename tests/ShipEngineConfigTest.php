@@ -12,20 +12,11 @@ use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\TimeoutException;
 use ShipEngine\Message\ValidationException;
-// use ShipEngine\Model\Address\Address;
 use ShipEngine\Util\Constants\Endpoints;
 
 /**
  * @covers \ShipEngine\ShipEngineConfig
- * @uses   \ShipEngine\Message\Events\ResponseReceivedEvent
- * @uses   \ShipEngine\Message\Events\RequestSentEvent
- * @uses   \ShipEngine\Message\Events\ShipEngineEvent
- * @uses   \ShipEngine\Message\Events\EventMessage
- * @uses   \ShipEngine\Message\Events\EventOptions
  * @uses   \ShipEngine\Message\RateLimitExceededException
- * @uses   \ShipEngine\Model\Address\AddressValidateResult
- * @uses   \ShipEngine\Model\Address\Address
- * @uses   \ShipEngine\Service\Address\AddressService
  * @uses   \ShipEngine\Util\Assert
  * @uses   \ShipEngine\ShipEngineConfig
  * @uses   \ShipEngine\Message\ShipEngineException
