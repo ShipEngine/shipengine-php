@@ -18,11 +18,11 @@ final class ShipEngine
      */
     public const VERSION = '0.0.1';
 
-    /**
-     *
-     * @var ShipEngineClient
-     */
-    protected ShipEngineClient $client;
+    // /**
+    //  *
+    //  * @var ShipEngineClient
+    //  */
+    // protected ShipEngineClient $client;
 
     /**
      * Global configuration for the ShipEngine API client, such as timeouts,
@@ -45,8 +45,6 @@ final class ShipEngine
         $this->config = new ShipEngineConfig(
             is_string($config) ? array('apiKey' => $config) : $config
         );
-
-        $this->$client = new ShipEngineClient();
     }
 
     /**
@@ -74,16 +72,16 @@ final class ShipEngine
      * @return array An array of **CarrierAccount** objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
      */
-    public function listCarriers($config = null): ListCarriersResult
+    public function listCarriers($config = null): array
     {
         $config = $this->config->merge($config);
-
+        $client = new ShipEngineClient();
         $apiResponse = $client->get(
             'v1/carriers',
             $config,
         );
 
-        return new $apiResponse;
+        return $apiResponse;
     }
 
     /**

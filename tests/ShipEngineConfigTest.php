@@ -12,7 +12,7 @@ use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\TimeoutException;
 use ShipEngine\Message\ValidationException;
-use ShipEngine\Model\Address\Address;
+// use ShipEngine\Model\Address\Address;
 use ShipEngine\Util\Constants\Endpoints;
 use ShipEngine\Util\Constants\ErrorCode;
 use ShipEngine\Util\Constants\ErrorSource;
@@ -43,7 +43,7 @@ final class ShipEngineConfigTest extends TestCase
 
     private static ShipEngineConfig $config;
 
-    private static Address $goodAddress;
+    // private static Address $goodAddress;
 
     private static string $test_url;
 
@@ -69,15 +69,15 @@ final class ShipEngineConfigTest extends TestCase
                 'timeout' => new DateInterval('PT15S'),
             )
         );
-        self::$goodAddress = new Address(
-            array(
-                'street' => array('4 Jersey St', 'ste 200'),
-                'cityLocality' => 'Boston',
-                'stateProvince' => 'MA',
-                'postalCode' => '02215',
-                'countryCode' => 'US',
-            )
-        );
+        // self::$goodAddress = new Address(
+        //     array(
+        //         'street' => array('4 Jersey St', 'ste 200'),
+        //         'cityLocality' => 'Boston',
+        //         'stateProvince' => 'MA',
+        //         'postalCode' => '02215',
+        //         'countryCode' => 'US',
+        //     )
+        // );
     }
 
     public function tearDown(): void

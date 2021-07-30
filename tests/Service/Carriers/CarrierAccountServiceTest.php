@@ -1,62 +1,62 @@
 <?php declare(strict_types=1);
 
-namespace Service\Carriers;
+// namespace Service\Carriers;
 
-use DateInterval;
-use PHPUnit\Framework\TestCase;
-use ShipEngine\Message\ShipEngineException;
-use ShipEngine\Message\SystemException;
-use ShipEngine\Model\Carriers\CarrierAccount;
-use ShipEngine\ShipEngine;
-use ShipEngine\Util\Constants\Endpoints;
-use ShipEngine\Util\Constants\ErrorCode;
-use ShipEngine\Util\Constants\ErrorSource;
-use ShipEngine\Util\Constants\ErrorType;
+// use DateInterval;
+// use PHPUnit\Framework\TestCase;
+// use ShipEngine\Message\ShipEngineException;
+// use ShipEngine\Message\SystemException;
+// use ShipEngine\Model\Carriers\CarrierAccount;
+// use ShipEngine\ShipEngine;
+// use ShipEngine\Util\Constants\Endpoints;
+// use ShipEngine\Util\Constants\ErrorCode;
+// use ShipEngine\Util\Constants\ErrorSource;
+// use ShipEngine\Util\Constants\ErrorType;
 
-/**
- * @covers \ShipEngine\Util\Assert
- * @covers \ShipEngine\Message\ShipEngineException
- * @covers \ShipEngine\Service\Carriers\CarrierAccountService
- * @covers \ShipEngine\ShipEngineConfig
- * @covers \ShipEngine\ShipEngineClient
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\Model\Carriers\Carrier
- * @covers \ShipEngine\Model\Carriers\CarrierAccount
- * @covers \ShipEngine\Util\Constants\Carriers
- * @covers \ShipEngine\Util\Constants\CarrierNames
- * @covers \ShipEngine\Message\Events\ShipEngineEvent
- * @covers \ShipEngine\Message\Events\ShipEngineEventListener
- * @covers \ShipEngine\Message\Events\RequestSentEvent
- * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
- * @uses   \ShipEngine\Message\Events\EventMessage
- * @uses   \ShipEngine\Message\Events\EventOptions
- */
-final class CarrierAccountServiceTest extends TestCase
-{
-    private static ShipEngine $shipengine;
+// *
+//  * @covers \ShipEngine\Util\Assert
+//  * @covers \ShipEngine\Message\ShipEngineException
+//  * @covers \ShipEngine\Service\Carriers\CarrierAccountService
+//  * @covers \ShipEngine\ShipEngineConfig
+//  * @covers \ShipEngine\ShipEngineClient
+//  * @covers \ShipEngine\ShipEngine
+//  * @covers \ShipEngine\Model\Carriers\Carrier
+//  * @covers \ShipEngine\Model\Carriers\CarrierAccount
+//  * @covers \ShipEngine\Util\Constants\Carriers
+//  * @covers \ShipEngine\Util\Constants\CarrierNames
+//  * @covers \ShipEngine\Message\Events\ShipEngineEvent
+//  * @covers \ShipEngine\Message\Events\ShipEngineEventListener
+//  * @covers \ShipEngine\Message\Events\RequestSentEvent
+//  * @covers \ShipEngine\Message\Events\ResponseReceivedEvent
+//  * @uses   \ShipEngine\Message\Events\EventMessage
+//  * @uses   \ShipEngine\Message\Events\EventOptions
+ 
+// final class CarrierAccountServiceTest extends TestCase
+// {
+//     private static ShipEngine $shipengine;
 
-    public static function setUpBeforeClass(): void
-    {
-        self::$shipengine = new ShipEngine(
-            array(
-                'apiKey' => 'TEST_ycvJAgX6tLB1Awm9WGJmD8mpZ8wXiQ20WhqFowCk32s',
-                'baseUrl' => Endpoints::TEST_REST_URL,
-                'pageSize' => 75,
-                'retries' => 1,
-                'timeout' => new DateInterval('PT15S')
-            )
-        );
-    }
+//     public static function setUpBeforeClass(): void
+//     {
+//         self::$shipengine = new ShipEngine(
+//             array(
+//                 'apiKey' => 'TEST_ycvJAgX6tLB1Awm9WGJmD8mpZ8wXiQ20WhqFowCk32s',
+//                 'baseUrl' => Endpoints::TEST_REST_URL,
+//                 'pageSize' => 75,
+//                 'retries' => 1,
+//                 'timeout' => new DateInterval('PT15S')
+//             )
+//         );
+//     }
 
-    public function testFetchCarrierAccountsReturnValue(): void
-    {
-        $carrier_accounts = self::$shipengine->listCarriers();
+//     public function testFetchCarrierAccountsReturnValue(): void
+//     {
+//         $carrier_accounts = self::$shipengine->listCarriers();
 
-        foreach ($carrier_accounts as $account) {
-            $this->assertInstanceOf(CarrierAccount::class, $account);
-            $this->assertStringStartsWith('car_', $account->accountId);
-        }
-    }
+//         foreach ($carrier_accounts as $account) {
+//             $this->assertInstanceOf(CarrierAccount::class, $account);
+//             $this->assertStringStartsWith('car_', $account->accountId);
+//         }
+//     }
 
     // public function testFetchWithMultipleAccounts(): void
     // {
@@ -126,4 +126,4 @@ final class CarrierAccountServiceTest extends TestCase
     //         );
     //     }
     // }
-}
+// }
