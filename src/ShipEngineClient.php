@@ -164,8 +164,9 @@ final class ShipEngineClient
                 ErrorCode::UNSPECIFIED
             );
         }
-        var_dump((string)$response->getBody());
+
         $responseBody = (string)$response->getBody();
+
         $parsedResponse = json_decode($responseBody, true);
         $statusCode = $response->getStatusCode();
 
