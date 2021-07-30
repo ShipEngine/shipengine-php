@@ -51,11 +51,11 @@ final class ShipEngineClient
      *
      * @param string $path The path to send the request to.
      * @param ShipEngineConfig $config A ShipEngineConfig object.
-     * @param array|null $params An array of params to be sent in the JSON-RPC request.
-     * @return array
+     * @param object|null $body An array of params to be sent in the JSON-RPC request.
+     * @return object
      * @throws ClientExceptionInterface
      */
-    public function post(string $path, ShipEngineConfig $config, array $params = null): array
+    public function post(string $path, ShipEngineConfig $config, array $params = null): object
     {
         return $this->sendHTTPRequest($method, $params, $config);
     }
@@ -88,20 +88,21 @@ final class ShipEngineClient
     }
 
     /**
-     * Send a `JSON-RPC 2.0` request via *ShipEngineClient*.
+     * Make an HTTP request to the ShipEngine API. If the response
+     * is successful, the result is returned. Otherwise, the request will be retried.
      *
      * @param string $method
-     * @param array|null $params
+     * @param object|null $object
      * @param ShipEngineConfig $config
-     * @return array
+     * @return object
      * @throws GuzzleException
      */
-    private function sendHTTPRequest(string $method, ?array $params, ShipEngineConfig $config): object
+    private function sendHTTPRequest(string $method, ?object $object, ShipEngineConfig $config): object
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                $apiResponse = $this->sendRequest($method, $params, $retry, $config);
+                $apiResponse = $this->sendRequest($method, $object, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
