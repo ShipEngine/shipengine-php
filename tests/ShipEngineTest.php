@@ -6,8 +6,13 @@ use PHPUnit\Framework\TestCase;
 use ShipEngine\Model\Package\TrackPackageResult;
 
 /**
- * @covers \ShipEngine\ShipEngine
- * @covers \ShipEngine\ShipEngineClient
+ * @covers ShipEngine\ShipEngineConfig
+ * @covers ShipEngine\Util\Assert
+ * @covers ShipEngine\Util\ShipEngineSerializer
+ * @covers ShipEngine\ShipEngineConfig::__construct
+ * @covers ShipEngine\Util\Assert::isApiKeyValid
+ * @covers ShipEngine\Util\Assert::isTimeoutValid
+ * @covers ShipEngine\ShipEngineConfig::merge
  */
 final class ShipEngineTest extends TestCase
 {
