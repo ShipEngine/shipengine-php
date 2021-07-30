@@ -4,13 +4,7 @@ namespace ShipEngine;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\ShipEngineException;
-use ShipEngine\Model\Address\Address;
-// use ShipEngine\Model\Address\AddressValidateResult;
-// use ShipEngine\Model\Package\TrackPackageResult;
-// use ShipEngine\Service\Address\AddressService;
-use ShipEngine\Service\Carriers\CarrierService;
-// use ShipEngine\Service\Package\TrackPackageService;
-use ShipEngine\Util\ShipEngineLogger;
+use ShipEngine\ListCarriers\Result as ListCarriersResult;
 
 /**
  * Exposes the functionality of the ShipEngine API.
@@ -25,27 +19,10 @@ final class ShipEngine
     public const VERSION = '0.0.1';
 
     /**
-     * A collection of methods to call the ShipEngine Address Validation Services.
      *
-     * @var AddressService
+     * @var ShipEngineClient
      */
-    // protected AddressService $addressService;
-
-    /**
-     * Methods that allow you to track a package by **packageId** or by *trackingNumber* and **carrierCode** using
-     * an instance of the **TrackingQuery** class that has those properties.
-     *
-     * @var TrackPackageService
-     */
-    // protected TrackPackageService $trackingService;
-
-    /**
-     * Methods that allow you to track a package by **packageId** or by *trackingNumber* and **carrierCode** using
-     * an instance of the **TrackingQuery** class that has those properties.
-     *
-     * @var TrackPackageService
-     */
-    protected CarrierService $carrierService;
+    protected ShipEngineClient $client;
 
     /**
      * Global configuration for the ShipEngine API client, such as timeouts,
@@ -55,13 +32,6 @@ final class ShipEngine
      * @var ShipEngineConfig
      */
     public ShipEngineConfig $config;
-
-    /**
-     * ShipEngineLogger class.
-     *
-     * @var ShipEngineLogger
-     */
-    protected ShipEngineLogger $logger;
 
     /**
      * Instantiates the ShipEngine class. The `apiKey` you pass in can be either
@@ -75,10 +45,8 @@ final class ShipEngine
         $this->config = new ShipEngineConfig(
             is_string($config) ? array('apiKey' => $config) : $config
         );
-        // $this->addressService = new AddressService();
-        // $this->trackingService = new TrackPackageService();
-        // $this->trackingService = new TrackPackageService();
-        $this->carrierService = new CarrierService();
+
+        $this->$client = new ShipEngineClient();
     }
 
     /**
@@ -106,11 +74,16 @@ final class ShipEngine
      * @return array An array of **CarrierAccount** objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
      */
-    public function listCarriers($config = null): array
+    public function listCarriers($config = null): ListCarriersResult
     {
         $config = $this->config->merge($config);
 
-        return $this->carrierService->listCarriers($config);
+        $apiResponse = $client->get(
+            'v1/carriers',
+            $config,
+        );
+
+        return new $apiResponse;
     }
 
     /**

@@ -30,55 +30,55 @@ final class ShipEngineClient
     /**
      * Implement a GET request and return output
      *
-     * @param string $url
+     * @param string $path
      * @param ShipEngineConfig $config
      *
      * @return string
      */
-    public function get($url, ShipEngineConfig $config)
+    public function get($path, ShipEngineConfig $config)
     {
-        return $this->sendRESTRequest('GET', $url, null, $config);
+        return $this->sendRequestWithRetries('GET', $path, null, $config);
     }
 
     /**
      * Implement a POST request and return output
      *
-     * @param string $url
+     * @param string $path
      * @param ShipEngineConfig $config
      * @param array $data
      *
      * @return string
      */
-    public function post($url, ShipEngineConfig $config, array $params = null)
+    public function post($path, ShipEngineConfig $config, array $params = null)
     {
-        return $this->sendRESTRequest('POST', $url, $params, $config);
+        return $this->sendRequestWithRetries('POST', $path, $params, $config);
     }
 
     /**
      * Implement a PUT request and return output
      *
-     * @param string $url
+     * @param string $path
      * @param ShipEngineConfig $config
      * @param array $data
      *
      * @return string
      */
-    public function put($url, ShipEngineConfig $config, array $params = null)
+    public function put($path, ShipEngineConfig $config, array $params = null)
     {
-        return $this->sendRESTRequest('PUT', $url, $params, $config);
+        return $this->sendRequestWithRetries('PUT', $path, $params, $config);
     }
 
     /**
      * Implement a DELETE request and return output
      *
-     * @param string $url
+     * @param string $path
      * @param ShipEngineConfig $config
      *
      * @return string
      */
-    public function delete($url, ShipEngineConfig $config)
+    public function delete($path, ShipEngineConfig $config)
     {
-        return $this->sendRESTRequest('DELETE', $url, null, $config);
+        return $this->sendRequestWithRetries('DELETE', $path, null, $config);
     }
 
     /**
@@ -90,12 +90,12 @@ final class ShipEngineClient
      * @return array
      * @throws GuzzleException
      */
-    private function sendRESTRequest(string $method, string $url, ?array $params, ShipEngineConfig $config): array
+    private function sendRequestWithRetries(string $method, string $path, ?array $params, ShipEngineConfig $config): array
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                $apiResponse = $this->sendRequest($method, $url, $params, $retry, $config);
+                $apiResponse = $this->sendRequest($method, $path, $params, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
@@ -124,7 +124,7 @@ final class ShipEngineClient
      */
     private function sendRequest(
         string $method,
-        string $url,
+        string $path,
         ?array $params,
         int $retry,
         ShipEngineConfig $config
@@ -145,7 +145,7 @@ final class ShipEngineClient
 
         $jsonData = json_encode($params, JSON_UNESCAPED_SLASHES);
 
-        $request = new Request($method, $url, $requestHeaders, $jsonData);
+        $request = new Request($method, $path, $requestHeaders, $jsonData);
 
         try {
             $response = $client->send(
