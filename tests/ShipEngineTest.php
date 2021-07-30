@@ -13,6 +13,13 @@ use ShipEngine\Model\Package\TrackPackageResult;
  * @covers ShipEngine\Util\Assert::isApiKeyValid
  * @covers ShipEngine\Util\Assert::isTimeoutValid
  * @covers ShipEngine\ShipEngineConfig::merge
+ * @covers ShipEngine\ShipEngine::__construct
+ * @covers ShipEngine\ShipEngine::listCarriers
+ * @covers ShipEngine\ShipEngineClient::deriveUserAgent
+ * @covers ShipEngine\ShipEngineClient::get
+ * @covers ShipEngine\ShipEngineClient::handleResponse
+ * @covers ShipEngine\ShipEngineClient::sendRequest
+ * @covers ShipEngine\ShipEngineClient::sendRequestWithRetries
  */
 final class ShipEngineTest extends TestCase
 {
