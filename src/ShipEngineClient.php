@@ -2,7 +2,6 @@
 
 namespace ShipEngine;
 
-use cbschuld\UuidBase58;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -10,82 +9,95 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use ShipEngine\Message\AccountStatusException;
 use ShipEngine\Message\BusinessRuleException;
-use ShipEngine\Message\Events\EventMessage;
-use ShipEngine\Message\Events\EventOptions;
-use ShipEngine\Message\Events\RequestSentEvent;
-use ShipEngine\Message\Events\ResponseReceivedEvent;
-use ShipEngine\Message\Events\ShipEngineEvent;
 use ShipEngine\Message\RateLimitExceededException;
 use ShipEngine\Message\SecurityException;
 use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util\Assert;
-use ShipEngine\Util\Constants\ErrorCode;
-use ShipEngine\Util\Constants\ErrorSource;
-use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
+ * A wrapped `REST` HTTP client to send HTTP requests from the SDK.
  *
  * @package ShipEngine
  */
 final class ShipEngineClient
 {
+
     /**
-     * Wrap request per `JSON-RPC 2.0` spec.
+     * Implement a GET request and return output
      *
-     * @param string $method
-     * @param array|null $params
+     * @param string $path
+     * @param ShipEngineConfig $config
+     *
      * @return array
      */
-    private function wrapRequest(string $method, ?array $params): array
+    public function get($path, ShipEngineConfig $config)
     {
-        if ($params === null) {
-            return array_filter([
-                'id' => 'req_' . UuidBase58::id(),
-                'jsonrpc' => '2.0',
-                'method' => $method
-            ]);
-        } else {
-            return array_filter([
-                'id' => 'req_' . UuidBase58::id(),
-                'jsonrpc' => '2.0',
-                'method' => $method,
-                'params' => $params
-            ]);
-        }
+        return $this->sendRequestWithRetries('GET', $path, null, $config);
     }
 
     /**
-     * Create and send a `JSON-RPC 2.0` request over HTTP messages.
+     * Implement a POST request and return output
      *
-     * @param string $method The RPC method to be used in the request.
-     * @param ShipEngineConfig $config A ShipEngineConfig object.
-     * @param array|null $params An array of params to be sent in the JSON-RPC request.
+     * @param string $path
+     * @param ShipEngineConfig $config
+     * @param array $params
+     *
      * @return array
-     * @throws ClientExceptionInterface
      */
-    public function request(string $method, ShipEngineConfig $config, array $params = null): array
+    public function post($path, ShipEngineConfig $config, array $params = null)
     {
-        return $this->sendRPCRequest($method, $params, $config);
+        return $this->sendRequestWithRetries('POST', $path, $params, $config);
     }
 
     /**
-     * Send a `JSON-RPC 2.0` request via *ShipEngineClient*.
+     * Implement a PUT request and return output
+     *
+     * @param string $path
+     * @param ShipEngineConfig $config
+     * @param array $params
+     *
+     * @return array
+     */
+    public function put($path, ShipEngineConfig $config, array $params = null)
+    {
+        return $this->sendRequestWithRetries('PUT', $path, $params, $config);
+    }
+
+    /**
+     * Implement a DELETE request and return output
+     *
+     * @param string $path
+     * @param ShipEngineConfig $config
+     *
+     * @return array
+     */
+    public function delete($path, ShipEngineConfig $config)
+    {
+        return $this->sendRequestWithRetries('DELETE', $path, null, $config);
+    }
+
+    /**
+     * Send a `REST` request via *ShipEngineClient*.
      *
      * @param string $method
+     * @param string $path
      * @param array|null $params
      * @param ShipEngineConfig $config
      * @return array
      * @throws GuzzleException
      */
-    private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config): array
+    private function sendRequestWithRetries(
+        string $method,
+        string $path,
+        ?array $params,
+        ShipEngineConfig $config): array
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                $apiResponse = $this->sendRequest($method, $params, $retry, $config);
+                $apiResponse = $this->sendRequest($method, $path, $params, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
@@ -103,10 +115,11 @@ final class ShipEngineClient
     }
 
     /**
-     * Send a `JSON-RPC 2.0` request via HTTP Messages to ShipEngine API. If the response
+     * Send a `REST` request via HTTP Messages to ShipEngine API. If the response
      * is successful, the result is returned. Otherwise, an error is thrown.
      *
      * @param string $method
+     * @param string $path
      * @param array|null $params
      * @param int $retry
      * @param ShipEngineConfig $config
@@ -115,52 +128,28 @@ final class ShipEngineClient
      */
     private function sendRequest(
         string $method,
+        string $path,
         ?array $params,
         int $retry,
         ShipEngineConfig $config
     ): array {
-        $assert = new Assert();
-        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
         $requestHeaders = array(
-            'Api-Key' => $config->apiKey,
+            'api-key' => $config->apiKey,
             'User-Agent' => $this->deriveUserAgent(),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         );
 
-        $body = $this->wrapRequest($method, $params);
-
         $client = new Client(
             [
-                'baseUri' => $baseUri,
-                'headers' => $requestHeaders,
+                'base_uri' => $config->baseUrl,
                 'max_retry_attempts' => $config->retries
             ]
         );
 
-        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
+        $jsonData = json_encode($params, JSON_UNESCAPED_SLASHES);
 
-        $retry === 0 ?
-            $requestEventMessage = EventMessage::newEventMessage($method, $baseUri, 'base_message') :
-            $requestEventMessage = EventMessage::newEventMessage($method, $baseUri, 'retry_message');
-
-        $requestEventData = new EventOptions([
-            'message' => $requestEventMessage,
-            'id' => $body['id'],
-            'baseUri' => $baseUri,
-            'requestHeaders' => $requestHeaders,
-            'body' => $body,
-            'retry' => $retry,
-            'timeout' => $config->timeout
-        ]);
-
-        $requestSentEvent = ShipEngineEvent::emitEvent(
-            RequestSentEvent::REQUEST_SENT,
-            $requestEventData,
-            $config
-        );
-
-        $request = new Request('POST', $baseUri, $requestHeaders, $jsonData);
+        $request = new Request($method, $path, $requestHeaders, $jsonData);
 
         try {
             $response = $client->send(
@@ -172,37 +161,21 @@ final class ShipEngineClient
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
                 $err->getMessage(),
                 null,
-                ErrorSource::SHIPENGINE,
-                ErrorType::SYSTEM,
-                ErrorCode::UNSPECIFIED
+                'ShipEngine',
+                'System',
+                'Unspecified'
             );
         }
 
         $responseBody = (string)$response->getBody();
+
         $parsedResponse = json_decode($responseBody, true);
         $statusCode = $response->getStatusCode();
 
-        $responseEventData = new EventOptions([
-            'message' => "Received an HTTP $statusCode response from the ShipEngine $method API",
-            'id' => $parsedResponse['id'],
-            'baseUri' => $baseUri,
-            'statusCode' => $statusCode,
-            'responseHeaders' => $response->getHeaders(),
-            'body' => $parsedResponse,
-            'retry' => $retry,
-            'elapsed' => (new \DateTime())->diff($requestSentEvent->timestamp)
-        ]);
-
-        ShipEngineEvent::emitEvent(
-            ResponseReceivedEvent::RESPONSE_RECEIVED,
-            $responseEventData,
-            $config
-        );
-
-        $assert->isResponse404($statusCode, $parsedResponse);
-        $assert->isResponse429($statusCode, $parsedResponse, $config);
-        $assert->isResponse500($statusCode, $parsedResponse);
-
+        // $assert->isResponse404($statusCode, $parsedResponse);
+        // $assert->isResponse429($statusCode, $parsedResponse, $config);
+        // $assert->isResponse500($statusCode, $parsedResponse);
+        var_dump($parsedResponse);
         return $this->handleResponse($parsedResponse);
     }
 
@@ -215,62 +188,61 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-        if (isset($response['result']) === true) {
-            return $response;
-        }
+        return $response;
 
-        $error = $response['error'];
 
-        switch ($error['data']['type']) {
-            case ErrorType::ACCOUNT_STATUS:
-                throw new AccountStatusException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::SECURITY:
-                throw new SecurityException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::VALIDATION:
-                throw new ValidationException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::BUSINESS_RULES:
-                throw new BusinessRuleException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::SYSTEM:
-                throw new SystemException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            default:
-                throw new ShipEngineException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-        }
+        // $error = $response['error'];
+
+        // switch ($error['data']['type']) {
+        //     case ErrorType::ACCOUNT_STATUS:
+        //         throw new AccountStatusException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::SECURITY:
+        //         throw new SecurityException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::VALIDATION:
+        //         throw new ValidationException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::BUSINESS_RULES:
+        //         throw new BusinessRuleException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::SYSTEM:
+        //         throw new SystemException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     default:
+        //         throw new ShipEngineException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        // }
     }
 
     /**

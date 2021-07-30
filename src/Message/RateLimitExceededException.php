@@ -36,8 +36,8 @@ final class RateLimitExceededException extends ShipEngineException
             'You have exceeded the rate limit.',
             $requestId,
             $source,
-            ErrorType::SYSTEM,
-            ErrorCode::RATE_LIMIT_EXCEEDED,
+            'System',
+            'Rate Limit Exceeded',
             'https://www.shipengine.com/docs/rate-limits'
         );
 

@@ -1011,15 +1011,15 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/ShipEngine-Util-Constants-Endpoints.html"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints\u003A\u003ATEST_RPC_URL",
-            "name": "TEST_RPC_URL",
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints\u003A\u003ATEST_REST_URL",
+            "name": "TEST_REST_URL",
             "summary": "",
-            "url": "classes/ShipEngine-Util-Constants-Endpoints.html#constant_TEST_RPC_URL"
+            "url": "classes/ShipEngine-Util-Constants-Endpoints.html#constant_TEST_REST_URL"
         },                {
-            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints\u003A\u003ASHIPENGINE_RPC_URL",
-            "name": "SHIPENGINE_RPC_URL",
+            "fqsen": "\\ShipEngine\\Util\\Constants\\Endpoints\u003A\u003ASHIPENGINE_REST_URL",
+            "name": "SHIPENGINE_REST_URL",
             "summary": "",
-            "url": "classes/ShipEngine-Util-Constants-Endpoints.html#constant_SHIPENGINE_RPC_URL"
+            "url": "classes/ShipEngine-Util-Constants-Endpoints.html#constant_SHIPENGINE_REST_URL"
         },                {
             "fqsen": "\\ShipEngine\\Util\\Constants\\ErrorCode",
             "name": "ErrorCode",

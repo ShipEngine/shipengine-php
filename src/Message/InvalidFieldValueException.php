@@ -36,8 +36,8 @@ final class InvalidFieldValueException extends ShipEngineException
             "$field_name - $reason",
             null,
             null,
-            ErrorType::VALIDATION,
-            ErrorCode::INVALID_FIELD_VALUE,
+            'Validation',
+            'Invalid Field Value',
             null
         );
         $this->field_name = $field_name;
