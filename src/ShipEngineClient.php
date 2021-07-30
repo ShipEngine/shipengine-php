@@ -35,9 +35,9 @@ final class ShipEngineClient
      *
      * @return string
      */
-    public static function get($url, ShipEngineConfig $config)
+    public function get($url, ShipEngineConfig $config)
     {
-        return self::sendRESTRequest('GET', $url, null, $config);
+        return $this->sendRESTRequest('GET', $url, null, $config);
     }
 
     /**
@@ -49,9 +49,9 @@ final class ShipEngineClient
      *
      * @return string
      */
-    public static function post($url, ShipEngineConfig $config, array $params = null)
+    public function post($url, ShipEngineConfig $config, array $params = null)
     {
-        return self::sendRESTRequest('POST', $url, $params, $config);
+        return $this->sendRESTRequest('POST', $url, $params, $config);
     }
 
     /**
@@ -63,9 +63,9 @@ final class ShipEngineClient
      *
      * @return string
      */
-    public static function put($url, ShipEngineConfig $config, array $params = null)
+    public function put($url, ShipEngineConfig $config, array $params = null)
     {
-        return self::sendRESTRequest('PUT', $url, $params, $config);
+        return $this->sendRESTRequest('PUT', $url, $params, $config);
     }
 
     /**
@@ -76,9 +76,9 @@ final class ShipEngineClient
      *
      * @return string
      */
-    public static function delete($url, ShipEngineConfig $config)
+    public function delete($url, ShipEngineConfig $config)
     {
-        return self::sendRESTRequest('DELETE', $url, null, $config);
+        return $this->sendRESTRequest('DELETE', $url, null, $config);
     }
 
     /**
@@ -95,8 +95,7 @@ final class ShipEngineClient
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
-                $request = createRequest($method, $url, $params, $config)
-                $apiResponse = $this->sendRequest($request, $retry, $config);
+                $apiResponse = $this->sendRequest($method, $url, $params, $retry, $config);
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
@@ -114,36 +113,6 @@ final class ShipEngineClient
     }
 
     /**
-     * Create a `REST` request over HTTP messages.
-     *
-     * @param string $method The REST method to be used in the request.
-     * @param string $url The REST url to be used in the request.
-     * @param array|null $params An array of params to be sent in the REST request.
-     * @param ShipEngineConfig $config A ShipEngineConfig object.
-     * @return array
-     * @throws ClientExceptionInterface
-     */
-    
-    private function createRequest(string $method, string $url, ?array $params, ShipEngineConfig $config): Request
-    {
-        $assert = new Assert();
-        $baseUri = !getenv('CLIENT_BASE_URI') ? $config->baseUrl : getenv('CLIENT_BASE_URI');
-        $requestHeaders = array(
-            'Api-Key' => $config->apiKey,
-            'User-Agent' => $this->deriveUserAgent(),
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        );
-
-        $body = $this->wrapRequest($method, $params);
-
-        $jsonData = json_encode($body, JSON_UNESCAPED_SLASHES);
-        
-        return new Request($method, $baseUri, $requestHeaders, $jsonData);
-    }
-
-
-    /**
      * Send a `REST` request via HTTP Messages to ShipEngine API. If the response
      * is successful, the result is returned. Otherwise, an error is thrown.
      *
@@ -154,17 +123,30 @@ final class ShipEngineClient
      * @throws GuzzleException
      */
     private function sendRequest(
-        Request $request,
+        string $method,
+        string $url,
+        ?array $params,
         int $retry,
         ShipEngineConfig $config
     ): array {
+        $requestHeaders = array(
+            'api-key' => $config->apiKey,
+            'User-Agent' => $this->deriveUserAgent(),
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        );
+
+
         $client = new Client(
             [
-                'baseUri' => $baseUri,
-                'headers' => $requestHeaders,
+                'base_uri' => $config->baseUrl,
                 'max_retry_attempts' => $config->retries
             ]
         );
+
+        $jsonData = json_encode($params, JSON_UNESCAPED_SLASHES);
+
+        $request = new Request($method, $url, $requestHeaders, $jsonData);
 
         try {
             $response = $client->send(
@@ -172,6 +154,7 @@ final class ShipEngineClient
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
         } catch (ClientException $err) {
+
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
                 $err->getMessage(),

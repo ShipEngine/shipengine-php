@@ -23,13 +23,13 @@ final class CarrierService
 
     public static function listCarriers(ShipEngineConfig $config): array
     {
-        $client = new ShipEngineClient();
 
+        $client = new ShipEngineClient();
         $apiResponse = $client->get(
-            'v1/carriers'
+            'v1/carriers',
             $config,
         );
-
+        var_dump($apiResponse);
         $accounts = $apiResponse['result'];
         self::$accounts = array();
         foreach ($accounts as $account) {

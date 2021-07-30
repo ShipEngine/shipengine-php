@@ -4,6 +4,7 @@ namespace ShipEngine;
 
 use DateInterval;
 use ShipEngine\Message\ValidationException;
+use ShipEngine\Util\Assert;
 use ShipEngine\Util\Constants\Endpoints;
 
 /**
@@ -78,7 +79,10 @@ final class ShipEngineConfig implements \JsonSerializable
      */
     public function __construct(array $config = array())
     {
+        $assert = new Assert();
+        $assert->isApiKeyValid($config);
         $this->apiKey = $config['apiKey'];
+
 
         if (isset($config['retries']) === true && $config['retries'] >= 0) {
             $this->retries = $config['retries'];
@@ -96,6 +100,7 @@ final class ShipEngineConfig implements \JsonSerializable
 
         $timeout = $config['timeout'];
         if ($timeout instanceof DateInterval) {
+            $assert->isTimeoutValid($timeout);
             $this->timeout = $timeout;
         } elseif (isset($config['timeout']) === false) {
             $this->timeout = new DateInterval(self::DEFAULT_TIMEOUT);

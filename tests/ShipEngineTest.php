@@ -24,7 +24,6 @@ final class ShipEngineTest extends TestCase
                 'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new \DateInterval('PT15S'),
-                'events' => null
             )
         );
         $this->assertInstanceOf(ShipEngine::class, $shipengine);
