@@ -12,6 +12,10 @@ use PHPUnit\Framework\TestCase;
  * @covers ShipEngine\ShipEngineConfig
  * @covers ShipEngine\Util\Assert
  * @covers ShipEngine\Util\ShipEngineSerializer
+ * @covers ShipEngine\ShipEngineConfig::__construct
+ * @covers ShipEngine\Util\Assert::isApiKeyValid
+ * @covers ShipEngine\Util\Assert::isTimeoutValid
+ * @covers ShipEngine\ShipEngineConfig::merge
  * @package Util
  */
 final class ShipEngineSerializerTest extends TestCase
