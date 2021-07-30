@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace ShipEngine\Service\Carriers;
+namespace ShipEngine\Carriers;
 
 use ShipEngine\Model\Carriers\CarrierAccount;
 use ShipEngine\ShipEngineClient;
@@ -8,11 +8,11 @@ use ShipEngine\ShipEngineConfig;
 use ShipEngine\Util\Constants\RPCMethods;
 
 /**
- * Class ListCarriersService
+ * Class ListCarriers
  *
- * @package ShipEngine\Service\Carriers
+ * @package ShipEngine\ListCarriers
  */
-final class CarrierService
+final class ListCarriers
 {
     /**
      * Cached list of carrier accounts if any are present.
@@ -21,7 +21,7 @@ final class CarrierService
      */
     public static array $accounts = array();
 
-    public static function listCarriers(ShipEngineConfig $config): array
+    public static function call(ShipEngineConfig $config): array
     {
 
         $client = new ShipEngineClient();
@@ -29,14 +29,13 @@ final class CarrierService
             'v1/carriers',
             $config,
         );
-        var_dump($apiResponse);
-        $accounts = $apiResponse['result'];
-        self::$accounts = array();
-        foreach ($accounts as $account) {
-            $carrierAccount = new CarrierAccount($account);
-            self::$accounts[] = $carrierAccount;
+
+        $carriers = $apiResponse['carriers'];
+        self::$carriers = array();
+        foreach ($carriers as $carrier) {
+            self::$carriers[] = new CarrierAccount($carrier);
         }
 
-        return self::$accounts;
+        return self::$carriers;
     }
 }
