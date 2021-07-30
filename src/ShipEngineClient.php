@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace ShipEngine;
 
@@ -32,31 +34,6 @@ use ShipEngine\Util\Constants\ErrorType;
  */
 final class ShipEngineClient
 {
-    /**
-     * Wrap request per `JSON-RPC 2.0` spec.
-     *
-     * @param string $method
-     * @param array|null $params
-     * @return array
-     */
-    private function wrapRequest(string $method, ?array $params): array
-    {
-        if ($params === null) {
-            return array_filter([
-                'id' => 'req_' . UuidBase58::id(),
-                'jsonrpc' => '2.0',
-                'method' => $method
-            ]);
-        } else {
-            return array_filter([
-                'id' => 'req_' . UuidBase58::id(),
-                'jsonrpc' => '2.0',
-                'method' => $method,
-                'params' => $params
-            ]);
-        }
-    }
-
     /**
      * Create and send a `JSON-RPC 2.0` request over HTTP messages.
      *
@@ -170,7 +147,7 @@ final class ShipEngineClient
         } catch (ClientException $err) {
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
-                $err->getMessage(),
+                    $err->getMessage(),
                 null,
                 ErrorSource::SHIPENGINE,
                 ErrorType::SYSTEM,
