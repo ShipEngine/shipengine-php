@@ -79,6 +79,7 @@ final class Assert
 
     public function isResponse404(int $statusCode, $parsedResponse): void
     {
+        var_dump($parsedResponse);
         if (array_key_exists('error', $parsedResponse)) {
             $error = $parsedResponse['error'];
             $errorData = $parsedResponse['error']['data'];

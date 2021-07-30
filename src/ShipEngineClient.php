@@ -136,7 +136,6 @@ final class ShipEngineClient
             'Accept' => 'application/json'
         );
 
-
         $client = new Client(
             [
                 'base_uri' => $config->baseUrl,
@@ -170,10 +169,10 @@ final class ShipEngineClient
         $parsedResponse = json_decode($responseBody, true);
         $statusCode = $response->getStatusCode();
 
-        $assert->isResponse404($statusCode, $parsedResponse);
-        $assert->isResponse429($statusCode, $parsedResponse, $config);
-        $assert->isResponse500($statusCode, $parsedResponse);
-
+        // $assert->isResponse404($statusCode, $parsedResponse);
+        // $assert->isResponse429($statusCode, $parsedResponse, $config);
+        // $assert->isResponse500($statusCode, $parsedResponse);
+        var_dump($parsedResponse);
         return $this->handleResponse($parsedResponse);
     }
 
@@ -186,62 +185,62 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-        if (isset($response['result']) === true) {
-            return $response;
-        }
 
-        $error = $response['error'];
+        return $response;
 
-        switch ($error['data']['type']) {
-            case ErrorType::ACCOUNT_STATUS:
-                throw new AccountStatusException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::SECURITY:
-                throw new SecurityException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::VALIDATION:
-                throw new ValidationException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::BUSINESS_RULES:
-                throw new BusinessRuleException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            case ErrorType::SYSTEM:
-                throw new SystemException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-            default:
-                throw new ShipEngineException(
-                    $error['message'],
-                    $response['id'],
-                    $error['data']['source'],
-                    $error['data']['type'],
-                    $error['data']['code']
-                );
-        }
+
+        // $error = $response['error'];
+
+        // switch ($error['data']['type']) {
+        //     case ErrorType::ACCOUNT_STATUS:
+        //         throw new AccountStatusException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::SECURITY:
+        //         throw new SecurityException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::VALIDATION:
+        //         throw new ValidationException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::BUSINESS_RULES:
+        //         throw new BusinessRuleException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     case ErrorType::SYSTEM:
+        //         throw new SystemException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        //     default:
+        //         throw new ShipEngineException(
+        //             $error['message'],
+        //             $response['id'],
+        //             $error['data']['source'],
+        //             $error['data']['type'],
+        //             $error['data']['code']
+        //         );
+        // }
     }
 
     /**
