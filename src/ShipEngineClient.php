@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ShipEngine;
 
-use cbschuld\UuidBase58;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -28,24 +27,64 @@ use ShipEngine\Util\Constants\ErrorSource;
 use ShipEngine\Util\Constants\ErrorType;
 
 /**
- * A wrapped `JSON-RPC 2.0` HTTP client to send HTTP requests from the SDK.
+ * An HTTP client.
  *
  * @package ShipEngine
  */
 final class ShipEngineClient
 {
     /**
-     * Create and send a `JSON-RPC 2.0` request over HTTP messages.
+     * Make an HTTP GET request.
      *
-     * @param string $method The RPC method to be used in the request.
+     * @param string $path The path to send the request to.
+     * @param ShipEngineConfig $config A ShipEngineConfig object.
+     * @return object
+     * @throws ClientExceptionInterface
+     */
+    public function get(string $path, ShipEngineConfig $config): object
+    {
+        return $this->sendHTTPRequest($path, $config);
+    }
+
+    /**
+     * Make an HTTP POST request.
+     *
+     * @param string $path The path to send the request to.
      * @param ShipEngineConfig $config A ShipEngineConfig object.
      * @param array|null $params An array of params to be sent in the JSON-RPC request.
      * @return array
      * @throws ClientExceptionInterface
      */
-    public function request(string $method, ShipEngineConfig $config, array $params = null): array
+    public function post(string $path, ShipEngineConfig $config, array $params = null): array
     {
-        return $this->sendRPCRequest($method, $params, $config);
+        return $this->sendHTTPRequest($method, $params, $config);
+    }
+    /**
+     * Make an HTTP PUT request.
+     *
+     * @param string $path The path to send the request to.
+     * @param ShipEngineConfig $config A ShipEngineConfig object.
+     * @param array|null $params An array of params to be sent in the JSON-RPC request.
+     * @return array
+     * @throws ClientExceptionInterface
+     */
+    public function put(string $method, ShipEngineConfig $config, array $params = null): array
+    {
+        return $this->sendHTTPRequest($path, $params, $config);
+    }
+
+    /**
+     * Make an HTTP DELETE request.
+     *
+     * @param string $path The path to send the request to.
+     * @param ShipEngineConfig $config A ShipEngineConfig object.
+     * @param array|null $params An array of params to be sent in the JSON-RPC request.
+     * @return array
+     * @throws ClientExceptionInterface
+     */
+    public function delete(string $path, ShipEngineConfig $config, array $params = null): array
+    {
+        return $this->sendHTTPRequest($method, $params, $config);
     }
 
     /**
@@ -57,7 +96,7 @@ final class ShipEngineClient
      * @return array
      * @throws GuzzleException
      */
-    private function sendRPCRequest(string $method, ?array $params, ShipEngineConfig $config): array
+    private function sendHTTPRequest(string $method, ?array $params, ShipEngineConfig $config): object
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
@@ -80,11 +119,11 @@ final class ShipEngineClient
     }
 
     /**
-     * Send a `JSON-RPC 2.0` request via HTTP Messages to ShipEngine API. If the response
+     * Make an HTTP request to the ShipEngine API. If the response
      * is successful, the result is returned. Otherwise, an error is thrown.
      *
      * @param string $method
-     * @param array|null $params
+     * @param object|null $body
      * @param int $retry
      * @param ShipEngineConfig $config
      * @return array
@@ -92,7 +131,7 @@ final class ShipEngineClient
      */
     private function sendRequest(
         string $method,
-        ?array $params,
+        ?object $body,
         int $retry,
         ShipEngineConfig $config
     ): array {
@@ -104,8 +143,6 @@ final class ShipEngineClient
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         );
-
-        $body = $this->wrapRequest($method, $params);
 
         $client = new Client(
             [
