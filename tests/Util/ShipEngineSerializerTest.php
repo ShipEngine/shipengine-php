@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \ShipEngine\Util\Assert
  * @covers \ShipEngine\Util\ShipEngineSerializer
- * @covers \ShipEngine\Model\Address\Address
  * @package Util
  */
 final class ShipEngineSerializerTest extends TestCase
