@@ -35,15 +35,15 @@ final class ShipEngineSerializerTest extends TestCase
     // {
     //     $serializer = new ShipEngineSerializer();
     //     $json_string = '{"address": {
-	// 		"street": [
-	// 			"4 Jersey St",
-	// 			"multiple-error-messages"
-	// 		],
-	// 		"cityLocality": "Boston",
-	// 		"stateProvince": "MA",
-	// 		"postalCode": "02215",
-	// 		"countryCode": "US"
-	// 	}}';
+    // 		"street": [
+    // 			"4 Jersey St",
+    // 			"multiple-error-messages"
+    // 		],
+    // 		"cityLocality": "Boston",
+    // 		"stateProvince": "MA",
+    // 		"postalCode": "02215",
+    // 		"countryCode": "US"
+    // 	}}';
 
 
     //     $this->assertInstanceOf(

@@ -15,7 +15,6 @@ use ShipEngine\Model\Package\TrackPackageResult;
  */
 final class ShipEngineTest extends TestCase
 {
-
     private static ShipEngine $shipengine;
 
     public static function setUpBeforeClass(): void

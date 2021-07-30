@@ -153,7 +153,6 @@ final class ShipEngineClient
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
         } catch (ClientException $err) {
-
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
                 $err->getMessage(),
@@ -185,7 +184,6 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-
         return $response;
 
 
