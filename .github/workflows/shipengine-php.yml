@@ -32,7 +32,7 @@ jobs:
           runner_github_workspace_path: ${{ github.workspace }}
       - run: composer install
       - run: php-cs-fixer fix -vvv --config=.php-cs-fixer.dist.php
-      # - run: phpcs --standard=ruleset.xml PSR2 src
+      # - run: phpcs --standard=./ruleset.xml PSR2 src
       - run: phpstan analyse src --level 5
       - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v

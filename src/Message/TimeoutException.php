@@ -28,8 +28,8 @@ final class TimeoutException extends ShipEngineException
             "The request took longer than the $retryAfter seconds allowed.",
             $requestId,
             $source,
-            ErrorType::SYSTEM,
-            ErrorCode::TIMEOUT,
+            'System',
+            'Timeout',
             'https://www.shipengine.com/docs/rate-limits'
         );
     }

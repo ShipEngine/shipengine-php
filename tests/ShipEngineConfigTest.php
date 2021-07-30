@@ -14,9 +14,6 @@ use ShipEngine\Message\TimeoutException;
 use ShipEngine\Message\ValidationException;
 // use ShipEngine\Model\Address\Address;
 use ShipEngine\Util\Constants\Endpoints;
-use ShipEngine\Util\Constants\ErrorCode;
-use ShipEngine\Util\Constants\ErrorSource;
-use ShipEngine\Util\Constants\ErrorType;
 
 /**
  * @covers \ShipEngine\ShipEngineConfig

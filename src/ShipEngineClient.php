@@ -15,9 +15,6 @@ use ShipEngine\Message\ShipEngineException;
 use ShipEngine\Message\SystemException;
 use ShipEngine\Message\ValidationException;
 use ShipEngine\Util\Assert;
-use ShipEngine\Util\Constants\ErrorCode;
-use ShipEngine\Util\Constants\ErrorSource;
-use ShipEngine\Util\Constants\ErrorType;
 
 /**
  * A wrapped `REST` HTTP client to send HTTP requests from the SDK.
@@ -33,7 +30,7 @@ final class ShipEngineClient
      * @param string $path
      * @param ShipEngineConfig $config
      *
-     * @return string
+     * @return array
      */
     public function get($path, ShipEngineConfig $config)
     {
@@ -45,9 +42,9 @@ final class ShipEngineClient
      *
      * @param string $path
      * @param ShipEngineConfig $config
-     * @param array $data
+     * @param array $params
      *
-     * @return string
+     * @return array
      */
     public function post($path, ShipEngineConfig $config, array $params = null)
     {
@@ -59,9 +56,9 @@ final class ShipEngineClient
      *
      * @param string $path
      * @param ShipEngineConfig $config
-     * @param array $data
+     * @param array $params
      *
-     * @return string
+     * @return array
      */
     public function put($path, ShipEngineConfig $config, array $params = null)
     {
@@ -74,7 +71,7 @@ final class ShipEngineClient
      * @param string $path
      * @param ShipEngineConfig $config
      *
-     * @return string
+     * @return array
      */
     public function delete($path, ShipEngineConfig $config)
     {
@@ -85,6 +82,7 @@ final class ShipEngineClient
      * Send a `REST` request via *ShipEngineClient*.
      *
      * @param string $method
+     * @param string $path
      * @param array|null $params
      * @param ShipEngineConfig $config
      * @return array
@@ -120,7 +118,9 @@ final class ShipEngineClient
      * Send a `REST` request via HTTP Messages to ShipEngine API. If the response
      * is successful, the result is returned. Otherwise, an error is thrown.
      *
-     * @param Request $request
+     * @param string $method
+     * @param string $path
+     * @param array|null $params
      * @param int $retry
      * @param ShipEngineConfig $config
      * @return array
@@ -161,9 +161,9 @@ final class ShipEngineClient
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
                 $err->getMessage(),
                 null,
-                ErrorSource::SHIPENGINE,
-                ErrorType::SYSTEM,
-                ErrorCode::UNSPECIFIED
+                'ShipEngine',
+                'System',
+                'Unspecified'
             );
         }
 
