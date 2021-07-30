@@ -90,7 +90,11 @@ final class ShipEngineClient
      * @return array
      * @throws GuzzleException
      */
-    private function sendRequestWithRetries(string $method, string $path, ?array $params, ShipEngineConfig $config): array
+    private function sendRequestWithRetries(
+        string $method,
+        string $path,
+        ?array $params,
+        ShipEngineConfig $config): array
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
