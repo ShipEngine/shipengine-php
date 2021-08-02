@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace ShipEngine;
 
@@ -16,7 +18,7 @@ final class ShipEngine
     /**
      * ShipEngine SDK Version
      */
-    public const VERSION = '0.0.1';
+    public const VERSION = '1.0.0';
 
     // /**
     //  *
@@ -93,16 +95,16 @@ final class ShipEngine
     }
 
     /**
-    * When retrieving rates for shipments using the /rates endpoint, the returned information contains a rateId
-    * property that can be used to generate a label without having to refill in the shipment information repeatedly.
-    * See: https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_rate
-    *
-    * @param string $rateId A rate identifier for the label
-    * @param array $params An array of label params that will dictate the label display and level of verification.
-    * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
-    * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
-    * @return array A label that correspond the to shipment details for a rate id
-    */
+     * When retrieving rates for shipments using the /rates endpoint, the returned information contains a rateId
+     * property that can be used to generate a label without having to refill in the shipment information repeatedly.
+     * See: https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_rate
+     *
+     * @param string $rateId A rate identifier for the label
+     * @param array $params An array of label params that will dictate the label display and level of verification.
+     * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
+     * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
+     * @return array A label that correspond the to shipment details for a rate id
+     */
     public function createLabelFromRate($rateId, $params, $config = null): array
     {
         $config = $this->config->merge($config);
