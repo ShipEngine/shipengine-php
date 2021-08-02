@@ -33,7 +33,7 @@ final class ShipEngineConfig implements \JsonSerializable
     /**
      * Default timeout for the ShipEngineClient in seconds as a **DateInterval**.
      */
-    public const DEFAULT_TIMEOUT = 'PT5S';
+    public const DEFAULT_TIMEOUT = 'PT10S';
 
 
     /**
