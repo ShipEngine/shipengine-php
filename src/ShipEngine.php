@@ -194,7 +194,7 @@ final class ShipEngine
     {
         $config = $this->config->merge($config);
         $client = new ShipEngineClient();
-        $apiResponse = $client->post(
+        $apiResponse = $client->get(
             "v1/labels/$labelId/track",
             $config
         );
@@ -216,10 +216,9 @@ final class ShipEngine
     {
         $config = $this->config->merge($config);
         $client = new ShipEngineClient();
-        $apiResponse = $client->post(
-            "v1/tracking",
-            $config,
-            array('carrier_code' => $carrierCode, 'tracking_number' => $trackingNumber)
+        $apiResponse = $client->get(
+            "v1/tracking?carrier_code=$carrierCode&tracking_number=$trackingNumber",
+            $config
         );
 
         return $apiResponse;
