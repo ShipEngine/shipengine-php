@@ -98,7 +98,7 @@ final class ShipEngineClient
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
                 $apiResponse = $this->sendRequest($method, $path, $params, $retry, $config);
-                return $apiResponse;
+                break;
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
