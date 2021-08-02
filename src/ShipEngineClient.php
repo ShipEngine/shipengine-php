@@ -189,62 +189,19 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-        if (!isset($response['errors']) || $response['errors'].count == 0 ) {
+        if (!isset($response['errors']) || !$response['errors'][0] ) {
             return $response;
         }
 
         $error = $response['errors'][0];
 
-        switch ($error['error_type']) {
-            case ErrorType::ACCOUNT_STATUS:
-                throw new AccountStatusException(
-                    $error['message'],
-                    $response['request_id'],
-                    $error['error_source'],
-                    $error['error_type'],
-                    $error['error_code']
-                );
-            case ErrorType::SECURITY:
-                throw new SecurityException(
-                    $error['message'],
-                    $response['request_id'],
-                    $error['error_source'],
-                    $error['error_type'],
-                    $error['error_code']
-                );
-            case ErrorType::VALIDATION:
-                throw new ValidationException(
-                    $error['message'],
-                    $response['request_id'],
-                    $error['error_source'],
-                    $error['error_type'],
-                    $error['error_code']
-                );
-            case ErrorType::BUSINESS_RULES:
-                throw new BusinessRuleException(
-                    $error['message'],
-                    $response['request_id'],
-                    $error['error_source'],
-                    $error['error_type'],
-                    $error['error_code']
-                );
-            case ErrorType::SYSTEM:
-                throw new SystemException(
-                    $error['message'],
-                    $response['request_id'],
-                    $error['error_source'],
-                    $error['error_type'],
-                    $error['error_code']
-                );
-            default:
-                throw new ShipEngineException(
-                    $error['message'],
-                    $response['request_id'],
-                    $error['error_source'],
-                    $error['error_type'],
-                    $error['error_code']
-                );
-        }
+        throw new ShipEngineException(
+            $error['message'],
+            $response['request_id'],
+            $error['error_source'],
+            $error['error_type'],
+            $error['error_code']
+        );
     }
 
     /**
