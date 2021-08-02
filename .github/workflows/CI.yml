@@ -13,7 +13,7 @@ env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
-  php_tests:
+  ci:
     name: shipengine-php test suite
     runs-on: ubuntu-latest
     steps:
@@ -36,19 +36,3 @@ jobs:
       - run: phpstan analyse src --level 5
       - run: phpunit
       - run: ./vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
-
-  deploy:
-    needs: [php_tests]
-    if: ${{ success() && contains(github.event.head_commit.message, 'packagist release') }}
-    name: Publish to Packagist
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          body_path: ${{ github.workflow }}-CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace ShipEngine;
 
@@ -92,7 +94,7 @@ final class ShipEngine
         return $apiResponse;
     }
 
-     /**
+    /**
      * When retrieving rates for shipments using the /rates endpoint, the returned information contains a rateId
      * property that can be used to generate a label without having to refill in the shipment information repeatedly.
      * See: https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_rate
@@ -224,5 +226,4 @@ final class ShipEngine
 
         return $apiResponse;
     }
-
 }
