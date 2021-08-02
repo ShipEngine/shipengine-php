@@ -191,7 +191,7 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-        if (!isset($response['errors']) || !$response['errors'][0]) {
+        if (!isset($response['errors']) || (count($response['errors']) == 0)) {
             return $response;
         }
 
