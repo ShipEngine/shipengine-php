@@ -152,7 +152,7 @@ final class ShipEngine
         $config = $this->config->merge($config);
         $client = new ShipEngineClient();
         $apiResponse = $client->put(
-            "/v1/labels/${labelId}/void",
+            "v1/labels/${labelId}/void",
             $config
         );
 
@@ -195,7 +195,7 @@ final class ShipEngine
         $config = $this->config->merge($config);
         $client = new ShipEngineClient();
         $apiResponse = $client->post(
-            "/v1/labels/${labelId}/track",
+            "v1/labels/${labelId}/track",
             $config
         );
 
@@ -217,7 +217,7 @@ final class ShipEngine
         $config = $this->config->merge($config);
         $client = new ShipEngineClient();
         $apiResponse = $client->post(
-            "/v1/tracking",
+            "v1/tracking",
             $config,
             array('carrier_code' => $carrierCode, 'tracking_number' => $trackingNumber)
         );
