@@ -93,7 +93,7 @@ final class ShipEngine
     }
 
      /**
-     * When retrieving rates for shipments using the /rates endpoint, the returned information contains a rate_id
+     * When retrieving rates for shipments using the /rates endpoint, the returned information contains a rateId
      * property that can be used to generate a label without having to refill in the shipment information repeatedly.
      * See: https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_rate
      *
@@ -108,7 +108,7 @@ final class ShipEngine
         $config = $this->config->merge($config);
         $client = new ShipEngineClient();
         $apiResponse = $client->post(
-            "v1/labels/rates/{$rate_id}",
+            "v1/labels/rates/{$rateId}",
             $config,
             $params
         );
