@@ -92,7 +92,8 @@ final class ShipEngineClient
         string $method,
         string $path,
         ?array $params,
-        ShipEngineConfig $config): array
+        ShipEngineConfig $config
+    ): array
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
@@ -190,7 +191,7 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-        if (!isset($response['errors']) || !$response['errors'][0] ) {
+        if (!isset($response['errors']) || !$response['errors'][0]) {
             return $response;
         }
 
