@@ -92,12 +92,14 @@ final class ShipEngineClient
         string $method,
         string $path,
         ?array $params,
-        ShipEngineConfig $config): array
+        ShipEngineConfig $config
+    ): array
     {
         $apiResponse = null;
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
                 $apiResponse = $this->sendRequest($method, $path, $params, $retry, $config);
+                break;
             } catch (\RuntimeException $err) {
                 if (($retry < $config->retries) &&
                     $err instanceof RateLimitExceededException &&
@@ -143,6 +145,7 @@ final class ShipEngineClient
         $client = new Client(
             [
                 'base_uri' => $config->baseUrl,
+                'timeout' => $config->timeout,
                 'max_retry_attempts' => $config->retries
             ]
         );
@@ -175,7 +178,7 @@ final class ShipEngineClient
         // $assert->isResponse404($statusCode, $parsedResponse);
         // $assert->isResponse429($statusCode, $parsedResponse, $config);
         // $assert->isResponse500($statusCode, $parsedResponse);
-        var_dump($parsedResponse);
+
         return $this->handleResponse($parsedResponse);
     }
 
@@ -188,61 +191,19 @@ final class ShipEngineClient
      */
     private function handleResponse(array $response): array
     {
-        return $response;
+        if (!isset($response['errors']) || (count($response['errors']) == 0)) {
+            return $response;
+        }
 
+        $error = $response['errors'][0];
 
-        // $error = $response['error'];
-
-        // switch ($error['data']['type']) {
-        //     case ErrorType::ACCOUNT_STATUS:
-        //         throw new AccountStatusException(
-        //             $error['message'],
-        //             $response['id'],
-        //             $error['data']['source'],
-        //             $error['data']['type'],
-        //             $error['data']['code']
-        //         );
-        //     case ErrorType::SECURITY:
-        //         throw new SecurityException(
-        //             $error['message'],
-        //             $response['id'],
-        //             $error['data']['source'],
-        //             $error['data']['type'],
-        //             $error['data']['code']
-        //         );
-        //     case ErrorType::VALIDATION:
-        //         throw new ValidationException(
-        //             $error['message'],
-        //             $response['id'],
-        //             $error['data']['source'],
-        //             $error['data']['type'],
-        //             $error['data']['code']
-        //         );
-        //     case ErrorType::BUSINESS_RULES:
-        //         throw new BusinessRuleException(
-        //             $error['message'],
-        //             $response['id'],
-        //             $error['data']['source'],
-        //             $error['data']['type'],
-        //             $error['data']['code']
-        //         );
-        //     case ErrorType::SYSTEM:
-        //         throw new SystemException(
-        //             $error['message'],
-        //             $response['id'],
-        //             $error['data']['source'],
-        //             $error['data']['type'],
-        //             $error['data']['code']
-        //         );
-        //     default:
-        //         throw new ShipEngineException(
-        //             $error['message'],
-        //             $response['id'],
-        //             $error['data']['source'],
-        //             $error['data']['type'],
-        //             $error['data']['code']
-        //         );
-        // }
+        throw new ShipEngineException(
+            $error['message'],
+            $response['request_id'],
+            $error['error_source'],
+            $error['error_type'],
+            $error['error_code']
+        );
     }
 
     /**
