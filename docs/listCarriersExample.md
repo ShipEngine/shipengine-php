@@ -11,13 +11,13 @@ Example
 ```php
 use ShipEngine\ShipEngine;
 use ShipEngine\Message\ShipEngineException;
+
 function list_carriers_demo_function() {
   $client = new ShipEngine('API-Key');
-
-	try {
-	  print_r(json_encode($client->listCarriers(), JSON_PRETTY_PRINT));
+  try {
+    print_r(json_encode($client->listCarriers(), JSON_PRETTY_PRINT));
   } catch (ShipEngineException $e) {
-	  print_r($e -> getMessage());
+    print_r($e -> getMessage());
   }
 }
 
