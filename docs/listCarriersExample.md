@@ -176,7 +176,7 @@ Array
                                   [package_id] =>
                                   [package_code] => large_envelope_or_flat
                                   [name] => Large Envelope or Flat
-                                  [description] => Large envelope or flat. Has one dimension that is between 11 1/2" and 15" long, 6 1/18" and 12" high, or 1/4" and 3/4" thick.
+                                  [description] => Large envelope or flat. Has one dimension that is between 11 1/2 and 15 long, 6 1/18 and 12 high, or 1/4 and 3/4 thick.
                               )
 
                           [5] => Array
@@ -191,8 +191,8 @@ Array
                               (
                                   [package_id] =>
                                   [package_code] => large_package
-                                  [name] => Large Package (any side > 12")
-                                  [description] => Large package. Longest side plus the distance around the thickest part is over 84" and less than or equal to 108".
+                                  [name] => Large Package (any side > 12)
+                                  [description] => Large package. Longest side plus the distance around the thickest part is over 84 and less than or equal to 108.
                               )
 
                           [7] => Array
@@ -208,7 +208,7 @@ Array
                                   [package_id] =>
                                   [package_code] => medium_flat_rate_box
                                   [name] => Medium Flat Rate Box
-                                  [description] => USPS flat rate box. A special 11" x 8 1/2" x 5 1/2" or 14" x 3.5" x 12" USPS box that clearly indicates "Flat Rate Box"
+                                  [description] => USPS flat rate box. A special 11 x 8 1/2 x 5 1/2 or 14 x 3.5 x 12 USPS box that clearly indicates "Flat Rate Box"
                               )
 
                           [9] => Array
@@ -224,7 +224,7 @@ Array
                                   [package_id] =>
                                   [package_code] => package
                                   [name] => Package
-                                  [description] => Package. Longest side plus the distance around the thickest part is less than or equal to 84"
+                                  [description] => Package. Longest side plus the distance around the thickest part is less than or equal to 84
                               )
 
                           [11] => Array
@@ -256,7 +256,7 @@ Array
                                   [package_id] =>
                                   [package_code] => thick_envelope
                                   [name] => Thick Envelope
-                                  [description] => Thick envelope. Envelopes or flats greater than 3/4" at the thickest point.
+                                  [description] => Thick envelope. Envelopes or flats greater than 3/4 at the thickest point.
                               )
 
                       )
@@ -490,7 +490,7 @@ Array
                                   [package_id] =>
                                   [package_code] => package
                                   [name] => Package
-                                  [description] => Package. Longest side plus the distance around the thickest part is less than or equal to 84"
+                                  [description] => Package. Longest side plus the distance around the thickest part is less than or equal to 84
                               )
 
                           [1] => Array
@@ -1000,7 +1000,7 @@ Array
                                   [package_id] =>
                                   [package_code] => package
                                   [name] => Package
-                                  [description] => Package. Longest side plus the distance around the thickest part is less than or equal to 84"
+                                  [description] => Package. Longest side plus the distance around the thickest part is less than or equal to 84
                               )
 
                       )
