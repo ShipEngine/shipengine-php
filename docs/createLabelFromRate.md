@@ -12,6 +12,7 @@ Output
 The `createLabelFromRate` method returns the label that was created.
 
 Example
+==============================
 ```php
 use ShipEngine\ShipEngine;
 use ShipEngine\Message\ShipEngineException;

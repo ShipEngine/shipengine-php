@@ -8,6 +8,7 @@ Output
 The `listCarriers` method returns an array of connected carrier accounts.
 
 Example
+==============================
 ```php
 use ShipEngine\ShipEngine;
 use ShipEngine\Message\ShipEngineException;

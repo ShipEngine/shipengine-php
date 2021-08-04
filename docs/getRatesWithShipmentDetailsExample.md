@@ -12,6 +12,64 @@ The `getRatesWithShipmentDetails` method returns the rates that were calculated 
 
 Example
 ==============================
+```php
+use ShipEngine\ShipEngine;
+use ShipEngine\Message\ShipEngineException;
+
+function getRatesWithShipmentDetailsDemoFunction() {
+    $client = new ShipEngine('API-Key');
+
+    $details = [
+      "rate_options" => [
+        "carrier_ids" => [
+          "se-423887"
+        ]
+      ],
+      "shipment" => [
+        "validate_address" => "no_validation",
+        "ship_to" => [
+          "name" => "Amanda Miller",
+          "phone" => "555-555-5555",
+          "address_line1" => "525 S Winchester Blvd",
+          "city_locality" => "San Jose",
+          "state_province" => "CA",
+          "postal_code" => "95128",
+          "country_code" => "US",
+          "address_residential_indicator" => "yes"
+        ],
+        "ship_from" => [
+          "company_name" => "Example Corp.",
+          "name" => "John Doe",
+          "phone" => "111-111-1111",
+          "address_line1" => "4008 Marathon Blvd",
+          "address_line2" => "Suite 300",
+          "city_locality" => "Austin",
+          "state_province" => "TX",
+          "postal_code" => "78756",
+          "country_code" => "US",
+          "address_residential_indicator" => "no"
+        ],
+        "packages" => [
+          [
+            "weight" => [
+              "value" => 1.0,
+              "unit" => "ounce"
+            ]
+          ]
+        ]
+      ]
+    ];
+
+    try {
+        print_r($client->getRatesWithShipmentDetails($details));
+    } catch (ShipEngineException $e) {
+        print_r($e -> getMessage());
+    }
+}
+
+getRatesWithShipmentDetailsDemoFunction();
+
+```
 
 ### Array of Shipment Rates
 ```php

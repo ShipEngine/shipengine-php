@@ -12,6 +12,7 @@ Output
 The `validateAddresses` method returns an array of address validation result objects.
 
 Example
+==============================
 ```php
 use ShipEngine\ShipEngine;
 use ShipEngine\Message\ShipEngineException;
