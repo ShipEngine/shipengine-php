@@ -12,7 +12,7 @@ Example
 use ShipEngine\ShipEngine;
 use ShipEngine\Message\ShipEngineException;
 
-function list_carriers_demo_function() {
+function listCarriersDemoFunction() {
   $client = new ShipEngine('API-Key');
   try {
     print_r(json_encode($client->listCarriers(), JSON_PRETTY_PRINT));
@@ -21,7 +21,7 @@ function list_carriers_demo_function() {
   }
 }
 
-list_carriers_demo_function();
+listCarriersDemoFunction();
 ```
 
 Example Output
