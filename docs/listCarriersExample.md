@@ -15,7 +15,7 @@ use ShipEngine\Message\ShipEngineException;
 function listCarriersDemoFunction() {
   $client = new ShipEngine('API-Key');
   try {
-    print_r(json_encode($client->listCarriers(), JSON_PRETTY_PRINT));
+    print_r($client->listCarriers());
   } catch (ShipEngineException $e) {
     print_r($e -> getMessage());
   }

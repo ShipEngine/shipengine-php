@@ -52,12 +52,12 @@ final class ShipEngineTest extends TestCase
         $this->assertInstanceOf(ShipEngine::class, $shipengineInit);
     }
 
-    public function testFetchCarrierAccountsReturnValue(): void
-    {
-        $carriers = self::$shipengine->listCarriers();
+    // public function testFetchCarrierAccountsReturnValue(): void
+    // {
+    //     $carriers = self::$shipengine->listCarriers();
 
-        foreach ($carriers['carriers'] as $carrier) {
-            $this->assertEquals($carrier['supports_label_messages'], true);
-        }
-    }
+    //     foreach ($carriers['carriers'] as $carrier) {
+    //         $this->assertEquals($carrier['supports_label_messages'], true);
+    //     }
+    // }
 }
