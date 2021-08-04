@@ -72,7 +72,7 @@ createLabelFromShipmentDetailsDemoFunction();
 Example Output
 -----------------------------------------------------
 
-### Array of connected carrier accounts
+### Successful Create Label From Shipment Details
 ```php
 Array
 (
