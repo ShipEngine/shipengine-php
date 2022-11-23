@@ -5,10 +5,9 @@ ShipEngine PHP
 
 [![Build Status](https://github.com/ShipEngine/shipengine-php/workflows/shipengine-php/badge.svg)](https://github.com/ShipEngine/shipengine-php/actions)
 [![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-php/badge.svg?branch=main&t=SkXqIE)](https://coveralls.io/github/ShipEngine/shipengine-php?branch=main)
-[![Latest Unstable Version](https://poser.pugx.org/shipengine/shipengine/v/unstable)](//packagist.org/packages/shipengine/shipengine)
+[![Latest Version](https://poser.pugx.org/shipengine/shipengine/v)](//packagist.org/packages/shipengine/shipengine)
 [![License](https://poser.pugx.org/shipengine/shipengine/license)](//packagist.org/packages/shipengine/shipengine)
 ![OS Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)
-> :warning: **WARNING**: This is alpha software under active development. `Caveat emptor` until a 0.1.0 release is ready.
 
 A PHP library built on the [ShipEngine API](https://shipengine.com) offering low-level access as well as convenience methods.
 

@@ -18,7 +18,6 @@
   "require": {
     "php": ">=7.4",
     "cbschuld/php-uuid-base58": "^1.0",
-    "friendsofphp/php-cs-fixer": "^2.18",
     "guzzlehttp/guzzle": "^7.0",
     "php-http/client-common": "^2.3.0",
     "php-http/discovery": "^1.12.0",
@@ -32,6 +31,7 @@
     "symfony/serializer": "^5.2"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.18",
     "guzzlehttp/psr7": "^1.7.0",
     "mockery/mockery": "^1.4",
     "php-coveralls/php-coveralls": "^2.4",
@@ -48,7 +48,10 @@
     }
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+            "symfony/flex": true
+        }
   },
   "scripts": {
     "lint": "composer phpcs-fixer && composer phpcs && composer phpstan",
