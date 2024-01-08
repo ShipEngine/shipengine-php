@@ -83,7 +83,7 @@ $config = array(
     'apiKey' => $apiKey,
     'pageSize' => 75,
     'retries' => 3,
-    'timeout' => \DateInterval('PT15S')
+    'timeout' => \DateInterval('PT60S')
 );
 
 $shipengine = new ShipEngine($config);
