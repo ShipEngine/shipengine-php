@@ -44,7 +44,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
                 'events' => null
             )
         );
@@ -54,7 +54,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
             )
         );
         // self::$goodAddress = new Address(
@@ -81,7 +81,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT60S'),
                     'events' => null
                 )
             );
@@ -108,7 +108,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
-                    'timeout' => new DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT60S'),
                     'events' => null
                 )
             );
@@ -135,7 +135,7 @@ final class ShipEngineConfigTest extends TestCase
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => -7,
-                    'timeout' => new DateInterval('PT15S'),
+                    'timeout' => new DateInterval('PT60S'),
                     'events' => null
                 )
             );
@@ -249,7 +249,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
                 'events' => null
             )
         );
@@ -266,7 +266,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
                 'events' => null
             )
         );
@@ -283,7 +283,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
                 'events' => null
             )
         );
@@ -300,7 +300,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
                 'events' => null
             )
         );
@@ -317,7 +317,7 @@ final class ShipEngineConfigTest extends TestCase
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new DateInterval('PT15S'),
+                'timeout' => new DateInterval('PT60S'),
                 'events' => null
             )
         );
@@ -346,7 +346,7 @@ final class ShipEngineConfigTest extends TestCase
     //                 'baseUrl' => self::$test_url,
     //                 'pageSize' => 75,
     //                 'retries' => 0,
-    //                 'timeout' => new DateInterval('PT15S'),
+    //                 'timeout' => new DateInterval('PT60S'),
     //             )
     //         );
     //         $shipengine->validateAddress($address429);
@@ -380,7 +380,7 @@ final class ShipEngineConfigTest extends TestCase
     //                 'apiKey' => 'baz',
     //                 'baseUrl' => self::$test_url,
     //                 'pageSize' => 75,
-    //                 'timeout' => new DateInterval('PT15S'),
+    //                 'timeout' => new DateInterval('PT60S'),
     //             )
     //         );
     //         $shipengine->validateAddress($address429);
@@ -418,7 +418,7 @@ final class ShipEngineConfigTest extends TestCase
     //                 'baseUrl' => self::$test_url,
     //                 'pageSize' => 75,
     //                 'retries' => 3,
-    //                 'timeout' => new DateInterval('PT15S'),
+    //                 'timeout' => new DateInterval('PT60S'),
     //             )
     //         );
     //         $shipengine->validateAddress($address429);

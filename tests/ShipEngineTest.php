@@ -33,7 +33,7 @@ final class ShipEngineTest extends TestCase
                 'baseUrl' => 'https://api.shipengine.com',
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new \DateInterval('PT60S'),
             )
         );
     }
@@ -46,7 +46,7 @@ final class ShipEngineTest extends TestCase
                 'baseUrl' => 'https://api.shipengine.com',
                 'pageSize' => 75,
                 'retries' => 7,
-                'timeout' => new \DateInterval('PT15S'),
+                'timeout' => new \DateInterval('PT60S'),
             )
         );
         $this->assertInstanceOf(ShipEngine::class, $shipengineInit);
