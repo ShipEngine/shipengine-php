@@ -36,7 +36,7 @@ composer require shipengine/shipengine
 ```
 - The only configuration requirement is an [API Key](https://www.shipengine.com/docs/auth/#api-keys).
 
-> The following example assumes that you have already set the `SHIPENGIEN_API_KEY` environment variable with your Api Key using `putenv()`.
+> The following example assumes that you have already set the `SHIPENGINE_API_KEY` environment variable with your Api Key using `putenv()`.
 
 Examples
 ========
