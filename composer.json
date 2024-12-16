@@ -1,5 +1,5 @@
 {
-  "name": "shipengine/shipengine",
+  "name": "donotcarry/shipengine",
   "type": "library",
   "description": "PHP library for the ShipEngine API.",
   "keywords": [
@@ -36,7 +36,6 @@
     "mockery/mockery": "^1.4",
     "php-coveralls/php-coveralls": "^2.4",
     "php-http/guzzle7-adapter": "^0.1.1",
-    "phpdocumentor/phpdocumentor": "^3.0.0",
     "phpstan/phpstan": "^0.12.53",
     "phpunit/php-code-coverage": "^9.2",
     "phpunit/phpunit": "^9",
@@ -50,6 +49,7 @@
   "config": {
     "sort-packages": true,
     "allow-plugins": {
+      "php-http/discovery": false,
       "symfony/flex": true
     }
   },
