@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.0.1](https://www.github.com/ShipEngine/shipengine-php/compare/v1.0.0...v1.0.1) (2025-01-09)
+
+
+### Bug Fixes
+
+* change default timeout to 60s ([2c187bb](https://www.github.com/ShipEngine/shipengine-php/commit/2c187bb84a4c90485c526c2e529817f1d2741a66))
+
 ## 1.0.0 (2021-08-04)
 
 ### Bug Fixes
